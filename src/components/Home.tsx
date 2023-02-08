@@ -1,14 +1,9 @@
 import React from "react";
-import {Box, Typography} from "@mui/material";
+import Layout from "./Layout";
+import { Typography } from "@mui/material";
 
 const Home: React.FC = () => {
-  return (
-    <Box>
-        <Typography variant={"h1"}>
-            CheckIt
-        </Typography>
-    </Box>
-  );
+  return <Typography paragraph>Home page</Typography>;
 };
 
 export default Home;
