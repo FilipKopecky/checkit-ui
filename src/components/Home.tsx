@@ -1,10 +1,13 @@
 import React from "react";
+import {Box, Typography} from "@mui/material";
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <h1>Home page</h1>
-    </div>
+    <Box>
+        <Typography variant={"h1"}>
+            CheckIt
+        </Typography>
+    </Box>
   );
 };
 
