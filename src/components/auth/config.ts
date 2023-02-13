@@ -21,8 +21,8 @@ export const getOidcConfig = () => {
   if (import.meta.env.VITE_NETLIFY) {
     URL =
       import.meta.env.VITE_NETLIFY_CONTEXT === "production"
-        ? "NETLIFY_URL" // main Netlify URL
-        : "NETLIFY_DEPLOY_PRIME_URL"; // deploy preview
+        ? import.meta.env.VITE_NETLIFY_URL // main Netlify URL
+        : import.meta.env.VITE_NETLIFY_DEPLOY_PRIME_URL // deploy preview
   }
   const ID = import.meta.env.VITE_APP_ID;
   return {
