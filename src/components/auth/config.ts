@@ -17,10 +17,16 @@ const encodeForwardUri = (uri: string) => {
  * OIDC variables
  */
 export const getOidcConfig = () => {
-  const ID = "al-mission-control"
-  const URL = "http://127.0.0.1:5173"
+  let URL = import.meta.env.VITE_URL;
+  if (import.meta.env.VITE_NETLIFY) {
+    URL =
+      import.meta.env.VITE_NETLIFY_CONTEXT === "production"
+        ? "NETLIFY_URL" // main Netlify URL
+        : "NETLIFY_DEPLOY_PRIME_URL"; // deploy preview
+  }
+  const ID = import.meta.env.VITE_APP_ID;
   return {
-    authority: "https://xn--slovnk-test-scb.mvcr.gov.cz/modelujeme/sluzby/auth-server/realms/assembly-line",
+    authority: import.meta.env.VITE_AUTHENTICATION_SERVER,
     client_id: ID,
     redirect_uri: `${URL}/oidc-signin-callback.html?forward_uri=${encodeForwardUri(
       URL
@@ -38,7 +44,16 @@ export const getOidcConfig = () => {
  * Helper to generate redirect Uri
  */
 export const generateRedirectUri = (forwardUri: string) => {
-  return `http://127.0.0.1:5173/oidc-signin-callback.html?forward_uri=${encodeForwardUri(forwardUri)}`;
+  let URL = import.meta.env.VITE_URL;
+  if (import.meta.env.VITE_NETLIFY) {
+    URL =
+      import.meta.env.VITE_NETLIFY_CONTEXT === "production"
+        ? "NETLIFY_URL" // main Netlify URL
+        : "NETLIFY_DEPLOY_PRIME_URL"; // deploy preview
+  }
+  return `${URL}/oidc-signin-callback.html?forward_uri=${encodeForwardUri(
+    forwardUri
+  )}`;
 };
 
 /**
