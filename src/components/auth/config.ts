@@ -17,14 +17,9 @@ const encodeForwardUri = (uri: string) => {
  * OIDC variables
  */
 export const getOidcConfig = () => {
-  let URL = import.meta.env.VITE_URL;
-  if (import.meta.env.VITE_NETLIFY) {
-    URL =
-      import.meta.env.VITE_NETLIFY_CONTEXT === "production"
-        ? import.meta.env.VITE_NETLIFY_URL // main Netlify URL
-        : import.meta.env.VITE_NETLIFY_DEPLOY_PRIME_URL // deploy preview
-  }
+  const URL = getURL();
   const ID = import.meta.env.VITE_APP_ID;
+  console.log(URL);
   return {
     authority: import.meta.env.VITE_AUTHENTICATION_SERVER,
     client_id: ID,
@@ -40,17 +35,22 @@ export const getOidcConfig = () => {
   };
 };
 
-/**
- * Helper to generate redirect Uri
- */
-export const generateRedirectUri = (forwardUri: string) => {
+export const getURL = () => {
   let URL = import.meta.env.VITE_URL;
   if (import.meta.env.VITE_NETLIFY) {
     URL =
       import.meta.env.VITE_NETLIFY_CONTEXT === "production"
-        ? "NETLIFY_URL" // main Netlify URL
-        : "NETLIFY_DEPLOY_PRIME_URL"; // deploy preview
+        ? import.meta.env.VITE_NETLIFY_URL // main Netlify URL
+        : import.meta.env.VITE_NETLIFY_DEPLOY_PRIME_URL; // deploy preview
   }
+  return URL;
+};
+
+/**
+ * Helper to generate redirect Uri
+ */
+export const generateRedirectUri = (forwardUri: string) => {
+  const URL = getURL();
   return `${URL}/oidc-signin-callback.html?forward_uri=${encodeForwardUri(
     forwardUri
   )}`;
