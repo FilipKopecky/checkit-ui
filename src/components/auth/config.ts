@@ -35,6 +35,10 @@ export const getOidcConfig = () => {
   };
 };
 
+/**
+ * Helper to get current URL depending whether it is Netlify deploy or not
+ */
+
 export const getURL = () => {
   let URL = import.meta.env.VITE_URL;
   if (import.meta.env.VITE_NETLIFY) {
