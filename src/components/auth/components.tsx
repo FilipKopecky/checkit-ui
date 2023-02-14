@@ -84,7 +84,7 @@ export const Auth: React.FC<AuthProps> = ({
           // Checking only for expired field is not enough
           setUser(user);
           const token = jwt_decode<JWTToken>(user.access_token);
-          setRoles(token.resource_access["al-checkit-ui"].roles);
+          setRoles(token.resource_access["al-checkit-ui"]?.roles || []);
         } else {
           // User not authenticated -> trigger auth flow
           await userManager.signinRedirect({
@@ -104,6 +104,8 @@ export const Auth: React.FC<AuthProps> = ({
       try {
         const user = await userManager.getUser();
         setUser(user);
+        const token = jwt_decode<JWTToken>(user!.access_token);
+        setRoles(token.resource_access["al-checkit-ui"]?.roles || []);
       } catch (error) {
         throwError(error as Error);
       }

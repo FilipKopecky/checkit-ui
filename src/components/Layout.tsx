@@ -19,6 +19,8 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Outlet } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useAuth } from "./auth/hooks";
 
 const drawerWidth = 240;
 
@@ -94,7 +96,7 @@ const Drawer = styled(MuiDrawer, {
 const Layout: React.FC = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const auth = useAuth();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -163,6 +165,7 @@ const Layout: React.FC = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+        <Button onClick={() => auth.logout()}>Log out</Button>
         <Outlet />
       </Box>
     </Box>
