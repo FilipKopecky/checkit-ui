@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   const auth_data = useAuth();
-  console.log(auth_data);
   return (
     <Box>
       <Typography variant={"h1"}>Welcome to CheckIT</Typography>

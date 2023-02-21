@@ -1,0 +1,6 @@
+// Dynamic configuration
+window.__config__ = {
+  VITE_URL: '${VITE_URL}',
+  VITE_APP_ID: '${VITE_APP_ID}',
+  VITE_AUTHENTICATION_SERVER: '${VITE_AUTHENTICATION_SERVER}'
+}

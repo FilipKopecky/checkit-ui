@@ -5,10 +5,11 @@ import Landing from "../Landing";
 import AuthLayout from "./routing/AuthLayout";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import AdminPanel from "./AdminPanel";
+import { getEnvVariable } from "../utils/environment";
 
 const Router: React.FC = () => {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename={getEnvVariable("BASE_URL")}>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route element={<AuthLayout />}>

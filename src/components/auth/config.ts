@@ -1,3 +1,5 @@
+import { getEnvVariable } from "../../utils/environment";
+
 /**
  * Base64 encoding helper
  */
@@ -18,9 +20,9 @@ const encodeForwardUri = (uri: string) => {
  */
 export const getOidcConfig = () => {
   const URL = getURL();
-  const ID = import.meta.env.VITE_APP_ID;
+  const ID = getEnvVariable("VITE_APP_ID");
   return {
-    authority: import.meta.env.VITE_AUTHENTICATION_SERVER,
+    authority: getEnvVariable("VITE_AUTHENTICATION_SERVER"),
     client_id: ID,
     redirect_uri: `${URL}/oidc-signin-callback.html?forward_uri=${encodeForwardUri(
       URL
@@ -45,7 +47,7 @@ export const generateRedirectUri = (forwardUri: string) => {
 };
 
 export const getURL = () => {
-  return import.meta.env.BASE_URL;
+  return getEnvVariable("VITE_URL");
 };
 /**
  * OIDC Session storage key name
