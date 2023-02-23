@@ -1,6 +1,6 @@
 import React from "react";
 
-const ErrorPage: React.FC = () => {
+const NotFoundPage: React.FC = () => {
   return (
     <div>
       <h1>Error page</h1>
@@ -8,4 +8,4 @@ const ErrorPage: React.FC = () => {
   );
 };
 
-export default ErrorPage;
+export default NotFoundPage;
