@@ -96,7 +96,7 @@ export const Auth: React.FC<AuthProps> = ({
       }
     };
     getUser();
-  }, [location, history, throwError, setUser]);
+  }, [location, history, throwError, setUser, userManager]);
 
   useEffect(() => {
     // Refreshing react state when new state is available in e.g. session storage
@@ -115,7 +115,7 @@ export const Auth: React.FC<AuthProps> = ({
 
     // Unsubscribe on component unmount
     return () => userManager.events.removeUserLoaded(updateUserData);
-  }, [throwError, setUser]);
+  }, [throwError, setUser, userManager]);
 
   useEffect(() => {
     // Force log in if session cannot be renewed on background
@@ -134,14 +134,14 @@ export const Auth: React.FC<AuthProps> = ({
     // Unsubscribe on component unmount
     return () =>
       userManager.events.removeSilentRenewError(handleSilentRenewError);
-  }, [location, throwError, setUser]);
+  }, [location, throwError, setUser, userManager]);
 
   const logout = useCallback(() => {
     const handleLogout = async () => {
       await userManager.signoutRedirect();
     };
     handleLogout();
-  }, []);
+  }, [userManager]);
 
   if (!user) {
     return null;

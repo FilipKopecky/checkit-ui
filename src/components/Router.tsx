@@ -6,6 +6,7 @@ import AuthLayout from "./routing/AuthLayout";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import AdminPanel from "./AdminPanel";
 import { getEnvVariable } from "../utils/environment";
+import NotFoundPage from "./routing/NotFoundPage";
 
 const Router: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const Router: React.FC = () => {
           </Route>
           <Route path="dashboard" element={<Home />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
