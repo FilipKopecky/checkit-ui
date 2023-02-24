@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import Landing from "../Landing";
+import LandingPage from "./LandingPage";
 import AuthLayout from "./routing/AuthLayout";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import AdminPanel from "./AdminPanel";
@@ -12,7 +12,7 @@ const Router: React.FC = () => {
   return (
     <BrowserRouter basename={getEnvVariable("BASE_URL")}>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<LandingPage />} />
         <Route element={<AuthLayout />}>
           <Route
             element={
