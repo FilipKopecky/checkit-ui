@@ -25,7 +25,7 @@ const LandingPage: React.FC = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: 16,
+          marginTop: 12,
         }}
       >
         <Box display={"flex"}>
@@ -39,13 +39,21 @@ const LandingPage: React.FC = () => {
 
 const HeroText: React.FC = () => {
   return (
-    <Box flex={1} position={"relative"} mt={4}>
+    <Box
+      flex={1}
+      flexDirection={"column"}
+      display={"flex"}
+      position={"relative"}
+      mt={4}
+    >
       <Typography variant={"h2"} gutterBottom>
         Collaborate and publish data
       </Typography>
-      <Typography variant={"h5"}>Place to compare RDF</Typography>
+      <Typography variant={"h5"} gutterBottom>
+        Place to compare RDF
+      </Typography>
 
-      <Box sx={{ position: "absolute", bottom: 0, width: "70%" }}>
+      <Box sx={{ width: "70%", marginTop: "auto" }}>
         <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
           <Button
             variant={"contained"}
@@ -76,6 +84,7 @@ const HeroImage: React.FC = () => {
         alt={"Computer consuming data"}
         width={486}
         height={347}
+        style={{ display: "block", marginLeft: "auto" }}
       />
     </HideBox>
   );
