@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import heroImage from "../assets/data-processing.svg";
+import { styled } from "@mui/material/styles";
 
 const LandingPage: React.FC = () => {
   return (
@@ -28,37 +29,55 @@ const LandingPage: React.FC = () => {
         }}
       >
         <Box display={"flex"}>
-          <Box flex={1} position={"relative"} mt={4}>
-            <Typography variant={"h2"} gutterBottom>
-              Collaborate and publish data
-            </Typography>
-            <Typography variant={"h5"}>Place to compare RDF</Typography>
-
-            <Box sx={{ position: "absolute", bottom: 0, width: "70%" }}>
-              <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
-                <Button
-                  variant={"contained"}
-                  color={"secondary"}
-                  fullWidth
-                  size={"large"}
-                >
-                  Login
-                </Button>
-              </Link>
-            </Box>
-          </Box>
-
-          <Box flex={1}>
-            <img
-              src={heroImage}
-              alt={"Computer consuming data"}
-              width={486}
-              height={347}
-            />
-          </Box>
+          <HeroText />
+          <HeroImage />
         </Box>
       </Box>
     </Box>
+  );
+};
+
+const HeroText: React.FC = () => {
+  return (
+    <Box flex={1} position={"relative"} mt={4}>
+      <Typography variant={"h2"} gutterBottom>
+        Collaborate and publish data
+      </Typography>
+      <Typography variant={"h5"}>Place to compare RDF</Typography>
+
+      <Box sx={{ position: "absolute", bottom: 0, width: "70%" }}>
+        <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+          <Button
+            variant={"contained"}
+            color={"secondary"}
+            fullWidth
+            size={"large"}
+          >
+            Login
+          </Button>
+        </Link>
+      </Box>
+    </Box>
+  );
+};
+
+const HideBox = styled(Box)(({ theme }) => ({
+  flex: 1,
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
+
+const HeroImage: React.FC = () => {
+  return (
+    <HideBox>
+      <img
+        src={heroImage}
+        alt={"Computer consuming data"}
+        width={486}
+        height={347}
+      />
+    </HideBox>
   );
 };
 
