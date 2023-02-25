@@ -4,8 +4,7 @@ import Router from "./components/Router";
 import theme from "./app/theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import { IntlProvider } from "react-intl";
-import messages_cs from "./translations/cs.json";
-import messages_en from "./translations/en.json";
+import {getLocalisedMessages} from "./utils/IntUtil";
 
 /**
  * TODO: Write some util function with predefined language keys
@@ -15,18 +14,13 @@ import messages_en from "./translations/en.json";
  *  https://www.codeandweb.com/babeledit/tutorials/how-to-translate-your-react-app-with-react-intl
  */
 
-const messages={
-    'cs': messages_cs,
-    'en': messages_en
-}
-
 /**
  * Wrapper for the whole application
  * Used for providing contexts, routing, global styling etc...
  */
 const App: React.FC = () => {
   return (
-    <IntlProvider locale={'en'} messages={messages['en']}>
+    <IntlProvider locale={'en'} messages={getLocalisedMessages('en')}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router />
