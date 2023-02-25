@@ -63,7 +63,7 @@ const HeroText: React.FC = () => {
             fullWidth
             size={"large"}
           >
-            {intl.messages["login"] as string}
+            {intl.formatMessage({ id: "login" })}
           </Button>
         </Link>
       </Box>
