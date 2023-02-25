@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import heroImage from "../assets/data-processing.svg";
 import { styled } from "@mui/material/styles";
+import { useIntl } from "react-intl";
 
 const LandingPage: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const LandingPage: React.FC = () => {
 };
 
 const HeroText: React.FC = () => {
+  const intl = useIntl();
   return (
     <Box
       flex={1}
@@ -61,7 +63,7 @@ const HeroText: React.FC = () => {
             fullWidth
             size={"large"}
           >
-            Login
+            {intl.formatMessage({ id: "login" })}
           </Button>
         </Link>
       </Box>
