@@ -17,7 +17,9 @@ import SideBarLink from "./SideBarLink";
 import SupervisedUserCircleOutlinedIcon from "@mui/icons-material/SupervisedUserCircleOutlined";
 import PlaylistAddCheckCircleOutlinedIcon from "@mui/icons-material/PlaylistAddCheckCircleOutlined";
 import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useIntl } from "react-intl";
+import Routes from "../../utils/Routes";
 
 const drawerWidth = 240;
 
@@ -135,18 +137,27 @@ const Layout: React.FC = () => {
         <List>
           <SideBarLink
             open={open}
+            label={intl.formatMessage({ id: "home-navigation" })}
+            icon={<HomeOutlinedIcon color={"secondary"} />}
+            route={Routes.HOME}
+          />
+          <SideBarLink
+            open={open}
             label={intl.formatMessage({ id: "admin-panel-navigation" })}
             icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
+            route={Routes.ADMINISTRATION}
           />
           <SideBarLink
             open={open}
             label={intl.formatMessage({ id: "publication-navigation" })}
             icon={<PlaylistAddCheckCircleOutlinedIcon color={"secondary"} />}
+            route={Routes.PUBLICATIONS}
           />
           <SideBarLink
             open={open}
             label={intl.formatMessage({ id: "gestor-request-navigation" })}
             icon={<EmojiPeopleOutlinedIcon color={"secondary"} />}
+            route={Routes.REQUESTS}
           />
         </List>
       </Drawer>

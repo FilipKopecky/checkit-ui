@@ -12,6 +12,7 @@ interface SideBarLinkProps {
   open: boolean;
   label: string;
   icon: React.ReactNode;
+  route: string;
 }
 
 const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(function Link(
@@ -21,14 +22,19 @@ const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(function Link(
   return <RouterLink ref={ref} {...itemProps} role={undefined} />;
 });
 
-const SideBarLink: React.FC<SideBarLinkProps> = ({ open, label, icon }) => {
+const SideBarLink: React.FC<SideBarLinkProps> = ({
+  open,
+  label,
+  icon,
+  route,
+}) => {
   return (
     <ListItem
       key={label}
       disablePadding
       sx={{ display: "block" }}
       component={Link}
-      to={"dashboard"}
+      to={route}
     >
       <ListItemButton
         sx={{

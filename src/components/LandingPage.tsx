@@ -5,6 +5,7 @@ import { Button, Typography } from "@mui/material";
 import heroImage from "../assets/data-processing.svg";
 import { styled } from "@mui/material/styles";
 import { useIntl } from "react-intl";
+import Routes from "../utils/Routes";
 
 const LandingPage: React.FC = () => {
   return (
@@ -56,7 +57,7 @@ const HeroText: React.FC = () => {
       </Typography>
 
       <Box sx={{ width: "70%", marginTop: "auto" }}>
-        <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+        <Link to={Routes.HOME} style={{ textDecoration: "none" }}>
           <Button
             variant={"contained"}
             color={"secondary"}
