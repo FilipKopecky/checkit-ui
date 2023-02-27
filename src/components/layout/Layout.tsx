@@ -11,8 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Outlet } from "react-router-dom";
-import { Button } from "@mui/material";
-import { useAuth } from "../auth/hooks";
 import SideBarLink from "./SideBarLink";
 import SupervisedUserCircleOutlinedIcon from "@mui/icons-material/SupervisedUserCircleOutlined";
 import PlaylistAddCheckCircleOutlinedIcon from "@mui/icons-material/PlaylistAddCheckCircleOutlined";
@@ -20,6 +18,7 @@ import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useIntl } from "react-intl";
 import Routes from "../../utils/Routes";
+import LogoutButton from "../routing/LogoutButton";
 
 const drawerWidth = 240;
 
@@ -94,7 +93,6 @@ const Drawer = styled(MuiDrawer, {
 
 const Layout: React.FC = () => {
   const [open, setOpen] = React.useState(false);
-  const auth = useAuth();
   const intl = useIntl();
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -160,10 +158,12 @@ const Layout: React.FC = () => {
             route={Routes.REQUESTS}
           />
         </List>
+        <Box style={{ marginTop: "auto" }}>
+          <LogoutButton open={open} />
+        </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Button onClick={() => auth.logout()}>Log out</Button>
         <Outlet />
       </Box>
     </Box>
