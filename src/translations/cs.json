@@ -1,7 +1,9 @@
 {
   "login": "Přihlásit se",
   "welcome": "Vítejte v nástroji CheckIt",
-  "adminPanelNavigation": "Administrace",
-  "publicationNavigation": "Publikace",
-  "gestorRequestsNavigation": "Gestorské právo"
+  "hero-text-main": "Spolupracujte a publikujte data",
+  "hero-text-secondary": "Místo pro srovnání RDF",
+  "admin-panel-navigation": "Administrace",
+  "publication-navigation": "Publikace",
+  "gestor-request-navigation": "Gestorské právo"
 }

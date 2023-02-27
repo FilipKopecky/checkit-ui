@@ -49,10 +49,10 @@ const HeroText: React.FC = () => {
       mt={4}
     >
       <Typography variant={"h2"} gutterBottom>
-        Collaborate and publish data
+        {intl.formatMessage({ id: "hero-text-main" })}
       </Typography>
       <Typography variant={"h5"} gutterBottom>
-        Place to compare RDF
+        {intl.formatMessage({ id: "hero-text-secondary" })}
       </Typography>
 
       <Box sx={{ width: "70%", marginTop: "auto" }}>

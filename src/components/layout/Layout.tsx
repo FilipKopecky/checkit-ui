@@ -135,17 +135,17 @@ const Layout: React.FC = () => {
         <List>
           <SideBarLink
             open={open}
-            label={intl.formatMessage({ id: "adminPanelNavigation" })}
+            label={intl.formatMessage({ id: "admin-panel-navigation" })}
             icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
           />
           <SideBarLink
             open={open}
-            label={intl.formatMessage({ id: "publicationNavigation" })}
+            label={intl.formatMessage({ id: "publication-navigation" })}
             icon={<PlaylistAddCheckCircleOutlinedIcon color={"secondary"} />}
           />
           <SideBarLink
             open={open}
-            label={intl.formatMessage({ id: "gestorRequestsNavigation" })}
+            label={intl.formatMessage({ id: "gestor-request-navigation" })}
             icon={<EmojiPeopleOutlinedIcon color={"secondary"} />}
           />
         </List>

@@ -1,7 +1,9 @@
 {
   "login": "Login",
   "welcome": "Welcome in the CheckIt tool",
-  "adminPanelNavigation": "Administration",
-  "publicationNavigation": "Publications",
-  "gestorRequestsNavigation": "Gestor rights"
+  "hero-text-main": "Collaborate and publish data",
+  "hero-text-secondary": "Place to compare RDF",
+  "admin-panel-navigation": "Administration",
+  "publication-navigation": "Publications",
+  "gestor-request-navigation": "Gestor rights"
 }
