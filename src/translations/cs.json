@@ -1,4 +1,7 @@
 {
   "login": "Přihlásit se",
-  "welcome": "Vítejte v nástroji CheckIt"
+  "welcome": "Vítejte v nástroji CheckIt",
+  "adminPanelNavigation": "Administrace",
+  "publicationNavigation": "Publikace",
+  "gestorRequestsNavigation": "Gestorské právo"
 }

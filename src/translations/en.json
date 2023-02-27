@@ -1,4 +1,7 @@
 {
   "login": "Login",
-  "welcome": "Welcome in the CheckIt tool"
+  "welcome": "Welcome in the CheckIt tool",
+  "adminPanelNavigation": "Administration",
+  "publicationNavigation": "Publications",
+  "gestorRequestsNavigation": "Gestor rights"
 }
