@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
+import { styled, Theme, CSSObject } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -10,14 +10,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Outlet } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useAuth } from "../auth/hooks";
 import SideBarLink from "./SideBarLink";
 import SupervisedUserCircleOutlinedIcon from "@mui/icons-material/SupervisedUserCircleOutlined";
-import PlaylistAddCheckCircleOutlinedIcon from '@mui/icons-material/PlaylistAddCheckCircleOutlined';
-import EmojiPeopleOutlinedIcon from '@mui/icons-material/EmojiPeopleOutlined';
+import PlaylistAddCheckCircleOutlinedIcon from "@mui/icons-material/PlaylistAddCheckCircleOutlined";
+import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 import { useIntl } from "react-intl";
 
 const drawerWidth = 240;
@@ -92,7 +91,6 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Layout: React.FC = () => {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const auth = useAuth();
   const intl = useIntl();
@@ -106,7 +104,7 @@ const Layout: React.FC = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} elevation={0}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -129,11 +127,7 @@ const Layout: React.FC = () => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            <ChevronLeftIcon color={"secondary"} />
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -142,17 +136,17 @@ const Layout: React.FC = () => {
           <SideBarLink
             open={open}
             label={intl.formatMessage({ id: "adminPanelNavigation" })}
-            icon={<SupervisedUserCircleOutlinedIcon />}
+            icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
           />
           <SideBarLink
-              open={open}
-              label={intl.formatMessage({ id: "publicationNavigation" })}
-              icon={<PlaylistAddCheckCircleOutlinedIcon />}
+            open={open}
+            label={intl.formatMessage({ id: "publicationNavigation" })}
+            icon={<PlaylistAddCheckCircleOutlinedIcon color={"secondary"} />}
           />
           <SideBarLink
-              open={open}
-              label={intl.formatMessage({ id: "gestorRequestsNavigation" })}
-              icon={<EmojiPeopleOutlinedIcon />}
+            open={open}
+            label={intl.formatMessage({ id: "gestorRequestsNavigation" })}
+            icon={<EmojiPeopleOutlinedIcon color={"secondary"} />}
           />
         </List>
       </Drawer>

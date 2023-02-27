@@ -3,6 +3,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import {
+  Link as RouterLink,
+  LinkProps as RouterLinkProps,
+} from "react-router-dom";
 
 interface SideBarLinkProps {
   open: boolean;
@@ -10,9 +14,22 @@ interface SideBarLinkProps {
   icon: React.ReactNode;
 }
 
+const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(function Link(
+  itemProps,
+  ref
+) {
+  return <RouterLink ref={ref} {...itemProps} role={undefined} />;
+});
+
 const SideBarLink: React.FC<SideBarLinkProps> = ({ open, label, icon }) => {
   return (
-    <ListItem key={label} disablePadding sx={{ display: "block" }}>
+    <ListItem
+      key={label}
+      disablePadding
+      sx={{ display: "block" }}
+      component={Link}
+      to={"dashboard"}
+    >
       <ListItemButton
         sx={{
           minHeight: 48,
