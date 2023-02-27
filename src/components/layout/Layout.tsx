@@ -19,6 +19,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useIntl } from "react-intl";
 import Routes from "../../utils/Routes";
 import LogoutButton from "../routing/LogoutButton";
+import LanguageSelector from "../LanguageSelector";
 
 const drawerWidth = 240;
 
@@ -121,6 +122,10 @@ const Layout: React.FC = () => {
           <Typography variant="h6" noWrap component="div">
             CheckIt
           </Typography>
+          <Box style={{marginLeft: "auto"}}>
+            <LanguageSelector/>
+          </Box>
+
         </Toolbar>
       </AppBar>
 

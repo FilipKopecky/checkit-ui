@@ -7,5 +7,7 @@
   "home-navigation": "Home",
   "admin-panel-navigation": "Administration",
   "publication-navigation": "Publications",
-  "gestor-request-navigation": "Gestor rights"
+  "gestor-request-navigation": "Gestor rights",
+  "cs-CZ": "Čeština",
+  "en": "English"
 }
