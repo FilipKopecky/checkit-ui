@@ -1,26 +1,25 @@
 import * as React from "react";
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
+import { styled, Theme, CSSObject } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { Outlet } from "react-router-dom";
-import { Button } from "@mui/material";
-import { useAuth } from "./auth/hooks";
+import SideBarLink from "./SideBarLink";
+import SupervisedUserCircleOutlinedIcon from "@mui/icons-material/SupervisedUserCircleOutlined";
+import PlaylistAddCheckCircleOutlinedIcon from "@mui/icons-material/PlaylistAddCheckCircleOutlined";
+import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import { useIntl } from "react-intl";
+import Routes from "../../utils/Routes";
+import LogoutButton from "../routing/LogoutButton";
+import LanguageSelector from "../LanguageSelector";
 
 const drawerWidth = 240;
 
@@ -94,9 +93,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const Layout: React.FC = () => {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const auth = useAuth();
+  const intl = useIntl();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -107,8 +105,7 @@ const Layout: React.FC = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} elevation={0}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -125,47 +122,53 @@ const Layout: React.FC = () => {
           <Typography variant="h6" noWrap component="div">
             CheckIt
           </Typography>
+          <Box style={{marginLeft: "auto"}}>
+            <LanguageSelector/>
+          </Box>
+
         </Toolbar>
       </AppBar>
+
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            <ChevronLeftIcon color={"secondary"} />
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <SideBarLink
+            open={open}
+            label={intl.formatMessage({ id: "home-navigation" })}
+            icon={<HomeOutlinedIcon color={"secondary"} />}
+            route={Routes.HOME}
+          />
+          <SideBarLink
+            open={open}
+            label={intl.formatMessage({ id: "admin-panel-navigation" })}
+            icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
+            route={Routes.ADMINISTRATION}
+          />
+          <SideBarLink
+            open={open}
+            label={intl.formatMessage({ id: "publication-navigation" })}
+            icon={<PlaylistAddCheckCircleOutlinedIcon color={"secondary"} />}
+            route={Routes.PUBLICATIONS}
+          />
+          <SideBarLink
+            open={open}
+            label={intl.formatMessage({ id: "gestor-request-navigation" })}
+            icon={<EmojiPeopleOutlinedIcon color={"secondary"} />}
+            route={Routes.REQUESTS}
+          />
         </List>
+        <Box style={{ marginTop: "auto" }}>
+          <LogoutButton open={open} />
+        </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Button onClick={() => auth.logout()}>Log out</Button>
         <Outlet />
       </Box>
     </Box>

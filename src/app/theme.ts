@@ -1,18 +1,39 @@
 import { createTheme } from "@mui/material/styles";
 
+const PRIMARY_MAIN = "#02316a";
+const PRIMARY_LIGHT = "#415a99";
+const PRIMARY_DARK = "#00093f";
+const PRIMARY_CONTRAST_TEXT = "#fff";
+
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#415a99",
-      main: "#02316a",
-      dark: "#00093f",
-      contrastText: "#fff",
+      light: PRIMARY_LIGHT,
+      main: PRIMARY_MAIN,
+      dark: PRIMARY_DARK,
+      contrastText: PRIMARY_CONTRAST_TEXT,
     },
     secondary: {
-      light: "#fff",
-      main: "#fff",
-      dark: "#fff",
-      contrastText: "#02316a",
+      light: PRIMARY_CONTRAST_TEXT,
+      main: PRIMARY_CONTRAST_TEXT,
+      dark: PRIMARY_CONTRAST_TEXT,
+      contrastText: PRIMARY_MAIN,
+    },
+  },
+  components: {
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          color: PRIMARY_CONTRAST_TEXT,
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: PRIMARY_MAIN,
+        },
+      },
     },
   },
 });

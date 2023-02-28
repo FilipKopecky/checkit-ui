@@ -5,6 +5,8 @@ import { Button, Typography } from "@mui/material";
 import heroImage from "../assets/data-processing.svg";
 import { styled } from "@mui/material/styles";
 import { useIntl } from "react-intl";
+import Routes from "../utils/Routes";
+import LanguageSelector from "./LanguageSelector";
 
 const LandingPage: React.FC = () => {
   return (
@@ -16,9 +18,14 @@ const LandingPage: React.FC = () => {
         padding: 3,
       }}
     >
-      <Box display={"inline-block"}>
-        <Typography variant={"h4"}>CheckIt</Typography>
-        <Box width={"70%"} height={"4px"} bgcolor={"primary.contrastText"} />
+      <Box display={"flex"}>
+        <Box display={"inline-block"}>
+          <Typography variant={"h4"}>CheckIt</Typography>
+          <Box width={"70%"} height={"4px"} bgcolor={"primary.contrastText"} />
+        </Box>
+        <Box style={{ marginLeft: "auto" }}>
+          <LanguageSelector />
+        </Box>
       </Box>
 
       <Box
@@ -49,14 +56,14 @@ const HeroText: React.FC = () => {
       mt={4}
     >
       <Typography variant={"h2"} gutterBottom>
-        Collaborate and publish data
+        {intl.formatMessage({ id: "hero-text-main" })}
       </Typography>
       <Typography variant={"h5"} gutterBottom>
-        Place to compare RDF
+        {intl.formatMessage({ id: "hero-text-secondary" })}
       </Typography>
 
       <Box sx={{ width: "70%", marginTop: "auto" }}>
-        <Link to={"/dashboard"} style={{ textDecoration: "none" }}>
+        <Link to={Routes.HOME} style={{ textDecoration: "none" }}>
           <Button
             variant={"contained"}
             color={"secondary"}
