@@ -1,5 +1,6 @@
 import * as React from "react";
-import { styled, Theme, CSSObject } from "@mui/material/styles";
+import { useEffect } from "react";
+import { CSSObject, styled, Theme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -20,6 +21,8 @@ import { useIntl } from "react-intl";
 import Routes from "../../utils/Routes";
 import LogoutButton from "../routing/LogoutButton";
 import LanguageSelector from "../LanguageSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
+import { fetchUser, logout, selectUser } from "../../slices/userSlice";
 
 const drawerWidth = 240;
 
@@ -95,6 +98,21 @@ const Drawer = styled(MuiDrawer, {
 const Layout: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
+  const dispatch = useAppDispatch();
+  const userSelector = useAppSelector(selectUser);
+
+  useEffect(() => {
+    dispatch(fetchUser());
+    return () => {
+      dispatch(logout());
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(userSelector.status)
+  }, [userSelector.status]);
+
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -105,7 +123,7 @@ const Layout: React.FC = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" open={open} elevation={0}>
+      <AppBar position="fixed" open={open} elevation={1}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -122,10 +140,9 @@ const Layout: React.FC = () => {
           <Typography variant="h6" noWrap component="div">
             CheckIt
           </Typography>
-          <Box style={{marginLeft: "auto"}}>
-            <LanguageSelector/>
+          <Box style={{ marginLeft: "auto" }}>
+            <LanguageSelector />
           </Box>
-
         </Toolbar>
       </AppBar>
 
@@ -167,7 +184,7 @@ const Layout: React.FC = () => {
           <LogoutButton open={open} />
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
         <Outlet />
       </Box>

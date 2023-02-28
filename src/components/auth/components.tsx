@@ -112,7 +112,6 @@ export const Auth: React.FC<AuthProps> = ({
     };
 
     userManager.events.addUserLoaded(updateUserData);
-
     // Unsubscribe on component unmount
     return () => userManager.events.removeUserLoaded(updateUserData);
   }, [throwError, setUser, userManager]);

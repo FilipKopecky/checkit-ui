@@ -4,9 +4,11 @@ import {
   PreloadedState,
 } from "@reduxjs/toolkit";
 import languageReducer from "../slices/languageSlice";
+import userReducer from "../slices/userSlice";
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
   language: languageReducer,
+  user: userReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
