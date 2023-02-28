@@ -21,8 +21,8 @@ import { useIntl } from "react-intl";
 import Routes from "../../utils/Routes";
 import LogoutButton from "../routing/LogoutButton";
 import LanguageSelector from "../LanguageSelector";
-import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
-import { fetchUser, logout, selectUser } from "../../slices/userSlice";
+import { useAppDispatch } from "../../hooks/ReduxHooks";
+import { fetchUser, logout } from "../../slices/userSlice";
 
 const drawerWidth = 240;
 
@@ -99,19 +99,13 @@ const Layout: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const intl = useIntl();
   const dispatch = useAppDispatch();
-  const userSelector = useAppSelector(selectUser);
 
   useEffect(() => {
     dispatch(fetchUser());
     return () => {
       dispatch(logout());
     };
-  }, []);
-
-  useEffect(() => {
-    console.log(userSelector.status)
-  }, [userSelector.status]);
-
+  }, [dispatch]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -165,7 +159,7 @@ const Layout: React.FC = () => {
             open={open}
             label={intl.formatMessage({ id: "admin-panel-navigation" })}
             icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
-            route={Routes.ADMINISTRATION}
+            route={Routes.ADMINISTRATION.BASE}
           />
           <SideBarLink
             open={open}

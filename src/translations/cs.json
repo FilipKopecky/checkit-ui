@@ -10,5 +10,9 @@
   "gestor-request-navigation": "Gestorské právo",
   "cs-CZ": "Čeština",
   "en": "English",
-  "admin-panel-header": "Správcovský panel"
+  "admin-panel-header": "Správcovský panel",
+  "admin-panel-header-subtext": "zde můžete přidělovat práva",
+  "admin-panel-requests-navigation": "Nevyřízené žádosti",
+  "admin-panel-assigned-vocabularies-navigation": "Přiřazených slovníků",
+  "admin-panel-users-navigation": "Administrátorů"
 }

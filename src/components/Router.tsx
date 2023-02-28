@@ -25,7 +25,20 @@ const Router: React.FC = () => {
               />
             }
           >
-            <Route path={Routes.ADMINISTRATION} element={<AdminPanel />} />
+            <Route path={Routes.ADMINISTRATION.BASE} element={<AdminPanel />}>
+              <Route
+                path={Routes.ADMINISTRATION.REQUESTS}
+                element={<>Gestor requests not implemented</>}
+              />
+              <Route
+                path={Routes.ADMINISTRATION.USERS}
+                element={<>Admin requests not implemented</>}
+              />
+              <Route
+                path={Routes.ADMINISTRATION.VOCABULARIES}
+                element={<>Adding users to vocabularies not implemented</>}
+              />
+            </Route>
           </Route>
           <Route path={Routes.HOME} element={<Home />} />
           <Route path={Routes.PUBLICATIONS} element={<Publications />} />

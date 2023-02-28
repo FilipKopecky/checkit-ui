@@ -1,7 +1,12 @@
 const routes = {
   DEFAULT: "/",
   HOME: "home",
-  ADMINISTRATION: "administration",
+  ADMINISTRATION: {
+    BASE: "administration",
+    REQUESTS: "requests",
+    VOCABULARIES: "vocabularies",
+    USERS: "users"
+  },
   PUBLICATIONS: "publications",
   REQUESTS: "requests",
 };
