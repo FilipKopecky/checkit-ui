@@ -1,6 +1,6 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Ajax from "../utils/Ajax";
-import {RootState} from "../store/CheckItStore";
+import { RootState } from "../store/CheckItStore";
 
 export interface UserState {
   status: string;
@@ -24,27 +24,27 @@ export const fetchUser = createAsyncThunk("user/login", async () => {
 });
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     logout: () => {
       return initialState;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-        .addCase(fetchUser.pending, (state) => {
-          state.status = 'loading'
-        })
-        .addCase(fetchUser.fulfilled, (state, action) => {
-          state.firstName = action.payload.firstName;
-          state.lastName = action.payload.lastName;
-          state.roles = action.payload.roles;
-          state.id = action.payload.id;
-          state.status = 'idle'
-        })
-  }
-})
+      .addCase(fetchUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.firstName = action.payload.firstName;
+        state.lastName = action.payload.lastName;
+        state.roles = action.payload.roles;
+        state.id = action.payload.id;
+        state.status = "idle";
+      });
+  },
+});
 
 export const { logout } = userSlice.actions;
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { CSSObject, styled, Theme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -180,7 +180,9 @@ const Layout: React.FC = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
-        <Outlet />
+        <Suspense fallback={<>loading...</>}>
+          <Outlet />
+        </Suspense>
       </Box>
     </Box>
   );

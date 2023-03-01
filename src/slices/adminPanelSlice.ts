@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {RootState} from "../store/CheckItStore";
+import { RootState } from "../store/CheckItStore";
 import Constants from "../utils/Constants";
 export interface AdminPanelSliceState {
   activeTab: string;
@@ -21,6 +21,7 @@ export const adminPanelSlice = createSlice({
 
 export const { changeTab } = adminPanelSlice.actions;
 
-export const selectAdminPanel = (state: RootState):AdminPanelSliceState => state.adminPanel;
+export const selectAdminPanel = (state: RootState): AdminPanelSliceState =>
+  state.adminPanel;
 
 export default adminPanelSlice.reducer;
