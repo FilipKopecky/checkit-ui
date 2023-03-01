@@ -22,7 +22,8 @@ import Routes from "../../utils/Routes";
 import LogoutButton from "../routing/LogoutButton";
 import LanguageSelector from "../LanguageSelector";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
-import { fetchUser, logout } from "../../slices/userSlice";
+import { logout } from "../../slices/userSlice";
+import { fetchCurrentUser } from "../api/UserAPI";
 
 const drawerWidth = 240;
 
@@ -101,8 +102,9 @@ const Layout: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser());
+    const promise = dispatch(fetchCurrentUser());
     return () => {
+      promise.abort();
       dispatch(logout());
     };
   }, [dispatch]);

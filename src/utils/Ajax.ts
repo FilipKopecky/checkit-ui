@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import Constants from "./Constants";
 import { getEnvVariable } from "./environment";
 import { getToken } from "../components/auth/utils";
@@ -15,8 +15,13 @@ export class Ajax {
     });
   }
 
-  public get(path: string) {
-    return this.axiosInstance.get(path);
+  /**
+   * Sends a GET request
+   * @param path URL adress of the resource
+   * @param settings Additional request settings for Axios
+   */
+  public get(path: string, settings?: AxiosRequestConfig) {
+    return this.axiosInstance.get(path, settings);
   }
 
   public post(path: string, content: any) {

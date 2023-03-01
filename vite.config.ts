@@ -12,6 +12,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./tests/setup.ts",
   },
+  //https://stackoverflow.com/questions/69260715/skipping-larger-chunks-while-running-npm-run-build
   build: {
     rollupOptions: {
       output: {

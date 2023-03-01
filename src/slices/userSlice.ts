@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import Ajax from "../utils/Ajax";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/CheckItStore";
+import { fetchCurrentUser } from "../components/api/UserAPI";
 
 export interface UserState {
   status: string;
@@ -18,11 +18,6 @@ const initialState: UserState = {
   status: "idle",
 };
 
-export const fetchUser = createAsyncThunk("user/login", async () => {
-  const response = await Ajax.get("users/current");
-  return response.data;
-});
-
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -33,21 +28,26 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUser.pending, (state) => {
+      .addCase(fetchCurrentUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchUser.fulfilled, (state, action) => {
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.firstName = action.payload.firstName;
         state.lastName = action.payload.lastName;
         state.roles = action.payload.roles;
         state.id = action.payload.id;
         state.status = "idle";
+      })
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
+        if (!action.meta.aborted) {
+          state.status = "error";
+        }
       });
   },
 });
 
 export const { logout } = userSlice.actions;
 
-export const selectUser = (state: RootState) => state.user;
+export const selectUser = (state: RootState): UserState => state.user;
 
 export default userSlice.reducer;
