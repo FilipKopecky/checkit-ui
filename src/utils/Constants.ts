@@ -7,6 +7,13 @@ const constants = {
   HEADERS: {
     AUTHORIZATION: "authorization",
   },
+  ADMIN: {
+    PANEL: {
+      REQUESTS: "admin.panel.gestor.requests",
+      VOCABULARIES: "admin.panel.assigned.vocabularies",
+      USERS: "admin.panel.admin.users",
+    },
+  },
 };
 
 export default constants;

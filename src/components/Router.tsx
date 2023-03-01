@@ -4,7 +4,7 @@ import Home from "./Home";
 import LandingPage from "./LandingPage";
 import AuthLayout from "./routing/AuthLayout";
 import ProtectedRoute from "./routing/ProtectedRoute";
-import AdminPanel from "./AdminPanel";
+import AdminPanel from "./admin/AdminPanel";
 import { getEnvVariable } from "../utils/environment";
 import NotFoundPage from "./routing/NotFoundPage";
 import Publications from "./Publications";
@@ -25,20 +25,7 @@ const Router: React.FC = () => {
               />
             }
           >
-            <Route path={Routes.ADMINISTRATION.BASE} element={<AdminPanel />}>
-              <Route
-                path={Routes.ADMINISTRATION.REQUESTS}
-                element={<>Gestor requests not implemented</>}
-              />
-              <Route
-                path={Routes.ADMINISTRATION.USERS}
-                element={<>Admin requests not implemented</>}
-              />
-              <Route
-                path={Routes.ADMINISTRATION.VOCABULARIES}
-                element={<>Adding users to vocabularies not implemented</>}
-              />
-            </Route>
+            <Route path={Routes.ADMINISTRATION} element={<AdminPanel />} />
           </Route>
           <Route path={Routes.HOME} element={<Home />} />
           <Route path={Routes.PUBLICATIONS} element={<Publications />} />

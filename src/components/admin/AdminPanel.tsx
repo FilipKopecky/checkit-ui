@@ -1,14 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Box, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
-import openedFolderImage from "../assets/opened-folder.svg";
-import stackedBooksImage from "../assets/stacked-books.svg";
-import tuningSlidersImage from "../assets/tuning-sliders.svg";
+import openedFolderImage from "../../assets/opened-folder.svg";
+import stackedBooksImage from "../../assets/stacked-books.svg";
+import tuningSlidersImage from "../../assets/tuning-sliders.svg";
+import Constants from "../../utils/Constants";
 
 import AdminNavigationButton from "./AdminNavigationButton";
-import Routes from "../utils/Routes";
-import {Outlet} from "react-router-dom";
-
+import AdminPanelContent from "./AdminPanelContent";
 
 //TODO: Implement real data
 const AdminPanel: React.FC = () => {
@@ -22,6 +21,7 @@ const AdminPanel: React.FC = () => {
           position: "relative",
         }}
         p={3}
+        mb={10}
       >
         <Typography variant={"h4"}>
           {intl.formatMessage({ id: "admin-panel-header" })}
@@ -39,30 +39,36 @@ const AdminPanel: React.FC = () => {
           }}
         >
           <AdminNavigationButton
+            id={Constants.ADMIN.PANEL.REQUESTS}
             icon={openedFolderImage}
             altIconText={"Opened folder containg a letter"}
-            header={intl.formatMessage({id: "admin-panel-requests-navigation"})}
+            header={intl.formatMessage({
+              id: "admin-panel-requests-navigation",
+            })}
             count={"5"}
-            route={Routes.ADMINISTRATION.REQUESTS}
           />
           <AdminNavigationButton
+            id={Constants.ADMIN.PANEL.VOCABULARIES}
             icon={stackedBooksImage}
             altIconText={"Books stacked on top of each other"}
-            header={intl.formatMessage({id: "admin-panel-assigned-vocabularies-navigation"})}
+            header={intl.formatMessage({
+              id: "admin-panel-assigned-vocabularies-navigation",
+            })}
             count={"47"}
             outOf={"73"}
-            route={Routes.ADMINISTRATION.VOCABULARIES}
           />
           <AdminNavigationButton
+            id={Constants.ADMIN.PANEL.USERS}
             icon={tuningSlidersImage}
             altIconText={"Tuning sliders indicating some sort of settings"}
-            header={intl.formatMessage({id: "admin-panel-users-navigation"})}
+            header={intl.formatMessage({ id: "admin-panel-users-navigation" })}
             count={"1"}
-            route={Routes.ADMINISTRATION.USERS}
           />
         </Box>
       </Box>
-      <Outlet />
+      <Suspense fallback={<>Loading...</>}>
+        <AdminPanelContent />
+      </Suspense>
     </Box>
   );
 };

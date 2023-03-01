@@ -159,7 +159,7 @@ const Layout: React.FC = () => {
             open={open}
             label={intl.formatMessage({ id: "admin-panel-navigation" })}
             icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
-            route={Routes.ADMINISTRATION.BASE}
+            route={Routes.ADMINISTRATION}
           />
           <SideBarLink
             open={open}
