@@ -14,5 +14,7 @@
   "admin-panel-header-subtext": "zde můžete přidělovat práva",
   "admin-panel-requests-navigation": "Nevyřízené žádosti",
   "admin-panel-assigned-vocabularies-navigation": "Přiřazených slovníků",
-  "admin-panel-users-navigation": "Administrátorů"
+  "admin-panel-users-navigation": "Administrátorů",
+  "admin-panel-unauthorized-title": "Neoprávněný přístup",
+  "admin-panel-unauthorized-description": "Pro zobrazení této stránky nemáte dostatečné oprávnění"
 }

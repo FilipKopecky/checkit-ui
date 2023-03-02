@@ -14,5 +14,7 @@
   "admin-panel-header-subtext": "here you can assign responsibilities",
   "admin-panel-requests-navigation": "Pending requests",
   "admin-panel-assigned-vocabularies-navigation": "Assigned vocabularies",
-  "admin-panel-users-navigation": "Administrators"
+  "admin-panel-users-navigation": "Administrators",
+  "admin-panel-unauthorized-title": "Unauthorized access",
+  "admin-panel-unauthorized-description": "You are not permitted to see this page"
 }

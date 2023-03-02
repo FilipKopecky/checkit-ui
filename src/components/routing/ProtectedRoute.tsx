@@ -1,25 +1,31 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
+import { Alert, AlertTitle } from "@mui/material";
+import { useIntl } from "react-intl";
 
 interface ProtectedRouteProps {
   permittedRole: string;
-  redirectPath: string;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  permittedRole,
-  redirectPath,
-}) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ permittedRole }) => {
   const user = useAppSelector(selectUser);
+  const intl = useIntl();
   if (!user.roles.includes(permittedRole)) {
-    return <Navigate to={redirectPath} replace />;
+    return (
+      <Alert severity="error">
+        <AlertTitle>
+          {intl.formatMessage({ id: "admin-panel-unauthorized-title" })}
+        </AlertTitle>
+        {intl.formatMessage({ id: "admin-panel-unauthorized-description" })}
+      </Alert>
+    );
   }
   return (
-    <>
+    <div data-testid="protected-route-content">
       <Outlet />
-    </>
+    </div>
   );
 };
 

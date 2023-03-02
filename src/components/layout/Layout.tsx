@@ -12,12 +12,81 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Outlet } from "react-router-dom";
 import LanguageSelector from "../LanguageSelector";
-import { useAppDispatch } from "../../hooks/ReduxHooks";
-import { logout } from "../../slices/userSlice";
-import { fetchCurrentUser } from "../api/UserAPI";
+import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
+import { logout, selectUser } from "../../slices/userSlice";
+import { fetchCurrentUser } from "../../api/UserAPI";
 import SideBarContent from "./SideBarContent";
 
 const drawerWidth = 240;
+
+const Layout: React.FC = () => {
+  const [open, setOpen] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
+  useEffect(() => {
+    const promise = dispatch(fetchCurrentUser());
+    return () => {
+      promise.abort();
+      dispatch(logout());
+    };
+  }, [dispatch]);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  if (!user.loggedIn) {
+    return <>App is loading ...</>;
+  }
+
+  return (
+    <Box sx={{ display: "flex" }}>
+      <AppBar position="fixed" open={open} elevation={1}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            CheckIt
+          </Typography>
+          <Box style={{ marginLeft: "auto" }}>
+            <LanguageSelector />
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon color={"secondary"} />
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <SideBarContent open={open} />
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <DrawerHeader />
+        <Suspense fallback={<>loading...</>}>
+          <Outlet />
+        </Suspense>
+      </Box>
+    </Box>
+  );
+};
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -87,69 +156,5 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
-
-const Layout: React.FC = () => {
-  const [open, setOpen] = React.useState(false);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const promise = dispatch(fetchCurrentUser());
-    return () => {
-      promise.abort();
-      dispatch(logout());
-    };
-  }, [dispatch]);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" open={open} elevation={1}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: "none" }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            CheckIt
-          </Typography>
-          <Box style={{ marginLeft: "auto" }}>
-            <LanguageSelector />
-          </Box>
-        </Toolbar>
-      </AppBar>
-
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon color={"secondary"} />
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <SideBarContent open={open} />
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1 }}>
-        <DrawerHeader />
-        <Suspense fallback={<>loading...</>}>
-          <Outlet />
-        </Suspense>
-      </Box>
-    </Box>
-  );
-};
 
 export default Layout;

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import Ajax from "../../utils/Ajax";
+import Ajax from "../utils/Ajax";
+import Endpoints from "./Endpoints";
 
 /**
  * Fetches currently loged in user
@@ -7,7 +8,7 @@ import Ajax from "../../utils/Ajax";
 export const fetchCurrentUser = createAsyncThunk(
   "user/login",
   async (arg, thunkAPI) => {
-    const response = await Ajax.get("users/current", {
+    const response = await Ajax.get(Endpoints.CURRENT_USER, {
       signal: thunkAPI.signal,
     });
     return response.data;
