@@ -9,6 +9,7 @@ export interface UserState {
   id: string;
   roles: string[];
   isAdmin: boolean;
+  loggedIn: boolean;
 }
 
 const initialState: UserState = {
@@ -18,6 +19,7 @@ const initialState: UserState = {
   roles: [],
   status: "idle",
   isAdmin: false,
+  loggedIn: false,
 };
 
 const userSlice = createSlice({
@@ -40,6 +42,7 @@ const userSlice = createSlice({
         state.id = action.payload.id;
         state.status = "idle";
         state.isAdmin = action.payload.roles.includes("ROLE_ADMIN");
+        state.loggedIn = true;
       })
       .addCase(fetchCurrentUser.rejected, (state, action) => {
         if (!action.meta.aborted) {
