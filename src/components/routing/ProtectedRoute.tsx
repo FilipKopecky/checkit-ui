@@ -1,6 +1,7 @@
 import React from "react";
-import { useAuth } from "../auth/hooks";
 import { Navigate, Outlet } from "react-router-dom";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
 
 interface ProtectedRouteProps {
   permittedRole: string;
@@ -11,8 +12,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   permittedRole,
   redirectPath,
 }) => {
-  const auth_data = useAuth();
-  if (!auth_data.roles.includes(permittedRole)) {
+  const user = useAppSelector(selectUser);
+  if (!user.roles.includes(permittedRole)) {
     return <Navigate to={redirectPath} replace />;
   }
   return (

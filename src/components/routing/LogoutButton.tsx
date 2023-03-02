@@ -14,6 +14,11 @@ interface LogoutButtonProps {
 const LogoutButton: React.FC<LogoutButtonProps> = ({ open }) => {
   const auth = useAuth();
   const intl = useIntl();
+
+  const handleLogout = () => {
+    auth.logout();
+  };
+
   return (
     <ListItem
       key={intl.formatMessage({ id: "logout" })}
@@ -21,7 +26,7 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ open }) => {
       sx={{ display: "block" }}
     >
       <ListItemButton
-        onClick={() => auth.logout()}
+        onClick={handleLogout}
         sx={{
           minHeight: 48,
           justifyContent: open ? "initial" : "center",

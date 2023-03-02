@@ -4,9 +4,13 @@ import {
   PreloadedState,
 } from "@reduxjs/toolkit";
 import languageReducer from "../slices/languageSlice";
+import userReducer from "../slices/userSlice";
+import adminPanelReducer from "../slices/adminPanelSlice";
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
   language: languageReducer,
+  user: userReducer,
+  adminPanel: adminPanelReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {

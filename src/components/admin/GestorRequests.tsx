@@ -1,7 +1,7 @@
 import React from "react";
 
 const GestorRequests: React.FC = () => {
-  return <div>Gestor requests</div>;
+  return <div>Gestor Requests</div>;
 };
 
 export default GestorRequests;
