@@ -18,14 +18,7 @@ const Router: React.FC = () => {
       <RouterRoutes>
         <Route path={Routes.DEFAULT} element={<LandingPage />} />
         <Route element={<AuthLayout />}>
-          <Route
-            element={
-              <ProtectedRoute
-                redirectPath={Routes.HOME}
-                permittedRole={"ROLE_ADMIN"}
-              />
-            }
-          >
+          <Route element={<ProtectedRoute permittedRole={"ROLE_ADMIN"} />}>
             <Route path={Routes.ADMINISTRATION} element={<AdminPanel />} />
           </Route>
           <Route path={Routes.HOME} element={<Home />} />
