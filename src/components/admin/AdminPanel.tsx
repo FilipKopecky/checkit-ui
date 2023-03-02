@@ -8,6 +8,7 @@ import Constants from "../../utils/Constants";
 
 import AdminNavigationButton from "./AdminNavigationButton";
 import AdminPanelContent from "./AdminPanelContent";
+import { styled } from "@mui/material/styles";
 
 //TODO: Implement real data
 const AdminPanel: React.FC = () => {
@@ -30,14 +31,7 @@ const AdminPanel: React.FC = () => {
           {intl.formatMessage({ id: "admin-panel-header-subtext" })}
         </Typography>
 
-        <Box
-          display={"flex"}
-          sx={{
-            position: "absolute",
-            right: "50px",
-            bottom: "-80px",
-          }}
-        >
+        <AdminActionsBox>
           <AdminNavigationButton
             id={Constants.ADMIN.PANEL.REQUESTS}
             icon={openedFolderImage}
@@ -64,7 +58,7 @@ const AdminPanel: React.FC = () => {
             header={intl.formatMessage({ id: "admin-panel-users-navigation" })}
             count={"1"}
           />
-        </Box>
+        </AdminActionsBox>
       </Box>
       <Suspense fallback={<>Loading...</>}>
         <AdminPanelContent />
@@ -72,5 +66,17 @@ const AdminPanel: React.FC = () => {
     </Box>
   );
 };
+
+const AdminActionsBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  position: "absolute",
+  right: "150px",
+  bottom: "-70px",
+  [theme.breakpoints.down(1434)]: {
+    position: "relative",
+    left: "0px",
+    top: "0px",
+  },
+}));
 
 export default AdminPanel;

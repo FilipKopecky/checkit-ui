@@ -9,16 +9,21 @@ const AdminUsers = React.lazy(() => import("./AdminUsers"));
 
 const AdminPanelContent: React.FC = () => {
   const adminPanelSelector = useAppSelector(selectAdminPanel);
+  let content;
   switch (adminPanelSelector.activeTab) {
     case Constants.ADMIN.PANEL.REQUESTS:
-      return <GestorRequests />;
+      content = <GestorRequests />;
+      break;
     case Constants.ADMIN.PANEL.VOCABULARIES:
-      return <AssignedVocabularies />;
+      content = <AssignedVocabularies />;
+      break;
     case Constants.ADMIN.PANEL.USERS:
-      return <AdminUsers />;
+      content = <AdminUsers />;
+      break;
     default:
-      return <>Content not found</>;
+      content = <>Content not found</>;
   }
+  return <div data-testid="admin-panel-content">{content}</div>;
 };
 
 export default AdminPanelContent;
