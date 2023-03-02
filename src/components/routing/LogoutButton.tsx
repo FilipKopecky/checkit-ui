@@ -6,8 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 import { useAuth } from "../auth/hooks";
 import { useIntl } from "react-intl";
-import { useAppDispatch } from "../../hooks/ReduxHooks";
-import { logout } from "../../slices/userSlice";
 
 interface LogoutButtonProps {
   open: boolean;
@@ -16,10 +14,8 @@ interface LogoutButtonProps {
 const LogoutButton: React.FC<LogoutButtonProps> = ({ open }) => {
   const auth = useAuth();
   const intl = useIntl();
-  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
     auth.logout();
   };
 

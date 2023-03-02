@@ -5,25 +5,17 @@ import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Outlet } from "react-router-dom";
-import SideBarLink from "./SideBarLink";
-import SupervisedUserCircleOutlinedIcon from "@mui/icons-material/SupervisedUserCircleOutlined";
-import PlaylistAddCheckCircleOutlinedIcon from "@mui/icons-material/PlaylistAddCheckCircleOutlined";
-import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { useIntl } from "react-intl";
-import Routes from "../../utils/Routes";
-import LogoutButton from "../routing/LogoutButton";
 import LanguageSelector from "../LanguageSelector";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { logout } from "../../slices/userSlice";
 import { fetchCurrentUser } from "../api/UserAPI";
+import SideBarContent from "./SideBarContent";
 
 const drawerWidth = 240;
 
@@ -98,7 +90,6 @@ const Drawer = styled(MuiDrawer, {
 
 const Layout: React.FC = () => {
   const [open, setOpen] = React.useState(false);
-  const intl = useIntl();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -149,36 +140,7 @@ const Layout: React.FC = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-
-        <List>
-          <SideBarLink
-            open={open}
-            label={intl.formatMessage({ id: "home-navigation" })}
-            icon={<HomeOutlinedIcon color={"secondary"} />}
-            route={Routes.HOME}
-          />
-          <SideBarLink
-            open={open}
-            label={intl.formatMessage({ id: "admin-panel-navigation" })}
-            icon={<SupervisedUserCircleOutlinedIcon color={"secondary"} />}
-            route={Routes.ADMINISTRATION}
-          />
-          <SideBarLink
-            open={open}
-            label={intl.formatMessage({ id: "publication-navigation" })}
-            icon={<PlaylistAddCheckCircleOutlinedIcon color={"secondary"} />}
-            route={Routes.PUBLICATIONS}
-          />
-          <SideBarLink
-            open={open}
-            label={intl.formatMessage({ id: "gestor-request-navigation" })}
-            icon={<EmojiPeopleOutlinedIcon color={"secondary"} />}
-            route={Routes.REQUESTS}
-          />
-        </List>
-        <Box style={{ marginTop: "auto" }}>
-          <LogoutButton open={open} />
-        </Box>
+        <SideBarContent open={open} />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />

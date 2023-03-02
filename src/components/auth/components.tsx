@@ -5,7 +5,6 @@ import React, {
   useState,
 } from "react";
 import { UserManager, User } from "oidc-client-ts";
-import jwt_decode from "jwt-decode";
 import { generateRedirectUri, getOidcConfig } from "./config";
 
 /**
@@ -34,7 +33,6 @@ const getUserManager = () => {
 
 type AuthContextProps = {
   user: User;
-  roles: string[];
   logout: () => void;
 };
 
@@ -48,16 +46,6 @@ type AuthProps = PropsWithChildren<{
   history?: History;
 }>;
 
-type Role = "ROLE_ADMIN" | "ROLE_GESTOR" | "ROLE_USER";
-
-interface JWTToken {
-  resource_access: {
-    "al-checkit-ui": {
-      roles: Role[];
-    };
-  };
-}
-
 /**
  * Main Auth component - to wrap the protected section of an app.
  */
@@ -69,7 +57,6 @@ export const Auth: React.FC<AuthProps> = ({
   const userManager = getUserManager();
   const throwError = useThrow();
   const [user, setUser] = useState<User | null>(null);
-  const [roles, setRoles] = useState<Role[]>([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -83,8 +70,6 @@ export const Auth: React.FC<AuthProps> = ({
           // Checking for existence of BOTH access_token and expired field seems OK
           // Checking only for expired field is not enough
           setUser(user);
-          const token = jwt_decode<JWTToken>(user.access_token);
-          setRoles(token.resource_access["al-checkit-ui"]?.roles || []);
         } else {
           // User not authenticated -> trigger auth flow
           await userManager.signinRedirect({
@@ -104,8 +89,6 @@ export const Auth: React.FC<AuthProps> = ({
       try {
         const user = await userManager.getUser();
         setUser(user);
-        const token = jwt_decode<JWTToken>(user!.access_token);
-        setRoles(token.resource_access["al-checkit-ui"]?.roles || []);
       } catch (error) {
         throwError(error as Error);
       }
@@ -147,7 +130,7 @@ export const Auth: React.FC<AuthProps> = ({
   }
 
   return (
-    <AuthContext.Provider value={{ user, logout, roles }}>
+    <AuthContext.Provider value={{ user, logout }}>
       {children}
     </AuthContext.Provider>
   );
