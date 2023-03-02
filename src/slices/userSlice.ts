@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/CheckItStore";
-import { fetchCurrentUser } from "../components/api/UserAPI";
+import { fetchCurrentUser } from "../api/UserAPI";
 
 export interface UserState {
   status: string;

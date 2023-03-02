@@ -14,7 +14,7 @@ import { Outlet } from "react-router-dom";
 import LanguageSelector from "../LanguageSelector";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { logout } from "../../slices/userSlice";
-import { fetchCurrentUser } from "../api/UserAPI";
+import { fetchCurrentUser } from "../../api/UserAPI";
 import SideBarContent from "./SideBarContent";
 
 const drawerWidth = 240;
