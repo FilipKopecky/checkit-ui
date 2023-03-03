@@ -6,13 +6,11 @@ import {
 import languageReducer from "../slices/languageSlice";
 import userReducer from "../slices/userSlice";
 import adminPanelReducer from "../slices/adminPanelSlice";
-import usersReducer from "../slices/usersSlice";
 import { apiSlice } from "../api/apiSlice";
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
   language: languageReducer,
   user: userReducer,
-  users: usersReducer,
   adminPanel: adminPanelReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });

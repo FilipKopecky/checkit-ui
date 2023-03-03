@@ -14,20 +14,19 @@ import { Outlet } from "react-router-dom";
 import LanguageSelector from "../LanguageSelector";
 import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import { logout, selectUser } from "../../slices/userSlice";
-import { fetchCurrentUser } from "../../api/UserAPI";
 import SideBarContent from "./SideBarContent";
+import { useGetCurrentUserQuery } from "../../api/apiSlice";
 
 const drawerWidth = 240;
 
 const Layout: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
+  useGetCurrentUserQuery();
   const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    const promise = dispatch(fetchCurrentUser());
     return () => {
-      promise.abort();
       dispatch(logout());
     };
   }, [dispatch]);
