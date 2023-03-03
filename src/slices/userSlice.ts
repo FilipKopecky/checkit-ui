@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store/CheckItStore";
-import { fetchCurrentUser } from "../api/UserAPI";
+import { apiSlice } from "../api/apiSlice";
 
 export interface UserState {
   status: string;
@@ -31,24 +31,18 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchCurrentUser.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-        state.firstName = action.payload.firstName;
-        state.lastName = action.payload.lastName;
-        state.roles = action.payload.roles;
-        state.id = action.payload.id;
+    builder.addMatcher(
+      apiSlice.endpoints.getCurrentUser.matchFulfilled,
+      (state, { payload }) => {
+        state.firstName = payload.firstName;
+        state.lastName = payload.lastName;
+        state.roles = payload.roles;
+        state.id = payload.id;
         state.status = "idle";
-        state.isAdmin = action.payload.roles.includes("ROLE_ADMIN");
+        state.isAdmin = payload.roles.includes("ROLE_ADMIN");
         state.loggedIn = true;
-      })
-      .addCase(fetchCurrentUser.rejected, (state, action) => {
-        if (!action.meta.aborted) {
-          state.status = "error";
-        }
-      });
+      }
+    );
   },
 });
 
