@@ -4,8 +4,7 @@ import { getEnvVariable } from "../utils/environment";
 import { getToken } from "../components/auth/utils";
 import Constants from "../utils/Constants";
 import { User } from "../model/User";
-import Endpoints from "./Endpoints";
-
+import Endpoints, { getAdminRoleSwitch } from "./Endpoints";
 // Define our single API slice object
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -16,16 +15,33 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
+  tagTypes: ["ALL_USERS"],
   endpoints: (builder) => ({
     getAllUsers: builder.query<User[], void>({
       query: () => Endpoints.GET_ALL_USERS,
       keepUnusedDataFor: 30,
+      providesTags: ["ALL_USERS"],
     }),
     getCurrentUser: builder.query<any, void>({
       query: () => Endpoints.CURRENT_USER,
+    }),
+    modifyAdmin: builder.mutation({
+      query: (user) => ({
+        url: getAdminRoleSwitch(user.id),
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: !user.admin,
+      }),
+      invalidatesTags: ["ALL_USERS"],
     }),
   }),
 });
 
 // Export the auto-generated hook for the `getPosts` query endpoint
-export const { useGetAllUsersQuery, useGetCurrentUserQuery } = apiSlice;
+export const {
+  useGetAllUsersQuery,
+  useGetCurrentUserQuery,
+  useModifyAdminMutation,
+} = apiSlice;

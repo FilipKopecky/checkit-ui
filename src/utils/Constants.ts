@@ -6,6 +6,7 @@ const constants = {
   STORAGE_LANG_KEY: "I18N",
   HEADERS: {
     AUTHORIZATION: "authorization",
+    CONTENT_TYPE: "Content-Type",
   },
   ADMIN: {
     PANEL: {

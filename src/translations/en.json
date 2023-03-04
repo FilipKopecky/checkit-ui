@@ -16,5 +16,7 @@
   "admin-panel-assigned-vocabularies-navigation": "Assigned vocabularies",
   "admin-panel-users-navigation": "Administrators",
   "admin-panel-unauthorized-title": "Unauthorized access",
-  "admin-panel-unauthorized-description": "You are not permitted to see this page"
+  "admin-panel-unauthorized-description": "You are not permitted to see this page",
+  "admins": "Admins",
+  "others": "Others"
 }

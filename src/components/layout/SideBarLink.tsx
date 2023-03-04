@@ -41,6 +41,7 @@ const SideBarLink: React.FC<SideBarLinkProps> = ({
           minHeight: 48,
           justifyContent: open ? "initial" : "center",
           px: 2.5,
+          color: "white",
         }}
       >
         <ListItemIcon
@@ -52,7 +53,10 @@ const SideBarLink: React.FC<SideBarLinkProps> = ({
         >
           {icon}
         </ListItemIcon>
-        <ListItemText primary={label} sx={{ opacity: open ? 1 : 0 }} />
+        <ListItemText
+          primary={label}
+          sx={{ opacity: open ? 1 : 0, color: "white" }}
+        />
       </ListItemButton>
     </ListItem>
   );

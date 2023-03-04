@@ -19,15 +19,11 @@ const theme = createTheme({
       dark: PRIMARY_CONTRAST_TEXT,
       contrastText: PRIMARY_MAIN,
     },
+    background: {
+      default: "#EDF8F8",
+    },
   },
   components: {
-    MuiListItem: {
-      styleOverrides: {
-        root: {
-          color: PRIMARY_CONTRAST_TEXT,
-        },
-      },
-    },
     MuiDrawer: {
       styleOverrides: {
         paper: {
