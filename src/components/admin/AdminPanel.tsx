@@ -3,12 +3,12 @@ import { Box, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
 import openedFolderImage from "../../assets/opened-folder.svg";
 import stackedBooksImage from "../../assets/stacked-books.svg";
-import tuningSlidersImage from "../../assets/tuning-sliders.svg";
 import Constants from "../../utils/Constants";
 
-import AdminNavigationButton from "./AdminNavigationButton";
+import AdminNavigationButton from "./navigation/AdminNavigationButton";
 import AdminPanelContent from "./AdminPanelContent";
 import { styled } from "@mui/material/styles";
+import ManageAdminNavigationButton from "./navigation/ManageAdminNavigationButton";
 
 //TODO: Implement real data
 const AdminPanel: React.FC = () => {
@@ -51,13 +51,7 @@ const AdminPanel: React.FC = () => {
             count={"47"}
             outOf={"73"}
           />
-          <AdminNavigationButton
-            id={Constants.ADMIN.PANEL.USERS}
-            icon={tuningSlidersImage}
-            altIconText={"Tuning sliders indicating some sort of settings"}
-            header={intl.formatMessage({ id: "admin-panel-users-navigation" })}
-            count={"1"}
-          />
+          <ManageAdminNavigationButton />
         </AdminActionsBox>
       </Box>
       <Suspense fallback={<>Loading...</>}>
@@ -71,7 +65,7 @@ const AdminActionsBox = styled(Box)(({ theme }) => ({
   display: "flex",
   position: "absolute",
   right: "150px",
-  bottom: "-70px",
+  bottom: "-40px",
   [theme.breakpoints.down(1434)]: {
     position: "relative",
     left: "0px",

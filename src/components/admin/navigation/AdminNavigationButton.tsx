@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Card, CardActionArea, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
-import { changeTab, selectAdminPanel } from "../../slices/adminPanelSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks/ReduxHooks";
+import { changeTab, selectAdminPanel } from "../../../slices/adminPanelSlice";
 
 interface AdminNavigationButtonProps {
   id: string;

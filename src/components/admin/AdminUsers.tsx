@@ -12,8 +12,7 @@ import { useIntl } from "react-intl";
 
 const AdminUsers: React.FC = () => {
   const { data, isLoading } = useGetAllUsersQuery();
-  const [modifyAdmin, { isLoading: isLoadingUpdate }] =
-    useModifyAdminMutation();
+  const [modifyAdmin] = useModifyAdminMutation();
   const intl = useIntl();
 
   //TODO: Optimize this, so the array is not iterated twice
@@ -33,8 +32,6 @@ const AdminUsers: React.FC = () => {
   }
 
   const handleAddAdmin = (user: User) => {
-    console.log(`Adding: ${user.firstName} as admin`);
-    console.log(isLoadingUpdate);
     modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
       console.log("Admin modified");
     });

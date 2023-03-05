@@ -4,6 +4,7 @@ import { getToken } from "../components/auth/utils";
 import Constants from "../utils/Constants";
 import { User } from "../model/User";
 import Endpoints, { getAdminRoleSwitch } from "./Endpoints";
+import { createSelector } from "@reduxjs/toolkit";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -59,3 +60,12 @@ export const {
   useGetCurrentUserQuery,
   useModifyAdminMutation,
 } = apiSlice;
+
+export const selectUsersResult = apiSlice.endpoints.getAllUsers.select();
+export const selectAllUsers = createSelector(
+  selectUsersResult,
+  (usersResult) => usersResult?.data ?? []
+);
+export const selectAdmins = createSelector(selectAllUsers, (users) =>
+  users.filter((user) => user.admin)
+);
