@@ -10,17 +10,24 @@ interface UserListItemProps {
   user: User;
   performAction: () => void;
   icon: React.ReactNode;
+  disableAction?: boolean;
 }
 
 const UserListItem: React.FC<UserListItemProps> = ({
   user,
   performAction,
   icon,
+  disableAction = false,
 }) => {
   return (
     <ListItem
       secondaryAction={
-        <IconButton edge="end" aria-label="delete" onClick={performAction}>
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={performAction}
+          disabled={disableAction}
+        >
           {icon}
         </IconButton>
       }

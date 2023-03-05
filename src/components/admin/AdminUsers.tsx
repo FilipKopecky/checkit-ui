@@ -31,9 +31,9 @@ const AdminUsers: React.FC = () => {
     return null;
   }
 
-  const handleAddAdmin = (user: User) => {
+  const handleAdminToggle = (user: User) => {
     modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
-      console.log("Admin modified");
+      console.log(`User: ${user.id} is admin: ${!user.admin}`);
     });
   };
 
@@ -46,7 +46,7 @@ const AdminUsers: React.FC = () => {
           </Typography>
           <UsersList
             users={admins}
-            performAction={handleAddAdmin}
+            performAction={handleAdminToggle}
             icon={<RemoveModeratorIcon />}
           />
           <Typography variant={"h6"}>
@@ -54,7 +54,7 @@ const AdminUsers: React.FC = () => {
           </Typography>
           <UsersList
             users={others}
-            performAction={handleAddAdmin}
+            performAction={handleAdminToggle}
             icon={<AddModeratorIcon />}
           />
         </Box>

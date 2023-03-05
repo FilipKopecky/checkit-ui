@@ -30,7 +30,6 @@ const AdminPanel: React.FC = () => {
         <Typography variant={"body1"} gutterBottom>
           {intl.formatMessage({ id: "admin-panel-header-subtext" })}
         </Typography>
-
         <AdminActionsBox>
           <AdminNavigationButton
             id={Constants.ADMIN.PANEL.REQUESTS}
