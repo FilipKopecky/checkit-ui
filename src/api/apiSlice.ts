@@ -1,11 +1,10 @@
-// Import the RTK Query methods from the React-specific entry point
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getEnvVariable } from "../utils/environment";
 import { getToken } from "../components/auth/utils";
 import Constants from "../utils/Constants";
 import { User } from "../model/User";
 import Endpoints, { getAdminRoleSwitch } from "./Endpoints";
-// Define our single API slice object
+
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -25,21 +24,36 @@ export const apiSlice = createApi({
     getCurrentUser: builder.query<any, void>({
       query: () => Endpoints.CURRENT_USER,
     }),
-    modifyAdmin: builder.mutation({
-      query: (user) => ({
-        url: getAdminRoleSwitch(user.id),
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: !user.admin,
-      }),
-      invalidatesTags: ["ALL_USERS"],
+    modifyAdmin: builder.mutation<User, Partial<User>>({
+      query(data) {
+        const { id, ...content } = data;
+        const modifiedPayload = content.admin;
+        return {
+          url: getAdminRoleSwitch(id!),
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: modifiedPayload,
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData("getAllUsers", undefined, (draft) => {
+            Object.assign(draft.find((user) => user.id === patch.id)!, patch);
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      //invalidatesTags: ["ALL_USERS"],
     }),
   }),
 });
 
-// Export the auto-generated hook for the `getPosts` query endpoint
 export const {
   useGetAllUsersQuery,
   useGetCurrentUserQuery,

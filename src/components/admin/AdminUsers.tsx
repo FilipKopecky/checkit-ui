@@ -35,7 +35,7 @@ const AdminUsers: React.FC = () => {
   const handleAddAdmin = (user: User) => {
     console.log(`Adding: ${user.firstName} as admin`);
     console.log(isLoadingUpdate);
-    modifyAdmin(user).then(() => {
+    modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
       console.log("Admin modified");
     });
   };
