@@ -1,37 +1,78 @@
-import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
+import React, { useMemo } from "react";
 import {
-  clearAllUsers,
-  selectAllUsers,
-  selectUsersStatus,
-} from "../../slices/usersSlice";
-import { fetchAllUsers } from "../../api/UsersAPI";
+  useGetAllUsersQuery,
+  useModifyAdminMutation,
+} from "../../api/apiSlice";
+import UsersList from "../users/UsersList";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { User } from "../../model/User";
+import AddModeratorIcon from "@mui/icons-material/AddModerator";
+import RemoveModeratorIcon from "@mui/icons-material/RemoveModerator";
+import { useIntl } from "react-intl";
 
 const AdminUsers: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const { data, isLoading } = useGetAllUsersQuery();
+  const [modifyAdmin] = useModifyAdminMutation();
+  const intl = useIntl();
 
-  useEffect(() => {
-    const promise = dispatch(fetchAllUsers());
-    return () => {
-      promise.abort();
-      dispatch(clearAllUsers());
-    };
-  }, [dispatch]);
+  //TODO: Optimize this, so the array is not iterated twice
+  const admins = useMemo(() => {
+    return data?.filter((user) => user.admin) ?? [];
+  }, [data]);
+  const others = useMemo(() => {
+    return data?.filter((user) => !user.admin) ?? [];
+  }, [data]);
 
-  const users = useAppSelector(selectAllUsers);
-  const status = useAppSelector(selectUsersStatus);
+  if (isLoading) {
+    return <>Loading</>;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  const handleAdminToggle = (user: User) => {
+    modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
+      console.log(`User: ${user.id} is admin: ${!user.admin}`);
+    });
+  };
+
   return (
-    <>
-      <div>All users</div>
-      <div>{status}</div>
-      <ul>
-        {users.map((user: User) => (
-          <li key={user.id}>{user.firstName}</li>
-        ))}
-      </ul>
-    </>
+    <Grid container spacing={2} px={3}>
+      <Grid item xs={12} md={12}>
+        <Typography variant={"h4"}>
+          {intl.formatMessage({ id: "adminUsersHeader" })}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Paper>
+          <Box p={2}>
+            <Typography variant={"h6"}>
+              {intl.formatMessage({ id: "others" })}
+            </Typography>
+            <UsersList
+              users={others}
+              performAction={handleAdminToggle}
+              icon={<AddModeratorIcon />}
+            />
+          </Box>
+        </Paper>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Paper>
+          <Box p={2}>
+            <Typography variant={"h6"}>
+              {intl.formatMessage({ id: "admins" })}
+            </Typography>
+            <UsersList
+              users={admins}
+              performAction={handleAdminToggle}
+              icon={<RemoveModeratorIcon />}
+            />
+          </Box>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
-
 export default AdminUsers;

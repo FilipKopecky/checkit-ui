@@ -49,7 +49,7 @@ const SideBarContent: React.FC<SideBarContentProps> = ({ open }) => {
           route={Routes.REQUESTS}
         />
       </List>
-      <Box style={{ marginTop: "auto" }}>
+      <Box style={{ marginTop: "auto", color: "white" }}>
         <LogoutButton open={open} />
       </Box>
     </>
