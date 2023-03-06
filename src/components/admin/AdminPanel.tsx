@@ -20,7 +20,7 @@ const AdminPanel: React.FC = () => {
           position: "relative",
         }}
         p={3}
-        mb={10}
+        mb={2}
       >
         <Typography variant={"h4"}>
           {intl.formatMessage({ id: "admin-panel-header" })}

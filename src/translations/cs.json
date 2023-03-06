@@ -18,5 +18,6 @@
   "admin-panel-unauthorized-title": "Neoprávněný přístup",
   "admin-panel-unauthorized-description": "Pro zobrazení této stránky nemáte dostatečné oprávnění",
   "admins": "Administrátoři",
-  "others": "Ostatní uživatelé"
+  "others": "Ostatní uživatelé",
+  "adminUsersHeader": "Správa uživatelů"
 }

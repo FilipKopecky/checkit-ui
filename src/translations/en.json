@@ -18,5 +18,6 @@
   "admin-panel-unauthorized-title": "Unauthorized access",
   "admin-panel-unauthorized-description": "You are not permitted to see this page",
   "admins": "Admins",
-  "others": "Others"
+  "others": "Others",
+  "adminUsersHeader": "Manage users"
 }

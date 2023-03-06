@@ -39,6 +39,11 @@ const AdminUsers: React.FC = () => {
 
   return (
     <Grid container spacing={2} px={3}>
+      <Grid item xs={12} md={12}>
+        <Typography variant={"h4"}>
+          {intl.formatMessage({ id: "adminUsersHeader" })}
+        </Typography>
+      </Grid>
       <Grid item xs={12} md={6}>
         <Paper>
           <Box p={2}>

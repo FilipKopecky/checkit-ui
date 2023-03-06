@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Card, CardActionArea, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../hooks/ReduxHooks";
 import { changeTab, selectAdminPanel } from "../../../slices/adminPanelSlice";
+import { styled } from "@mui/material/styles";
 
 interface AdminNavigationButtonProps {
   id: string;
@@ -28,13 +29,7 @@ const AdminNavigationButton: React.FC<AdminNavigationButtonProps> = ({
       elevation={adminPanelSelector.activeTab === id ? 7 : 1}
     >
       <CardActionArea onClick={() => dispatch(changeTab(id))}>
-        <Box
-          width={280}
-          height={120}
-          mr={2}
-          p={2}
-          sx={{ position: "relative" }}
-        >
+        <TextWrapper mr={2} p={2} sx={{ position: "relative" }}>
           <Typography variant={"h6"}>{header}</Typography>
           <Box display={"flex"}>
             <Typography variant={"h4"} sx={{ fontWeight: 600 }}>
@@ -48,15 +43,31 @@ const AdminNavigationButton: React.FC<AdminNavigationButtonProps> = ({
               </Box>
             )}
           </Box>
-          <img
-            src={icon}
-            alt={altIconText}
-            style={{ position: "absolute", right: "0px", bottom: "0px" }}
-          />
-        </Box>
+          <ImageWrapper>
+            <img
+              src={icon}
+              alt={altIconText}
+              style={{ position: "absolute", right: "0px", bottom: "0px" }}
+            />
+          </ImageWrapper>
+        </TextWrapper>
       </CardActionArea>
     </Card>
   );
 };
+
+const ImageWrapper = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
+
+const TextWrapper = styled(Box)(({ theme }) => ({
+  width: 280,
+  height: 120,
+  [theme.breakpoints.down("md")]: {
+    width: "auto",
+  },
+}));
 
 export default AdminNavigationButton;
