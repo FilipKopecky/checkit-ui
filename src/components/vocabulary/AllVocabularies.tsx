@@ -1,8 +1,8 @@
-import React, { forwardRef, ReactNode } from "react";
+import React from "react";
 import { useGetAllVocabulariesQuery } from "../../api/apiSlice";
-import { Virtuoso } from "react-virtuoso";
+import { Components, Virtuoso } from "react-virtuoso";
 import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
+import MuiList from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
@@ -43,8 +43,7 @@ const AllVocabularies: React.FC = () => {
     <Paper>
       <Virtuoso
         style={{ height: 400 }}
-        // @ts-ignore
-        components={MUIComponents}
+        components={{ List }}
         data={data}
         itemContent={itemContent}
       />
@@ -52,33 +51,18 @@ const AllVocabularies: React.FC = () => {
   );
 };
 
-interface MUIComponentsProps {
-  children: ReactNode;
-  style?: React.CSSProperties;
-}
-
-interface ListProps extends MUIComponentsProps {
-  listRef: React.RefObject<HTMLDivElement>;
-}
-
-interface MUIComponentsType {
-  List: React.ForwardRefExoticComponent<
-    ListProps & React.RefAttributes<HTMLDivElement>
-  >;
-}
-
-const MUIComponents: MUIComponentsType = {
-  List: forwardRef<HTMLDivElement, ListProps>(({ style, children }, ref) => {
+const List: Components["List"] = React.forwardRef(
+  ({ style, children }, ref) => {
     return (
-      <List
+      <MuiList
         style={{ padding: 0, ...style, margin: 0 }}
         component="div"
         ref={ref}
       >
         {children}
-      </List>
+      </MuiList>
     );
-  }),
-};
+  }
+);
 
 export default AllVocabularies;
