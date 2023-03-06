@@ -1,5 +1,5 @@
 export interface Vocabulary {
   uri: string;
-  labels: string;
+  label: string;
   gestors: string[];
 }
