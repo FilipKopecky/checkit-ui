@@ -1,7 +1,8 @@
 import React from "react";
+import AllVocabularies from "../vocabulary/AllVocabularies";
 
 const AssignedVocabularies: React.FC = () => {
-  return <div>Assigned Vocabularies</div>;
+  return <AllVocabularies />;
 };
 
 export default AssignedVocabularies;
