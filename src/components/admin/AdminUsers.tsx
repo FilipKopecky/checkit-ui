@@ -4,7 +4,7 @@ import {
   useModifyAdminMutation,
 } from "../../api/apiSlice";
 import UsersList from "../users/UsersList";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { User } from "../../model/User";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import RemoveModeratorIcon from "@mui/icons-material/RemoveModerator";
@@ -38,28 +38,36 @@ const AdminUsers: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Paper>
-        <Box p={2}>
-          <Typography variant={"h6"}>
-            {intl.formatMessage({ id: "admins" })}
-          </Typography>
-          <UsersList
-            users={admins}
-            performAction={handleAdminToggle}
-            icon={<RemoveModeratorIcon />}
-          />
-          <Typography variant={"h6"}>
-            {intl.formatMessage({ id: "others" })}
-          </Typography>
-          <UsersList
-            users={others}
-            performAction={handleAdminToggle}
-            icon={<AddModeratorIcon />}
-          />
-        </Box>
-      </Paper>
-    </Container>
+    <Grid container spacing={2} px={3}>
+      <Grid item xs={12} md={6}>
+        <Paper>
+          <Box p={2}>
+            <Typography variant={"h6"}>
+              {intl.formatMessage({ id: "others" })}
+            </Typography>
+            <UsersList
+              users={others}
+              performAction={handleAdminToggle}
+              icon={<AddModeratorIcon />}
+            />
+          </Box>
+        </Paper>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Paper>
+          <Box p={2}>
+            <Typography variant={"h6"}>
+              {intl.formatMessage({ id: "admins" })}
+            </Typography>
+            <UsersList
+              users={admins}
+              performAction={handleAdminToggle}
+              icon={<RemoveModeratorIcon />}
+            />
+          </Box>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 export default AdminUsers;
