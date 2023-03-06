@@ -19,5 +19,6 @@
   "admin-panel-unauthorized-description": "You are not permitted to see this page",
   "admins": "Admins",
   "others": "Others",
-  "adminUsersHeader": "Manage users"
+  "adminUsersHeader": "Manage users",
+  "assignedVocabulariesHeader": "Vocabularies"
 }

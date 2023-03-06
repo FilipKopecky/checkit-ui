@@ -19,5 +19,6 @@
   "admin-panel-unauthorized-description": "Pro zobrazení této stránky nemáte dostatečné oprávnění",
   "admins": "Administrátoři",
   "others": "Ostatní uživatelé",
-  "adminUsersHeader": "Správa uživatelů"
+  "adminUsersHeader": "Správa uživatelů",
+  "assignedVocabulariesHeader": "Slovníky"
 }
