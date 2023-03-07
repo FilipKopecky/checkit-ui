@@ -11,17 +11,22 @@ interface UsersListProps {
   disabled?: (user: User) => boolean | undefined;
 }
 
-const InnerItem = React.memo(({ user, disabled, performAction, icon }: any) => {
-  return (
-    <UserListItem
-      key={user.id}
-      user={user}
-      performAction={() => performAction(user)}
-      icon={icon}
-      disableAction={disabled(user)}
-    />
-  );
-});
+const InnerItem = React.memo(
+  ({ user, disabled, performAction, icon }: any) => {
+    return (
+      <UserListItem
+        key={user.id}
+        user={user}
+        performAction={() => performAction(user)}
+        icon={icon}
+        disableAction={disabled(user)}
+      />
+    );
+  },
+  (prevProps, nextProps) => {
+    return prevProps.user.id === nextProps.user.id;
+  }
+);
 
 const UsersList: React.FC<UsersListProps> = ({
   users,
