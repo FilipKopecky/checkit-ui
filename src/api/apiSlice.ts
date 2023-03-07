@@ -5,6 +5,7 @@ import Constants from "../utils/Constants";
 import { User } from "../model/User";
 import Endpoints, { getAdminRoleSwitch } from "./Endpoints";
 import { createSelector } from "@reduxjs/toolkit";
+import { Vocabulary } from "../model/Vocabulary";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -15,12 +16,16 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["ALL_USERS"],
+  tagTypes: ["ALL_USERS", "ALL_VOCABULARIES"],
   endpoints: (builder) => ({
     getAllUsers: builder.query<User[], void>({
       query: () => Endpoints.GET_ALL_USERS,
       keepUnusedDataFor: 30,
       providesTags: ["ALL_USERS"],
+    }),
+    getAllVocabularies: builder.query<Vocabulary[], void>({
+      query: () => Endpoints.GET_ALL_VOCABULARIES,
+      providesTags: ["ALL_VOCABULARIES"],
     }),
     getCurrentUser: builder.query<any, void>({
       query: () => Endpoints.CURRENT_USER,
@@ -28,14 +33,13 @@ export const apiSlice = createApi({
     modifyAdmin: builder.mutation<User, Partial<User>>({
       query(data) {
         const { id, ...content } = data;
-        const modifiedPayload = content.admin;
         return {
           url: getAdminRoleSwitch(id!),
           method: "PUT",
           headers: {
             "content-type": "application/json",
           },
-          body: modifiedPayload,
+          body: content.admin,
         };
       },
       async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
@@ -59,8 +63,10 @@ export const {
   useGetAllUsersQuery,
   useGetCurrentUserQuery,
   useModifyAdminMutation,
+  useGetAllVocabulariesQuery,
 } = apiSlice;
 
+//TODO: Think about these selectors, not sure if this is good way of approaching things
 export const selectUsersResult = apiSlice.endpoints.getAllUsers.select();
 export const selectAllUsers = createSelector(
   selectUsersResult,

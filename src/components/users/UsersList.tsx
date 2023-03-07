@@ -2,21 +2,20 @@ import List from "@mui/material/List";
 import React from "react";
 import UserListItem from "./UserListItem";
 import { User } from "../../model/User";
-import { useAppSelector } from "../../hooks/ReduxHooks";
-import { selectUser } from "../../slices/userSlice";
 
 interface UsersListProps {
   users: User[];
   performAction: (user: User) => void;
   icon: React.ReactNode;
+  disabled?: (user: User) => boolean | undefined;
 }
 
 const UsersList: React.FC<UsersListProps> = ({
   users,
   performAction,
   icon,
+  disabled = () => undefined,
 }) => {
-  const currentUser = useAppSelector(selectUser);
   return (
     <List>
       {users.map((user) => {
@@ -26,7 +25,7 @@ const UsersList: React.FC<UsersListProps> = ({
             user={user}
             performAction={() => performAction(user)}
             icon={icon}
-            disableAction={currentUser.id === user.id}
+            disableAction={disabled(user)}
           />
         );
       })}

@@ -9,6 +9,8 @@ import { User } from "../../model/User";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import RemoveModeratorIcon from "@mui/icons-material/RemoveModerator";
 import { useIntl } from "react-intl";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
 
 const AdminUsers: React.FC = () => {
   const { data, isLoading } = useGetAllUsersQuery();
@@ -22,6 +24,7 @@ const AdminUsers: React.FC = () => {
   const others = useMemo(() => {
     return data?.filter((user) => !user.admin) ?? [];
   }, [data]);
+  const currentUser = useAppSelector(selectUser);
 
   if (isLoading) {
     return <>Loading</>;
@@ -36,43 +39,52 @@ const AdminUsers: React.FC = () => {
       console.log(`User: ${user.id} is admin: ${!user.admin}`);
     });
   };
+  const disableElement = (user: User) => {
+    return user.id === currentUser.id;
+  };
 
   return (
-    <Grid container spacing={2} px={3}>
-      <Grid item xs={12} md={12}>
-        <Typography variant={"h4"}>
-          {intl.formatMessage({ id: "adminUsersHeader" })}
-        </Typography>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Paper>
-          <Box p={2}>
-            <Typography variant={"h6"}>
-              {intl.formatMessage({ id: "others" })}
-            </Typography>
-            <UsersList
-              users={others}
-              performAction={handleAdminToggle}
-              icon={<AddModeratorIcon />}
-            />
-          </Box>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Paper>
-          <Box p={2}>
-            <Typography variant={"h6"}>
-              {intl.formatMessage({ id: "admins" })}
-            </Typography>
-            <UsersList
-              users={admins}
-              performAction={handleAdminToggle}
-              icon={<RemoveModeratorIcon />}
-            />
-          </Box>
-        </Paper>
-      </Grid>
-    </Grid>
+    <Box px={3} mt={8}>
+      <Paper>
+        <Box px={1}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={12}>
+              <Box px={2}>
+                <Typography variant={"h5"} gutterBottom={true}>
+                  {intl.formatMessage({ id: "adminUsersHeader" })}
+                </Typography>
+                <hr />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box px={2} sx={{ paddingBottom: 2 }}>
+                <Typography variant={"h6"}>
+                  {intl.formatMessage({ id: "others" })}
+                </Typography>
+                <UsersList
+                  users={others}
+                  performAction={handleAdminToggle}
+                  icon={<AddModeratorIcon />}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box px={2} sx={{ paddingBottom: 2 }}>
+                <Typography variant={"h6"}>
+                  {intl.formatMessage({ id: "admins" })}
+                </Typography>
+                <UsersList
+                  users={admins}
+                  performAction={handleAdminToggle}
+                  icon={<RemoveModeratorIcon />}
+                  disabled={disableElement}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 export default AdminUsers;
