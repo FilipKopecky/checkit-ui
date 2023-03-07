@@ -57,7 +57,7 @@ const AdminUsers: React.FC = () => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box px={2} sx={{ paddingBottom: 2 }}>
+              <Box px={2} sx={{ paddingBottom: 4 }}>
                 <Typography variant={"h6"}>
                   {intl.formatMessage({ id: "others" })}
                 </Typography>
@@ -69,7 +69,7 @@ const AdminUsers: React.FC = () => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box px={2} sx={{ paddingBottom: 2 }}>
+              <Box px={2} sx={{ paddingBottom: 4 }}>
                 <Typography variant={"h6"}>
                   {intl.formatMessage({ id: "admins" })}
                 </Typography>
