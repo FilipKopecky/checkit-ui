@@ -9,6 +9,8 @@ import { User } from "../../model/User";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import RemoveModeratorIcon from "@mui/icons-material/RemoveModerator";
 import { useIntl } from "react-intl";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
 
 const AdminUsers: React.FC = () => {
   const { data, isLoading } = useGetAllUsersQuery();
@@ -22,6 +24,7 @@ const AdminUsers: React.FC = () => {
   const others = useMemo(() => {
     return data?.filter((user) => !user.admin) ?? [];
   }, [data]);
+  const currentUser = useAppSelector(selectUser);
 
   if (isLoading) {
     return <>Loading</>;
@@ -35,6 +38,9 @@ const AdminUsers: React.FC = () => {
     modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
       console.log(`User: ${user.id} is admin: ${!user.admin}`);
     });
+  };
+  const disableElement = (user: User) => {
+    return user.id === currentUser.id;
   };
 
   return (
@@ -71,6 +77,7 @@ const AdminUsers: React.FC = () => {
                   users={admins}
                   performAction={handleAdminToggle}
                   icon={<RemoveModeratorIcon />}
+                  disabled={disableElement}
                 />
               </Box>
             </Grid>
