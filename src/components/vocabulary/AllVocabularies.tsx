@@ -6,8 +6,6 @@ import MuiList from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import { Paper } from "@mui/material";
-import Divider from "@mui/material/Divider";
 const AllVocabularies: React.FC = () => {
   const { data, isLoading } = useGetAllVocabulariesQuery();
 
@@ -18,6 +16,10 @@ const AllVocabularies: React.FC = () => {
     return (
       <>
         <ListItem
+          sx={{
+            backgroundColor:
+              index % 2 === 0 ? "background.default" : "background.paper",
+          }}
           secondaryAction={
             <IconButton
               edge="end"
@@ -30,7 +32,6 @@ const AllVocabularies: React.FC = () => {
         >
           <ListItemText primary={vocabularyLabel} />
         </ListItem>
-        <Divider />
       </>
     );
   });
@@ -40,14 +41,12 @@ const AllVocabularies: React.FC = () => {
   };
 
   return (
-    <Paper>
-      <Virtuoso
-        style={{ height: 400 }}
-        components={{ List }}
-        data={data}
-        itemContent={itemContent}
-      />
-    </Paper>
+    <Virtuoso
+      style={{ height: 400 }}
+      components={{ List }}
+      data={data}
+      itemContent={itemContent}
+    />
   );
 };
 
