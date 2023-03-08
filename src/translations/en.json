@@ -20,5 +20,6 @@
   "admins": "Admins",
   "others": "Others",
   "adminUsersHeader": "Manage users",
-  "assignedVocabulariesHeader": "Vocabularies"
+  "assignedVocabulariesHeader": "Vocabularies",
+  "assignedGestors": "Gestors"
 }

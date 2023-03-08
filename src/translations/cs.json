@@ -20,5 +20,6 @@
   "admins": "Administrátoři",
   "others": "Ostatní uživatelé",
   "adminUsersHeader": "Správa uživatelů",
-  "assignedVocabulariesHeader": "Slovníky"
+  "assignedVocabulariesHeader": "Slovníky",
+  "assignedGestors": "Gestoři"
 }
