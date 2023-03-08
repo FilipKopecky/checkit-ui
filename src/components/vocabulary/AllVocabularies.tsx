@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useGetAllVocabulariesQuery } from "../../api/apiSlice";
-import { Components, Virtuoso } from "react-virtuoso";
+import { Virtuoso } from "react-virtuoso";
 import ListItem from "@mui/material/ListItem";
-import MuiList from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import AssignedVocabulariesModal from "../admin/AssignedVocabulariesModal";
+import List from "../misc/VirtuosoMuiList";
 const AllVocabularies: React.FC = () => {
   const { data, isLoading } = useGetAllVocabulariesQuery();
   const [open, setOpen] = useState(false);
@@ -66,19 +66,6 @@ const InnerItem = React.memo(
           <ListItemText primary={vocabulary.label} />
         </ListItem>
       </>
-    );
-  }
-);
-const List: Components["List"] = React.forwardRef(
-  ({ style, children }, ref) => {
-    return (
-      <MuiList
-        style={{ padding: 0, ...style, margin: 0 }}
-        component="div"
-        ref={ref}
-      >
-        {children}
-      </MuiList>
     );
   }
 );

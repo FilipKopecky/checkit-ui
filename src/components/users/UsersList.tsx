@@ -1,8 +1,8 @@
 import React from "react";
 import UserListItem from "./UserListItem";
 import { User } from "../../model/User";
-import { Components, Virtuoso } from "react-virtuoso";
-import MuiList from "@mui/material/List";
+import { Virtuoso } from "react-virtuoso";
+import List from "../misc/VirtuosoMuiList";
 
 interface UsersListProps {
   users: User[];
@@ -57,19 +57,4 @@ const UsersList: React.FC<UsersListProps> = ({
     />
   );
 };
-
-//TODO: Export this somewhere
-const List: Components["List"] = React.forwardRef(
-  ({ style, children }, ref) => {
-    return (
-      <MuiList
-        style={{ padding: 0, ...style, margin: 0 }}
-        component="div"
-        ref={ref}
-      >
-        {children}
-      </MuiList>
-    );
-  }
-);
 export default UsersList;
