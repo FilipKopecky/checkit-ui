@@ -8,7 +8,7 @@ interface UsersListProps {
   users: User[];
   performAction: (user: User) => void;
   icon: React.ReactNode;
-  disabled?: (user: User) => boolean | undefined;
+  disabled?: (user: User) => boolean;
 }
 
 const InnerItem = React.memo(
@@ -32,7 +32,7 @@ const UsersList: React.FC<UsersListProps> = ({
   users,
   performAction,
   icon,
-  disabled = () => undefined,
+  disabled = () => false,
 }) => {
   const itemContent = (index: any, user: any) => {
     return (
