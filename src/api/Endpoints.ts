@@ -7,4 +7,8 @@ const endpoints = {
 export const getAdminRoleSwitch = (id: string) => {
   return `${endpoints.GET_ALL_USERS}/${id}/admin-role`;
 };
+
+export const getVocabularyGestorAssign = (id: string) => {
+  return `${endpoints.GET_ALL_USERS}/${id}/gestored-vocabulary`;
+};
 export default endpoints;

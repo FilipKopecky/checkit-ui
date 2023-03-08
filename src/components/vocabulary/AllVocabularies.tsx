@@ -5,12 +5,12 @@ import ListItem from "@mui/material/ListItem";
 import MuiList from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import AssignedVocabulariesModal from "../admin/AssignedVocabulariesModal";
 const AllVocabularies: React.FC = () => {
   const { data, isLoading } = useGetAllVocabulariesQuery();
   const [open, setOpen] = useState(false);
-  const [vocabulary, setVocabulary] = useState();
+  const [vocabularyUri, setVocabularyUri] = useState("");
   if (isLoading) return <>Loading...</>;
   if (!data) return <>Fail</>;
 
@@ -20,7 +20,7 @@ const AllVocabularies: React.FC = () => {
         index={index}
         vocabulary={vocabulary}
         setOpen={setOpen}
-        setVocabulary={setVocabulary}
+        setVocabulary={setVocabularyUri}
       />
     );
   };
@@ -36,7 +36,7 @@ const AllVocabularies: React.FC = () => {
       <AssignedVocabulariesModal
         open={open}
         setOpen={setOpen}
-        vocabulary={vocabulary}
+        vocabularyUri={vocabularyUri}
       />
     </>
   );
@@ -56,10 +56,10 @@ const InnerItem = React.memo(
               aria-label="delete"
               onClick={() => {
                 setOpen(true);
-                setVocabulary(vocabulary);
+                setVocabulary(vocabulary.uri);
               }}
             >
-              <PersonAddAltIcon />
+              <ManageAccountsOutlinedIcon />
             </IconButton>
           }
         >

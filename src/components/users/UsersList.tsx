@@ -24,7 +24,10 @@ const InnerItem = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    return prevProps.user.id === nextProps.user.id;
+    return (
+      prevProps.user.id === nextProps.user.id &&
+      prevProps.performAction === nextProps.performAction
+    );
   }
 );
 

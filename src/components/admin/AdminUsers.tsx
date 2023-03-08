@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import {
   useGetAllUsersQuery,
   useModifyAdminMutation,
@@ -18,11 +18,14 @@ const AdminUsers: React.FC = () => {
   const currentUser = useAppSelector(selectUser);
   const intl = useIntl();
 
-  const handleAdminToggle = (user: User) => {
-    modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
-      console.log(`User: ${user.id} is admin: ${!user.admin}`);
-    });
-  };
+  const handleAdminToggle = useCallback(
+    (user: User) => {
+      modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
+        console.log(`User: ${user.id} is admin: ${!user.admin}`);
+      });
+    },
+    [modifyAdmin]
+  );
   const disableElement = (user: User) => {
     return user.id === currentUser.id;
   };
