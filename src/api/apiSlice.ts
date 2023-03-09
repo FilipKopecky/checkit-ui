@@ -78,7 +78,6 @@ export const apiSlice = createApi({
             "getAllVocabularies",
             undefined,
             (draft) => {
-              console.log(patch);
               Object.assign(
                 draft.find((vocabulary) => vocabulary.uri === patch.uri)!,
                 patch

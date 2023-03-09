@@ -22,5 +22,11 @@
   "adminUsersHeader": "Správa uživatelů",
   "assignedVocabulariesHeader": "Slovníky",
   "assignedGestors": "Gestoři",
-  "requests": "Žádosti"
+  "requests": "Žádosti",
+  "accept": "Schválit",
+  "decline": "Zamítnout",
+  "accepted": "Schváleno",
+  "declined": "Zamítnuto",
+  "done": "Vyřízeno",
+  "pending": "Nevyřízeno"
 }

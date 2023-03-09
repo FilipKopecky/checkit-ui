@@ -12,6 +12,7 @@ import UserAvatar from "../../users/UserAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { useIntl } from "react-intl";
 
 interface GestorRequestUserListItemProps {
   user: User;
@@ -25,6 +26,7 @@ const GestorRequestUserListItem: React.FC<GestorRequestUserListItemProps> = ({
   acceptAction,
   declineAction,
 }) => {
+  const intl = useIntl();
   let secondaryAction;
   switch (status) {
     case "pending":
@@ -37,7 +39,7 @@ const GestorRequestUserListItem: React.FC<GestorRequestUserListItemProps> = ({
             sx={{ marginRight: 2 }}
             onClick={acceptAction}
           >
-            Schválit
+            {intl.formatMessage({ id: "accept" })}
           </Button>
           <Button
             variant="contained"
@@ -45,7 +47,7 @@ const GestorRequestUserListItem: React.FC<GestorRequestUserListItemProps> = ({
             color={"error"}
             onClick={declineAction}
           >
-            Zamítnout
+            {intl.formatMessage({ id: "decline" })}
           </Button>
         </>
       );
@@ -53,14 +55,22 @@ const GestorRequestUserListItem: React.FC<GestorRequestUserListItemProps> = ({
     case "accepted":
       secondaryAction = (
         <Box sx={{ textTransform: "uppercase" }}>
-          <Chip label={"Schváleno"} color="success" variant="filled" />
+          <Chip
+            label={intl.formatMessage({ id: "accepted" })}
+            color="success"
+            variant="filled"
+          />
         </Box>
       );
       break;
     case "declined":
       secondaryAction = (
         <Box sx={{ textTransform: "uppercase" }}>
-          <Chip label={"zamítnuto"} color="error" variant="filled" />
+          <Chip
+            label={intl.formatMessage({ id: "declined" })}
+            color="error"
+            variant="filled"
+          />
         </Box>
       );
       break;

@@ -22,5 +22,11 @@
   "adminUsersHeader": "Manage users",
   "assignedVocabulariesHeader": "Vocabularies",
   "assignedGestors": "Gestors",
-  "requests": "Requests"
+  "requests": "Requests",
+  "accept": "Accept",
+  "decline": "Decline",
+  "accepted": "Accepted",
+  "declined": "Declined",
+  "done": "Finished",
+  "pending": "Unfinished"
 }
