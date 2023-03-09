@@ -28,5 +28,6 @@
   "accepted": "Schváleno",
   "declined": "Zamítnuto",
   "done": "Vyřízeno",
-  "pending": "Nevyřízeno"
+  "pending": "Nevyřízeno",
+  "search-vocabulary-by-label": "Zadejte název slovníku"
 }

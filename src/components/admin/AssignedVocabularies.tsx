@@ -36,7 +36,6 @@ const AssignedVocabularies: React.FC = () => {
         <Box px={3} py={2}>
           <Box
             sx={{
-              alignItems: "center",
               justifyContent: "space-between",
               display: "flex",
               flex: 1,
@@ -49,6 +48,7 @@ const AssignedVocabularies: React.FC = () => {
               size={"small"}
               value={filterText}
               onChange={handleChange}
+              label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
               InputProps={{
                 endAdornment: endAdornment,
               }}

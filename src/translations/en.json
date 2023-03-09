@@ -28,5 +28,6 @@
   "accepted": "Accepted",
   "declined": "Declined",
   "done": "Finished",
-  "pending": "Unfinished"
+  "pending": "Unfinished",
+  "search-vocabulary-by-label": "Search for vocabulary"
 }

@@ -56,7 +56,9 @@ const AdminUsers: React.FC = () => {
                 <Typography variant={"h5"} gutterBottom={true}>
                   {intl.formatMessage({ id: "adminUsersHeader" })}
                 </Typography>
-                <hr />
+                <Box mt={2}>
+                  <hr />
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>

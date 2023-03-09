@@ -38,7 +38,9 @@ const GestorRequests: React.FC = () => {
           <Typography variant={"h5"} gutterBottom={true}>
             {intl.formatMessage({ id: "requests" })}
           </Typography>
-          <hr />
+          <Box mt={2}>
+            <hr />
+          </Box>
         </Box>
         <Box sx={{ paddingBottom: 3 }}>
           {mockedRequestsData.map((request) => {
