@@ -26,7 +26,6 @@ const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
 }) => {
   const intl = useIntl();
   const [reviewsDone, setReviewDone] = useState<number>(0);
-  console.log(reviewsDone);
 
   return (
     <Box px={2} sx={{ color: "white" }}>

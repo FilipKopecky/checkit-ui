@@ -25,7 +25,6 @@ const GestorRequests: React.FC = () => {
     }
     const randomVocabulary = vocabularies![getRandomInt(vocabularies!.length)];
     const request = { vocabulary: randomVocabulary, users: randomUsers };
-    console.log(request);
     mockedRequestsData.push(request);
   }
   /** Data mock */
