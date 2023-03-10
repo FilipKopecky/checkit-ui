@@ -29,7 +29,7 @@ const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
 
   return (
     <Box px={2} sx={{ color: "white" }}>
-      <Accordion TransitionProps={{ unmountOnExit: true }}>
+      <Accordion>
         <AccordionSummary
           sx={{
             backgroundColor: "background.default",
