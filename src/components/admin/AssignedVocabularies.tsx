@@ -10,20 +10,14 @@ import {
 import { useIntl } from "react-intl";
 import SearchIcon from "@mui/icons-material/Search";
 import { useGetAllVocabulariesQuery } from "../../api/apiSlice";
+import { filterVocabulariesByLabel } from "../../utils/FilterUtils";
 
 const AssignedVocabularies: React.FC = () => {
   const { data } = useGetAllVocabulariesQuery();
   const intl = useIntl();
   const [filterText, setFilterText] = useState("");
   const filteredVocabularies = useMemo(() => {
-    return data?.filter((vocabulary) => {
-      if (filterText === "") return true;
-      else {
-        return vocabulary.label
-          .toLowerCase()
-          .includes(filterText.toLowerCase());
-      }
-    });
+    return filterVocabulariesByLabel(data ?? [], filterText);
   }, [data, filterText]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

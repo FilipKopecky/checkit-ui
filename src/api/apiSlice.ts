@@ -91,6 +91,8 @@ export const apiSlice = createApi({
           patchResult.undo();
         }
       },
+      //TODO Invalidate in local state without the API call
+      invalidatesTags: ["ALL_USERS"],
     }),
     removeGestorFromVocabulary: builder.mutation<
       Vocabulary,

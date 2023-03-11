@@ -16,7 +16,7 @@ const fnAccept = vi.fn();
 const fnDecline = vi.fn();
 
 describe("Gestor request user list item", () => {
-  test("In pending state request should show action buttons", async () => {
+  test("In pending state request should show action buttons that call actions", async () => {
     const status = "pending";
 
     renderWithProviders(
