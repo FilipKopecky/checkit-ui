@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import VocabularyList from "../vocabulary/VocabularyList";
+import AssignedVocabulariesList from "../vocabulary/AssignedVocabulariesList";
 import {
   Box,
   InputAdornment,
@@ -51,7 +51,7 @@ const AssignedVocabularies: React.FC = () => {
           <hr />
         </Box>
         <Box sx={{ paddingBottom: 3 }} px={2}>
-          <VocabularyList vocabularies={filteredVocabularies ?? []} />
+          <AssignedVocabulariesList vocabularies={filteredVocabularies ?? []} />
         </Box>
       </Paper>
     </Box>
