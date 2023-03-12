@@ -10,7 +10,7 @@ import Routes from "../utils/Routes";
 
 const AdminPanel = React.lazy(() => import("./admin/AdminPanel"));
 const Publications = React.lazy(() => import("./Publications"));
-const MyGestorRequests = React.lazy(() => import("./MyGestorRequests"));
+const CurrentUserSummary = React.lazy(() => import("./CurrentUserSummary"));
 
 const Router: React.FC = () => {
   return (
@@ -23,7 +23,7 @@ const Router: React.FC = () => {
           </Route>
           <Route path={Routes.HOME} element={<Home />} />
           <Route path={Routes.PUBLICATIONS} element={<Publications />} />
-          <Route path={Routes.REQUESTS} element={<MyGestorRequests />} />
+          <Route path={Routes.REQUESTS} element={<CurrentUserSummary />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </RouterRoutes>

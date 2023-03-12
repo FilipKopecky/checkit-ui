@@ -16,15 +16,16 @@ export const filterVocabulariesByLabel = (
 export const filterVocabulariesByGestor = (
   vocabularies: Vocabulary[],
   gestor: User
-) => {
+): Vocabulary[] => {
   //TODO: Maybe transform vocabulary data into a map for faster lookup
-  const filteredVocabularies = [];
+  const filteredVocabularies: Vocabulary[] = [];
   for (const gestoredVocabulary of gestor.gestoredVocabularies) {
-    filteredVocabularies.push(
-      vocabularies.find((vocabulary) => {
-        return vocabulary.uri === gestoredVocabulary;
-      })
-    );
+    const result = vocabularies.find((vocabulary) => {
+      return vocabulary.uri === gestoredVocabulary;
+    });
+    if (result !== undefined) {
+      filteredVocabularies.push(result);
+    }
   }
   return filteredVocabularies;
 };
