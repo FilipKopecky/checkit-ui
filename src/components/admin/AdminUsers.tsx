@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import {
   useGetAllUsersQuery,
   useModifyAdminMutation,
@@ -15,16 +15,28 @@ import { selectUser } from "../../slices/userSlice";
 const AdminUsers: React.FC = () => {
   const { data, isLoading } = useGetAllUsersQuery();
   const [modifyAdmin] = useModifyAdminMutation();
+  const currentUser = useAppSelector(selectUser);
   const intl = useIntl();
 
-  //TODO: Optimize this, so the array is not iterated twice
+  const handleAdminToggle = useCallback(
+    (user: User) => {
+      modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
+        console.log(`User: ${user.id} is admin: ${!user.admin}`);
+      });
+    },
+    [modifyAdmin]
+  );
+  const disableElement = (user: User) => {
+    return user.id === currentUser.id;
+  };
+
+  //This works better than custom selectFromResult (less rerenders)
   const admins = useMemo(() => {
     return data?.filter((user) => user.admin) ?? [];
   }, [data]);
   const others = useMemo(() => {
     return data?.filter((user) => !user.admin) ?? [];
   }, [data]);
-  const currentUser = useAppSelector(selectUser);
 
   if (isLoading) {
     return <>Loading</>;
@@ -33,15 +45,6 @@ const AdminUsers: React.FC = () => {
   if (!data) {
     return null;
   }
-
-  const handleAdminToggle = (user: User) => {
-    modifyAdmin({ admin: !user.admin, id: user.id }).then(() => {
-      console.log(`User: ${user.id} is admin: ${!user.admin}`);
-    });
-  };
-  const disableElement = (user: User) => {
-    return user.id === currentUser.id;
-  };
 
   return (
     <Box px={3} mt={8}>
@@ -53,11 +56,13 @@ const AdminUsers: React.FC = () => {
                 <Typography variant={"h5"} gutterBottom={true}>
                   {intl.formatMessage({ id: "adminUsersHeader" })}
                 </Typography>
-                <hr />
+                <Box mt={2}>
+                  <hr />
+                </Box>
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box px={2} sx={{ paddingBottom: 2 }}>
+              <Box px={2} sx={{ paddingBottom: 4 }}>
                 <Typography variant={"h6"}>
                   {intl.formatMessage({ id: "others" })}
                 </Typography>
@@ -69,7 +74,7 @@ const AdminUsers: React.FC = () => {
               </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Box px={2} sx={{ paddingBottom: 2 }}>
+              <Box px={2} sx={{ paddingBottom: 4 }}>
                 <Typography variant={"h6"}>
                   {intl.formatMessage({ id: "admins" })}
                 </Typography>

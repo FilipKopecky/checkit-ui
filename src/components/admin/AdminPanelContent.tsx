@@ -3,7 +3,9 @@ import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectAdminPanel } from "../../slices/adminPanelSlice";
 import Constants from "../../utils/Constants";
 
-const GestorRequests = React.lazy(() => import("./GestorRequests"));
+const GestorRequests = React.lazy(
+  () => import("./gestor-requests/GestorRequests")
+);
 const AssignedVocabularies = React.lazy(() => import("./AssignedVocabularies"));
 const AdminUsers = React.lazy(() => import("./AdminUsers"));
 

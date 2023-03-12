@@ -3,7 +3,10 @@ import { getEnvVariable } from "../utils/environment";
 import { getToken } from "../components/auth/utils";
 import Constants from "../utils/Constants";
 import { User } from "../model/User";
-import Endpoints, { getAdminRoleSwitch } from "./Endpoints";
+import Endpoints, {
+  getAdminRoleSwitch,
+  getVocabularyGestorAssign,
+} from "./Endpoints";
 import { createSelector } from "@reduxjs/toolkit";
 import { Vocabulary } from "../model/Vocabulary";
 
@@ -56,6 +59,78 @@ export const apiSlice = createApi({
       },
       //invalidatesTags: ["ALL_USERS"],
     }),
+    addGestorToVocabulary: builder.mutation<Vocabulary, Partial<Vocabulary>>({
+      query(data) {
+        const { gestors, ...content } = data;
+        const id = gestors![gestors!.length - 1].id;
+        return {
+          url: getVocabularyGestorAssign(id),
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: `"${content.uri}"`,
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getAllVocabularies",
+            undefined,
+            (draft) => {
+              Object.assign(
+                draft.find((vocabulary) => vocabulary.uri === patch.uri)!,
+                patch
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      //TODO Invalidate in local state without the API call
+      invalidatesTags: ["ALL_USERS"],
+    }),
+    removeGestorFromVocabulary: builder.mutation<
+      Vocabulary,
+      Partial<Vocabulary> & Partial<User>
+    >({
+      query(data) {
+        const { id, ...content } = data;
+        return {
+          url: getVocabularyGestorAssign(id!),
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: `"${content.uri}"`,
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getAllVocabularies",
+            undefined,
+            (draft) => {
+              //Remove the id of the gestor from the payload
+              delete patch.id;
+              Object.assign(
+                draft.find((vocabulary) => vocabulary.uri === patch.uri)!,
+                patch
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -64,6 +139,8 @@ export const {
   useGetCurrentUserQuery,
   useModifyAdminMutation,
   useGetAllVocabulariesQuery,
+  useAddGestorToVocabularyMutation,
+  useRemoveGestorFromVocabularyMutation,
 } = apiSlice;
 
 //TODO: Think about these selectors, not sure if this is good way of approaching things

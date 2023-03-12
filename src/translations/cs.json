@@ -20,5 +20,14 @@
   "admins": "Administrátoři",
   "others": "Ostatní uživatelé",
   "adminUsersHeader": "Správa uživatelů",
-  "assignedVocabulariesHeader": "Slovníky"
+  "assignedVocabulariesHeader": "Slovníky",
+  "assignedGestors": "Gestoři",
+  "requests": "Žádosti",
+  "accept": "Schválit",
+  "decline": "Zamítnout",
+  "accepted": "Schváleno",
+  "declined": "Zamítnuto",
+  "done": "Vyřízeno",
+  "pending": "Nevyřízeno",
+  "search-vocabulary-by-label": "Zadejte název slovníku"
 }

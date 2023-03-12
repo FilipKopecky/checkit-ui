@@ -20,5 +20,14 @@
   "admins": "Admins",
   "others": "Others",
   "adminUsersHeader": "Manage users",
-  "assignedVocabulariesHeader": "Vocabularies"
+  "assignedVocabulariesHeader": "Vocabularies",
+  "assignedGestors": "Gestors",
+  "requests": "Requests",
+  "accept": "Accept",
+  "decline": "Decline",
+  "accepted": "Accepted",
+  "declined": "Declined",
+  "done": "Finished",
+  "pending": "Unfinished",
+  "search-vocabulary-by-label": "Search for vocabulary"
 }
