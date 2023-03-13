@@ -8,7 +8,6 @@ import ManageAdminNavigationButton from "./navigation/ManageAdminNavigationButto
 import ManageVocabulariesNavigationButton from "./navigation/ManageVocabulariesNavigationButton";
 import ManageGestorRequestsNavigationButton from "./navigation/ManageGestorRequestsNavigationButton";
 
-//TODO: Implement real data
 const AdminPanel: React.FC = () => {
   const intl = useIntl();
   return (
