@@ -8,16 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import UsersList from "../users/UsersList";
-import {
-  useAddGestorToVocabularyMutation,
-  useGetAllUsersQuery,
-  useGetAllVocabulariesQuery,
-  useRemoveGestorFromVocabularyMutation,
-} from "../../api/apiSlice";
+import { useGetAllVocabulariesQuery } from "../../api/vocabularyApi";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import { useIntl } from "react-intl";
 import RemoveModeratorIcon from "@mui/icons-material/RemoveModerator";
 import { User } from "../../model/User";
+import {
+  useAddGestorToVocabularyMutation,
+  useGetAllUsersQuery,
+  useRemoveGestorFromVocabularyMutation,
+} from "../../api/adminApi";
 
 interface AssignedVocabulariesModalProps {
   open: boolean;

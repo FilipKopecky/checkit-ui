@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useIntl } from "react-intl";
 import SearchIcon from "@mui/icons-material/Search";
-import { useGetAllVocabulariesQuery } from "../../api/apiSlice";
+import { useGetAllVocabulariesQuery } from "../../api/vocabularyApi";
 import { filterVocabulariesByLabel } from "../../utils/FilterUtils";
 
 const AssignedVocabularies: React.FC = () => {

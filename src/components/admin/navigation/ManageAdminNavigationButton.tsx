@@ -1,5 +1,5 @@
 import React from "react";
-import { selectAdmins, useGetAllUsersQuery } from "../../../api/apiSlice";
+import { selectAdmins, useGetAllUsersQuery } from "../../../api/adminApi";
 import { useAppSelector } from "../../../hooks/ReduxHooks";
 import AdminNavigationButton from "./AdminNavigationButton";
 import Constants from "../../../utils/Constants";

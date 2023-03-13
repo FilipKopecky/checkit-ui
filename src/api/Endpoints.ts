@@ -2,6 +2,7 @@ const endpoints = {
   CURRENT_USER: "users/current",
   GET_ALL_USERS: "admin-management/users",
   GET_ALL_VOCABULARIES: "/vocabularies",
+  GET_ALL_GESTOR_REQUESTS: "gestoring-requests",
 };
 
 export const getAdminRoleSwitch = (id: string) => {

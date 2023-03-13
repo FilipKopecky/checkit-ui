@@ -1,14 +1,12 @@
 import React, { useMemo, useState } from "react";
-import {
-  useGetAllUsersQuery,
-  useGetAllVocabulariesQuery,
-  useGetCurrentUserQuery,
-} from "../api/apiSlice";
+import { useGetCurrentUserQuery } from "../api/userApi";
 import { Box } from "@mui/material";
 import VocabularyFilter from "./vocabulary/VocabularyFilter";
 import VocabulariesList from "./vocabulary/VocabulariesList";
 import { filterVocabulariesByGestor } from "../utils/FilterUtils";
 import { Vocabulary } from "../model/Vocabulary";
+import { useGetAllUsersQuery } from "../api/adminApi";
+import { useGetAllVocabulariesQuery } from "../api/vocabularyApi";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();

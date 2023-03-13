@@ -2,11 +2,9 @@ import React from "react";
 import GestorRequestAccordion from "./GestorRequestAccordion";
 import { Box, Paper, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
-import {
-  useGetAllUsersQuery,
-  useGetAllVocabulariesQuery,
-} from "../../../api/apiSlice";
+import { useGetAllVocabulariesQuery } from "../../../api/vocabularyApi";
 import { User } from "../../../model/User";
+import { useGetAllUsersQuery } from "../../../api/adminApi";
 const GestorRequests: React.FC = () => {
   const intl = useIntl();
 
