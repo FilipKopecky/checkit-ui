@@ -5,9 +5,9 @@ import Endpoints, {
   getVocabularyGestorAssign,
 } from "./Endpoints";
 import { Vocabulary } from "../model/Vocabulary";
-import { createSelector } from "@reduxjs/toolkit";
 import { vocabularyApi } from "./vocabularyApi";
 import { GestorRequest } from "../model/GestorRequest";
+import { AdminPanelSummary } from "../model/AdminPanelSummary";
 
 export const adminApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -29,18 +29,33 @@ export const adminApi = apiSlice.injectEndpoints({
         };
       },
       async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        //Change the local users state
         const patchResult = dispatch(
           adminApi.util.updateQueryData("getAllUsers", undefined, (draft) => {
             Object.assign(draft.find((user) => user.id === patch.id)!, patch);
           })
         );
+        //Change the local admin summary state
+        const patchResult2 = dispatch(
+          adminApi.util.updateQueryData(
+            "getAdminPanelSummary",
+            undefined,
+            (draft) => {
+              Object.assign(draft, {
+                adminCount: patch.admin
+                  ? draft.adminCount + 1
+                  : draft.adminCount - 1,
+              });
+            }
+          )
+        );
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
+          patchResult2.undo();
         }
       },
-      //invalidatesTags: ["ALL_USERS"],
     }),
     addGestorToVocabulary: builder.mutation<Vocabulary, Partial<Vocabulary>>({
       query(data) {
@@ -122,16 +137,18 @@ export const adminApi = apiSlice.injectEndpoints({
       providesTags: ["ALL_GESTOR_REQUESTS"],
       transformResponse: (rawResult: GestorRequest[]) => {
         //Group requests by vocabulary
-        const groupedData = rawResult.reduce<{
+        return rawResult.reduce<{
           [key: string]: GestorRequest[];
         }>(function (r, a) {
           r[a.vocabulary.uri] = r[a.vocabulary.uri] || [];
           r[a.vocabulary.uri].push(a);
           return r;
         }, Object.create(null));
-
-        return groupedData;
       },
+    }),
+    getAdminPanelSummary: builder.query<AdminPanelSummary, void>({
+      query: () => Endpoints.GET_ADMIN_PANEL_SUMMARY,
+      providesTags: ["ADMIN_PANEL_SUMMARY"],
     }),
   }),
   overrideExisting: false,
@@ -143,13 +160,5 @@ export const {
   useRemoveGestorFromVocabularyMutation,
   useModifyAdminMutation,
   useGetAllGestorRequestsQuery,
+  useGetAdminPanelSummaryQuery,
 } = adminApi;
-
-export const selectUsersResult = adminApi.endpoints.getAllUsers.select();
-export const selectAllUsers = createSelector(
-  selectUsersResult,
-  (usersResult) => usersResult?.data ?? []
-);
-export const selectAdmins = createSelector(selectAllUsers, (users) =>
-  users.filter((user) => user.admin)
-);

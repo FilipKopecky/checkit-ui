@@ -11,6 +11,11 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["ALL_USERS", "ALL_VOCABULARIES", "ALL_GESTOR_REQUESTS"],
+  tagTypes: [
+    "ALL_USERS",
+    "ALL_VOCABULARIES",
+    "ALL_GESTOR_REQUESTS",
+    "ADMIN_PANEL_SUMMARY",
+  ],
   endpoints: () => ({}),
 });
