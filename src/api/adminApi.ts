@@ -2,6 +2,7 @@ import { apiSlice } from "./apiSlice";
 import { User } from "../model/User";
 import Endpoints, {
   getAdminRoleSwitch,
+  getGestorRequestResolve,
   getVocabularyGestorAssign,
 } from "./Endpoints";
 import { Vocabulary } from "../model/Vocabulary";
@@ -71,7 +72,6 @@ export const adminApi = apiSlice.injectEndpoints({
         };
       },
       async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
-        console.log(patch);
         //Local update of vocabularies
         const patchResult = dispatch(
           vocabularyApi.util.updateQueryData(
@@ -175,10 +175,48 @@ export const adminApi = apiSlice.injectEndpoints({
           [key: string]: GestorRequest[];
         }>(function (r, a) {
           r[a.vocabulary.uri] = r[a.vocabulary.uri] || [];
+          a.state = "pending";
           r[a.vocabulary.uri].push(a);
           return r;
         }, Object.create(null));
       },
+    }),
+    resolveGestorRequest: builder.mutation<
+      GestorRequest,
+      Partial<GestorRequest>
+    >({
+      query(data) {
+        const { id, ...content } = data;
+        return {
+          url: getGestorRequestResolve(id!),
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: content.approved,
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        //Local update of admin panel summary
+        const patchResult = dispatch(
+          adminApi.util.updateQueryData(
+            "getAdminPanelSummary",
+            undefined,
+            (draft) => {
+              Object.assign(draft, {
+                pendingGestoringRequestCount:
+                  draft.pendingGestoringRequestCount - 1,
+              });
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: ["ALL_VOCABULARIES"],
     }),
     getAdminPanelSummary: builder.query<AdminPanelSummary, void>({
       query: () => Endpoints.GET_ADMIN_PANEL_SUMMARY,
@@ -188,6 +226,9 @@ export const adminApi = apiSlice.injectEndpoints({
   overrideExisting: false,
 });
 
+//TODO: INvalidate admin panel summary after manual adding of user as a gestor
+//TODO: invalidate admin data panel summary when redirecting? or after some time?
+
 export const {
   useGetAllUsersQuery,
   useAddGestorToVocabularyMutation,
@@ -195,4 +236,5 @@ export const {
   useModifyAdminMutation,
   useGetAllGestorRequestsQuery,
   useGetAdminPanelSummaryQuery,
+  useResolveGestorRequestMutation,
 } = adminApi;

@@ -13,4 +13,8 @@ export const getAdminRoleSwitch = (id: string) => {
 export const getVocabularyGestorAssign = (id: string) => {
   return `${endpoints.GET_ALL_USERS}/${id}/gestored-vocabulary`;
 };
+
+export const getGestorRequestResolve = (id: string) => {
+  return `${endpoints.GET_ALL_GESTOR_REQUESTS}/${id}/approved`;
+};
 export default endpoints;

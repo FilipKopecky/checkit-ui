@@ -7,4 +7,6 @@ export interface GestorRequest {
   created: Date;
   applicant: UserData;
   vocabulary: VocabularyData;
+  state: string;
+  approved?: boolean;
 }
