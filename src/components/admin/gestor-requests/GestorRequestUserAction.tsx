@@ -1,11 +1,11 @@
-import { User } from "../../../model/User";
-import { Vocabulary } from "../../../model/Vocabulary";
+import { UserData } from "../../../model/User";
+import { VocabularyData } from "../../../model/Vocabulary";
 import React, { useState } from "react";
 import GestorRequestUserListItem from "./GestorRequestUserListItem";
 
 interface GestorRequestUserActionProps {
-  user: User;
-  vocabulary: Vocabulary;
+  user: UserData;
+  vocabulary: VocabularyData;
   performActionCallback: () => void;
 }
 const GestorRequestUserAction: React.FC<GestorRequestUserActionProps> = ({

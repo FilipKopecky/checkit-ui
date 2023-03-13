@@ -9,16 +9,16 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import List from "@mui/material/List";
-import { Vocabulary } from "../../../model/Vocabulary";
-import { User } from "../../../model/User";
+import { VocabularyData } from "../../../model/Vocabulary";
+import { UserData } from "../../../model/User";
 import GestorRequestUserAction from "./GestorRequestUserAction";
 import { useIntl } from "react-intl";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 
 interface GestorRequestAccordionProps {
-  vocabulary: Vocabulary;
-  users: User[];
+  vocabulary: VocabularyData;
+  users: UserData[];
 }
 const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
   vocabulary,

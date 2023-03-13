@@ -1,33 +1,33 @@
-import React from "react";
+import React, { useMemo } from "react";
 import GestorRequestAccordion from "./GestorRequestAccordion";
 import { Box, Paper, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
-import { useGetAllVocabulariesQuery } from "../../../api/vocabularyApi";
-import { User } from "../../../model/User";
-import { useGetAllUsersQuery } from "../../../api/adminApi";
+import { UserData } from "../../../model/User";
+import { useGetAllGestorRequestsQuery } from "../../../api/adminApi";
+import { VocabularyData } from "../../../model/Vocabulary";
+
 const GestorRequests: React.FC = () => {
   const intl = useIntl();
+  const { data: gRequests } = useGetAllGestorRequestsQuery();
 
-  /** Data mock */
-  const { data: vocabularies } = useGetAllVocabulariesQuery();
-  const { data: users } = useGetAllUsersQuery();
-  if (!vocabularies || !users) return <></>;
-
-  const mockedRequests = 3;
-  const mockedRequestsData = [];
-  for (let i = 0; i < mockedRequests; i++) {
-    const randomUsers: User[] = [];
-    for (let j = 0; j < i + 1; j++) {
-      const randomUser = users![getRandomInt(users!.length)];
-      randomUsers.push(randomUser);
+  let content = useMemo(() => {
+    let temp = [];
+    if (gRequests) {
+      for (const [key, value] of Object.entries(gRequests)) {
+        const users: UserData[] = [];
+        for (const request of value) {
+          users.push(request.applicant);
+        }
+        const vocabulary: VocabularyData = value[0].vocabulary;
+        temp.push(
+          <Box mb={2} key={key}>
+            <GestorRequestAccordion vocabulary={vocabulary} users={users} />
+          </Box>
+        );
+      }
     }
-    const randomVocabulary = vocabularies![getRandomInt(vocabularies!.length)];
-    const request = { vocabulary: randomVocabulary, users: randomUsers };
-    mockedRequestsData.push(request);
-  }
-  /** Data mock */
-
-  //TODO: Fetch on mount
+    return temp;
+  }, [gRequests]);
 
   return (
     <Box px={3} mt={6}>
@@ -40,25 +40,10 @@ const GestorRequests: React.FC = () => {
             <hr />
           </Box>
         </Box>
-        <Box sx={{ paddingBottom: 3 }}>
-          {mockedRequestsData.map((request) => {
-            return (
-              <Box mb={2} key={request.vocabulary.uri}>
-                <GestorRequestAccordion
-                  vocabulary={request.vocabulary}
-                  users={request.users}
-                />
-              </Box>
-            );
-          })}
-        </Box>
+        <Box sx={{ paddingBottom: 3 }}>{content}</Box>
       </Paper>
     </Box>
   );
 };
-
-function getRandomInt(max: number) {
-  return Math.floor(Math.random() * max);
-}
 
 export default GestorRequests;

@@ -7,6 +7,7 @@ import Endpoints, {
 import { Vocabulary } from "../model/Vocabulary";
 import { createSelector } from "@reduxjs/toolkit";
 import { vocabularyApi } from "./vocabularyApi";
+import { GestorRequest } from "../model/GestorRequest";
 
 export const adminApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -113,6 +114,25 @@ export const adminApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    getAllGestorRequests: builder.query<
+      { [key: string]: GestorRequest[] },
+      void
+    >({
+      query: () => Endpoints.GET_ALL_GESTOR_REQUESTS,
+      providesTags: ["ALL_GESTOR_REQUESTS"],
+      transformResponse: (rawResult: GestorRequest[]) => {
+        //Group requests by vocabulary
+        const groupedData = rawResult.reduce<{
+          [key: string]: GestorRequest[];
+        }>(function (r, a) {
+          r[a.vocabulary.uri] = r[a.vocabulary.uri] || [];
+          r[a.vocabulary.uri].push(a);
+          return r;
+        }, Object.create(null));
+
+        return groupedData;
+      },
+    }),
   }),
   overrideExisting: false,
 });
@@ -122,6 +142,7 @@ export const {
   useAddGestorToVocabularyMutation,
   useRemoveGestorFromVocabularyMutation,
   useModifyAdminMutation,
+  useGetAllGestorRequestsQuery,
 } = adminApi;
 
 export const selectUsersResult = adminApi.endpoints.getAllUsers.select();

@@ -11,6 +11,6 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["ALL_USERS", "ALL_VOCABULARIES"],
+  tagTypes: ["ALL_USERS", "ALL_VOCABULARIES", "ALL_GESTOR_REQUESTS"],
   endpoints: () => ({}),
 });
