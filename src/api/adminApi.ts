@@ -71,6 +71,8 @@ export const adminApi = apiSlice.injectEndpoints({
         };
       },
       async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        console.log(patch);
+        //Local update of vocabularies
         const patchResult = dispatch(
           vocabularyApi.util.updateQueryData(
             "getAllVocabularies",
@@ -83,10 +85,26 @@ export const adminApi = apiSlice.injectEndpoints({
             }
           )
         );
+        //Local update of admin panel summary
+        const patchResult2 = dispatch(
+          adminApi.util.updateQueryData(
+            "getAdminPanelSummary",
+            undefined,
+            (draft) => {
+              Object.assign(draft, {
+                vocabularyWithGestorCount:
+                  patch.gestors?.length === 1
+                    ? draft.vocabularyWithGestorCount + 1
+                    : draft.vocabularyWithGestorCount,
+              });
+            }
+          )
+        );
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
+          patchResult2.undo();
         }
       },
       //TODO Invalidate in local state without the API call
@@ -122,10 +140,26 @@ export const adminApi = apiSlice.injectEndpoints({
             }
           )
         );
+        //Local update of admin panel summary
+        const patchResult2 = dispatch(
+          adminApi.util.updateQueryData(
+            "getAdminPanelSummary",
+            undefined,
+            (draft) => {
+              Object.assign(draft, {
+                vocabularyWithGestorCount:
+                  patch.gestors?.length === 0
+                    ? draft.vocabularyWithGestorCount - 1
+                    : draft.vocabularyWithGestorCount,
+              });
+            }
+          )
+        );
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
+          patchResult2.undo();
         }
       },
     }),
