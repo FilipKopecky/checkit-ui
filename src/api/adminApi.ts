@@ -163,22 +163,13 @@ export const adminApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    getAllGestorRequests: builder.query<
-      { [key: string]: GestorRequest[] },
-      void
-    >({
+    getAllGestorRequests: builder.query<GestorRequest[], void>({
       query: () => Endpoints.GET_ALL_GESTOR_REQUESTS,
       providesTags: ["ALL_GESTOR_REQUESTS"],
       transformResponse: (rawResult: GestorRequest[]) => {
-        //Group requests by vocabulary
-        return rawResult.reduce<{
-          [key: string]: GestorRequest[];
-        }>(function (r, a) {
-          r[a.vocabulary.uri] = r[a.vocabulary.uri] || [];
-          a.state = "pending";
-          r[a.vocabulary.uri].push(a);
-          return r;
-        }, Object.create(null));
+        return rawResult.map((result) => {
+          return { ...result, state: "pending" };
+        });
       },
     }),
     resolveGestorRequest: builder.mutation<
@@ -210,10 +201,25 @@ export const adminApi = apiSlice.injectEndpoints({
             }
           )
         );
+
+        const patchResult2 = dispatch(
+          adminApi.util.updateQueryData(
+            "getAllGestorRequests",
+            undefined,
+            (draft) => {
+              Object.assign(
+                draft.find((request) => request.id === patch.id)!,
+                patch
+              );
+            }
+          )
+        );
+
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
+          patchResult2.undo();
         }
       },
       invalidatesTags: ["ALL_VOCABULARIES"],

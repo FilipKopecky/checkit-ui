@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -26,10 +26,8 @@ const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
   gestorRequests,
 }) => {
   const intl = useIntl();
-  const [reviewsDone, setReviewDone] = useState<number>(0);
   const [resolveGestorRequest] = useResolveGestorRequestMutation();
   const handleCallback = (request: GestorRequest, accepted: boolean) => {
-    setReviewDone(reviewsDone + 1);
     resolveGestorRequest({
       approved: accepted,
       id: request.id,
@@ -57,7 +55,7 @@ const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
           >
             <Typography variant={"body1"}>{vocabulary.label}</Typography>
             <Box sx={{ textTransform: "uppercase", marginRight: 2 }}>
-              {reviewsDone !== gestorRequests.length ? (
+              {gestorRequests.some((request) => request.state === "pending") ? (
                 <Chip
                   label={intl.formatMessage({ id: "pending" })}
                   color="warning"

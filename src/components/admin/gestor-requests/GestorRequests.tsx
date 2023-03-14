@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
-import GestorRequestAccordion from "./GestorRequestAccordion";
 import { Box, Paper, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
 import { useGetAllGestorRequestsQuery } from "../../../api/adminApi";
+import { GestorRequest } from "../../../model/GestorRequest";
 import { VocabularyData } from "../../../model/Vocabulary";
+import GestorRequestAccordion from "./GestorRequestAccordion";
 
 //TODO: move this value to some utility
 //helper function that returns void as a value
@@ -17,7 +18,15 @@ const GestorRequests: React.FC = () => {
   let content = useMemo(() => {
     let temp = [];
     if (gRequests) {
-      for (const [key, value] of Object.entries(gRequests)) {
+      const grouped = gRequests.reduce<{
+        [key: string]: GestorRequest[];
+      }>(function (r, a) {
+        r[a.vocabulary.uri] = r[a.vocabulary.uri] || [];
+        r[a.vocabulary.uri].push(a);
+        return r;
+      }, Object.create(null));
+
+      for (const [key, value] of Object.entries(grouped)) {
         const vocabulary: VocabularyData = value[0].vocabulary;
         temp.push(
           <Box mb={2} key={key}>
