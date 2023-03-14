@@ -35,6 +35,7 @@ const UsersAvatarGroup: React.FC<UsersAvatarGroupProps> = ({
           {users.map((user) => {
             return (
               <UserAvatar
+                key={user.id}
                 firstName={user.firstName}
                 lastName={user.lastName}
                 sx={{ ...smallAvatarProps }}
