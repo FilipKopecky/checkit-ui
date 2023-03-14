@@ -15,6 +15,10 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
         });
       },
     }),
+    getMyGestorRequests: builder.query<GestorRequest[], void>({
+      query: () => Endpoints.GET_MY_GESTORING_REQUESTS,
+      providesTags: ["MY_GESTORING_REQUESTS"],
+    }),
     resolveGestorRequest: builder.mutation<
       GestorRequest,
       Partial<GestorRequest>
@@ -65,7 +69,11 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
           allGestorRequestUpdate.undo();
         }
       },
-      invalidatesTags: ["ALL_VOCABULARIES"],
+      invalidatesTags: [
+        "ALL_VOCABULARIES",
+        "MY_GESTORING_REQUESTS",
+        "MY_GESTORED_VOCABULARIES",
+      ],
     }),
     addGestorRequest: builder.mutation<void, Partial<Vocabulary>>({
       query(data) {
@@ -78,7 +86,11 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
           body: `"${data.uri}"`,
         };
       },
-      invalidatesTags: ["ALL_GESTOR_REQUESTS"],
+      invalidatesTags: [
+        "ALL_GESTOR_REQUESTS",
+        "MY_GESTORING_REQUESTS",
+        "ADMIN_PANEL_SUMMARY",
+      ],
     }),
   }),
   overrideExisting: false,
@@ -88,4 +100,5 @@ export const {
   useGetAllGestorRequestsQuery,
   useResolveGestorRequestMutation,
   useAddGestorRequestMutation,
+  useGetMyGestorRequestsQuery,
 } = gestorRequestApi;

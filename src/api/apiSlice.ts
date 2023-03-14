@@ -16,6 +16,7 @@ export const apiSlice = createApi({
     "ALL_USERS",
     "ALL_VOCABULARIES",
     "MY_GESTORED_VOCABULARIES",
+    "MY_GESTORING_REQUESTS",
     "ALL_GESTOR_REQUESTS",
     "ADMIN_PANEL_SUMMARY",
   ],

@@ -84,29 +84,35 @@ export const adminApi = apiSlice.injectEndpoints({
           )
         );
         //Local update of admin panel summary
-        const patchResult2 = dispatch(
-          adminApi.util.updateQueryData(
-            "getAdminPanelSummary",
-            undefined,
-            (draft) => {
-              Object.assign(draft, {
-                vocabularyWithGestorCount:
-                  patch.gestors?.length === 1
-                    ? draft.vocabularyWithGestorCount + 1
-                    : draft.vocabularyWithGestorCount,
-              });
-            }
-          )
-        );
+        //TODO: Make the update respect the gestor requests
+        // const patchResult2 = dispatch(
+        //   adminApi.util.updateQueryData(
+        //     "getAdminPanelSummary",
+        //     undefined,
+        //     (draft) => {
+        //       Object.assign(draft, {
+        //         vocabularyWithGestorCount:
+        //           patch.gestors?.length === 1
+        //             ? draft.vocabularyWithGestorCount + 1
+        //             : draft.vocabularyWithGestorCount,
+        //       });
+        //     }
+        //   )
+        // );
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
-          patchResult2.undo();
+          //patchResult2.undo();
         }
       },
       //TODO Invalidate in local state without the API call
-      invalidatesTags: ["ALL_USERS"],
+      invalidatesTags: [
+        "ALL_USERS",
+        "MY_GESTORED_VOCABULARIES",
+        "ALL_GESTOR_REQUESTS",
+        "ADMIN_PANEL_SUMMARY",
+      ],
     }),
     removeGestorFromVocabulary: builder.mutation<
       Vocabulary,
@@ -161,6 +167,7 @@ export const adminApi = apiSlice.injectEndpoints({
           adminPanelSummaryUpdate.undo();
         }
       },
+      invalidatesTags: ["ALL_USERS", "MY_GESTORED_VOCABULARIES"],
     }),
     getAdminPanelSummary: builder.query<AdminPanelSummary, void>({
       query: () => Endpoints.GET_ADMIN_PANEL_SUMMARY,

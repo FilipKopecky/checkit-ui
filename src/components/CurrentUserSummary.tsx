@@ -8,17 +8,29 @@ import VocabulariesList from "./vocabulary/VocabulariesList";
 import { Vocabulary } from "../model/Vocabulary";
 import VocabularyFilter from "./vocabulary/VocabularyFilter";
 import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
-import { useAddGestorRequestMutation } from "../api/gestorRequestApi";
+import {
+  useAddGestorRequestMutation,
+  useGetMyGestorRequestsQuery,
+} from "../api/gestorRequestApi";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
   const { data: myGestored } = useGetMyGestoredVocabulariesQuery();
+  const { data: myRequests } = useGetMyGestorRequestsQuery();
   const [addGestorRequest] = useAddGestorRequestMutation();
   const [activeTab, setActiveTab] = useState("all");
 
+  const disabledElements = useMemo(() => {
+    return myGestored?.concat(
+      myRequests?.map((request) => {
+        return request.vocabulary;
+      }) ?? []
+    );
+  }, [myGestored, myRequests]);
+
   const disableElement = (vocabulary: Vocabulary): boolean => {
     //TODO: Think about the disable element function. This is gonna get kinda pricey to calculate
-    return myGestored?.some((v) => v.uri === vocabulary.uri) ?? false;
+    return disabledElements?.some((v) => v.uri === vocabulary.uri) ?? false;
   };
 
   const handleAddGestorRequest = (vocabulary: Vocabulary) => {
@@ -26,7 +38,7 @@ const CurrentUserSummary: React.FC = () => {
   };
 
   const displayedData: Vocabulary[] = useMemo(() => {
-    if (!allVocabularies || !myGestored) return [];
+    if (!allVocabularies || !myGestored || !myRequests) return [];
     if (activeTab === "all") {
       return allVocabularies;
     }
@@ -34,11 +46,12 @@ const CurrentUserSummary: React.FC = () => {
       return myGestored;
     }
     if (activeTab === "requested") {
-      //TODO: implement
-      return [];
+      return myRequests.map((request) => {
+        return request.vocabulary;
+      });
     }
     return [];
-  }, [activeTab, allVocabularies, myGestored]);
+  }, [activeTab, allVocabularies, myGestored, myRequests]);
 
   if (!allVocabularies) return <Box></Box>;
   return (

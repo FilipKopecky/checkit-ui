@@ -1,12 +1,12 @@
 import { UserData } from "./User";
-import { VocabularyData } from "./Vocabulary";
+import { Vocabulary } from "./Vocabulary";
 
 export interface GestorRequest {
   id: string;
   uri: string;
   created: Date;
   applicant: UserData;
-  vocabulary: VocabularyData;
+  vocabulary: Vocabulary;
   state: string;
   approved?: boolean;
 }
