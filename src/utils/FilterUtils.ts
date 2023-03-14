@@ -13,6 +13,10 @@ export const filterVocabulariesByLabel = (
   });
 };
 
+export const filterByGestorPresence = (vocabularies: Vocabulary[]) => {
+  return vocabularies.filter((vocabulary) => vocabulary.gestors.length === 0);
+};
+
 export const filterVocabulariesByGestor = (
   vocabularies: Vocabulary[],
   gestor: User

@@ -2,26 +2,41 @@ import React, { useMemo, useState } from "react";
 import AssignedVocabulariesList from "../vocabulary/AssignedVocabulariesList";
 import {
   Box,
+  FormControlLabel,
+  FormGroup,
   InputAdornment,
   Paper,
+  Switch,
   TextField,
   Typography,
 } from "@mui/material";
 import { useIntl } from "react-intl";
 import SearchIcon from "@mui/icons-material/Search";
 import { useGetAllVocabulariesQuery } from "../../api/vocabularyApi";
-import { filterVocabulariesByLabel } from "../../utils/FilterUtils";
+import {
+  filterByGestorPresence,
+  filterVocabulariesByLabel,
+} from "../../utils/FilterUtils";
 
 const AssignedVocabularies: React.FC = () => {
   const { data } = useGetAllVocabulariesQuery();
   const intl = useIntl();
   const [filterText, setFilterText] = useState("");
+  const [withoutGestor, setWithoutGestor] = useState(false);
   const filteredVocabularies = useMemo(() => {
-    return filterVocabulariesByLabel(data ?? [], filterText);
-  }, [data, filterText]);
+    let dataFiltered = filterVocabulariesByLabel(data ?? [], filterText);
+    if (withoutGestor) {
+      dataFiltered = filterByGestorPresence(dataFiltered);
+    }
+    return dataFiltered;
+  }, [data, filterText, withoutGestor]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
+  };
+
+  const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setWithoutGestor(event.target.checked);
   };
 
   return (
@@ -38,15 +53,25 @@ const AssignedVocabularies: React.FC = () => {
             <Typography variant={"h5"}>
               {intl.formatMessage({ id: "assignedVocabulariesHeader" })}
             </Typography>
-            <TextField
-              size={"small"}
-              value={filterText}
-              onChange={handleChange}
-              label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
-              InputProps={{
-                endAdornment: endAdornment,
-              }}
-            />
+            <Box display={"flex"}>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch checked={withoutGestor} onChange={handleSwitch} />
+                  }
+                  label={intl.formatMessage({ id: "without-gestors" })}
+                />
+              </FormGroup>
+              <TextField
+                size={"small"}
+                value={filterText}
+                onChange={handleChange}
+                label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
+                InputProps={{
+                  endAdornment: endAdornment,
+                }}
+              />
+            </Box>
           </Box>
           <hr />
         </Box>

@@ -5,6 +5,8 @@ import List from "../misc/VirtuosoMuiList";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
 import ListItemText from "@mui/material/ListItemText";
+import UsersAvatarGroup from "../users/UsersAvatarGroup";
+import { Box } from "@mui/material";
 
 interface VocabulariesListProps {
   vocabularies: Vocabulary[];
@@ -39,7 +41,17 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
 };
 
 const InnerItem = React.memo(
-  ({ index, vocabulary, callback, icon }: any) => {
+  ({
+    index,
+    vocabulary,
+    callback,
+    icon,
+  }: {
+    index: number;
+    vocabulary: Vocabulary;
+    callback?: (vocabulary: Vocabulary) => void;
+    icon: React.ReactNode;
+  }) => {
     return (
       <>
         <ListItem
@@ -61,6 +73,11 @@ const InnerItem = React.memo(
           }
         >
           <ListItemText primary={vocabulary.label} />
+          <Box mr={4}>
+            {vocabulary.gestors.length > 0 && (
+              <UsersAvatarGroup users={vocabulary.gestors} maxAvatars={4} />
+            )}
+          </Box>
         </ListItem>
       </>
     );
