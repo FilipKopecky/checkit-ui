@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
-import { useGetAllGestorRequestsQuery } from "../../../api/adminApi";
+import { useGetAllGestorRequestsQuery } from "../../../api/gestorRequestApi";
 import { GestorRequest } from "../../../model/GestorRequest";
 import { VocabularyData } from "../../../model/Vocabulary";
 import GestorRequestAccordion from "./GestorRequestAccordion";

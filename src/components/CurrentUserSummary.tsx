@@ -1,42 +1,55 @@
 import React, { useMemo, useState } from "react";
-import { useGetCurrentUserQuery } from "../api/userApi";
 import { Box } from "@mui/material";
-import VocabularyFilter from "./vocabulary/VocabularyFilter";
+import {
+  useGetAllVocabulariesQuery,
+  useGetMyGestoredVocabulariesQuery,
+} from "../api/vocabularyApi";
 import VocabulariesList from "./vocabulary/VocabulariesList";
-import { filterVocabulariesByGestor } from "../utils/FilterUtils";
 import { Vocabulary } from "../model/Vocabulary";
-import { useGetAllUsersQuery } from "../api/adminApi";
-import { useGetAllVocabulariesQuery } from "../api/vocabularyApi";
+import VocabularyFilter from "./vocabulary/VocabularyFilter";
+import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
+import { useAddGestorRequestMutation } from "../api/gestorRequestApi";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
-  //TODO: add gestored vocabularies to current user
-  const { data: currentUser } = useGetCurrentUserQuery();
-  const { data: allUsers } = useGetAllUsersQuery();
+  const { data: myGestored } = useGetMyGestoredVocabulariesQuery();
+  const [addGestorRequest] = useAddGestorRequestMutation();
   const [activeTab, setActiveTab] = useState("all");
-  const user = useMemo(() => {
-    return allUsers?.find((u) => u.id === currentUser.id);
-  }, [currentUser, allUsers]);
+
+  const disableElement = (vocabulary: Vocabulary): boolean => {
+    //TODO: Think about the disable element function. This is gonna get kinda pricey to calculate
+    return myGestored?.some((v) => v.uri === vocabulary.uri) ?? false;
+  };
+
+  const handleAddGestorRequest = (vocabulary: Vocabulary) => {
+    addGestorRequest({ uri: vocabulary.uri });
+  };
 
   const displayedData: Vocabulary[] = useMemo(() => {
-    if (!allVocabularies || !user) return [];
+    if (!allVocabularies || !myGestored) return [];
     if (activeTab === "all") {
       return allVocabularies;
     }
     if (activeTab === "gestoring") {
-      return filterVocabulariesByGestor(allVocabularies, user);
+      return myGestored;
     }
     if (activeTab === "requested") {
       //TODO: implement
       return [];
     }
     return [];
-  }, [activeTab, allVocabularies, user]);
+  }, [activeTab, allVocabularies, myGestored]);
 
+  if (!allVocabularies) return <Box></Box>;
   return (
     <Box>
       <VocabularyFilter activeTab={activeTab} setActiveTab={setActiveTab} />
-      <VocabulariesList vocabularies={displayedData} />
+      <VocabulariesList
+        vocabularies={displayedData}
+        action={handleAddGestorRequest}
+        actionIcon={<EmojiPeopleOutlinedIcon />}
+        disabled={disableElement}
+      />
     </Box>
   );
 };

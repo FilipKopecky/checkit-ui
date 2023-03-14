@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getEnvVariable } from "../utils/environment";
 import { getToken } from "../components/auth/utils";
 import Constants from "../utils/Constants";
+
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
@@ -14,6 +15,7 @@ export const apiSlice = createApi({
   tagTypes: [
     "ALL_USERS",
     "ALL_VOCABULARIES",
+    "MY_GESTORED_VOCABULARIES",
     "ALL_GESTOR_REQUESTS",
     "ADMIN_PANEL_SUMMARY",
   ],

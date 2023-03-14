@@ -12,12 +12,14 @@ interface VocabulariesListProps {
   vocabularies: Vocabulary[];
   action?: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
+  disabled?: (user: Vocabulary) => boolean;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
   vocabularies,
   action,
   actionIcon,
+  disabled = () => false,
 }) => {
   const itemContent = (index: any, vocabulary: any) => {
     return (
@@ -26,6 +28,7 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
         vocabulary={vocabulary}
         callback={action}
         icon={actionIcon}
+        disabled={disabled}
       />
     );
   };
@@ -46,11 +49,13 @@ const InnerItem = React.memo(
     vocabulary,
     callback,
     icon,
+    disabled,
   }: {
     index: number;
     vocabulary: Vocabulary;
     callback?: (vocabulary: Vocabulary) => void;
     icon: React.ReactNode;
+    disabled: (user: Vocabulary) => boolean;
   }) => {
     return (
       <>
@@ -62,6 +67,7 @@ const InnerItem = React.memo(
           secondaryAction={
             callback ? (
               <IconButton
+                disabled={disabled(vocabulary)}
                 edge="end"
                 onClick={() => {
                   callback(vocabulary);

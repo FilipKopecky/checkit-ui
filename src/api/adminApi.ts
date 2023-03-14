@@ -2,12 +2,10 @@ import { apiSlice } from "./apiSlice";
 import { User } from "../model/User";
 import Endpoints, {
   getAdminRoleSwitch,
-  getGestorRequestResolve,
   getVocabularyGestorAssign,
 } from "./Endpoints";
 import { Vocabulary } from "../model/Vocabulary";
 import { vocabularyApi } from "./vocabularyApi";
-import { GestorRequest } from "../model/GestorRequest";
 import { AdminPanelSummary } from "../model/AdminPanelSummary";
 
 export const adminApi = apiSlice.injectEndpoints({
@@ -126,7 +124,8 @@ export const adminApi = apiSlice.injectEndpoints({
         };
       },
       async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
-        const patchResult = dispatch(
+        //local update of all vocabularies -> remove gestor user from gestor list associated with vocabulary
+        const allVocabulariesUpdate = dispatch(
           vocabularyApi.util.updateQueryData(
             "getAllVocabularies",
             undefined,
@@ -141,7 +140,7 @@ export const adminApi = apiSlice.injectEndpoints({
           )
         );
         //Local update of admin panel summary
-        const patchResult2 = dispatch(
+        const adminPanelSummaryUpdate = dispatch(
           adminApi.util.updateQueryData(
             "getAdminPanelSummary",
             undefined,
@@ -158,71 +157,10 @@ export const adminApi = apiSlice.injectEndpoints({
         try {
           await queryFulfilled;
         } catch {
-          patchResult.undo();
-          patchResult2.undo();
+          allVocabulariesUpdate.undo();
+          adminPanelSummaryUpdate.undo();
         }
       },
-    }),
-    getAllGestorRequests: builder.query<GestorRequest[], void>({
-      query: () => Endpoints.GET_ALL_GESTOR_REQUESTS,
-      providesTags: ["ALL_GESTOR_REQUESTS"],
-      transformResponse: (rawResult: GestorRequest[]) => {
-        return rawResult.map((result) => {
-          return { ...result, state: "pending" };
-        });
-      },
-    }),
-    resolveGestorRequest: builder.mutation<
-      GestorRequest,
-      Partial<GestorRequest>
-    >({
-      query(data) {
-        const { id, ...content } = data;
-        return {
-          url: getGestorRequestResolve(id!),
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: content.approved,
-        };
-      },
-      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
-        //Local update of admin panel summary
-        const patchResult = dispatch(
-          adminApi.util.updateQueryData(
-            "getAdminPanelSummary",
-            undefined,
-            (draft) => {
-              Object.assign(draft, {
-                pendingGestoringRequestCount:
-                  draft.pendingGestoringRequestCount - 1,
-              });
-            }
-          )
-        );
-
-        const patchResult2 = dispatch(
-          adminApi.util.updateQueryData(
-            "getAllGestorRequests",
-            undefined,
-            (draft) => {
-              Object.assign(
-                draft.find((request) => request.id === patch.id)!,
-                patch
-              );
-            }
-          )
-        );
-
-        try {
-          await queryFulfilled;
-        } catch {
-          patchResult.undo();
-          patchResult2.undo();
-        }
-      },
-      invalidatesTags: ["ALL_VOCABULARIES"],
     }),
     getAdminPanelSummary: builder.query<AdminPanelSummary, void>({
       query: () => Endpoints.GET_ADMIN_PANEL_SUMMARY,
@@ -232,7 +170,6 @@ export const adminApi = apiSlice.injectEndpoints({
   overrideExisting: false,
 });
 
-//TODO: INvalidate admin panel summary after manual adding of user as a gestor
 //TODO: invalidate admin data panel summary when redirecting? or after some time?
 
 export const {
@@ -240,7 +177,5 @@ export const {
   useAddGestorToVocabularyMutation,
   useRemoveGestorFromVocabularyMutation,
   useModifyAdminMutation,
-  useGetAllGestorRequestsQuery,
   useGetAdminPanelSummaryQuery,
-  useResolveGestorRequestMutation,
 } = adminApi;

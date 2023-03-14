@@ -15,7 +15,7 @@ import { useIntl } from "react-intl";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import { GestorRequest } from "../../../model/GestorRequest";
-import { useResolveGestorRequestMutation } from "../../../api/adminApi";
+import { useResolveGestorRequestMutation } from "../../../api/gestorRequestApi";
 
 interface GestorRequestAccordionProps {
   vocabulary: VocabularyData;
