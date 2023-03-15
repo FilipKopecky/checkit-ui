@@ -35,5 +35,7 @@
   "all": "Všechny",
   "gestored": "Gestorované",
   "requested": "Vyžádané",
-  "no-result": "Nebyly nalezeny žádné výsledky"
+  "no-result": "Nebyly nalezeny žádné výsledky",
+  "gestor-request-created": "Žádost o gestorování byla vytvořena",
+  "something-went-wrong": "Něco se pokazilo"
 }

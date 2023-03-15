@@ -22,6 +22,7 @@ import { useIntl } from "react-intl";
 import SearchIcon from "@mui/icons-material/Search";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
+import { useSnackbar } from "notistack";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -32,6 +33,7 @@ const CurrentUserSummary: React.FC = () => {
   const [filterText, setFilterText] = useState("");
   const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
   const [modalOpen, setModalOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const intl = useIntl();
 
   const disabledElements = useMemo(() => {
@@ -51,9 +53,23 @@ const CurrentUserSummary: React.FC = () => {
   const handleAddGestorRequest = useCallback(
     (vocabulary: Vocabulary) => {
       console.log(myRequests);
-      addGestorRequest({ uri: vocabulary.uri });
+      addGestorRequest({ uri: vocabulary.uri })
+        .unwrap()
+        .then(() => {
+          enqueueSnackbar(
+            intl.formatMessage({ id: "gestor-request-created" }),
+            {
+              variant: "success",
+            }
+          );
+        })
+        .catch(() => {
+          enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
+            variant: "error",
+          });
+        });
     },
-    [addGestorRequest, myRequests]
+    [addGestorRequest, myRequests, enqueueSnackbar, intl]
   );
 
   const handleTextFilterChange = (
