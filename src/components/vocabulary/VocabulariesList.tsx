@@ -7,6 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import ListItemText from "@mui/material/ListItemText";
 import UsersAvatarGroup from "../users/UsersAvatarGroup";
 import { Box } from "@mui/material";
+import { useIntl } from "react-intl";
+import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 
 interface VocabulariesListProps {
   vocabularies: Vocabulary[];
@@ -23,6 +25,7 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
   actionIcon,
   disabled = () => false,
 }) => {
+  const intl = useIntl();
   const itemContent = (index: any, vocabulary: any) => {
     return (
       <InnerItem
@@ -39,7 +42,10 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
   return (
     <Virtuoso
       style={{ height: 400 }}
-      components={{ List }}
+      components={{
+        List,
+        EmptyPlaceholder: EmptyPlaceholder,
+      }}
       data={vocabularies}
       itemContent={itemContent}
     />

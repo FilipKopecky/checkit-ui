@@ -34,5 +34,6 @@
   "without-gestors": "Bez gestora",
   "all": "Všechny",
   "gestored": "Gestorované",
-  "requested": "Vyžádané"
+  "requested": "Vyžádané",
+  "no-result": "Nebyly nalezeny žádné výsledky"
 }

@@ -34,5 +34,6 @@
   "without-gestors": "Without gestor",
   "all": "All",
   "gestored": "Gestored",
-  "requested": "Requested"
+  "requested": "Requested",
+  "no-result": "No results were found"
 }

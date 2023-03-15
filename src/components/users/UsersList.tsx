@@ -3,6 +3,7 @@ import UserListItem from "./UserListItem";
 import { User } from "../../model/User";
 import { Virtuoso } from "react-virtuoso";
 import List from "../misc/VirtuosoMuiList";
+import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 
 interface UsersListProps {
   users: User[];
@@ -51,7 +52,7 @@ const UsersList: React.FC<UsersListProps> = ({
   return (
     <Virtuoso
       style={{ height: 300 }}
-      components={{ List }}
+      components={{ List, EmptyPlaceholder: EmptyPlaceholder }}
       data={users}
       itemContent={itemContent}
     />
