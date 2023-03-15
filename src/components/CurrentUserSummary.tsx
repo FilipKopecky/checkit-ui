@@ -21,6 +21,7 @@ import {
 import { useIntl } from "react-intl";
 import SearchIcon from "@mui/icons-material/Search";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
+import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -29,6 +30,8 @@ const CurrentUserSummary: React.FC = () => {
   const [addGestorRequest] = useAddGestorRequestMutation();
   const [activeTab, setActiveTab] = useState("all");
   const [filterText, setFilterText] = useState("");
+  const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
+  const [modalOpen, setModalOpen] = useState(false);
   const intl = useIntl();
 
   const disabledElements = useMemo(() => {
@@ -57,6 +60,14 @@ const CurrentUserSummary: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setFilterText(event.target.value);
+  };
+
+  const handleGestorsClick = (vocabulary: Vocabulary) => {
+    //To make sure that the vocabulary is passed
+    setSelectedVocabulary(() => {
+      return vocabulary;
+    });
+    setModalOpen(true);
   };
 
   const displayedData: Vocabulary[] = useMemo(() => {
@@ -121,6 +132,12 @@ const CurrentUserSummary: React.FC = () => {
             action={handleAddGestorRequest}
             actionIcon={<EmojiPeopleOutlinedIcon />}
             disabled={disableElement}
+            gestorsClick={handleGestorsClick}
+          />
+          <VocabularyGestorsModal
+            vocabulary={selectedVocabulary}
+            open={modalOpen}
+            setOpen={setModalOpen}
           />
         </Box>
       </Paper>

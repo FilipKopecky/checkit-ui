@@ -4,12 +4,12 @@ import IconButton from "@mui/material/IconButton";
 import { ListItemAvatar } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import UserAvatar from "./UserAvatar";
-import { User } from "../../model/User";
+import { User, UserData } from "../../model/User";
 
 interface UserListItemProps {
   user: User;
-  performAction: () => void;
-  icon: React.ReactNode;
+  performAction?: (user: UserData) => void;
+  icon?: React.ReactNode;
   disableAction?: boolean;
 }
 
@@ -22,14 +22,16 @@ const UserListItem: React.FC<UserListItemProps> = ({
   return (
     <ListItem
       secondaryAction={
-        <IconButton
-          edge="end"
-          aria-label="delete"
-          onClick={performAction}
-          disabled={disableAction}
-        >
-          {icon}
-        </IconButton>
+        performAction ? (
+          <IconButton
+            edge="end"
+            aria-label="delete"
+            onClick={() => performAction(user)}
+            disabled={disableAction}
+          >
+            {icon}
+          </IconButton>
+        ) : undefined
       }
     >
       <ListItemAvatar>

@@ -11,6 +11,7 @@ import { Box } from "@mui/material";
 interface VocabulariesListProps {
   vocabularies: Vocabulary[];
   action?: (vocabulary: Vocabulary) => void;
+  gestorsClick: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
   disabled?: (user: Vocabulary) => boolean;
 }
@@ -18,6 +19,7 @@ interface VocabulariesListProps {
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
   vocabularies,
   action,
+  gestorsClick,
   actionIcon,
   disabled = () => false,
 }) => {
@@ -29,6 +31,7 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
         callback={action}
         icon={actionIcon}
         disabled={disabled}
+        gestorsClick={gestorsClick}
       />
     );
   };
@@ -48,12 +51,14 @@ const InnerItem = React.memo(
     index,
     vocabulary,
     callback,
+    gestorsClick,
     icon,
     disabled,
   }: {
     index: number;
     vocabulary: Vocabulary;
     callback?: (vocabulary: Vocabulary) => void;
+    gestorsClick: (vocabulary: Vocabulary) => void;
     icon: React.ReactNode;
     disabled: (user: Vocabulary) => boolean;
   }) => {
@@ -81,7 +86,11 @@ const InnerItem = React.memo(
           <ListItemText primary={vocabulary.label} />
           <Box mr={4}>
             {vocabulary.gestors.length > 0 && (
-              <UsersAvatarGroup users={vocabulary.gestors} maxAvatars={4} />
+              <UsersAvatarGroup
+                users={vocabulary.gestors}
+                maxAvatars={4}
+                onClick={() => gestorsClick(vocabulary)}
+              />
             )}
           </Box>
         </ListItem>

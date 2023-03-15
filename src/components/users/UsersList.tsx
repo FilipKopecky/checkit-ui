@@ -6,8 +6,8 @@ import List from "../misc/VirtuosoMuiList";
 
 interface UsersListProps {
   users: User[];
-  performAction: (user: User) => void;
-  icon: React.ReactNode;
+  performAction?: (user: User) => void;
+  icon?: React.ReactNode;
   disabled?: (user: User) => boolean;
 }
 
@@ -17,7 +17,7 @@ const InnerItem = React.memo(
       <UserListItem
         key={user.id}
         user={user}
-        performAction={() => performAction(user)}
+        performAction={performAction}
         icon={icon}
         disableAction={disabled(user)}
       />
