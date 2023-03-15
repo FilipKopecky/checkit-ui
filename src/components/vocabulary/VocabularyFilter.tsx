@@ -1,6 +1,9 @@
 import React from "react";
 import { Box, Chip } from "@mui/material";
 import { useIntl } from "react-intl";
+import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
+import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 
 interface VocabularyFilterProps {
   activeTab: string;
@@ -18,16 +21,19 @@ const VocabularyFilter: React.FC<VocabularyFilterProps> = ({
         label={intl.formatMessage({ id: "all" })}
         variant={activeTab === "all" ? "filled" : "outlined"}
         onClick={() => setActiveTab("all")}
+        icon={<Inventory2OutlinedIcon />}
       />
       <Chip
         label={intl.formatMessage({ id: "gestored-vocabularies" })}
         variant={activeTab === "gestoring" ? "filled" : "outlined"}
         onClick={() => setActiveTab("gestoring")}
+        icon={<LocalLibraryOutlinedIcon />}
       />
       <Chip
         label={intl.formatMessage({ id: "requested-vocabularies" })}
         variant={activeTab === "requested" ? "filled" : "outlined"}
         onClick={() => setActiveTab("requested")}
+        icon={<EmojiPeopleOutlinedIcon />}
       />
     </Box>
   );
