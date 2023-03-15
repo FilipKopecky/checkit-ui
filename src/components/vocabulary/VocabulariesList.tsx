@@ -7,7 +7,6 @@ import IconButton from "@mui/material/IconButton";
 import ListItemText from "@mui/material/ListItemText";
 import UsersAvatarGroup from "../users/UsersAvatarGroup";
 import { Box } from "@mui/material";
-import { useIntl } from "react-intl";
 import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 
 interface VocabulariesListProps {
@@ -15,7 +14,9 @@ interface VocabulariesListProps {
   action?: (vocabulary: Vocabulary) => void;
   gestorsClick: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
-  disabled?: (user: Vocabulary) => boolean;
+  disabled?: (vocabulary: Vocabulary) => boolean;
+  showAdditionalInfo?: (vocabulary: Vocabulary) => boolean;
+  additionalInfo?: React.ReactNode;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
@@ -24,8 +25,9 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
   gestorsClick,
   actionIcon,
   disabled = () => false,
+  showAdditionalInfo = () => false,
+  additionalInfo,
 }) => {
-  const intl = useIntl();
   const itemContent = (index: any, vocabulary: any) => {
     return (
       <InnerItem
@@ -35,6 +37,8 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
         icon={actionIcon}
         disabled={disabled}
         gestorsClick={gestorsClick}
+        additionalInfo={additionalInfo}
+        showAdditionalInfo={showAdditionalInfo}
       />
     );
   };
@@ -60,14 +64,19 @@ const InnerItem = React.memo(
     gestorsClick,
     icon,
     disabled,
+    showAdditionalInfo,
+    additionalInfo,
   }: {
     index: number;
     vocabulary: Vocabulary;
     callback?: (vocabulary: Vocabulary) => void;
     gestorsClick: (vocabulary: Vocabulary) => void;
     icon: React.ReactNode;
-    disabled: (user: Vocabulary) => boolean;
+    disabled: (vocabulary: Vocabulary) => boolean;
+    showAdditionalInfo: (vocabulary: Vocabulary) => boolean;
+    additionalInfo?: React.ReactNode;
   }) => {
+    const elementDisabled = disabled(vocabulary);
     return (
       <>
         <ListItem
@@ -78,7 +87,7 @@ const InnerItem = React.memo(
           secondaryAction={
             callback ? (
               <IconButton
-                disabled={disabled(vocabulary)}
+                disabled={elementDisabled}
                 edge="end"
                 onClick={() => {
                   callback(vocabulary);
@@ -90,7 +99,9 @@ const InnerItem = React.memo(
           }
         >
           <ListItemText primary={vocabulary.label} />
-          <Box mr={4}>
+          <Box>{showAdditionalInfo(vocabulary) && additionalInfo}</Box>
+          <Box mr={4} display={"flex"} width={"110px"}>
+            <Box width={"100%"}></Box>
             {vocabulary.gestors.length > 0 && (
               <UsersAvatarGroup
                 users={vocabulary.gestors}

@@ -34,6 +34,7 @@
   "without-gestors": "Without gestor",
   "all": "All",
   "gestored": "Gestored",
+  "requested-vocabularies": "Requested",
   "requested": "Requested",
   "no-result": "No results were found",
   "gestor-request-created": "Gestor request was created",

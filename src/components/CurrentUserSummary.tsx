@@ -23,6 +23,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
 import { useSnackbar } from "notistack";
+import RequestedBadge from "./vocabulary/RequestedBadge";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -49,20 +50,20 @@ const CurrentUserSummary: React.FC = () => {
     return disabledElements?.some((v) => v.uri === vocabulary.uri) ?? false;
   };
 
+  const showAditional = (vocabulary: Vocabulary): boolean => {
+    return (
+      myRequests?.some(
+        (request) => request.vocabulary.uri === vocabulary.uri
+      ) ?? false
+    );
+  };
+
   //TODO: Kinda hacky way how to re-enforce the render, should find a diff way
   const handleAddGestorRequest = useCallback(
     (vocabulary: Vocabulary) => {
       console.log(myRequests);
       addGestorRequest({ uri: vocabulary.uri })
         .unwrap()
-        .then(() => {
-          enqueueSnackbar(
-            intl.formatMessage({ id: "gestor-request-created" }),
-            {
-              variant: "success",
-            }
-          );
-        })
         .catch(() => {
           enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
             variant: "error",
@@ -149,6 +150,10 @@ const CurrentUserSummary: React.FC = () => {
             actionIcon={<EmojiPeopleOutlinedIcon />}
             disabled={disableElement}
             gestorsClick={handleGestorsClick}
+            additionalInfo={
+              <RequestedBadge label={intl.formatMessage({ id: "requested" })} />
+            }
+            showAdditionalInfo={showAditional}
           />
           <VocabularyGestorsModal
             vocabulary={selectedVocabulary}

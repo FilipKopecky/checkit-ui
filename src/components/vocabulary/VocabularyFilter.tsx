@@ -25,7 +25,7 @@ const VocabularyFilter: React.FC<VocabularyFilterProps> = ({
         onClick={() => setActiveTab("gestoring")}
       />
       <Chip
-        label={intl.formatMessage({ id: "requested" })}
+        label={intl.formatMessage({ id: "requested-vocabularies" })}
         variant={activeTab === "requested" ? "filled" : "outlined"}
         onClick={() => setActiveTab("requested")}
       />
