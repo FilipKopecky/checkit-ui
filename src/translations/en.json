@@ -33,9 +33,10 @@
   "see-gestors": "Show gestors",
   "without-gestors": "Without gestor",
   "all": "All",
-  "gestored": "Gestored",
+  "gestored-vocabularies": "Gestored",
   "requested-vocabularies": "Requested",
   "requested": "Requested",
+  "gestored": "Gestored",
   "no-result": "No results were found",
   "gestor-request-created": "Gestor request was created",
   "something-went-wrong": "Something went wrong"

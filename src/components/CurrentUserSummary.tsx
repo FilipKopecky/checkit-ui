@@ -24,6 +24,7 @@ import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
 import { useSnackbar } from "notistack";
 import RequestedBadge from "./vocabulary/RequestedBadge";
+import GestoredBadge from "./vocabulary/GestoredBadge";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -50,12 +51,14 @@ const CurrentUserSummary: React.FC = () => {
     return disabledElements?.some((v) => v.uri === vocabulary.uri) ?? false;
   };
 
-  const showAditional = (vocabulary: Vocabulary): boolean => {
-    return (
-      myRequests?.some(
-        (request) => request.vocabulary.uri === vocabulary.uri
-      ) ?? false
-    );
+  const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
+    if (myRequests?.some((r) => r.vocabulary.uri === vocabulary.uri)) {
+      return <RequestedBadge label={intl.formatMessage({ id: "requested" })} />;
+    }
+    if (myGestored?.some((v) => v.uri === vocabulary.uri)) {
+      return <GestoredBadge label={intl.formatMessage({ id: "gestored" })} />;
+    }
+    return <></>;
   };
 
   //TODO: Kinda hacky way how to re-enforce the render, should find a diff way
@@ -150,10 +153,7 @@ const CurrentUserSummary: React.FC = () => {
             actionIcon={<EmojiPeopleOutlinedIcon />}
             disabled={disableElement}
             gestorsClick={handleGestorsClick}
-            additionalInfo={
-              <RequestedBadge label={intl.formatMessage({ id: "requested" })} />
-            }
-            showAdditionalInfo={showAditional}
+            additionalInfo={showAditional}
           />
           <VocabularyGestorsModal
             vocabulary={selectedVocabulary}

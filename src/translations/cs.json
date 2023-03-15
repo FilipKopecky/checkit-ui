@@ -33,9 +33,10 @@
   "see-gestors": "Zobrazit gestory",
   "without-gestors": "Bez gestora",
   "all": "Všechny",
-  "gestored": "Gestorované",
+  "gestored-vocabularies": "Gestorované",
   "requested-vocabularies": "Vyžádané",
   "requested": "Vyžádáno",
+  "gestored": "Gestoruji",
   "no-result": "Nebyly nalezeny žádné výsledky",
   "gestor-request-created": "Žádost o gestorování byla vytvořena",
   "something-went-wrong": "Něco se pokazilo"

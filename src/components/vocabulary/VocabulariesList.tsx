@@ -15,8 +15,7 @@ interface VocabulariesListProps {
   gestorsClick: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
   disabled?: (vocabulary: Vocabulary) => boolean;
-  showAdditionalInfo?: (vocabulary: Vocabulary) => boolean;
-  additionalInfo?: React.ReactNode;
+  additionalInfo?: (vocabulary: Vocabulary) => React.ReactNode;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
@@ -25,8 +24,7 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
   gestorsClick,
   actionIcon,
   disabled = () => false,
-  showAdditionalInfo = () => false,
-  additionalInfo,
+  additionalInfo = () => undefined,
 }) => {
   const itemContent = (index: any, vocabulary: any) => {
     return (
@@ -38,7 +36,6 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
         disabled={disabled}
         gestorsClick={gestorsClick}
         additionalInfo={additionalInfo}
-        showAdditionalInfo={showAdditionalInfo}
       />
     );
   };
@@ -64,7 +61,6 @@ const InnerItem = React.memo(
     gestorsClick,
     icon,
     disabled,
-    showAdditionalInfo,
     additionalInfo,
   }: {
     index: number;
@@ -73,8 +69,7 @@ const InnerItem = React.memo(
     gestorsClick: (vocabulary: Vocabulary) => void;
     icon: React.ReactNode;
     disabled: (vocabulary: Vocabulary) => boolean;
-    showAdditionalInfo: (vocabulary: Vocabulary) => boolean;
-    additionalInfo?: React.ReactNode;
+    additionalInfo: (vocabulary: Vocabulary) => React.ReactNode;
   }) => {
     const elementDisabled = disabled(vocabulary);
     return (
@@ -99,7 +94,7 @@ const InnerItem = React.memo(
           }
         >
           <ListItemText primary={vocabulary.label} />
-          <Box>{showAdditionalInfo(vocabulary) && additionalInfo}</Box>
+          <Box>{additionalInfo(vocabulary)}</Box>
           <Box mr={4} display={"flex"} width={"110px"}>
             <Box width={"100%"}></Box>
             {vocabulary.gestors.length > 0 && (
