@@ -1,14 +1,12 @@
 import React, { Suspense } from "react";
 import { Box, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
-
 import AdminPanelContent from "./AdminPanelContent";
 import { styled } from "@mui/material/styles";
 import ManageAdminNavigationButton from "./navigation/ManageAdminNavigationButton";
 import ManageVocabulariesNavigationButton from "./navigation/ManageVocabulariesNavigationButton";
 import ManageGestorRequestsNavigationButton from "./navigation/ManageGestorRequestsNavigationButton";
 
-//TODO: Implement real data
 const AdminPanel: React.FC = () => {
   const intl = useIntl();
   return (

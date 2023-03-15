@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Chip } from "@mui/material";
+import { useIntl } from "react-intl";
 
 interface VocabularyFilterProps {
   activeTab: string;
@@ -10,20 +11,21 @@ const VocabularyFilter: React.FC<VocabularyFilterProps> = ({
   activeTab,
   setActiveTab,
 }) => {
+  const intl = useIntl();
   return (
-    <Box display={"flex"}>
+    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
       <Chip
-        label="All"
+        label={intl.formatMessage({ id: "all" })}
         variant={activeTab === "all" ? "filled" : "outlined"}
         onClick={() => setActiveTab("all")}
       />
       <Chip
-        label="Gestoring"
+        label={intl.formatMessage({ id: "gestored" })}
         variant={activeTab === "gestoring" ? "filled" : "outlined"}
         onClick={() => setActiveTab("gestoring")}
       />
       <Chip
-        label="Requested"
+        label={intl.formatMessage({ id: "requested" })}
         variant={activeTab === "requested" ? "filled" : "outlined"}
         onClick={() => setActiveTab("requested")}
       />

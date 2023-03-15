@@ -5,17 +5,21 @@ import List from "../misc/VirtuosoMuiList";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
 import ListItemText from "@mui/material/ListItemText";
+import UsersAvatarGroup from "../users/UsersAvatarGroup";
+import { Box } from "@mui/material";
 
 interface VocabulariesListProps {
   vocabularies: Vocabulary[];
   action?: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
+  disabled?: (user: Vocabulary) => boolean;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
   vocabularies,
   action,
   actionIcon,
+  disabled = () => false,
 }) => {
   const itemContent = (index: any, vocabulary: any) => {
     return (
@@ -24,6 +28,7 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
         vocabulary={vocabulary}
         callback={action}
         icon={actionIcon}
+        disabled={disabled}
       />
     );
   };
@@ -39,7 +44,19 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
 };
 
 const InnerItem = React.memo(
-  ({ index, vocabulary, callback, icon }: any) => {
+  ({
+    index,
+    vocabulary,
+    callback,
+    icon,
+    disabled,
+  }: {
+    index: number;
+    vocabulary: Vocabulary;
+    callback?: (vocabulary: Vocabulary) => void;
+    icon: React.ReactNode;
+    disabled: (user: Vocabulary) => boolean;
+  }) => {
     return (
       <>
         <ListItem
@@ -50,6 +67,7 @@ const InnerItem = React.memo(
           secondaryAction={
             callback ? (
               <IconButton
+                disabled={disabled(vocabulary)}
                 edge="end"
                 onClick={() => {
                   callback(vocabulary);
@@ -61,6 +79,11 @@ const InnerItem = React.memo(
           }
         >
           <ListItemText primary={vocabulary.label} />
+          <Box mr={4}>
+            {vocabulary.gestors.length > 0 && (
+              <UsersAvatarGroup users={vocabulary.gestors} maxAvatars={4} />
+            )}
+          </Box>
         </ListItem>
       </>
     );

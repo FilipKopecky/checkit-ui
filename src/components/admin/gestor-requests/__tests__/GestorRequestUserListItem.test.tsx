@@ -12,13 +12,12 @@ const mockedUser: User = {
   id: "",
   lastName: "Doe",
 };
-const fnAccept = vi.fn();
-const fnDecline = vi.fn();
 
 describe("Gestor request user list item", () => {
   test("In pending state request should show action buttons that call actions", async () => {
     const status = "pending";
-
+    const fnAccept = vi.fn();
+    const fnDecline = vi.fn();
     renderWithProviders(
       <GestorRequestUserListItem
         user={mockedUser}
@@ -43,7 +42,8 @@ describe("Gestor request user list item", () => {
   });
   test("In accepted state there should not be any actions available", async () => {
     const status = "accepted";
-
+    const fnAccept = vi.fn();
+    const fnDecline = vi.fn();
     renderWithProviders(
       <GestorRequestUserListItem
         user={mockedUser}
@@ -71,6 +71,8 @@ describe("Gestor request user list item", () => {
   });
   test("The user name should be visible ", async () => {
     const status = "accepted";
+    const fnAccept = vi.fn();
+    const fnDecline = vi.fn();
     renderWithProviders(
       <GestorRequestUserListItem
         user={mockedUser}

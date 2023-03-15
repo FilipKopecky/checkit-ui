@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import {
   useGetAllUsersQuery,
   useModifyAdminMutation,
-} from "../../api/apiSlice";
+} from "../../api/adminApi";
 import UsersList from "../users/UsersList";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { User } from "../../model/User";

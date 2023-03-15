@@ -3,9 +3,11 @@ import AdminNavigationButton from "./AdminNavigationButton";
 import Constants from "../../../utils/Constants";
 import stackedBooksImage from "../../../assets/stacked-books.svg";
 import { useIntl } from "react-intl";
+import { useGetAdminPanelSummaryQuery } from "../../../api/adminApi";
 
 const ManageVocabulariesNavigationButton: React.FC = () => {
   const intl = useIntl();
+  const { data } = useGetAdminPanelSummaryQuery();
   return (
     <AdminNavigationButton
       id={Constants.ADMIN.PANEL.VOCABULARIES}
@@ -14,8 +16,8 @@ const ManageVocabulariesNavigationButton: React.FC = () => {
       header={intl.formatMessage({
         id: "admin-panel-assigned-vocabularies-navigation",
       })}
-      count={"47"}
-      outOf={"73"}
+      count={`${data?.vocabularyWithGestorCount ?? 0}`}
+      outOf={`${data?.vocabularyCount ?? 0}`}
     />
   );
 };

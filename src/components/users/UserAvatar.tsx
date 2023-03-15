@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, AvatarProps } from "@mui/material";
 
 const stringToColor = (string: string): string => {
   let hash = 0;
@@ -18,10 +18,11 @@ const stringToColor = (string: string): string => {
   return color;
 };
 
-const stringAvatar = (firstName: string, lastName: string) => {
+const stringAvatar = (firstName: string, lastName: string, passedSx?: any) => {
   return {
     sx: {
       bgcolor: stringToColor(`${firstName} ${lastName}`),
+      ...passedSx,
     },
     children: `${firstName[0]}${lastName[0]}`,
   };
@@ -32,8 +33,12 @@ interface UserAvatarProps {
   lastName: string;
 }
 
-const UserAvatar: React.FC<UserAvatarProps> = ({ firstName, lastName }) => {
-  return <Avatar {...stringAvatar(firstName, lastName)} />;
+const UserAvatar: React.FC<UserAvatarProps & AvatarProps> = ({
+  firstName,
+  lastName,
+  sx,
+}) => {
+  return <Avatar {...stringAvatar(firstName, lastName, sx)} />;
 };
 
 export default UserAvatar;

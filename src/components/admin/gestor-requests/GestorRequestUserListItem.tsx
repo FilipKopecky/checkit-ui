@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../../../model/User";
+import { UserData } from "../../../model/User";
 import ListItem from "@mui/material/ListItem";
 import {
   Box,
@@ -15,7 +15,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { useIntl } from "react-intl";
 
 interface GestorRequestUserListItemProps {
-  user: User;
+  user: UserData;
   status: string;
   acceptAction: () => void;
   declineAction: () => void;

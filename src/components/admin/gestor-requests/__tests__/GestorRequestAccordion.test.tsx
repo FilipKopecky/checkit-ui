@@ -5,6 +5,7 @@ import React from "react";
 import { User } from "../../../../model/User";
 import { Vocabulary } from "../../../../model/Vocabulary";
 import GestorRequestAccordion from "../GestorRequestAccordion";
+import { GestorRequest } from "../../../../model/GestorRequest";
 
 const mockedUser: User = {
   admin: false,
@@ -20,12 +21,21 @@ const mockedVocabulary: Vocabulary = {
   uri: "",
 };
 
+const mockedRequest: GestorRequest = {
+  applicant: mockedUser,
+  created: new Date(Date.now()),
+  id: "",
+  state: "",
+  uri: "",
+  vocabulary: mockedVocabulary,
+};
+
 describe("Gestor request accordion ", () => {
   test("The label of requested vocabulary should be present", async () => {
     renderWithProviders(
       <GestorRequestAccordion
         vocabulary={mockedVocabulary}
-        users={[mockedUser]}
+        gestorRequests={[mockedRequest]}
       />
     );
     expect(screen.getByText(mockedVocabulary.label)).toBeInTheDocument();
@@ -34,7 +44,7 @@ describe("Gestor request accordion ", () => {
     renderWithProviders(
       <GestorRequestAccordion
         vocabulary={mockedVocabulary}
-        users={[mockedUser]}
+        gestorRequests={[mockedRequest]}
       />
     );
     const title = screen.getByText(mockedVocabulary.label);

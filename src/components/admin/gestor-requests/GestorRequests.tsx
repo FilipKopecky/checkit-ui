@@ -1,35 +1,45 @@
-import React from "react";
-import GestorRequestAccordion from "./GestorRequestAccordion";
+import React, { useMemo } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import { useIntl } from "react-intl";
-import {
-  useGetAllUsersQuery,
-  useGetAllVocabulariesQuery,
-} from "../../../api/apiSlice";
-import { User } from "../../../model/User";
+import { useGetAllGestorRequestsQuery } from "../../../api/gestorRequestApi";
+import { GestorRequest } from "../../../model/GestorRequest";
+import { VocabularyData } from "../../../model/Vocabulary";
+import GestorRequestAccordion from "./GestorRequestAccordion";
+
+//TODO: move this value to some utility
+//helper function that returns void as a value
+let voidValue = (function () {})();
 const GestorRequests: React.FC = () => {
   const intl = useIntl();
+  const { data: gRequests } = useGetAllGestorRequestsQuery(voidValue, {
+    refetchOnMountOrArgChange: true,
+  });
 
-  /** Data mock */
-  const { data: vocabularies } = useGetAllVocabulariesQuery();
-  const { data: users } = useGetAllUsersQuery();
-  if (!vocabularies || !users) return <></>;
+  let content = useMemo(() => {
+    let temp = [];
+    if (gRequests) {
+      const grouped = gRequests.reduce<{
+        [key: string]: GestorRequest[];
+      }>(function (r, a) {
+        r[a.vocabulary.uri] = r[a.vocabulary.uri] || [];
+        r[a.vocabulary.uri].push(a);
+        return r;
+      }, Object.create(null));
 
-  const mockedRequests = 3;
-  const mockedRequestsData = [];
-  for (let i = 0; i < mockedRequests; i++) {
-    const randomUsers: User[] = [];
-    for (let j = 0; j < i + 1; j++) {
-      const randomUser = users![getRandomInt(users!.length)];
-      randomUsers.push(randomUser);
+      for (const [key, value] of Object.entries(grouped)) {
+        const vocabulary: VocabularyData = value[0].vocabulary;
+        temp.push(
+          <Box mb={2} key={key}>
+            <GestorRequestAccordion
+              vocabulary={vocabulary}
+              gestorRequests={value}
+            />
+          </Box>
+        );
+      }
     }
-    const randomVocabulary = vocabularies![getRandomInt(vocabularies!.length)];
-    const request = { vocabulary: randomVocabulary, users: randomUsers };
-    mockedRequestsData.push(request);
-  }
-  /** Data mock */
-
-  //TODO: Fetch on mount
+    return temp;
+  }, [gRequests]);
 
   return (
     <Box px={3} mt={6}>
@@ -42,25 +52,10 @@ const GestorRequests: React.FC = () => {
             <hr />
           </Box>
         </Box>
-        <Box sx={{ paddingBottom: 3 }}>
-          {mockedRequestsData.map((request) => {
-            return (
-              <Box mb={2} key={request.vocabulary.uri}>
-                <GestorRequestAccordion
-                  vocabulary={request.vocabulary}
-                  users={request.users}
-                />
-              </Box>
-            );
-          })}
-        </Box>
+        <Box sx={{ paddingBottom: 3 }}>{content}</Box>
       </Paper>
     </Box>
   );
 };
-
-function getRandomInt(max: number) {
-  return Math.floor(Math.random() * max);
-}
 
 export default GestorRequests;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -9,23 +9,31 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import List from "@mui/material/List";
-import { Vocabulary } from "../../../model/Vocabulary";
-import { User } from "../../../model/User";
+import { VocabularyData } from "../../../model/Vocabulary";
 import GestorRequestUserAction from "./GestorRequestUserAction";
 import { useIntl } from "react-intl";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import { GestorRequest } from "../../../model/GestorRequest";
+import { useResolveGestorRequestMutation } from "../../../api/gestorRequestApi";
 
 interface GestorRequestAccordionProps {
-  vocabulary: Vocabulary;
-  users: User[];
+  vocabulary: VocabularyData;
+  gestorRequests: GestorRequest[];
 }
 const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
   vocabulary,
-  users,
+  gestorRequests,
 }) => {
   const intl = useIntl();
-  const [reviewsDone, setReviewDone] = useState<number>(0);
+  const [resolveGestorRequest] = useResolveGestorRequestMutation();
+  const handleCallback = (request: GestorRequest, accepted: boolean) => {
+    resolveGestorRequest({
+      approved: accepted,
+      id: request.id,
+      state: accepted ? "accepted" : "declined",
+    });
+  };
 
   return (
     <Box px={2} sx={{ color: "white" }}>
@@ -47,7 +55,7 @@ const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
           >
             <Typography variant={"body1"}>{vocabulary.label}</Typography>
             <Box sx={{ textTransform: "uppercase", marginRight: 2 }}>
-              {reviewsDone !== users.length ? (
+              {gestorRequests.some((request) => request.state === "pending") ? (
                 <Chip
                   label={intl.formatMessage({ id: "pending" })}
                   color="warning"
@@ -69,13 +77,14 @@ const GestorRequestAccordion: React.FC<GestorRequestAccordionProps> = ({
         </AccordionSummary>
         <AccordionDetails>
           <List>
-            {users.map((user) => {
+            {gestorRequests.map((request) => {
               return (
                 <GestorRequestUserAction
-                  user={user}
+                  user={request.applicant}
                   vocabulary={vocabulary}
-                  key={user.id + vocabulary.uri}
-                  performActionCallback={() => setReviewDone(reviewsDone + 1)}
+                  key={request.applicant.id + vocabulary.uri}
+                  performActionCallback={handleCallback}
+                  gestorRequest={request}
                 />
               );
             })}

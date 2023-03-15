@@ -29,5 +29,10 @@
   "declined": "Declined",
   "done": "Finished",
   "pending": "Unfinished",
-  "search-vocabulary-by-label": "Search for vocabulary"
+  "search-vocabulary-by-label": "Search for vocabulary",
+  "see-gestors": "Show gestors",
+  "without-gestors": "Without gestor",
+  "all": "All",
+  "gestored": "Gestored",
+  "requested": "Requested"
 }

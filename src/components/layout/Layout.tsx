@@ -15,7 +15,7 @@ import LanguageSelector from "../LanguageSelector";
 import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import { logout, selectUser } from "../../slices/userSlice";
 import SideBarContent from "./SideBarContent";
-import { useGetCurrentUserQuery } from "../../api/apiSlice";
+import { useGetCurrentUserQuery } from "../../api/userApi";
 
 const drawerWidth = 240;
 
