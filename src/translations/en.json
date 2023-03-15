@@ -31,5 +31,8 @@
   "pending": "Unfinished",
   "search-vocabulary-by-label": "Search for vocabulary",
   "see-gestors": "Show gestors",
-  "without-gestors": "Without gestor"
+  "without-gestors": "Without gestor",
+  "all": "All",
+  "gestored": "Gestored",
+  "requested": "Requested"
 }

@@ -31,5 +31,8 @@
   "pending": "Nevyřízeno",
   "search-vocabulary-by-label": "Zadejte název slovníku",
   "see-gestors": "Zobrazit gestory",
-  "without-gestors": "Bez gestora"
+  "without-gestors": "Bez gestora",
+  "all": "Všechny",
+  "gestored": "Gestorované",
+  "requested": "Vyžádané"
 }

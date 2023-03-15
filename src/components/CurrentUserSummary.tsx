@@ -1,5 +1,11 @@
-import React, { useMemo, useState } from "react";
-import { Box } from "@mui/material";
+import React, { useCallback, useMemo, useState } from "react";
+import {
+  Box,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import {
   useGetAllVocabulariesQuery,
   useGetMyGestoredVocabulariesQuery,
@@ -12,6 +18,9 @@ import {
   useAddGestorRequestMutation,
   useGetMyGestorRequestsQuery,
 } from "../api/gestorRequestApi";
+import { useIntl } from "react-intl";
+import SearchIcon from "@mui/icons-material/Search";
+import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -19,6 +28,8 @@ const CurrentUserSummary: React.FC = () => {
   const { data: myRequests } = useGetMyGestorRequestsQuery();
   const [addGestorRequest] = useAddGestorRequestMutation();
   const [activeTab, setActiveTab] = useState("all");
+  const [filterText, setFilterText] = useState("");
+  const intl = useIntl();
 
   const disabledElements = useMemo(() => {
     return myGestored?.concat(
@@ -33,38 +44,94 @@ const CurrentUserSummary: React.FC = () => {
     return disabledElements?.some((v) => v.uri === vocabulary.uri) ?? false;
   };
 
-  const handleAddGestorRequest = (vocabulary: Vocabulary) => {
-    addGestorRequest({ uri: vocabulary.uri });
+  //TODO: Kinda hacky way how to re-enforce the render, should find a diff way
+  const handleAddGestorRequest = useCallback(
+    (vocabulary: Vocabulary) => {
+      console.log(myRequests);
+      addGestorRequest({ uri: vocabulary.uri });
+    },
+    [addGestorRequest, myRequests]
+  );
+
+  const handleTextFilterChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFilterText(event.target.value);
   };
 
   const displayedData: Vocabulary[] = useMemo(() => {
     if (!allVocabularies || !myGestored || !myRequests) return [];
     if (activeTab === "all") {
-      return allVocabularies;
+      return filterVocabulariesByLabel(allVocabularies, filterText);
     }
     if (activeTab === "gestoring") {
-      return myGestored;
+      return filterVocabulariesByLabel(myGestored, filterText);
     }
     if (activeTab === "requested") {
-      return myRequests.map((request) => {
-        return request.vocabulary;
-      });
+      return filterVocabulariesByLabel(
+        myRequests.map((request) => {
+          return request.vocabulary;
+        }),
+        filterText
+      );
     }
     return [];
-  }, [activeTab, allVocabularies, myGestored, myRequests]);
+  }, [activeTab, allVocabularies, myGestored, myRequests, filterText]);
 
   if (!allVocabularies) return <Box></Box>;
   return (
-    <Box>
-      <VocabularyFilter activeTab={activeTab} setActiveTab={setActiveTab} />
-      <VocabulariesList
-        vocabularies={displayedData}
-        action={handleAddGestorRequest}
-        actionIcon={<EmojiPeopleOutlinedIcon />}
-        disabled={disableElement}
-      />
+    <Box px={3} mt={2}>
+      <Paper>
+        <Box px={3} pt={2} pb={1}>
+          <Box
+            sx={{ display: "flex", justifyContent: "space-between", flex: 1 }}
+          >
+            <Typography variant={"h5"} gutterBottom={true}>
+              {intl.formatMessage({ id: "assignedVocabulariesHeader" })}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 3,
+              }}
+            >
+              <VocabularyFilter
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+              <TextField
+                size={"small"}
+                value={filterText}
+                onChange={handleTextFilterChange}
+                label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
+                InputProps={{
+                  endAdornment: endAdornment,
+                }}
+              />
+            </Box>
+          </Box>
+          <Box mb={2}>
+            <hr />
+          </Box>
+        </Box>
+
+        <Box px={2} pb={3}>
+          <VocabulariesList
+            vocabularies={displayedData}
+            action={handleAddGestorRequest}
+            actionIcon={<EmojiPeopleOutlinedIcon />}
+            disabled={disableElement}
+          />
+        </Box>
+      </Paper>
     </Box>
   );
 };
+
+const endAdornment = (
+  <InputAdornment position={"end"}>
+    <SearchIcon />
+  </InputAdornment>
+);
 
 export default CurrentUserSummary;

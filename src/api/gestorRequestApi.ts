@@ -87,6 +87,7 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
         };
       },
       invalidatesTags: [
+        "ALL_VOCABULARIES",
         "ALL_GESTOR_REQUESTS",
         "MY_GESTORING_REQUESTS",
         "ADMIN_PANEL_SUMMARY",
