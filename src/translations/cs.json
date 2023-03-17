@@ -1,13 +1,16 @@
 {
   "login": "Přihlásit se",
   "logout": "Odhlásit se",
-  "welcome": "Vítejte v nástroji CheckIt",
+  "welcome": "Vítejte zpět",
   "hero-text-main": "Spolupracujte a publikujte data",
   "hero-text-secondary": "Místo pro srovnání RDF",
   "home-navigation": "Domů",
-  "admin-panel-navigation": "Administrace",
+  "admin-panel-navigation": "Správa systému",
+  "admin-panel-navigation-description": "Vyřizujte gestorské žádosti, spravujte slovníky a přiřazujte práva",
   "publication-navigation": "Publikace",
+  "publication-navigation-description": "Procházejte nové publikace a porovnejte je s aktuální verzí",
   "gestor-request-navigation": "Gestorské právo",
+  "gestor-request-navigation-description":  "Staňte s gestorem dostupných slovníků a zjistěte kdo je gestoruje",
   "cs-CZ": "Čeština",
   "en": "English",
   "admin-panel-header": "Správcovský panel",
@@ -33,6 +36,11 @@
   "see-gestors": "Zobrazit gestory",
   "without-gestors": "Bez gestora",
   "all": "Všechny",
-  "gestored": "Gestorované",
-  "requested": "Vyžádané"
+  "gestored-vocabularies": "Gestorované",
+  "requested-vocabularies": "Vyžádané",
+  "requested": "Vyžádáno",
+  "gestored": "Gestoruji",
+  "no-result": "Nebyly nalezeny žádné výsledky",
+  "gestor-request-created": "Žádost o gestorování byla vytvořena",
+  "something-went-wrong": "Něco se pokazilo"
 }

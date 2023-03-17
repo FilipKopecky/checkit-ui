@@ -24,6 +24,7 @@ const AssignedVocabulariesList: React.FC<VocabularyListProps> = ({
         vocabularies={vocabularies}
         action={callback}
         actionIcon={<ManageAccountsOutlinedIcon />}
+        gestorsClick={(vocabulary) => console.log(vocabulary)}
       />
       <AssignedVocabulariesModal
         open={open}

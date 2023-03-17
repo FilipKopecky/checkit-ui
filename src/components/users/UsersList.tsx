@@ -3,11 +3,12 @@ import UserListItem from "./UserListItem";
 import { User } from "../../model/User";
 import { Virtuoso } from "react-virtuoso";
 import List from "../misc/VirtuosoMuiList";
+import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 
 interface UsersListProps {
   users: User[];
-  performAction: (user: User) => void;
-  icon: React.ReactNode;
+  performAction?: (user: User) => void;
+  icon?: React.ReactNode;
   disabled?: (user: User) => boolean;
 }
 
@@ -17,7 +18,7 @@ const InnerItem = React.memo(
       <UserListItem
         key={user.id}
         user={user}
-        performAction={() => performAction(user)}
+        performAction={performAction}
         icon={icon}
         disableAction={disabled(user)}
       />
@@ -51,7 +52,7 @@ const UsersList: React.FC<UsersListProps> = ({
   return (
     <Virtuoso
       style={{ height: 300 }}
-      components={{ List }}
+      components={{ List, EmptyPlaceholder: EmptyPlaceholder }}
       data={users}
       itemContent={itemContent}
     />

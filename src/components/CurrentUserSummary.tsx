@@ -21,6 +21,10 @@ import {
 import { useIntl } from "react-intl";
 import SearchIcon from "@mui/icons-material/Search";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
+import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
+import { useSnackbar } from "notistack";
+import RequestedBadge from "./vocabulary/RequestedBadge";
+import GestoredBadge from "./vocabulary/GestoredBadge";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -29,6 +33,9 @@ const CurrentUserSummary: React.FC = () => {
   const [addGestorRequest] = useAddGestorRequestMutation();
   const [activeTab, setActiveTab] = useState("all");
   const [filterText, setFilterText] = useState("");
+  const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
+  const [modalOpen, setModalOpen] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const intl = useIntl();
 
   const disabledElements = useMemo(() => {
@@ -44,19 +51,43 @@ const CurrentUserSummary: React.FC = () => {
     return disabledElements?.some((v) => v.uri === vocabulary.uri) ?? false;
   };
 
+  const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
+    if (myRequests?.some((r) => r.vocabulary.uri === vocabulary.uri)) {
+      return <RequestedBadge label={intl.formatMessage({ id: "requested" })} />;
+    }
+    if (myGestored?.some((v) => v.uri === vocabulary.uri)) {
+      return <GestoredBadge label={intl.formatMessage({ id: "gestored" })} />;
+    }
+    return <></>;
+  };
+
   //TODO: Kinda hacky way how to re-enforce the render, should find a diff way
   const handleAddGestorRequest = useCallback(
     (vocabulary: Vocabulary) => {
       console.log(myRequests);
-      addGestorRequest({ uri: vocabulary.uri });
+      addGestorRequest({ uri: vocabulary.uri })
+        .unwrap()
+        .catch(() => {
+          enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
+            variant: "error",
+          });
+        });
     },
-    [addGestorRequest, myRequests]
+    [addGestorRequest, myRequests, enqueueSnackbar, intl]
   );
 
   const handleTextFilterChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setFilterText(event.target.value);
+  };
+
+  const handleGestorsClick = (vocabulary: Vocabulary) => {
+    //To make sure that the vocabulary is passed
+    setSelectedVocabulary(() => {
+      return vocabulary;
+    });
+    setModalOpen(true);
   };
 
   const displayedData: Vocabulary[] = useMemo(() => {
@@ -121,6 +152,13 @@ const CurrentUserSummary: React.FC = () => {
             action={handleAddGestorRequest}
             actionIcon={<EmojiPeopleOutlinedIcon />}
             disabled={disableElement}
+            gestorsClick={handleGestorsClick}
+            additionalInfo={showAditional}
+          />
+          <VocabularyGestorsModal
+            vocabulary={selectedVocabulary}
+            open={modalOpen}
+            setOpen={setModalOpen}
           />
         </Box>
       </Paper>

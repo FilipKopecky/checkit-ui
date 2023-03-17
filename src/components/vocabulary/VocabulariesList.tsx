@@ -7,19 +7,24 @@ import IconButton from "@mui/material/IconButton";
 import ListItemText from "@mui/material/ListItemText";
 import UsersAvatarGroup from "../users/UsersAvatarGroup";
 import { Box } from "@mui/material";
+import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 
 interface VocabulariesListProps {
   vocabularies: Vocabulary[];
   action?: (vocabulary: Vocabulary) => void;
+  gestorsClick: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
-  disabled?: (user: Vocabulary) => boolean;
+  disabled?: (vocabulary: Vocabulary) => boolean;
+  additionalInfo?: (vocabulary: Vocabulary) => React.ReactNode;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
   vocabularies,
   action,
+  gestorsClick,
   actionIcon,
   disabled = () => false,
+  additionalInfo = () => undefined,
 }) => {
   const itemContent = (index: any, vocabulary: any) => {
     return (
@@ -29,6 +34,8 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
         callback={action}
         icon={actionIcon}
         disabled={disabled}
+        gestorsClick={gestorsClick}
+        additionalInfo={additionalInfo}
       />
     );
   };
@@ -36,7 +43,10 @@ const VocabulariesList: React.FC<VocabulariesListProps> = ({
   return (
     <Virtuoso
       style={{ height: 400 }}
-      components={{ List }}
+      components={{
+        List,
+        EmptyPlaceholder: EmptyPlaceholder,
+      }}
       data={vocabularies}
       itemContent={itemContent}
     />
@@ -48,15 +58,20 @@ const InnerItem = React.memo(
     index,
     vocabulary,
     callback,
+    gestorsClick,
     icon,
     disabled,
+    additionalInfo,
   }: {
     index: number;
     vocabulary: Vocabulary;
     callback?: (vocabulary: Vocabulary) => void;
+    gestorsClick: (vocabulary: Vocabulary) => void;
     icon: React.ReactNode;
-    disabled: (user: Vocabulary) => boolean;
+    disabled: (vocabulary: Vocabulary) => boolean;
+    additionalInfo: (vocabulary: Vocabulary) => React.ReactNode;
   }) => {
+    const elementDisabled = disabled(vocabulary);
     return (
       <>
         <ListItem
@@ -67,7 +82,7 @@ const InnerItem = React.memo(
           secondaryAction={
             callback ? (
               <IconButton
-                disabled={disabled(vocabulary)}
+                disabled={elementDisabled}
                 edge="end"
                 onClick={() => {
                   callback(vocabulary);
@@ -79,9 +94,15 @@ const InnerItem = React.memo(
           }
         >
           <ListItemText primary={vocabulary.label} />
-          <Box mr={4}>
+          <Box>{additionalInfo(vocabulary)}</Box>
+          <Box mr={4} display={"flex"} width={"110px"}>
+            <Box width={"100%"}></Box>
             {vocabulary.gestors.length > 0 && (
-              <UsersAvatarGroup users={vocabulary.gestors} maxAvatars={4} />
+              <UsersAvatarGroup
+                users={vocabulary.gestors}
+                maxAvatars={4}
+                onClick={() => gestorsClick(vocabulary)}
+              />
             )}
           </Box>
         </ListItem>

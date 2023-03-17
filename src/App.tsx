@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { IntlProvider } from "react-intl";
 import { useAppSelector } from "./hooks/ReduxHooks";
 import { selectLanguage } from "./slices/languageSlice";
+import { SnackbarProvider } from "notistack";
 
 /**
  * Wrapper for the whole application
@@ -14,15 +15,22 @@ import { selectLanguage } from "./slices/languageSlice";
 const App: React.FC = () => {
   const languageSelector = useAppSelector(selectLanguage);
   return (
-    <IntlProvider
-      locale={languageSelector.language}
-      messages={languageSelector.messages}
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
     >
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router />
-      </ThemeProvider>
-    </IntlProvider>
+      <IntlProvider
+        locale={languageSelector.language}
+        messages={languageSelector.messages}
+      >
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router />
+        </ThemeProvider>
+      </IntlProvider>
+    </SnackbarProvider>
   );
 };
 
