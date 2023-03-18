@@ -1,7 +1,7 @@
-import { User } from "./User";
+import { UserData } from "./User";
 
 export interface Vocabulary extends VocabularyData {
-  gestors: User[];
+  gestors: UserData[];
 }
 
 export interface VocabularyData {

@@ -1,14 +1,16 @@
 import React from "react";
 import UserListItem from "./UserListItem";
-import { User } from "../../model/User";
+import { User, UserData } from "../../model/User";
 import { Virtuoso } from "react-virtuoso";
 import List from "../misc/VirtuosoMuiList";
 import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 
 interface UsersListProps {
-  users: User[];
+  users: User[] | UserData[];
+  //Only admins can perform actions -> that's why actions accept only type User
   performAction?: (user: User) => void;
   icon?: React.ReactNode;
+  //disabled is bound to an action -> only admins can do
   disabled?: (user: User) => boolean;
 }
 
