@@ -1,7 +1,8 @@
 import React from "react";
+import PublicationSummary from "./publications/PublicationSummary";
 
 const Publications: React.FC = () => {
-  return <div>Publications</div>;
+  return <PublicationSummary />;
 };
 
 export default Publications;
