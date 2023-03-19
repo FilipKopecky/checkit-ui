@@ -3,13 +3,16 @@ import AssignedVocabulariesModal from "../admin/AssignedVocabulariesModal";
 import { Vocabulary } from "../../model/Vocabulary";
 import VocabulariesList from "./VocabulariesList";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import { useIntl } from "react-intl";
 
 interface VocabularyListProps {
   vocabularies: Vocabulary[];
 }
+
 const AssignedVocabulariesList: React.FC<VocabularyListProps> = ({
   vocabularies,
 }) => {
+  const intl = useIntl();
   const [open, setOpen] = useState(false);
   const [vocabularyUri, setVocabularyUri] = useState("");
 
@@ -24,6 +27,9 @@ const AssignedVocabulariesList: React.FC<VocabularyListProps> = ({
         vocabularies={vocabularies}
         action={callback}
         actionIcon={<ManageAccountsOutlinedIcon />}
+        actionDescription={intl.formatMessage({
+          id: "assignedVocabulariesAction",
+        })}
         gestorsClick={(vocabulary) => console.log(vocabulary)}
       />
       <AssignedVocabulariesModal

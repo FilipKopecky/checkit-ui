@@ -150,6 +150,9 @@ const CurrentUserSummary: React.FC = () => {
           <VocabulariesList
             vocabularies={displayedData}
             action={handleAddGestorRequest}
+            actionDescription={intl.formatMessage({
+              id: "create-gestor-request",
+            })}
             actionIcon={<EmojiPeopleOutlinedIcon />}
             disabled={disableElement}
             gestorsClick={handleGestorsClick}
