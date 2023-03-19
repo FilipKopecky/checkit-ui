@@ -43,5 +43,7 @@
   "no-result": "Nebyly nalezeny žádné výsledky",
   "gestor-request-created": "Žádost o gestorování byla vytvořena",
   "something-went-wrong": "Něco se pokazilo",
-  "publication-summary-description": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání"
+  "publication-summary-description": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání",
+  "publication-submit": "Odevzdat revizi",
+  "publication-decline": "Zamítnout publikaci"
 }

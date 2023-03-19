@@ -7,6 +7,7 @@ import { Publication } from "../../model/Publication";
 import PublicationHeader from "./PublicationHeader";
 import VocabulariesList from "../vocabulary/VocabulariesList";
 import IslandHeader from "../misc/IslandHeader";
+import { useIntl } from "react-intl";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -17,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const PublicationSummary: React.FC = () => {
+  const intl = useIntl();
   const mockedUser: UserData = {
     firstName: "User",
     id: "6e9d19be-b8b3-451d-8d0b-8e987dd797b4",
@@ -49,7 +51,9 @@ const PublicationSummary: React.FC = () => {
         </Grid>
         <Grid item md={8} xs={12}>
           <Paper>
-            <IslandHeader header={"Slovníky"} />
+            <IslandHeader
+              header={intl.formatMessage({ id: "assignedVocabulariesHeader" })}
+            />
             <Box px={3}>
               <VocabulariesList
                 vocabularies={mockedPublication.affectedVocabularies}

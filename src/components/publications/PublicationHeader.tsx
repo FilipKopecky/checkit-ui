@@ -23,10 +23,10 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
         )}
         <Box sx={{ display: "flex", gap: 2 }} pt={2}>
           <Button variant={"contained"} color={"success"} disabled={true}>
-            Odevzdat revizi
+            {intl.formatMessage({ id: "publication-submit" })}
           </Button>
           <Button variant={"contained"} color={"error"}>
-            Zamítnout publikaci
+            {intl.formatMessage({ id: "publication-decline" })}
           </Button>
         </Box>
       </Box>
