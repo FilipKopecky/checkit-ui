@@ -42,5 +42,6 @@
   "gestored": "Gestored",
   "no-result": "No results were found",
   "gestor-request-created": "Gestor request was created",
-  "something-went-wrong": "Something went wrong"
+  "something-went-wrong": "Something went wrong",
+  "publication-summary-description": "Revision of the publication is not ready for submission. It will be ready after revision of all vocabularies in the publication."
 }

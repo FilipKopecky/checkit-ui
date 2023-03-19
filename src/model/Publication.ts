@@ -5,6 +5,6 @@ export interface Publication {
   uri: string;
   label: string;
   projectUri: string;
-  state: string;
+  state: "IN_PROGRESS" | "ACCEPTED" | "DECLINED";
   affectedVocabularies: Vocabulary[];
 }
