@@ -1,11 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import {
-  Box,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import {
   useGetAllVocabulariesQuery,
   useGetMyGestoredVocabulariesQuery,
@@ -19,12 +13,12 @@ import {
   useGetMyGestorRequestsQuery,
 } from "../api/gestorRequestApi";
 import { useIntl } from "react-intl";
-import SearchIcon from "@mui/icons-material/Search";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
 import { useSnackbar } from "notistack";
 import RequestedBadge from "./vocabulary/RequestedBadge";
 import GestoredBadge from "./vocabulary/GestoredBadge";
+import SearchBar from "./misc/SearchBar";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -130,14 +124,10 @@ const CurrentUserSummary: React.FC = () => {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
               />
-              <TextField
-                size={"small"}
+              <SearchBar
                 value={filterText}
                 onChange={handleTextFilterChange}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
-                InputProps={{
-                  endAdornment: endAdornment,
-                }}
               />
             </Box>
           </Box>
@@ -168,11 +158,5 @@ const CurrentUserSummary: React.FC = () => {
     </Box>
   );
 };
-
-const endAdornment = (
-  <InputAdornment position={"end"}>
-    <SearchIcon />
-  </InputAdornment>
-);
 
 export default CurrentUserSummary;
