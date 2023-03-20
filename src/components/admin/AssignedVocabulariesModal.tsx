@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
   Dialog,
   DialogContent,
   DialogTitle,
-  Grid,
+  Tab,
+  Tabs,
   Typography,
 } from "@mui/material";
 import UsersList from "../users/UsersList";
@@ -18,26 +19,38 @@ import {
   useGetAllUsersQuery,
   useRemoveGestorFromVocabularyMutation,
 } from "../../api/adminApi";
+import SearchBar from "../misc/SearchBar";
 
 interface AssignedVocabulariesModalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   vocabularyUri?: string;
 }
+
 const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
   open,
   setOpen,
   vocabularyUri,
 }) => {
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const [activeTab, setActiveTab] = useState("others");
+  const [filterText, setFilterText] = useState("");
   const { data, isLoading } = useGetAllUsersQuery();
   const [addGestor] = useAddGestorToVocabularyMutation();
   const [removeGestor] = useRemoveGestorFromVocabularyMutation();
   const { data: vocabularyData } = useGetAllVocabulariesQuery();
   const intl = useIntl();
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+    setActiveTab(newValue);
+  };
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterText(event.target.value);
+  };
+
+  const handleClose = () => {
+    setActiveTab("others");
+    setOpen(false);
+  };
 
   const vocabulary = useMemo(() => {
     return vocabularyData?.find(
@@ -84,38 +97,45 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
       >
         <DialogTitle>
           <Box px={1}>
-            <Typography variant={"h5"}>{vocabulary?.label}</Typography>
+            <Typography variant={"h5"}>Správa slovníku</Typography>
           </Box>
         </DialogTitle>
         <DialogContent>
-          <Box px={1}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <Box sx={{ paddingBottom: 4 }}>
-                  <Typography variant={"h6"}>
-                    {intl.formatMessage({ id: "others" })}
-                  </Typography>
-                  <UsersList
-                    users={others}
-                    performAction={handleAssigning}
-                    icon={<AddModeratorIcon />}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Box sx={{ paddingBottom: 4 }}>
-                  <Typography variant={"h6"}>
-                    {intl.formatMessage({ id: "assignedGestors" })}
-                  </Typography>
-                  <UsersList
-                    users={vocabulary?.gestors ?? []}
-                    performAction={handleRemoval}
-                    icon={<RemoveModeratorIcon />}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
+          <Box
+            py={1}
+            sx={{ justifyContent: "space-between", display: "flex", flex: 1 }}
+          >
+            <Tabs value={activeTab} onChange={handleTabChange}>
+              <Tab
+                value={"others"}
+                label={intl.formatMessage({ id: "others" })}
+              />
+              <Tab
+                value={"gestors"}
+                label={intl.formatMessage({ id: "assignedGestors" })}
+              />
+            </Tabs>
+            <SearchBar
+              value={filterText}
+              onChange={handleFilter}
+              label={"Zadejte jméno uživatele"}
+            />
           </Box>
+
+          {activeTab === "others" && (
+            <UsersList
+              users={others}
+              performAction={handleAssigning}
+              icon={<AddModeratorIcon />}
+            />
+          )}
+          {activeTab === "gestors" && (
+            <UsersList
+              users={vocabulary?.gestors ?? []}
+              performAction={handleRemoval}
+              icon={<RemoveModeratorIcon />}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>

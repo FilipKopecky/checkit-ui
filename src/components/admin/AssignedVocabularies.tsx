@@ -4,19 +4,17 @@ import {
   Box,
   FormControlLabel,
   FormGroup,
-  InputAdornment,
   Paper,
   Switch,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useIntl } from "react-intl";
-import SearchIcon from "@mui/icons-material/Search";
 import { useGetAllVocabulariesQuery } from "../../api/vocabularyApi";
 import {
   filterByGestorPresence,
   filterVocabulariesByLabel,
 } from "../../utils/FilterUtils";
+import SearchBar from "../misc/SearchBar";
 
 const AssignedVocabularies: React.FC = () => {
   const { data } = useGetAllVocabulariesQuery();
@@ -62,14 +60,10 @@ const AssignedVocabularies: React.FC = () => {
                   label={intl.formatMessage({ id: "without-gestors" })}
                 />
               </FormGroup>
-              <TextField
-                size={"small"}
+              <SearchBar
                 value={filterText}
                 onChange={handleChange}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
-                InputProps={{
-                  endAdornment: endAdornment,
-                }}
               />
             </Box>
           </Box>
@@ -82,11 +76,5 @@ const AssignedVocabularies: React.FC = () => {
     </Box>
   );
 };
-
-const endAdornment = (
-  <InputAdornment position={"end"}>
-    <SearchIcon />
-  </InputAdornment>
-);
 
 export default AssignedVocabularies;

@@ -53,7 +53,7 @@ const UsersList: React.FC<UsersListProps> = ({
 
   return (
     <Virtuoso
-      style={{ height: 300 }}
+      style={{ height: 400 }}
       components={{ List, EmptyPlaceholder: EmptyPlaceholder }}
       data={users}
       itemContent={itemContent}
