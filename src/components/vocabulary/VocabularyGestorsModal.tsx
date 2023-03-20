@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import UsersList from "../users/UsersList";
 import { useIntl } from "react-intl";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface VocabularyGestorsModalProps {
   vocabulary?: Vocabulary;
@@ -36,8 +38,21 @@ const VocabularyGestorsModal: React.FC<VocabularyGestorsModalProps> = ({
         <DialogTitle>
           <Box px={1}>
             <Typography variant={"h5"}>{vocabulary.label}</Typography>
-            <hr />
           </Box>
+          {handleClose ? (
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : null}
         </DialogTitle>
         <DialogContent>
           <Box px={1}>
