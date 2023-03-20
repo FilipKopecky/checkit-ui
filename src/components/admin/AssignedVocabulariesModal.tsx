@@ -21,6 +21,8 @@ import {
 } from "../../api/adminApi";
 import SearchBar from "../misc/SearchBar";
 import { filterUsersByName } from "../../utils/FilterUtils";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface AssignedVocabulariesModalProps {
   open: boolean;
@@ -113,15 +115,26 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
         open={open}
         onClose={handleClose}
         fullWidth={true}
-        maxWidth={"lg"}
+        maxWidth={"md"}
       >
         <DialogTitle>
           <Box px={1}>
-            <Box mb={2}>
-              <Typography variant={"h5"}>Správa slovníku</Typography>
-            </Box>
             <Typography variant={"h6"}>{vocabulary?.label}</Typography>
           </Box>
+          {handleClose ? (
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          ) : null}
         </DialogTitle>
         <DialogContent>
           <Box
