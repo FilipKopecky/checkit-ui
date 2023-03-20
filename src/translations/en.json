@@ -18,6 +18,7 @@
   "admin-panel-requests-navigation": "Pending requests",
   "admin-panel-assigned-vocabularies-navigation": "Assigned vocabularies",
   "admin-panel-users-navigation": "Administrators",
+  "admin-panel-users-search": "Enter user's first or last name",
   "admin-panel-unauthorized-title": "Unauthorized access",
   "admin-panel-unauthorized-description": "You are not permitted to see this page",
   "admins": "Admins",

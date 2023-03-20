@@ -15,8 +15,8 @@ const SearchBar: React.FC<SearchBarProps & TextFieldProps> = ({
 }) => {
   return (
     <TextField
-      {...props}
       size={"small"}
+      {...props}
       value={value}
       onChange={onChange}
       label={label}

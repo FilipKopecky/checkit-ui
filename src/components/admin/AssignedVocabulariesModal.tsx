@@ -13,13 +13,14 @@ import { useGetAllVocabulariesQuery } from "../../api/vocabularyApi";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import { useIntl } from "react-intl";
 import RemoveModeratorIcon from "@mui/icons-material/RemoveModerator";
-import { User } from "../../model/User";
+import { User, UserData } from "../../model/User";
 import {
   useAddGestorToVocabularyMutation,
   useGetAllUsersQuery,
   useRemoveGestorFromVocabularyMutation,
 } from "../../api/adminApi";
 import SearchBar from "../misc/SearchBar";
+import { filterUsersByName } from "../../utils/FilterUtils";
 
 interface AssignedVocabulariesModalProps {
   open: boolean;
@@ -58,13 +59,18 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
     );
   }, [vocabularyData, vocabularyUri]);
 
-  const others = useMemo(() => {
-    return (
-      data?.filter(
-        (user) => !vocabulary?.gestors.some((gestor) => gestor.id === user.id)
-      ) ?? []
-    );
-  }, [vocabulary?.gestors, data]);
+  const displayedData = useMemo(() => {
+    let selectedCategoryValues: UserData[] = [];
+    if (activeTab === "others") {
+      selectedCategoryValues =
+        data?.filter(
+          (user) => !vocabulary?.gestors.some((gestor) => gestor.id === user.id)
+        ) ?? [];
+    } else {
+      selectedCategoryValues = vocabulary?.gestors ?? [];
+    }
+    return filterUsersByName(selectedCategoryValues, filterText);
+  }, [activeTab, vocabulary?.gestors, data, filterText]);
 
   if (isLoading) return <>Loading....</>;
   if (!data) return <>Doen</>;
@@ -87,6 +93,20 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
     );
   };
 
+  const userListProps = () => {
+    if (activeTab === "others") {
+      return {
+        performAction: handleAssigning,
+        icon: <AddModeratorIcon />,
+      };
+    } else {
+      return {
+        performAction: handleRemoval,
+        icon: <RemoveModeratorIcon />,
+      };
+    }
+  };
+
   return (
     <div>
       <Dialog
@@ -97,45 +117,42 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
       >
         <DialogTitle>
           <Box px={1}>
-            <Typography variant={"h5"}>Správa slovníku</Typography>
+            <Box mb={2}>
+              <Typography variant={"h5"}>Správa slovníku</Typography>
+            </Box>
+            <Typography variant={"h6"}>{vocabulary?.label}</Typography>
           </Box>
         </DialogTitle>
         <DialogContent>
           <Box
-            py={1}
             sx={{ justifyContent: "space-between", display: "flex", flex: 1 }}
           >
             <Tabs value={activeTab} onChange={handleTabChange}>
               <Tab
                 value={"others"}
-                label={intl.formatMessage({ id: "others" })}
+                label={
+                  intl.formatMessage({ id: "others" }) +
+                  ` (${data.length - (vocabulary?.gestors.length ?? 0)})`
+                }
               />
               <Tab
                 value={"gestors"}
-                label={intl.formatMessage({ id: "assignedGestors" })}
+                label={
+                  intl.formatMessage({ id: "assignedGestors" }) +
+                  ` (${vocabulary?.gestors.length})`
+                }
               />
             </Tabs>
-            <SearchBar
-              value={filterText}
-              onChange={handleFilter}
-              label={"Zadejte jméno uživatele"}
-            />
+            <Box width={300} py={1}>
+              <SearchBar
+                fullWidth={true}
+                value={filterText}
+                onChange={handleFilter}
+                label={intl.formatMessage({ id: "admin-panel-users-search" })}
+              />
+            </Box>
           </Box>
-
-          {activeTab === "others" && (
-            <UsersList
-              users={others}
-              performAction={handleAssigning}
-              icon={<AddModeratorIcon />}
-            />
-          )}
-          {activeTab === "gestors" && (
-            <UsersList
-              users={vocabulary?.gestors ?? []}
-              performAction={handleRemoval}
-              icon={<RemoveModeratorIcon />}
-            />
-          )}
+          <UsersList users={displayedData} {...userListProps()} />
         </DialogContent>
       </Dialog>
     </div>
