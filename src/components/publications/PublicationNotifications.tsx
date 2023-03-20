@@ -1,9 +1,9 @@
 import React from "react";
 import NotificationComment from "./NotificationComment";
-import { Box } from "@mui/material";
 import PublicationNotificationItem from "./PublicationNotificationItem";
 import { UserData } from "../../model/User";
 import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
 
 interface PublicationNotificationsProps {
   maxNumberOfNotifications?: number;
@@ -18,7 +18,7 @@ const PublicationNotifications: React.FC<PublicationNotificationsProps> = ({
     lastName: "Nečaský",
   };
   return (
-    <Box>
+    <List>
       <NotificationComment />
       <Divider />
       <PublicationNotificationItem
@@ -26,7 +26,7 @@ const PublicationNotifications: React.FC<PublicationNotificationsProps> = ({
         description={"Datový slovník OFN číselníků"}
         user={mockedUser}
       />
-    </Box>
+    </List>
   );
 };
 

@@ -14,8 +14,8 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
   const intl = useIntl();
   return (
     <Paper>
-      <Box p={2}>
-        <Typography variant={"h5"}>{label}</Typography>
+      <Box p={3}>
+        <Typography variant={"h4"}>{label}</Typography>
         {state === "IN_PROGRESS" && (
           <Typography variant={"body1"} color="text.secondary">
             {intl.formatMessage({ id: "publication-summary-description" })}

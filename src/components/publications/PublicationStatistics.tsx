@@ -41,6 +41,7 @@ const PublicationStatistics: React.FC = () => {
               dataKey="value"
               cx={"50%"}
               cy={"90%"}
+              isAnimationActive={false}
             >
               <Label position="center">70%</Label>
               {data.map((entry, index) => (

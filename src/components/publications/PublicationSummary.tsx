@@ -42,7 +42,7 @@ const PublicationSummary: React.FC = () => {
     uri: "sadsadfsa",
   };
   return (
-    <Box p={2} sx={{ flexGrow: 1 }}>
+    <Box p={2}>
       <Grid container spacing={2}>
         <Grid item md={12} xs={12}>
           <PublicationHeader
@@ -51,7 +51,7 @@ const PublicationSummary: React.FC = () => {
           />
         </Grid>
         <Grid item md={8} xs={12}>
-          <Paper>
+          <Paper sx={{ height: "100%" }}>
             <IslandHeader
               header={intl.formatMessage({ id: "assignedVocabulariesHeader" })}
             />

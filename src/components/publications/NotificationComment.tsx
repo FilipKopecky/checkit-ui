@@ -2,7 +2,6 @@ import React from "react";
 import { Comment } from "../../model/Comment";
 import { UserData } from "../../model/User";
 import PublicationNotificationItem from "./PublicationNotificationItem";
-import { Box, Link, Typography } from "@mui/material";
 
 const NotificationComment: React.FC = () => {
   const mockedUser: UserData = {
@@ -19,19 +18,9 @@ const NotificationComment: React.FC = () => {
     topic: "changeID",
   };
 
-  const LinkToChange = (
-    <Box>
-      <Typography variant={"body2"}>
-        Okomentoval změnu na pojmu:
-        <Link href="#" underline="always">
-          Budova
-        </Link>
-      </Typography>
-    </Box>
-  );
   return (
     <PublicationNotificationItem
-      notificationType={LinkToChange}
+      notificationType={"Okomentoval změnu na pojmu Budova"}
       description={mockedComment.content}
       user={mockedComment.author}
     />
