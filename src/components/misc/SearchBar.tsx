@@ -4,21 +4,26 @@ import SearchIcon from "@mui/icons-material/Search";
 
 interface SearchBarProps {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => React.Dispatch<React.SetStateAction<string>>;
   label: string;
 }
+
 const SearchBar: React.FC<SearchBarProps & TextFieldProps> = ({
   value,
   onChange,
   label,
   ...props
 }) => {
+  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
+
   return (
     <TextField
       size={"small"}
       {...props}
       value={value}
-      onChange={onChange}
+      onChange={handleFilter}
       label={label}
       InputProps={{
         endAdornment: endAdornment,

@@ -29,10 +29,6 @@ const AssignedVocabularies: React.FC = () => {
     return dataFiltered;
   }, [data, filterText, withoutGestor]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterText(event.target.value);
-  };
-
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWithoutGestor(event.target.checked);
   };
@@ -62,7 +58,7 @@ const AssignedVocabularies: React.FC = () => {
               </FormGroup>
               <SearchBar
                 value={filterText}
-                onChange={handleChange}
+                onChange={setFilterText}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
               />
             </Box>

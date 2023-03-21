@@ -46,9 +46,6 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setActiveTab(newValue);
   };
-  const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFilterText(event.target.value);
-  };
 
   const handleClose = () => {
     setActiveTab("others");
@@ -160,7 +157,7 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
               <SearchBar
                 fullWidth={true}
                 value={filterText}
-                onChange={handleFilter}
+                onChange={setFilterText}
                 label={intl.formatMessage({ id: "admin-panel-users-search" })}
               />
             </Box>

@@ -70,12 +70,6 @@ const CurrentUserSummary: React.FC = () => {
     [addGestorRequest, myRequests, enqueueSnackbar, intl]
   );
 
-  const handleTextFilterChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFilterText(event.target.value);
-  };
-
   const handleGestorsClick = (vocabulary: Vocabulary) => {
     //To make sure that the vocabulary is passed
     setSelectedVocabulary(() => {
@@ -126,7 +120,7 @@ const CurrentUserSummary: React.FC = () => {
               />
               <SearchBar
                 value={filterText}
-                onChange={handleTextFilterChange}
+                onChange={setFilterText}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
               />
             </Box>
