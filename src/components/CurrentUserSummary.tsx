@@ -1,11 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import {
-  Box,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import {
   useGetAllVocabulariesQuery,
   useGetMyGestoredVocabulariesQuery,
@@ -19,12 +13,12 @@ import {
   useGetMyGestorRequestsQuery,
 } from "../api/gestorRequestApi";
 import { useIntl } from "react-intl";
-import SearchIcon from "@mui/icons-material/Search";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
 import { useSnackbar } from "notistack";
 import RequestedBadge from "./vocabulary/RequestedBadge";
 import GestoredBadge from "./vocabulary/GestoredBadge";
+import SearchBar from "./misc/SearchBar";
 
 const CurrentUserSummary: React.FC = () => {
   const { data: allVocabularies } = useGetAllVocabulariesQuery();
@@ -39,11 +33,7 @@ const CurrentUserSummary: React.FC = () => {
   const intl = useIntl();
 
   const disabledElements = useMemo(() => {
-    return myGestored?.concat(
-      myRequests?.map((request) => {
-        return request.vocabulary;
-      }) ?? []
-    );
+    return myGestored?.concat(myRequests ?? []);
   }, [myGestored, myRequests]);
 
   const disableElement = (vocabulary: Vocabulary): boolean => {
@@ -52,7 +42,7 @@ const CurrentUserSummary: React.FC = () => {
   };
 
   const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
-    if (myRequests?.some((r) => r.vocabulary.uri === vocabulary.uri)) {
+    if (myRequests?.some((r) => r.uri === vocabulary.uri)) {
       return <RequestedBadge label={intl.formatMessage({ id: "requested" })} />;
     }
     if (myGestored?.some((v) => v.uri === vocabulary.uri)) {
@@ -61,11 +51,10 @@ const CurrentUserSummary: React.FC = () => {
     return <></>;
   };
 
-  //TODO: Kinda hacky way how to re-enforce the render, should find a diff way
   const handleAddGestorRequest = useCallback(
     (vocabulary: Vocabulary) => {
-      console.log(myRequests);
-      addGestorRequest({ uri: vocabulary.uri })
+      if (myRequests?.some((v) => v.uri === vocabulary.uri)) return;
+      addGestorRequest(vocabulary)
         .unwrap()
         .catch(() => {
           enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
@@ -75,12 +64,6 @@ const CurrentUserSummary: React.FC = () => {
     },
     [addGestorRequest, myRequests, enqueueSnackbar, intl]
   );
-
-  const handleTextFilterChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFilterText(event.target.value);
-  };
 
   const handleGestorsClick = (vocabulary: Vocabulary) => {
     //To make sure that the vocabulary is passed
@@ -99,12 +82,7 @@ const CurrentUserSummary: React.FC = () => {
       return filterVocabulariesByLabel(myGestored, filterText);
     }
     if (activeTab === "requested") {
-      return filterVocabulariesByLabel(
-        myRequests.map((request) => {
-          return request.vocabulary;
-        }),
-        filterText
-      );
+      return filterVocabulariesByLabel(myRequests, filterText);
     }
     return [];
   }, [activeTab, allVocabularies, myGestored, myRequests, filterText]);
@@ -130,14 +108,10 @@ const CurrentUserSummary: React.FC = () => {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
               />
-              <TextField
-                size={"small"}
+              <SearchBar
                 value={filterText}
-                onChange={handleTextFilterChange}
+                setValue={setFilterText}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
-                InputProps={{
-                  endAdornment: endAdornment,
-                }}
               />
             </Box>
           </Box>
@@ -150,6 +124,9 @@ const CurrentUserSummary: React.FC = () => {
           <VocabulariesList
             vocabularies={displayedData}
             action={handleAddGestorRequest}
+            actionDescription={intl.formatMessage({
+              id: "create-gestor-request",
+            })}
             actionIcon={<EmojiPeopleOutlinedIcon />}
             disabled={disableElement}
             gestorsClick={handleGestorsClick}
@@ -165,11 +142,5 @@ const CurrentUserSummary: React.FC = () => {
     </Box>
   );
 };
-
-const endAdornment = (
-  <InputAdornment position={"end"}>
-    <SearchIcon />
-  </InputAdornment>
-);
 
 export default CurrentUserSummary;

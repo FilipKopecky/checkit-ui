@@ -80,7 +80,9 @@ const Layout: React.FC = () => {
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
         <Suspense fallback={<>loading...</>}>
-          <Outlet />
+          <Box pb={3}>
+            <Outlet />
+          </Box>
         </Suspense>
       </Box>
     </Box>

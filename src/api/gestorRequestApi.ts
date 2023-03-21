@@ -15,9 +15,14 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
         });
       },
     }),
-    getMyGestorRequests: builder.query<GestorRequest[], void>({
+    getMyGestorRequests: builder.query<Vocabulary[], void>({
       query: () => Endpoints.GET_MY_GESTORING_REQUESTS,
       providesTags: ["MY_GESTORING_REQUESTS"],
+      transformResponse: (rawResult: GestorRequest[]) => {
+        return rawResult.map((result) => {
+          return result.vocabulary;
+        });
+      },
     }),
     resolveGestorRequest: builder.mutation<
       GestorRequest,
@@ -75,7 +80,7 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
         "MY_GESTORED_VOCABULARIES",
       ],
     }),
-    addGestorRequest: builder.mutation<void, Partial<Vocabulary>>({
+    addGestorRequest: builder.mutation<void, Vocabulary>({
       query(data) {
         return {
           url: Endpoints.GET_ALL_GESTOR_REQUESTS,
@@ -86,10 +91,26 @@ export const gestorRequestApi = apiSlice.injectEndpoints({
           body: `"${data.uri}"`,
         };
       },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        //Local update of gestor requests
+        const myGestorRequestPatch = dispatch(
+          gestorRequestApi.util.updateQueryData(
+            "getMyGestorRequests",
+            undefined,
+            (draft) => {
+              draft.push(patch);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          myGestorRequestPatch.undo();
+        }
+      },
       invalidatesTags: [
         "ALL_VOCABULARIES",
         "ALL_GESTOR_REQUESTS",
-        "MY_GESTORING_REQUESTS",
         "ADMIN_PANEL_SUMMARY",
       ],
     }),

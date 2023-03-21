@@ -4,10 +4,10 @@ import IconButton from "@mui/material/IconButton";
 import { ListItemAvatar } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import UserAvatar from "./UserAvatar";
-import { User, UserData } from "../../model/User";
+import { UserData } from "../../model/User";
 
 interface UserListItemProps {
-  user: User;
+  user: UserData;
   performAction?: (user: UserData) => void;
   icon?: React.ReactNode;
   disableAction?: boolean;

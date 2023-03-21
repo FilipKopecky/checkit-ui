@@ -18,12 +18,14 @@
   "admin-panel-requests-navigation": "Pending requests",
   "admin-panel-assigned-vocabularies-navigation": "Assigned vocabularies",
   "admin-panel-users-navigation": "Administrators",
+  "admin-panel-users-search": "Enter user's first or last name",
   "admin-panel-unauthorized-title": "Unauthorized access",
   "admin-panel-unauthorized-description": "You are not permitted to see this page",
   "admins": "Admins",
   "others": "Others",
   "adminUsersHeader": "Manage users",
   "assignedVocabulariesHeader": "Vocabularies",
+  "assignedVocabulariesAction": "Manage gestors of the vocabulary",
   "assignedGestors": "Gestors",
   "requests": "Requests",
   "accept": "Accept",
@@ -40,7 +42,11 @@
   "requested-vocabularies": "Requested",
   "requested": "Requested",
   "gestored": "Gestored",
+  "create-gestor-request": "Request a gestor role",
   "no-result": "No results were found",
   "gestor-request-created": "Gestor request was created",
-  "something-went-wrong": "Something went wrong"
+  "something-went-wrong": "Something went wrong",
+  "publication-summary-description": "Revision of the publication is not ready for submission. It will be ready after revision of all vocabularies in the publication.",
+  "publication-submit": "Submit review",
+  "publication-decline": "Decline publication"
 }
