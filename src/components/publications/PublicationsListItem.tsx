@@ -11,6 +11,7 @@ import {
 import IconButton from "@mui/material/IconButton";
 import ContentPasteSearchOutlinedIcon from "@mui/icons-material/ContentPasteSearchOutlined";
 import { Link } from "react-router-dom";
+import { useIntl } from "react-intl";
 
 interface PublicationsListItemProps {
   publication: Publication;
@@ -21,6 +22,7 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
   publication,
   index,
 }) => {
+  const intl = useIntl();
   return (
     <ListItem
       sx={{
@@ -37,16 +39,23 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
         pr={1}
       >
         <ListItemText primary={publication.label} />
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Box width={100}>
-            <LinearProgress
-              variant={"determinate"}
-              value={publication.progress}
-            />
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box pb={1}>
+            <Typography variant="caption" color="text.secondary">
+              {intl.formatMessage(
+                { id: "publication-progress" },
+                { progress: publication.progress }
+              )}
+            </Typography>
+
+            <Box width={150}>
+              <LinearProgress
+                variant={"determinate"}
+                value={publication.progress}
+                color={"success"}
+              />
+            </Box>
           </Box>
-          <Typography variant="body2" color="text.secondary">{`${Math.round(
-            publication.progress
-          )}%`}</Typography>
         </Box>
       </Box>
       <ListItemSecondaryAction>
