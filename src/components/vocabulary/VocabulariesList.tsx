@@ -87,15 +87,17 @@ const InnerItem = React.memo(
           secondaryAction={
             callback ? (
               <Tooltip title={actionDescription} placement={"left"}>
-                <IconButton
-                  disabled={elementDisabled}
-                  edge="end"
-                  onClick={() => {
-                    callback(vocabulary);
-                  }}
-                >
-                  {icon}
-                </IconButton>
+                <span>
+                  <IconButton
+                    disabled={elementDisabled}
+                    edge="end"
+                    onClick={() => {
+                      callback(vocabulary);
+                    }}
+                  >
+                    {icon}
+                  </IconButton>
+                </span>
               </Tooltip>
             ) : undefined
           }
