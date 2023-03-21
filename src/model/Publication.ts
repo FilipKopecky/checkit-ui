@@ -6,5 +6,6 @@ export interface Publication {
   label: string;
   projectUri: string;
   state: "IN_PROGRESS" | "ACCEPTED" | "DECLINED";
+  progress: number;
   affectedVocabularies: Vocabulary[];
 }

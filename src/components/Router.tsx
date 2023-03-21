@@ -7,6 +7,7 @@ import ProtectedRoute from "./routing/ProtectedRoute";
 import { getEnvVariable } from "../utils/environment";
 import NotFoundPage from "./routing/NotFoundPage";
 import Routes from "../utils/Routes";
+import PublicationSummary from "./publications/PublicationSummary";
 
 const AdminPanel = React.lazy(() => import("./admin/AdminPanel"));
 const Publications = React.lazy(() => import("./Publications"));
@@ -23,6 +24,10 @@ const Router: React.FC = () => {
           </Route>
           <Route path={Routes.HOME} element={<Home />} />
           <Route path={Routes.PUBLICATIONS} element={<Publications />} />
+          <Route
+            path={`${Routes.PUBLICATIONS}/:publicationId`}
+            element={<PublicationSummary />}
+          />
           <Route path={Routes.REQUESTS} element={<CurrentUserSummary />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
