@@ -6,6 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
+  useLocation,
 } from "react-router-dom";
 
 interface SideBarLinkProps {
@@ -28,6 +29,9 @@ const SideBarLink: React.FC<SideBarLinkProps> = ({
   icon,
   route,
 }) => {
+  const location = useLocation();
+  const active = location.pathname === `/${route}`;
+
   return (
     <ListItem
       key={label}
@@ -42,6 +46,7 @@ const SideBarLink: React.FC<SideBarLinkProps> = ({
           justifyContent: open ? "initial" : "center",
           px: 2.5,
           color: "white",
+          borderLeft: active ? "solid white" : "solid #02316a",
         }}
       >
         <ListItemIcon
