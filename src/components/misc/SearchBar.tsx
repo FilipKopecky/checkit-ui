@@ -1,21 +1,21 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { InputAdornment, TextField, TextFieldProps } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 interface SearchBarProps {
   value: string;
-  onChange: (value: string) => React.Dispatch<React.SetStateAction<string>>;
+  setValue: Dispatch<SetStateAction<string>>;
   label: string;
 }
 
 const SearchBar: React.FC<SearchBarProps & TextFieldProps> = ({
   value,
-  onChange,
+  setValue,
   label,
   ...props
 }) => {
   const handleFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
+    setValue(event.target.value);
   };
 
   return (

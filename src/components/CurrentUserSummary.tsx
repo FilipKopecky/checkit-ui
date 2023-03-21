@@ -120,7 +120,7 @@ const CurrentUserSummary: React.FC = () => {
               />
               <SearchBar
                 value={filterText}
-                onChange={setFilterText}
+                setValue={setFilterText}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
               />
             </Box>

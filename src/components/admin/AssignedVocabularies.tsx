@@ -58,7 +58,7 @@ const AssignedVocabularies: React.FC = () => {
               </FormGroup>
               <SearchBar
                 value={filterText}
-                onChange={setFilterText}
+                setValue={setFilterText}
                 label={intl.formatMessage({ id: "search-vocabulary-by-label" })}
               />
             </Box>

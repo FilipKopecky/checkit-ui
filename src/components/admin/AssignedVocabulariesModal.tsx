@@ -157,7 +157,7 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
               <SearchBar
                 fullWidth={true}
                 value={filterText}
-                onChange={setFilterText}
+                setValue={setFilterText}
                 label={intl.formatMessage({ id: "admin-panel-users-search" })}
               />
             </Box>
