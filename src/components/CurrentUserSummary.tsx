@@ -33,11 +33,7 @@ const CurrentUserSummary: React.FC = () => {
   const intl = useIntl();
 
   const disabledElements = useMemo(() => {
-    return myGestored?.concat(
-      myRequests?.map((request) => {
-        return request.vocabulary;
-      }) ?? []
-    );
+    return myGestored?.concat(myRequests ?? []);
   }, [myGestored, myRequests]);
 
   const disableElement = (vocabulary: Vocabulary): boolean => {
@@ -46,7 +42,7 @@ const CurrentUserSummary: React.FC = () => {
   };
 
   const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
-    if (myRequests?.some((r) => r.vocabulary.uri === vocabulary.uri)) {
+    if (myRequests?.some((r) => r.uri === vocabulary.uri)) {
       return <RequestedBadge label={intl.formatMessage({ id: "requested" })} />;
     }
     if (myGestored?.some((v) => v.uri === vocabulary.uri)) {
@@ -55,11 +51,10 @@ const CurrentUserSummary: React.FC = () => {
     return <></>;
   };
 
-  //TODO: Kinda hacky way how to re-enforce the render, should find a diff way
   const handleAddGestorRequest = useCallback(
     (vocabulary: Vocabulary) => {
-      console.log(myRequests);
-      addGestorRequest({ uri: vocabulary.uri })
+      if (myRequests?.some((v) => v.uri === vocabulary.uri)) return;
+      addGestorRequest(vocabulary)
         .unwrap()
         .catch(() => {
           enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
@@ -87,12 +82,7 @@ const CurrentUserSummary: React.FC = () => {
       return filterVocabulariesByLabel(myGestored, filterText);
     }
     if (activeTab === "requested") {
-      return filterVocabulariesByLabel(
-        myRequests.map((request) => {
-          return request.vocabulary;
-        }),
-        filterText
-      );
+      return filterVocabulariesByLabel(myRequests, filterText);
     }
     return [];
   }, [activeTab, allVocabularies, myGestored, myRequests, filterText]);

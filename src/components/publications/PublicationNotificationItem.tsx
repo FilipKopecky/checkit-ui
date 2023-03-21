@@ -13,7 +13,7 @@ interface PublicationNotificationItemProps {
 
 const PublicationNotificationItem: React.FC<
   PublicationNotificationItemProps
-> = ({ user, notificationType, description }) => {
+> = ({ user, notificationType }) => {
   return (
     <ListItem>
       <ListItemAvatar>
