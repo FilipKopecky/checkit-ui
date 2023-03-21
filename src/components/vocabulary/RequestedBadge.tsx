@@ -4,7 +4,7 @@ import { Chip, ChipProps } from "@mui/material";
 import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 
 const StyledChip = styled(Chip)({
-  minWidth: "110px",
+  minWidth: "116px",
   paddingLeft: 1,
   paddingRight: 1,
   borderStyle: "solid !important",

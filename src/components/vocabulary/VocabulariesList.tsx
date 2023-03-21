@@ -102,17 +102,31 @@ const InnerItem = React.memo(
             ) : undefined
           }
         >
-          <ListItemText primary={vocabulary.label} />
-          <Box>{additionalInfo(vocabulary)}</Box>
-          <Box mr={4} display={"flex"} width={"110px"}>
-            <Box width={"100%"}></Box>
-            {vocabulary.gestors.length > 0 && (
-              <UsersAvatarGroup
-                users={vocabulary.gestors}
-                maxAvatars={4}
-                onClick={() => gestorsClick(vocabulary)}
-              />
-            )}
+          <Box
+            sx={{
+              justifyContent: "space-between",
+              display: "flex",
+              flex: 1,
+            }}
+            pr={1}
+          >
+            <ListItemText primary={vocabulary.label} />
+            <Box
+              display={"flex"}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <Box>{additionalInfo(vocabulary)}</Box>
+              <Box display={"flex"} width={"110px"}>
+                <Box flexGrow={1}></Box>
+                {vocabulary.gestors.length > 0 && (
+                  <UsersAvatarGroup
+                    users={vocabulary.gestors}
+                    maxAvatars={4}
+                    onClick={() => gestorsClick(vocabulary)}
+                  />
+                )}
+              </Box>
+            </Box>
           </Box>
         </ListItem>
       </>
