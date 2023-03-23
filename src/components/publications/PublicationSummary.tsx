@@ -6,10 +6,10 @@ import PublicationHeader from "./PublicationHeader";
 import VocabulariesList from "../vocabulary/VocabulariesList";
 import IslandHeader from "../misc/IslandHeader";
 import { useIntl } from "react-intl";
-import PublicationStatistics from "./PublicationStatistics";
 import PublicationNotifications from "./PublicationNotifications";
 import { UserData } from "../../model/User";
 import { Vocabulary } from "../../model/Vocabulary";
+import PublicationStatistics from "./PublicationStatistics";
 
 const Item = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -49,7 +49,6 @@ const PublicationSummary: React.FC<PublicationSummaryProps> = ({
   publication = mockedPublication,
 }) => {
   const intl = useIntl();
-
   return (
     <Box p={2}>
       <Grid container spacing={2}>
