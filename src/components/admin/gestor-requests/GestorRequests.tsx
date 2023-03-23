@@ -5,6 +5,8 @@ import { useGetAllGestorRequestsQuery } from "../../../api/gestorRequestApi";
 import { GestorRequest } from "../../../model/GestorRequest";
 import { VocabularyData } from "../../../model/Vocabulary";
 import GestorRequestAccordion from "./GestorRequestAccordion";
+import { Virtuoso } from "react-virtuoso";
+import EmptyPlaceholder from "../../misc/VirtuosoEmptyPlaceholder";
 
 //TODO: move this value to some utility
 //helper function that returns void as a value
@@ -16,7 +18,7 @@ const GestorRequests: React.FC = () => {
   });
 
   let content = useMemo(() => {
-    let temp = [];
+    let data = [];
     if (gRequests) {
       const grouped = gRequests.reduce<{
         [key: string]: GestorRequest[];
@@ -26,23 +28,20 @@ const GestorRequests: React.FC = () => {
         return r;
       }, Object.create(null));
 
-      for (const [key, value] of Object.entries(grouped)) {
+      for (const [, value] of Object.entries(grouped)) {
         const vocabulary: VocabularyData = value[0].vocabulary;
-        temp.push(
-          <Box mb={2} key={key}>
-            <GestorRequestAccordion
-              vocabulary={vocabulary}
-              gestorRequests={value}
-            />
-          </Box>
-        );
+        data.push({ vocabulary: vocabulary, value: value });
       }
     }
-    return temp;
+    return data;
   }, [gRequests]);
 
+  const itemContent = (index: any, request: any) => {
+    return <InnerItem index={index} request={request} />;
+  };
+
   return (
-    <Box px={3} mt={6}>
+    <Box px={3} mt={6} pb={5}>
       <Paper>
         <Box px={3} py={2}>
           <Typography variant={"h5"} gutterBottom={true}>
@@ -52,10 +51,28 @@ const GestorRequests: React.FC = () => {
             <hr />
           </Box>
         </Box>
-        <Box sx={{ paddingBottom: 3 }}>{content}</Box>
+        <Box sx={{ paddingBottom: 4 }}>
+          <Virtuoso
+            data={content}
+            useWindowScroll
+            itemContent={itemContent}
+            components={{ EmptyPlaceholder: EmptyPlaceholder }}
+          />
+        </Box>
       </Paper>
     </Box>
   );
 };
+
+const InnerItem = React.memo(({ request, index }: any) => {
+  return (
+    <Box pb={3} key={index}>
+      <GestorRequestAccordion
+        vocabulary={request.vocabulary}
+        gestorRequests={request.value}
+      />
+    </Box>
+  );
+});
 
 export default GestorRequests;
