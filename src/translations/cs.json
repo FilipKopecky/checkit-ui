@@ -50,5 +50,8 @@
   "publication-summary-description": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání",
   "publication-submit": "Odevzdat revizi",
   "publication-decline": "Zamítnout publikaci",
-  "publication-progress": "{progress}% zrevidováno"
+  "publication-progress": "{progress}% zrevidováno",
+  "change-detail-basic-tab": "Základní",
+  "change-detail-turtle-tab": "Turtle",
+  "change-detail-comments-tab": "Diskuse"
 }

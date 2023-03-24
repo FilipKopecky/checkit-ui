@@ -50,5 +50,8 @@
   "publication-summary-description": "Revision of the publication is not ready for submission. It will be ready after revision of all vocabularies in the publication.",
   "publication-submit": "Submit review",
   "publication-decline": "Decline publication",
-  "publication-progress": "{progress}% done"
+  "publication-progress": "{progress}% done",
+  "change-detail-basic-tab": "Basic",
+  "change-detail-turtle-tab": "Turtle",
+  "change-detail-comments-tab": "Discussion"
 }
