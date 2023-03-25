@@ -28,6 +28,11 @@ const mockedLabelResolve = (changedObject: string) => {
     "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/building"
   )
     return "Budova";
+  if (
+    changedObject ===
+    "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/stavba"
+  )
+    return "Stavba";
   return changedObject;
 };
 

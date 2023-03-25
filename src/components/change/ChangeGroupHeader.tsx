@@ -1,6 +1,6 @@
 import React from "react";
 import ObjectLabel from "./ObjectLabel";
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface ChangeGroupHeaderProps {
   type: "VOCABULARY" | "TERM";
@@ -9,18 +9,15 @@ interface ChangeGroupHeaderProps {
 
 const ChangeGroupHeader: React.FC<ChangeGroupHeaderProps> = ({ type, uri }) => {
   return (
-    <Box px={2}>
-      <Paper>
-        <Box
-          display={"flex"}
-          bgcolor={"white"}
-          p={2}
-          alignItems={"center"}
-          gap={2}
-        >
-          <ObjectLabel objectUri={uri} variant={"h6"} />
-        </Box>
-      </Paper>
+    <Box
+      display={"flex"}
+      bgcolor={"#415a99"}
+      color={"white"}
+      px={4}
+      py={2}
+      alignItems={"center"}
+    >
+      <ObjectLabel objectUri={uri} variant={"h6"} />
     </Box>
   );
 };

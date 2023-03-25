@@ -46,8 +46,8 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   }, [activeTab, change]);
 
   return (
-    <Box px={2} sx={{ color: "white" }}>
-      <Accordion TransitionProps={{ unmountOnExit: true }}>
+    <Box px={2} sx={{ color: "white" }} py={2}>
+      <Accordion TransitionProps={{ unmountOnExit: true }} elevation={2}>
         <AccordionSummary
           sx={{
             backgroundColor: "background.default",
