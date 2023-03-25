@@ -1,0 +1,16 @@
+{
+  "SKOS_CONCEPT": "Term",
+  "SKOS_DEFINITION": "Term definition",
+  "SKOS_BROADER": "Parent term",
+  "SKOS_NARROWER": "Child term",
+  "SKOS_PREF_LABEL": "Preffered label",
+  "SKOS_ALT_LABEL": "alternative label",
+  "SKOS_HIDDEN_LABEL": "Hidden label",
+  "SKOS_SCOPE_NOTE": "Additional note",
+  "SKOS_IN_SCHEME": "In scheme",
+  "SKOS_EXACT_MATCH": "Term with same meaning",
+  "SKOS_RELATED": "In relation",
+  "SKOS_RELATED_MATCH": "Related term",
+  "SKOS_NOTATION": "Notation",
+  "SKOS_EXAMPLE": "Usage example"
+}

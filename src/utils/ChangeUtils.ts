@@ -17,37 +17,64 @@ export const resolveChangeState = (change: Change) => {
   return "UNKNOWN";
 };
 
+/**
+ * Mapping known properties to human-readable translations
+ */
 export const PredicateMapper = {
-  "http://www.w3.org/2004/02/skos/core#Collection": "SKOS_COLLECTION",
-  "http://www.w3.org/2004/02/skos/core#Concept": "",
-  "http://www.w3.org/2004/02/skos/core#ConceptScheme": "",
-  "http://www.w3.org/2004/02/skos/core#OrderedCollection": "",
-  "http://www.w3.org/2004/02/skos/core#altLabel": "",
-  "http://www.w3.org/2004/02/skos/core#broadMatch": "",
-  "http://www.w3.org/2004/02/skos/core#broader": "",
-  "http://www.w3.org/2004/02/skos/core#broaderTransitive": "",
-  "http://www.w3.org/2004/02/skos/core#changeNote": "",
-  "http://www.w3.org/2004/02/skos/core#closeMatch": "",
-  "http://www.w3.org/2004/02/skos/core#definition": "",
-  "http://www.w3.org/2004/02/skos/core#editorialNote": "",
-  "http://www.w3.org/2004/02/skos/core#exactMatch": "",
-  "http://www.w3.org/2004/02/skos/core#example": "",
-  "http://www.w3.org/2004/02/skos/core#hasTopConcept": "",
-  "http://www.w3.org/2004/02/skos/core#hiddenLabel": "",
-  "http://www.w3.org/2004/02/skos/core#historyNote": "",
-  "http://www.w3.org/2004/02/skos/core#inScheme": "",
-  "http://www.w3.org/2004/02/skos/core#mappingRelation": "",
-  "http://www.w3.org/2004/02/skos/core#member": "",
-  "http://www.w3.org/2004/02/skos/core#memberList": "",
-  "http://www.w3.org/2004/02/skos/core#narrowMatch": "",
-  "http://www.w3.org/2004/02/skos/core#narrower": "",
-  "http://www.w3.org/2004/02/skos/core#narrowerTransitive": "",
-  "http://www.w3.org/2004/02/skos/core#notation": "",
-  "http://www.w3.org/2004/02/skos/core#note": "",
-  "http://www.w3.org/2004/02/skos/core#prefLabel": "",
-  "http://www.w3.org/2004/02/skos/core#related": "",
-  "http://www.w3.org/2004/02/skos/core#relatedMatch": "",
-  "http://www.w3.org/2004/02/skos/core#scopeNote": "",
-  "http://www.w3.org/2004/02/skos/core#semanticRelation": "",
-  "http://www.w3.org/2004/02/skos/core#topConceptOf": "",
+  "http://www.w3.org/2004/02/skos/core#Concept": {
+    id: "SKOS_CONCEPT",
+    descriptionId: "DESCRIPTION_SKOS_CONCEPT",
+  },
+  "http://www.w3.org/2004/02/skos/core#definition": {
+    id: "SKOS_DEFINITION",
+    descriptionId: "DESCRIPTION_SKOS_DEFINITION",
+  },
+  "http://www.w3.org/2004/02/skos/core#broader": {
+    id: "SKOS_BROADER",
+    descriptionId: "DESCRIPTION_SKOS_BROADER",
+  },
+  "http://www.w3.org/2004/02/skos/core#narrower": {
+    id: "SKOS_NARROWER",
+    descriptionId: "DESCRIPTION_SKOS_NARROWER",
+  },
+  "http://www.w3.org/2004/02/skos/core#prefLabel": {
+    id: "SKOS_PREF_LABEL",
+    descriptionId: "DESCRIPTION_SKOS_PREF_LABEL",
+  },
+  "http://www.w3.org/2004/02/skos/core#altLabel": {
+    id: "SKOS_ALT_LABEL",
+    descriptionId: "DESCRIPTION_SKOS_ALT_LABEL",
+  },
+  "http://www.w3.org/2004/02/skos/core#hiddenLabel": {
+    id: "SKOS_HIDDEN_LABEL",
+    descriptionId: "DESCRIPTION_SKOS_HIDDEN_LABEL",
+  },
+  "http://www.w3.org/2004/02/skos/core#scopeNote": {
+    id: "SKOS_SCOPE_NOTE",
+    descriptionId: "DESCRIPTION_SKOS_SCOPE_NOTE",
+  },
+  "http://www.w3.org/2004/02/skos/core#inScheme": {
+    id: "SKOS_IN_SCHEME",
+    descriptionId: "DESCRIPTION_SKOS_IN_SCHEME",
+  },
+  "http://www.w3.org/2004/02/skos/core#exactMatch": {
+    id: "SKOS_EXACT_MATCH",
+    descriptionId: "DESCRIPTION_SKOS_EXACT_MATCH",
+  },
+  "http://www.w3.org/2004/02/skos/core#related": {
+    id: "SKOS_RELATED",
+    descriptionId: "DESCRIPTION_SKOS_RELATED",
+  },
+  "http://www.w3.org/2004/02/skos/core#relatedMatch": {
+    id: "SKOS_RELATED_MATCH",
+    descriptionId: "DESCRIPTION_SKOS_RELATED_MATCH",
+  },
+  "http://www.w3.org/2004/02/skos/core#notation": {
+    id: "SKOS_NOTATION",
+    descriptionId: "DESCRIPTION_SKOS_NOTATION",
+  },
+  "http://www.w3.org/2004/02/skos/core#example": {
+    id: "SKOS_EXAMPLE",
+    descriptionId: "DESCRIPTION_SKOS_EXAMPLE",
+  },
 };
