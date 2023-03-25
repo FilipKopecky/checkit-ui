@@ -90,7 +90,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 sx={{ marginRight: 2 }}
                 onClick={() => console.log("Change accepted")}
               >
-                Schválit
+                {intl.formatMessage({ id: "accept" })}
               </Button>
               <Button
                 size={"small"}
@@ -100,7 +100,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 sx={{ marginRight: 2 }}
                 onClick={() => console.log("Change declined")}
               >
-                Zamítnout
+                {intl.formatMessage({ id: "decline" })}
               </Button>
             </Box>
           </Box>
