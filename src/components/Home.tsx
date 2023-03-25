@@ -3,17 +3,18 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useIntl } from "react-intl";
 import HomeNavigationButtons from "./misc/HomeNavigationButtons";
-import ChangeDetail from "./change/ChangeDetail";
+import ChangeListItem from "./change/ChangeListItem";
 import { Change } from "../model/Change";
+import ChangeGroupHeader from "./change/ChangeGroupHeader";
 
 const mockedChange: Change = {
   comments: [],
   id: "randomID",
   object:
     "Budova je nadzemní stavba včetně její podzemní části prostorově soustředěná a navenek převážně uzavřená obvodovými stěnami a střešní konstrukcí.",
-  newObject: "Budova je nadzemní stavba včetně její podzemní části.",
+  //newObject: "Budova je nadzemní stavba včetně její podzemní části.",
   predicate: "http://www.w3.org/2004/02/skos/core#definition",
-  state: "MODIFIED",
+  state: "DELETED",
   subject:
     "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/building",
   type: "TERM",
@@ -28,7 +29,13 @@ const Home: React.FC = () => {
         {intl.formatMessage({ id: "welcome" })}
       </Typography>
       <HomeNavigationButtons />
-      <ChangeDetail change={mockedChange} />
+      <ChangeGroupHeader
+        type={"TERM"}
+        uri={
+          "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/building"
+        }
+      />
+      <ChangeListItem change={mockedChange} />
     </Box>
   );
 };

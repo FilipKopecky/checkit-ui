@@ -1,3 +1,9 @@
+import { Change } from "../model/Change";
+
+export const generateTripleFromChange = (change: Change): string => {
+  return `<${change.subject}>\n<${change.predicate}>\n<${change.object}> .`;
+};
+
 /**
  * Mapping known properties to human-readable translations
  */

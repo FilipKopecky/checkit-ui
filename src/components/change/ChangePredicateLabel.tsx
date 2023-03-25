@@ -3,26 +3,22 @@ import { useIntl } from "react-intl";
 import { Typography, TypographyProps } from "@mui/material";
 import { PredicateMapper } from "../../utils/ChangeUtils";
 
-interface ChangeLabelProps {
+interface ChangePredicateLabelProps {
   uri: string;
-  prependText?: string;
 }
 
-const ChangeLabel: React.FC<ChangeLabelProps & TypographyProps> = ({
-  uri,
-  prependText,
-  ...props
-}) => {
+const ChangePredicateLabel: React.FC<
+  ChangePredicateLabelProps & TypographyProps
+> = ({ uri, ...props }) => {
   const intl = useIntl();
   const displayedLabel = PredicateMapper[uri]
     ? intl.formatMessage({ id: PredicateMapper[uri].id })
     : uri;
   return (
     <Typography variant={"body1"} {...props}>
-      {prependText}
-      {prependText ? displayedLabel.toLowerCase() : displayedLabel}
+      {displayedLabel}
     </Typography>
   );
 };
 
-export default ChangeLabel;
+export default ChangePredicateLabel;
