@@ -81,8 +81,9 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 })}
               />
             </Tabs>
-            <Box>
+            <Box pt={1}>
               <Button
+                size={"small"}
                 variant="contained"
                 endIcon={<CheckCircleOutlinedIcon />}
                 color={"success"}
@@ -92,6 +93,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 Schválit
               </Button>
               <Button
+                size={"small"}
                 variant="contained"
                 endIcon={<CancelOutlinedIcon />}
                 color={"error"}

@@ -52,7 +52,7 @@ const ChangeHeader: React.FC<ChangeHeaderProps> = ({ change }) => {
         flex: 1,
       }}
     >
-      <ChangePredicateLabel uri={change.predicate} variant={"h6"} />
+      <ChangePredicateLabel uri={change.predicate} variant={"body1"} />
       <Box sx={{ textTransform: "uppercase" }} mr={2}>
         <Chip label={selectedChipText} color={selectedChipColor} />
       </Box>

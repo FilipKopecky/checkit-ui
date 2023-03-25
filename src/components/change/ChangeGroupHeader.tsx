@@ -18,7 +18,7 @@ const ChangeGroupHeader: React.FC<ChangeGroupHeaderProps> = ({ type, uri }) => {
           alignItems={"center"}
           gap={2}
         >
-          <ObjectLabel objectUri={uri} variant={"h5"} />
+          <ObjectLabel objectUri={uri} variant={"h6"} />
         </Box>
       </Paper>
     </Box>
