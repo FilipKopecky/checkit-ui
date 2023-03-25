@@ -1,26 +1,9 @@
-import { Change } from "../model/Change";
-import Constants from "./Constants";
-
-export const resolveChangeDescription = (change: Change) => {
-  console.log(change);
-  return "Vytvoření definice pojmu";
-};
-
-export const resolveChangeState = (change: Change) => {
-  if (change.object && change.newObject) {
-    return Constants.CHANGE_DETAIL.TRIPLE_STATE.MODIFIED;
-  } else if (!change.object && change.newObject) {
-    return Constants.CHANGE_DETAIL.TRIPLE_STATE.CREATED;
-  } else if (change.object && !change.newObject) {
-    return Constants.CHANGE_DETAIL.TRIPLE_STATE.DELETED;
-  }
-  return "UNKNOWN";
-};
-
 /**
  * Mapping known properties to human-readable translations
  */
-export const PredicateMapper = {
+export const PredicateMapper: {
+  [uri: string]: { id: string; descriptionId: string };
+} = {
   "http://www.w3.org/2004/02/skos/core#Concept": {
     id: "SKOS_CONCEPT",
     descriptionId: "DESCRIPTION_SKOS_CONCEPT",

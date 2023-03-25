@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { Change } from "../../model/Change";
-import { resolveChangeDescription } from "../../utils/ChangeUtils";
 import {
   Accordion,
   AccordionDetails,
@@ -9,7 +8,6 @@ import {
   Button,
   Tab,
   Tabs,
-  Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useIntl } from "react-intl";
@@ -17,13 +15,13 @@ import ChangeBasicDetail from "./ChangeBasicDetail";
 import ChangeTurtleDetail from "./ChangeTurtleDetail";
 import ChangeCommentsDetail from "./ChangeCommentsDetail";
 import Constants from "../../utils/Constants";
+import ChangeSummary from "./ChangeSummary";
 
 interface ChangeDetailProps {
   change: Change;
 }
 
 const ChangeDetail: React.FC<ChangeDetailProps> = ({ change }) => {
-  const resolvedDescription = resolveChangeDescription(change);
   const [activeTab, setActiveTab] = useState(
     Constants.CHANGE_DETAIL.TABS.BASIC
   );
@@ -31,7 +29,6 @@ const ChangeDetail: React.FC<ChangeDetailProps> = ({ change }) => {
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setActiveTab(newValue);
   };
-
   const componentToRender = useMemo(() => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
@@ -55,7 +52,7 @@ const ChangeDetail: React.FC<ChangeDetailProps> = ({ change }) => {
           }}
           expandIcon={<ExpandMoreIcon color={"primary"} />}
         >
-          <Typography variant={"body1"}>{resolvedDescription}</Typography>
+          <ChangeSummary change={change} />
         </AccordionSummary>
         <AccordionDetails>
           <Box

@@ -53,5 +53,9 @@
   "publication-progress": "{progress}% zrevidováno",
   "change-detail-basic-tab": "Základní",
   "change-detail-turtle-tab": "Turtle",
-  "change-detail-comments-tab": "Diskuse"
+  "change-detail-comments-tab": "Diskuse",
+  "change-detail-state-created": "Vytvořeno",
+  "change-detail-state-modified": "Upraveno",
+  "change-detail-state-deleted": "Smazáno",
+  "change-detail-state-rollbacked": "Vráceno"
 }

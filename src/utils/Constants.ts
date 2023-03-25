@@ -22,9 +22,10 @@ const constants = {
       COMMENTS: "change.detail.comments",
     },
     TRIPLE_STATE: {
-      CREATED: "change.detail.state.created",
-      MODIFIED: "change.detail.state.modified",
-      DELETED: "change.detail.state.deleted",
+      CREATED: "CREATED",
+      MODIFIED: "MODIFIED",
+      DELETED: "DELETED",
+      ROLLBACKED: "ROLLBACKED",
     },
   },
 };

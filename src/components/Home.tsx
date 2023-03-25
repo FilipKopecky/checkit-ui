@@ -9,11 +9,10 @@ import { Change } from "../model/Change";
 const mockedChange: Change = {
   comments: [],
   id: "randomID",
-  newObject:
+  object:
     "Budova je nadzemní stavba včetně její podzemní části prostorově soustředěná a navenek převážně uzavřená obvodovými stěnami a střešní konstrukcí.",
-  object: "",
-  predicate: "https://www.w3.org/2009/08/skos-reference/skos.html#definition",
-  state: "",
+  predicate: "http://www.w3.org/2004/02/skos/core#definition",
+  state: "CREATED",
   subject:
     "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/building",
   type: "TERM",

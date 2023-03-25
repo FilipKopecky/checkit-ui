@@ -7,7 +7,7 @@ export interface Change {
   subject: string;
   predicate: string;
   object: string;
-  newObject: string;
+  newObject?: string;
   comments: Comment[];
-  state: string;
+  state: "CREATED" | "MODIFIED" | "DELETED" | "ROLLBACKED";
 }

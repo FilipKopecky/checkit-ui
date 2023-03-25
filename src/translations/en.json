@@ -53,5 +53,9 @@
   "publication-progress": "{progress}% done",
   "change-detail-basic-tab": "Basic",
   "change-detail-turtle-tab": "Turtle",
-  "change-detail-comments-tab": "Discussion"
+  "change-detail-comments-tab": "Discussion",
+  "change-detail-state-created": "Created",
+  "change-detail-state-modified": "Modified",
+  "change-detail-state-deleted": "Deleted",
+  "change-detail-state-rollbacked": "Rollbacked"
 }
