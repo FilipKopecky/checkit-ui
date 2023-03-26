@@ -2,7 +2,7 @@ import React from "react";
 import { Change } from "../model/Change";
 import ChangeList from "./change/ChangeList";
 import IslandHeader from "./misc/IslandHeader";
-import { Box, Paper } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 const mockedChange: Change = {
   comments: [],
@@ -58,21 +58,37 @@ const mockedChange4: Change = {
 const PublicationVocabulary: React.FC = () => {
   return (
     <Box p={2}>
-      <Paper>
-        <IslandHeader header={"Změny ve slovníku"} />
-        <ChangeList
-          changes={[
-            mockedChange,
-            mockedChange2,
-            mockedChange3,
-            mockedChange4,
-            mockedChange,
-            mockedChange2,
-            mockedChange3,
-            mockedChange4,
-          ]}
-        />
-      </Paper>
+      <Grid container spacing={2}>
+        <Grid item md={12} xs={12}>
+          <Paper>
+            <Box p={3}>
+              <Typography variant={"h4"}>
+                COUNCIL DIRECTIVE 1999/37/EC on the registration documents for
+                vehicles
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item md={12} xs={12}>
+          <Box>
+            <Paper>
+              <IslandHeader header={"Změny ve slovníku"} />
+              <ChangeList
+                changes={[
+                  mockedChange,
+                  mockedChange2,
+                  mockedChange3,
+                  mockedChange4,
+                  mockedChange,
+                  mockedChange2,
+                  mockedChange3,
+                  mockedChange4,
+                ]}
+              />
+            </Paper>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

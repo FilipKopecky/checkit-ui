@@ -11,12 +11,13 @@ const ChangeGroupHeader: React.FC<ChangeGroupHeaderProps> = ({ type, uri }) => {
   return (
     <Box px={2}>
       <Box
-        p={2}
+        px={2}
+        py={1}
         display={"flex"}
         bgcolor={"#415a99"}
         color={"white"}
         alignItems={"center"}
-        borderRadius={"7px 7px 0px 0px"}
+        sx={{ fontWeight: "medium" }}
       >
         <ObjectLabel objectUri={uri} variant={"h6"} />
       </Box>
