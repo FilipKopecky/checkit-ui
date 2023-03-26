@@ -4,6 +4,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  AccordionSummaryProps,
   Box,
   Button,
   Tab,
@@ -18,6 +19,8 @@ import Constants from "../../utils/Constants";
 import ChangeHeader from "./ChangeHeader";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { styled } from "@mui/material/styles";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import Divider from "@mui/material/Divider";
 
 interface ChangeDetailProps {
@@ -46,18 +49,29 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   }, [activeTab, change]);
 
   return (
-    <Box px={2} sx={{ color: "white" }} py={2}>
-      <Accordion TransitionProps={{ unmountOnExit: true }} elevation={2}>
-        <AccordionSummary
+    <Box
+      sx={{
+        color: "white",
+      }}
+    >
+      <Accordion TransitionProps={{ unmountOnExit: true }} square>
+        <AccordionSummaryWithIconOnLeft
           sx={{
             backgroundColor: "background.default",
             color: "black",
+            flexDirection: "row-reverse",
           }}
           expandIcon={<ExpandMoreIcon color={"primary"} />}
         >
           <ChangeHeader change={change} />
-        </AccordionSummary>
-        <AccordionDetails>
+        </AccordionSummaryWithIconOnLeft>
+        <AccordionDetails
+          sx={{
+            borderLeft: 1,
+            borderRight: 1,
+            borderColor: "background.default",
+          }}
+        >
           <Box
             sx={{
               justifyContent: "space-between",
@@ -65,26 +79,31 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
               flex: 1,
             }}
           >
-            <Tabs value={activeTab} onChange={handleTabChange}>
-              <Tab
-                value={Constants.CHANGE_DETAIL.TABS.BASIC}
-                label={intl.formatMessage({ id: "change-detail-basic-tab" })}
-              />
-              <Tab
-                value={Constants.CHANGE_DETAIL.TABS.TURTLE}
-                label={intl.formatMessage({ id: "change-detail-turtle-tab" })}
-              />
-              <Tab
-                value={Constants.CHANGE_DETAIL.TABS.COMMENTS}
-                label={intl.formatMessage({
-                  id: "change-detail-comments-tab",
-                })}
-              />
-            </Tabs>
+            <Box flex={1}>
+              <Tabs value={activeTab} onChange={handleTabChange}>
+                <Tab
+                  value={Constants.CHANGE_DETAIL.TABS.BASIC}
+                  label={intl.formatMessage({ id: "change-detail-basic-tab" })}
+                />
+                <Tab
+                  value={Constants.CHANGE_DETAIL.TABS.TURTLE}
+                  label={intl.formatMessage({ id: "change-detail-turtle-tab" })}
+                />
+                <Tab
+                  value={Constants.CHANGE_DETAIL.TABS.COMMENTS}
+                  label={intl.formatMessage({
+                    id: "change-detail-comments-tab",
+                  })}
+                />
+              </Tabs>
+              <Box mr={3}>
+                <Divider />
+              </Box>
+            </Box>
             <Box pt={1}>
               <Button
                 size={"small"}
-                variant="contained"
+                variant="outlined"
                 endIcon={<CheckCircleOutlinedIcon />}
                 color={"success"}
                 sx={{ marginRight: 2 }}
@@ -94,7 +113,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
               </Button>
               <Button
                 size={"small"}
-                variant="contained"
+                variant="outlined"
                 endIcon={<CancelOutlinedIcon />}
                 color={"error"}
                 sx={{ marginRight: 2 }}
@@ -104,12 +123,32 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
               </Button>
             </Box>
           </Box>
-          <Divider />
+
           <Box mt={2}>{componentToRender}</Box>
         </AccordionDetails>
       </Accordion>
     </Box>
   );
 };
+
+const AccordionSummaryWithIconOnLeft = styled(
+  (props: AccordionSummaryProps) => (
+    <AccordionSummary
+      {...props}
+      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    />
+  )
+)(({ theme }) => ({
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+  "& .MuiAccordionSummary-content.Mui-expanded": {
+    marginLeft: theme.spacing(1),
+  },
+}));
 
 export default ChangeListItem;

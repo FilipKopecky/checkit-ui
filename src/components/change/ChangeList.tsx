@@ -3,7 +3,7 @@ import { GroupedVirtuoso } from "react-virtuoso";
 import { Change } from "../../model/Change";
 import ChangeListItem from "./ChangeListItem";
 import ChangeGroupHeader from "./ChangeGroupHeader";
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface ChangeListProps {
   changes: Change[];
@@ -19,27 +19,30 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
 
   const itemContent = (index: number, groupIndex: number) => {
     const change = changes[index];
-    return <InnerItem change={change} />;
+    return <InnerItem change={change} index={index} />;
   };
 
   return (
-    <Paper>
-      <Box>
-        <GroupedVirtuoso
-          style={{ height: 600 }}
-          groupCounts={groupCounts}
-          groupContent={(index) => {
-            return <ChangeGroupHeader type={"TERM"} uri={mockedUris[index]} />;
-          }}
-          itemContent={itemContent}
-        />
-      </Box>
-    </Paper>
+    <Box>
+      <GroupedVirtuoso
+        style={{ height: 500 }}
+        groupCounts={groupCounts}
+        groupContent={(index) => {
+          return <ChangeGroupHeader type={"TERM"} uri={mockedUris[index]} />;
+        }}
+        itemContent={itemContent}
+      />
+    </Box>
   );
 };
 
-const InnerItem = React.memo(({ change }: any) => {
-  return <ChangeListItem change={change} />;
+const InnerItem = React.memo(({ change, index }: any) => {
+  //TODO: pb is just for testing purpose, calculation is required for proper function
+  return (
+    <Box pb={index === 3 ? 5 : 0} px={2}>
+      <ChangeListItem change={change} />
+    </Box>
+  );
 });
 
 export default ChangeList;

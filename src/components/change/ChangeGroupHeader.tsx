@@ -9,15 +9,17 @@ interface ChangeGroupHeaderProps {
 
 const ChangeGroupHeader: React.FC<ChangeGroupHeaderProps> = ({ type, uri }) => {
   return (
-    <Box
-      display={"flex"}
-      bgcolor={"#415a99"}
-      color={"white"}
-      px={4}
-      py={2}
-      alignItems={"center"}
-    >
-      <ObjectLabel objectUri={uri} variant={"h6"} />
+    <Box px={2}>
+      <Box
+        p={2}
+        display={"flex"}
+        bgcolor={"#415a99"}
+        color={"white"}
+        alignItems={"center"}
+        borderRadius={"7px 7px 0px 0px"}
+      >
+        <ObjectLabel objectUri={uri} variant={"h6"} />
+      </Box>
     </Box>
   );
 };

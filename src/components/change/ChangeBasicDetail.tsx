@@ -12,7 +12,7 @@ interface ChangeBasicDetailProps {
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
   const intl = useIntl();
   return (
-    <Box>
+    <Box py={1}>
       <Box mb={2}>
         <Box mb={1} sx={{ textTransform: "uppercase" }}>
           <Chip
