@@ -4,6 +4,19 @@ export const generateTripleFromChange = (change: Change): string => {
   return `<${change.subject}>\n<${change.predicate}>\n<${change.object}> .`;
 };
 
+export const getModificationColor = (state: string): string => {
+  switch (state) {
+    case "CREATED":
+      return "#2EA903";
+    case "DELETED":
+      return "#FF0000";
+    case "MODIFIED":
+    case "ROLLBACKED":
+      return "#ED6C02";
+  }
+  return "";
+};
+
 /**
  * Mapping known properties to human-readable translations
  */

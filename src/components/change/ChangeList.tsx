@@ -16,7 +16,6 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
   const groupCounts = useMemo(() => {
     return Array(2).fill(4);
   }, []);
-
   const itemContent = (index: number, groupIndex: number) => {
     const change = changes[index];
     return <InnerItem change={change} index={index} />;
@@ -37,9 +36,8 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
 };
 
 const InnerItem = React.memo(({ change, index }: any) => {
-  //TODO: pb is just for testing purpose, calculation is required for proper function
   return (
-    <Box pb={index === 3 ? 5 : 0} px={2}>
+    <Box pb={index === 3 ? 5 : 0}>
       <ChangeListItem change={change} />
     </Box>
   );

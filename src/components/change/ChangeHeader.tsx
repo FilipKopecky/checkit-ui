@@ -1,17 +1,12 @@
 import React from "react";
 import { Change } from "../../model/Change";
-import ChangePredicateLabel from "./ChangePredicateLabel";
+import PredicateLabel from "./PredicateLabel";
 import { Box, Chip } from "@mui/material";
 import { useIntl } from "react-intl";
 
 interface ChangeHeaderProps {
   change: Change;
 }
-
-// const chipBg = "#FFF9E9";
-// const modifiedColor = "#FFC12C";
-// const createdColor = "#33BE5A";
-// const deletedColor = "#FF0000";
 
 const ChangeHeader: React.FC<ChangeHeaderProps> = ({ change }) => {
   const intl = useIntl();
@@ -52,7 +47,7 @@ const ChangeHeader: React.FC<ChangeHeaderProps> = ({ change }) => {
         flex: 1,
       }}
     >
-      <ChangePredicateLabel uri={change.predicate} variant={"subtitle1"} />
+      <PredicateLabel uri={change.predicate} variant={"subtitle1"} />
       <Box mr={2}>
         <Chip
           label={selectedChipText}

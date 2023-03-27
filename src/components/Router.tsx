@@ -8,7 +8,7 @@ import { getEnvVariable } from "../utils/environment";
 import NotFoundPage from "./routing/NotFoundPage";
 import Routes from "../utils/Routes";
 import PublicationSummary from "./publications/PublicationSummary";
-import PublicationVocabulary from "./PublicationVocabulary";
+import PublicationReviewVocabulary from "./PublicationReviewVocabulary";
 
 const AdminPanel = React.lazy(() => import("./admin/AdminPanel"));
 const Publications = React.lazy(() => import("./Publications"));
@@ -31,7 +31,7 @@ const Router: React.FC = () => {
           />
           <Route
             path={`${Routes.PUBLICATIONS}/:publicationId/vocabulary`}
-            element={<PublicationVocabulary />}
+            element={<PublicationReviewVocabulary />}
           />
           <Route path={Routes.REQUESTS} element={<CurrentUserSummary />} />
         </Route>

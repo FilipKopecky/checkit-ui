@@ -1,89 +1,93 @@
 import React from "react";
 import { Change } from "../../model/Change";
-import { Box, Button, Chip } from "@mui/material";
-import ObjectLabel from "./ObjectLabel";
-import Divider from "@mui/material/Divider";
 import { useIntl } from "react-intl";
-import ChangePredicateLabel from "./ChangePredicateLabel";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { Box, Button } from "@mui/material";
+import PredicateLabel from "./PredicateLabel";
+import IconButton from "@mui/material/IconButton";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ObjectLabel from "./ObjectLabel";
+import { getModificationColor } from "../../utils/ChangeUtils";
 
 interface ChangeBasicDetailProps {
   change: Change;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
+const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
+  change,
+  setOpen,
+}) => {
   const intl = useIntl();
   return (
-    <Box px={1}>
-      <Box mb={2}>
-        <Box
-          sx={{
-            justifyContent: "space-between",
-            display: "flex",
-            flex: 1,
-          }}
-        >
-          <ChangePredicateLabel
-            uri={change.predicate}
-            variant={"h6"}
-            gutterBottom
-          />
-          <Box>
-            <Button
-              size={"small"}
-              variant="outlined"
-              endIcon={<CheckCircleOutlinedIcon />}
-              color={"success"}
-              sx={{ marginRight: 2 }}
-              onClick={() => console.log("Change accepted")}
-            >
-              {intl.formatMessage({ id: "accept" })}
-            </Button>
-            <Button
-              size={"small"}
-              variant="outlined"
-              endIcon={<CancelOutlinedIcon />}
-              color={"error"}
-              onClick={() => console.log("Change declined")}
-            >
-              {intl.formatMessage({ id: "decline" })}
-            </Button>
-          </Box>
-        </Box>
-        <Box mb={1} mt={1} sx={{ textTransform: "uppercase" }}>
-          <Chip
-            size={"small"}
-            sx={{ fontSize: "10px" }}
-            color={change.state === "DELETED" ? "error" : "success"}
-            label={
-              change.state === "DELETED"
-                ? intl.formatMessage({ id: "change-detail-deleted" })
-                : intl.formatMessage({ id: "change-detail-new" })
-            }
-          />
-        </Box>
-        <ObjectLabel
-          objectUri={change.newObject || change.object}
-          variant={"body1"}
+    <Box pt={1}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", flex: 1 }}>
+        <PredicateLabel
+          uri={change.predicate}
+          variant={"h5"}
+          sx={{ marginBottom: 2 }}
         />
-      </Box>
-      {change.state === "MODIFIED" && (
         <Box>
-          <Divider />
-          <Box mt={2} py={1}>
-            <Box mb={1} sx={{ textTransform: "uppercase" }}>
-              <Chip
-                size={"small"}
-                color={"warning"}
-                sx={{ fontSize: "10px" }}
-                label={intl.formatMessage({ id: "change-detail-original" })}
-              />
-            </Box>
-            <ObjectLabel objectUri={change.object} variant={"body1"} />
-          </Box>
+          <IconButton onClick={() => setOpen(false)}>
+            <FullscreenExitIcon />
+          </IconButton>
         </Box>
-      )}
+      </Box>
+      <Box sx={{ display: "flex" }}>
+        <ModifiedObject objectUri={change.object} state={change.state} />
+        {change.state === "MODIFIED" && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <ArrowForwardIcon fontSize={"large"} />
+            <ModifiedObject objectUri={change.newObject!} state={"CREATED"} />
+          </Box>
+        )}
+      </Box>
+      <Box mt={4}>
+        <Button
+          size={"small"}
+          variant="outlined"
+          color={"success"}
+          sx={{ marginRight: 2 }}
+          onClick={() => console.log("Change accepted")}
+        >
+          {intl.formatMessage({ id: "accept" })}
+        </Button>
+        <Button
+          size={"small"}
+          variant="outlined"
+          color={"error"}
+          onClick={() => console.log("Change declined")}
+        >
+          {intl.formatMessage({ id: "decline" })}
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+interface ModifiedObjectProps {
+  objectUri: string;
+  state: string;
+}
+
+const ModifiedObject: React.FC<ModifiedObjectProps> = ({
+  objectUri,
+  state,
+}) => {
+  return (
+    <Box
+      sx={{
+        borderLeft: 4,
+        borderColor: getModificationColor(state),
+        paddingLeft: 2,
+      }}
+    >
+      <ObjectLabel objectUri={objectUri} variant={"h6"} />
     </Box>
   );
 };

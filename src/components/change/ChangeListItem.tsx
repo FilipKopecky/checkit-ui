@@ -4,26 +4,28 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  AccordionSummaryProps,
   Box,
-  Tab,
-  Tabs,
+  Collapse,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import { useIntl } from "react-intl";
 import ChangeBasicDetail from "./ChangeBasicDetail";
 import ChangeTurtleDetail from "./ChangeTurtleDetail";
 import ChangeCommentsDetail from "./ChangeCommentsDetail";
 import Constants from "../../utils/Constants";
-import ChangeHeader from "./ChangeHeader";
-import { styled } from "@mui/material/styles";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import PredicateLabel from "./PredicateLabel";
 
 interface ChangeDetailProps {
   change: Change;
 }
 
 const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
+  const [expanded, setExpanded] = useState(true);
+
+  const handleChange = (event: React.SyntheticEvent, newExpanded: boolean) => {
+    setExpanded(newExpanded);
+  };
+
   const [activeTab, setActiveTab] = useState(
     Constants.CHANGE_DETAIL.TABS.BASIC
   );
@@ -34,7 +36,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   const componentToRender = useMemo(() => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
-        return <ChangeBasicDetail change={change} />;
+        return <ChangeBasicDetail change={change} setOpen={setExpanded} />;
       case Constants.CHANGE_DETAIL.TABS.TURTLE:
         return <ChangeTurtleDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.COMMENTS:
@@ -45,78 +47,19 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   }, [activeTab, change]);
 
   return (
-    <Accordion TransitionProps={{ unmountOnExit: true }} square>
-      <AccordionSummaryWithIconOnLeft
-        sx={{
-          backgroundColor: "background.default",
-          color: "black",
-          flexDirection: "row-reverse",
-        }}
-        expandIcon={<ExpandMoreIcon color={"primary"} />}
-      >
-        <ChangeHeader change={change} />
-      </AccordionSummaryWithIconOnLeft>
-      <AccordionDetails
-        sx={{
-          borderLeft: 1,
-          borderRight: 1,
-          borderBottom: 1,
-          borderColor: "background.default",
-          paddingTop: 1,
-          paddingBottom: 1,
-        }}
-      >
-        <Box
-          sx={{
-            justifyContent: "space-between",
-            display: "flex",
-            flex: 1,
-          }}
-        >
-          <Box flex={1}>
-            <Tabs value={activeTab} onChange={handleTabChange}>
-              <Tab
-                value={Constants.CHANGE_DETAIL.TABS.BASIC}
-                label={intl.formatMessage({ id: "change-detail-basic-tab" })}
-              />
-              <Tab
-                value={Constants.CHANGE_DETAIL.TABS.TURTLE}
-                label={intl.formatMessage({ id: "change-detail-turtle-tab" })}
-              />
-              <Tab
-                value={Constants.CHANGE_DETAIL.TABS.COMMENTS}
-                label={intl.formatMessage({
-                  id: "change-detail-comments-tab",
-                })}
-              />
-            </Tabs>
-          </Box>
-        </Box>
-
-        <Box py={3}>{componentToRender}</Box>
-      </AccordionDetails>
-    </Accordion>
+    <Box sx={{ paddingRight: 1 }}>
+      <Box sx={{ borderBottom: 1, borderColor: "background.default" }}>
+        <Accordion expanded={expanded} onChange={handleChange} square>
+          <Collapse in={!expanded} timeout="auto" unmountOnExit>
+            <AccordionSummary expandIcon={<FullscreenExitIcon />}>
+              <PredicateLabel uri={change.predicate} variant={"h6"} />
+            </AccordionSummary>
+          </Collapse>
+          <AccordionDetails>{componentToRender}</AccordionDetails>
+        </Accordion>
+      </Box>
+    </Box>
   );
 };
-
-const AccordionSummaryWithIconOnLeft = styled(
-  (props: AccordionSummaryProps) => (
-    <AccordionSummary
-      {...props}
-      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
-    />
-  )
-)(({ theme }) => ({
-  flexDirection: "row-reverse",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(90deg)",
-  },
-  "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
-  },
-  "& .MuiAccordionSummary-content.Mui-expanded": {
-    marginLeft: theme.spacing(1),
-  },
-}));
 
 export default ChangeListItem;
