@@ -8,6 +8,7 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
 import { getModificationColor } from "../../../utils/ChangeUtils";
+import { styled } from "@mui/material/styles";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -46,9 +47,10 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
                     display: "flex",
                     alignItems: "center",
                     height: "100%",
+                    justifyContent: "center",
                   }}
                 >
-                  <ArrowForwardIcon fontSize={"large"} />
+                  <Arrow fontSize={"large"} />
                 </Box>
               </Grid>
               <Grid item md={5} xs={12}>
@@ -106,5 +108,11 @@ const ModifiedObject: React.FC<ModifiedObjectProps> = ({
     </Box>
   );
 };
+
+const Arrow = styled(ArrowForwardIcon)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    transform: "rotate(90deg)",
+  },
+}));
 
 export default ChangeBasicDetail;
