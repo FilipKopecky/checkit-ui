@@ -1,0 +1,16 @@
+{
+  "SKOS_CONCEPT": "Pojem",
+  "SKOS_DEFINITION": "Definice pojmu",
+  "SKOS_BROADER": "Nadřazený pojem",
+  "SKOS_NARROWER": "Podřazený pojem",
+  "SKOS_PREF_LABEL": "Preferovaný název",
+  "SKOS_ALT_LABEL": "Alternativní název",
+  "SKOS_HIDDEN_LABEL": "Skrytý název",
+  "SKOS_SCOPE_NOTE": "Doplňující poznámka",
+  "SKOS_IN_SCHEME": "Ve schématu",
+  "SKOS_EXACT_MATCH": "Pojem se stejným významem",
+  "SKOS_RELATED": "Ve vztahu",
+  "SKOS_RELATED_MATCH": "Související pojem",
+  "SKOS_NOTATION": "Notace",
+  "SKOS_EXAMPLE": "Příklad použití"
+}

@@ -8,6 +8,7 @@
   "admin-panel-navigation": "Správa systému",
   "admin-panel-navigation-description": "Vyřizujte gestorské žádosti, spravujte slovníky a přiřazujte práva",
   "publication-navigation": "Publikace",
+  "available-publications": "Dostupné publikace",
   "publication-navigation-description": "Procházejte nové publikace a porovnejte je s aktuální verzí",
   "gestor-request-navigation": "Gestorské právo",
   "gestor-request-navigation-description": "Staňte s gestorem dostupných slovníků a zjistěte kdo je gestoruje",
@@ -48,5 +49,16 @@
   "something-went-wrong": "Něco se pokazilo",
   "publication-summary-description": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání",
   "publication-submit": "Odevzdat revizi",
-  "publication-decline": "Zamítnout publikaci"
+  "publication-decline": "Zamítnout publikaci",
+  "publication-progress": "{progress}% zrevidováno",
+  "change-detail-basic-tab": "Přehled",
+  "change-detail-turtle-tab": "Turtle",
+  "change-detail-comments-tab": "Diskuse",
+  "change-detail-state-created": "Vytvořeno",
+  "change-detail-state-modified": "Upraveno",
+  "change-detail-state-deleted": "Smazáno",
+  "change-detail-state-rollbacked": "Vráceno",
+  "change-detail-new": "Nový",
+  "change-detail-original": "Původní",
+  "change-detail-deleted": "Smazáno"
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import PublicationSummary from "./publications/PublicationSummary";
+import PublicationsHub from "./PublicationsHub";
 
 const Publications: React.FC = () => {
-  return <PublicationSummary />;
+  return <PublicationsHub />;
 };
 
 export default Publications;

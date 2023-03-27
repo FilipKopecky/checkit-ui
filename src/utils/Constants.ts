@@ -15,6 +15,19 @@ const constants = {
       USERS: "admin.panel.admin.users",
     },
   },
+  CHANGE_DETAIL: {
+    TABS: {
+      BASIC: "change.detail.basic",
+      TURTLE: "change.detail.turtle",
+      COMMENTS: "change.detail.comments",
+    },
+    TRIPLE_STATE: {
+      CREATED: "CREATED",
+      MODIFIED: "MODIFIED",
+      DELETED: "DELETED",
+      ROLLBACKED: "ROLLBACKED",
+    },
+  },
 };
 
 export default constants;

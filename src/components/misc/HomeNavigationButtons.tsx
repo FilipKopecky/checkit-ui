@@ -13,7 +13,7 @@ const HomeNavigationButtons: React.FC = () => {
   const user = useAppSelector(selectUser);
   const intl = useIntl();
   return (
-    <Box display={"flex"} sx={{ gap: 2 }}>
+    <Box display={"flex"} sx={{ gap: 2 }} mb={2}>
       {user.isAdmin && (
         <NavigationCard
           route={`/${Routes.ADMINISTRATION}`}
