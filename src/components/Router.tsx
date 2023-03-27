@@ -8,7 +8,7 @@ import { getEnvVariable } from "../utils/environment";
 import NotFoundPage from "./routing/NotFoundPage";
 import Routes from "../utils/Routes";
 import PublicationSummary from "./publications/PublicationSummary";
-import PublicationReviewVocabulary from "./PublicationReviewVocabulary";
+import PublicationReviewVocabulary from "./publications/PublicationReviewVocabulary";
 
 const AdminPanel = React.lazy(() => import("./admin/AdminPanel"));
 const Publications = React.lazy(() => import("./Publications"));

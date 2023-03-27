@@ -1,6 +1,6 @@
 import React from "react";
-import { Change } from "../model/Change";
-import ChangeList from "./change/ChangeList";
+import { Change } from "../../model/Change";
+import ChangeList from "../change/ChangeList";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 
 const mockedChange: Change = {
