@@ -6,6 +6,7 @@ import {
   Box,
   LinearProgress,
   ListItemSecondaryAction,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -60,9 +61,16 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
       </Box>
       <ListItemSecondaryAction>
         <Link to={publication.id}>
-          <IconButton>
-            <ContentPasteSearchOutlinedIcon />
-          </IconButton>
+          <Tooltip
+            title={intl.formatMessage({ id: "seePublicationSummary" })}
+            placement={"left"}
+          >
+            <span>
+              <IconButton>
+                <ContentPasteSearchOutlinedIcon />
+              </IconButton>
+            </span>
+          </Tooltip>
         </Link>
       </ListItemSecondaryAction>
     </ListItem>

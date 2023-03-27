@@ -10,6 +10,8 @@ import PublicationNotifications from "./PublicationNotifications";
 import { UserData } from "../../model/User";
 import { Vocabulary } from "../../model/Vocabulary";
 import PublicationStatistics from "./PublicationStatistics";
+import { useNavigate } from "react-router-dom";
+import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
 
 const Item = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -49,6 +51,7 @@ const PublicationSummary: React.FC<PublicationSummaryProps> = ({
   publication = mockedPublication,
 }) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   return (
     <Box p={2}>
       <Grid container spacing={2}>
@@ -66,7 +69,12 @@ const PublicationSummary: React.FC<PublicationSummaryProps> = ({
             <Box px={3}>
               <VocabulariesList
                 vocabularies={publication.affectedVocabularies}
-                gestorsClick={() => console.log("done")}
+                actionIcon={<ContentPasteGoOutlinedIcon />}
+                action={() => navigate("vocabulary")}
+                actionDescription={intl.formatMessage({
+                  id: "startVocabularyReviewAction",
+                })}
+                gestorsClick={() => {}}
               />
             </Box>
           </Paper>

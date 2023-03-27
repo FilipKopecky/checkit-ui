@@ -60,5 +60,7 @@
   "change-detail-state-rollbacked": "Vráceno",
   "change-detail-new": "Nový",
   "change-detail-original": "Původní",
-  "change-detail-deleted": "Smazáno"
+  "change-detail-deleted": "Smazáno",
+  "startVocabularyReviewAction": "Zkontrolovat změny ve slovníku",
+  "seePublicationSummary": "Prohlédnout si publikaci"
 }
