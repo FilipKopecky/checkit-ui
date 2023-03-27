@@ -7,7 +7,10 @@ interface ChangeGroupHeaderProps {
   uri: string;
 }
 
-const ChangeGroupHeader: React.FC<ChangeGroupHeaderProps> = ({ type, uri }) => {
+const ChangeListItemGroup: React.FC<ChangeGroupHeaderProps> = ({
+  type,
+  uri,
+}) => {
   return (
     <Box pr={1}>
       <Paper elevation={2}>
@@ -19,4 +22,4 @@ const ChangeGroupHeader: React.FC<ChangeGroupHeaderProps> = ({ type, uri }) => {
   );
 };
 
-export default ChangeGroupHeader;
+export default ChangeListItemGroup;

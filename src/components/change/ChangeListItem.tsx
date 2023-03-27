@@ -4,16 +4,18 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  AccordionSummaryProps,
   Box,
   Collapse,
 } from "@mui/material";
-import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import { useIntl } from "react-intl";
-import ChangeBasicDetail from "./ChangeBasicDetail";
-import ChangeTurtleDetail from "./ChangeTurtleDetail";
-import ChangeCommentsDetail from "./ChangeCommentsDetail";
+import ChangeBasicDetail from "./tabs/ChangeBasicDetail";
+import ChangeTurtleDetail from "./tabs/ChangeTurtleDetail";
+import ChangeCommentsDetail from "./tabs/ChangeCommentsDetail";
 import Constants from "../../utils/Constants";
 import PredicateLabel from "./PredicateLabel";
+import { styled } from "@mui/material/styles";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
 
 interface ChangeDetailProps {
   change: Change;
@@ -51,9 +53,9 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
       <Box sx={{ borderBottom: 1, borderColor: "background.default" }}>
         <Accordion expanded={expanded} onChange={handleChange} square>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>
-            <AccordionSummary expandIcon={<FullscreenExitIcon />}>
+            <CustomAccordionSummary expandIcon={<FullscreenIcon />}>
               <PredicateLabel uri={change.predicate} variant={"h6"} />
-            </AccordionSummary>
+            </CustomAccordionSummary>
           </Collapse>
           <AccordionDetails>{componentToRender}</AccordionDetails>
         </Accordion>
@@ -62,4 +64,14 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   );
 };
 
+const CustomAccordionSummary = styled((props: AccordionSummaryProps) => (
+  <AccordionSummary {...props} />
+))(({ theme }) => ({
+  "& .MuiAccordionSummary-expandIconWrapper": {
+    paddingRight: theme.spacing(1),
+  },
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(0deg)",
+  },
+}));
 export default ChangeListItem;

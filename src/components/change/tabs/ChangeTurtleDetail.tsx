@@ -1,7 +1,7 @@
 import React from "react";
-import { Change } from "../../model/Change";
+import { Change } from "../../../model/Change";
 import { Box, Typography } from "@mui/material";
-import { generateTripleFromChange } from "../../utils/ChangeUtils";
+import { generateTripleFromChange } from "../../../utils/ChangeUtils";
 
 interface ChangeTurtleDetailProps {
   change: Change;

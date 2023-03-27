@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { GroupedVirtuoso } from "react-virtuoso";
 import { Change } from "../../model/Change";
 import ChangeListItem from "./ChangeListItem";
-import ChangeGroupHeader from "./ChangeGroupHeader";
+import ChangeListItemGroup from "./ChangeListItemGroup";
 import { Box } from "@mui/material";
 
 interface ChangeListProps {
@@ -27,7 +27,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
         style={{ height: 500 }}
         groupCounts={groupCounts}
         groupContent={(index) => {
-          return <ChangeGroupHeader type={"TERM"} uri={mockedUris[index]} />;
+          return <ChangeListItemGroup type={"TERM"} uri={mockedUris[index]} />;
         }}
         itemContent={itemContent}
       />

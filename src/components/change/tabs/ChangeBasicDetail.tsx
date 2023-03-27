@@ -1,13 +1,13 @@
 import React from "react";
-import { Change } from "../../model/Change";
+import { Change } from "../../../model/Change";
 import { useIntl } from "react-intl";
-import { Box, Button } from "@mui/material";
-import PredicateLabel from "./PredicateLabel";
+import { Box, Button, Grid } from "@mui/material";
+import PredicateLabel from "../PredicateLabel";
 import IconButton from "@mui/material/IconButton";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ObjectLabel from "./ObjectLabel";
-import { getModificationColor } from "../../utils/ChangeUtils";
+import ObjectLabel from "../ObjectLabel";
+import { getModificationColor } from "../../../utils/ChangeUtils";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -24,7 +24,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
       <Box sx={{ display: "flex", justifyContent: "space-between", flex: 1 }}>
         <PredicateLabel
           uri={change.predicate}
-          variant={"h5"}
+          variant={"h6"}
           sx={{ marginBottom: 2 }}
         />
         <Box>
@@ -33,19 +33,33 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
           </IconButton>
         </Box>
       </Box>
-      <Box sx={{ display: "flex" }}>
-        <ModifiedObject objectUri={change.object} state={change.state} />
-        {change.state === "MODIFIED" && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <ArrowForwardIcon fontSize={"large"} />
-            <ModifiedObject objectUri={change.newObject!} state={"CREATED"} />
-          </Box>
-        )}
+      <Box>
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12}>
+            <ModifiedObject objectUri={change.object} state={change.state} />
+          </Grid>
+          {change.state === "MODIFIED" && (
+            <>
+              <Grid item md={1} xs={12}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <ArrowForwardIcon fontSize={"large"} />
+                </Box>
+              </Grid>
+              <Grid item md={5} xs={12}>
+                <ModifiedObject
+                  objectUri={change.newObject!}
+                  state={"CREATED"}
+                />
+              </Grid>
+            </>
+          )}
+        </Grid>
       </Box>
       <Box mt={4}>
         <Button
@@ -82,12 +96,13 @@ const ModifiedObject: React.FC<ModifiedObjectProps> = ({
   return (
     <Box
       sx={{
-        borderLeft: 4,
+        borderLeft: 6,
         borderColor: getModificationColor(state),
         paddingLeft: 2,
+        height: "100%",
       }}
     >
-      <ObjectLabel objectUri={objectUri} variant={"h6"} />
+      <ObjectLabel objectUri={objectUri} variant={"body1"} />
     </Box>
   );
 };
