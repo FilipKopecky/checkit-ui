@@ -70,8 +70,8 @@ const PublicationVocabulary: React.FC = () => {
           </Paper>
         </Grid>
         <Grid item md={12} xs={12}>
-          <Box>
-            <Paper>
+          <Paper>
+            <Box py={2}>
               <IslandHeader header={"Změny ve slovníku"} />
               <ChangeList
                 changes={[
@@ -85,8 +85,8 @@ const PublicationVocabulary: React.FC = () => {
                   mockedChange4,
                 ]}
               />
-            </Paper>
-          </Box>
+            </Box>
+          </Paper>
         </Grid>
       </Grid>
     </Box>

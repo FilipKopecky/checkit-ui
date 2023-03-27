@@ -60,6 +60,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
         sx={{
           borderLeft: 1,
           borderRight: 1,
+          borderBottom: 1,
           borderColor: "background.default",
           paddingTop: 1,
           paddingBottom: 1,
