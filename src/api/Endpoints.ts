@@ -24,4 +24,8 @@ export const getGestorRequestResolve = (id: string) => {
 export const getPublication = (id: string) => {
   return `${endpoints.GET_ALL_RELEVANT_PUBLICATIONS}/${id}`;
 };
+
+export const getPublicationVocabularyChanges = (publicationId: string) => {
+  return `${getPublication(publicationId)}/vocabulary-changes`;
+};
 export default endpoints;

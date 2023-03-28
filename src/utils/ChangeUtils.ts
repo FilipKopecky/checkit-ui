@@ -8,7 +8,7 @@ export const getModificationColor = (state: string): string => {
   switch (state) {
     case "CREATED":
       return "#2EA903";
-    case "DELETED":
+    case "REMOVED":
       return "#FF0000";
     case "MODIFIED":
     case "ROLLBACKED":

@@ -1,13 +1,18 @@
 import { Comment } from "./Comment";
+import { VocabularyData } from "./Vocabulary";
 
 export interface Change {
   id: string;
   uri: string;
-  type: "VOCABULARY" | "TERM";
+  type: "CREATED" | "MODIFIED" | "DELETED" | "ROLLBACKED";
   subject: string;
   predicate: string;
   object: string;
   newObject?: string;
   comments: Comment[];
-  state: "CREATED" | "MODIFIED" | "DELETED" | "ROLLBACKED";
+  state: "NOT_REVIEWED" | "ACCEPTED" | "REJECTED";
+}
+
+export interface VocabularyChanges extends VocabularyData {
+  changes: Change[];
 }

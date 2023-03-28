@@ -1,6 +1,10 @@
 import { apiSlice } from "./apiSlice";
-import Endpoints, { getPublication } from "./Endpoints";
+import Endpoints, {
+  getPublication,
+  getPublicationVocabularyChanges,
+} from "./Endpoints";
 import { Publication, PublicationContext } from "../model/Publication";
+import { VocabularyChanges } from "../model/Change";
 
 export const publicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,9 +23,21 @@ export const publicationApi = apiSlice.injectEndpoints({
         return rawResult;
       },
     }),
+    getVocabularyChanges: builder.query<
+      VocabularyChanges,
+      { vocabularyUri: string; publicationId: string }
+    >({
+      query: (params) => ({
+        url: getPublicationVocabularyChanges(params.publicationId),
+        params: { vocabularyUri: params.vocabularyUri },
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetRelevantPublicationsQuery, useGetPublicationByIdQuery } =
-  publicationApi;
+export const {
+  useGetRelevantPublicationsQuery,
+  useGetPublicationByIdQuery,
+  useGetVocabularyChangesQuery,
+} = publicationApi;

@@ -7,7 +7,7 @@ import IslandHeader from "../misc/IslandHeader";
 import { useIntl } from "react-intl";
 import PublicationNotifications from "./PublicationNotifications";
 import PublicationStatistics from "./PublicationStatistics";
-import { useNavigate, useParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
 
@@ -43,7 +43,14 @@ const PublicationSummary: React.FC = () => {
               <VocabulariesList
                 vocabularies={publication.affectedVocabularies}
                 actionIcon={<ContentPasteGoOutlinedIcon />}
-                action={() => navigate("vocabulary")}
+                action={(vocabulary) =>
+                  navigate({
+                    pathname: "vocabulary",
+                    search: createSearchParams({
+                      vocabularyUri: vocabulary.uri,
+                    }).toString(),
+                  })
+                }
                 actionDescription={intl.formatMessage({
                   id: "startVocabularyReviewAction",
                 })}

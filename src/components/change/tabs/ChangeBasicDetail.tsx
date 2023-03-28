@@ -37,9 +37,9 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
       <Box>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
-            <ModifiedObject objectUri={change.object} state={change.state} />
+            <ModifiedObject objectUri={change.object} state={change.type} />
           </Grid>
-          {change.state === "MODIFIED" && (
+          {change.type === "MODIFIED" && (
             <>
               <Grid item md={1} xs={12}>
                 <Box
