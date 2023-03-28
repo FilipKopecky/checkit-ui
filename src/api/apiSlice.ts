@@ -20,6 +20,7 @@ export const apiSlice = createApi({
     "ALL_GESTOR_REQUESTS",
     "ADMIN_PANEL_SUMMARY",
     "ALL_RELEVANT_PUBLICATIONS",
+    "PUBLICATIONS",
   ],
   endpoints: () => ({}),
 });

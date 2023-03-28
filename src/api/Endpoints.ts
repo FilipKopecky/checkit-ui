@@ -20,4 +20,8 @@ export const getVocabularyGestorAssign = (id: string) => {
 export const getGestorRequestResolve = (id: string) => {
   return `${endpoints.GET_ALL_GESTOR_REQUESTS}/${id}/approved`;
 };
+
+export const getPublication = (id: string) => {
+  return `${endpoints.GET_ALL_RELEVANT_PUBLICATIONS}/${id}`;
+};
 export default endpoints;
