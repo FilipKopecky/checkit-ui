@@ -1,5 +1,5 @@
 import React from "react";
-import { Publication } from "../../model/Publication";
+import { PublicationContext } from "../../model/Publication";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import {
@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 interface PublicationsListItemProps {
-  publication: Publication;
+  publication: PublicationContext;
   index: number;
 }
 
@@ -45,14 +45,14 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
             <Typography variant="caption" color="text.secondary">
               {intl.formatMessage(
                 { id: "publication-progress" },
-                { progress: publication.progress }
+                { progress: 30 }
               )}
             </Typography>
 
             <Box width={150}>
               <LinearProgress
                 variant={"determinate"}
-                value={publication.progress}
+                value={30}
                 color={"success"}
               />
             </Box>

@@ -6,6 +6,7 @@ const endpoints = {
   GET_MY_GESTORED_VOCABULARIES: "/vocabularies/my-gestored",
   GET_ALL_GESTOR_REQUESTS: "gestoring-requests",
   GET_MY_GESTORING_REQUESTS: "gestoring-requests/my-requests",
+  GET_ALL_RELEVANT_PUBLICATIONS: "publication-contexts",
 };
 
 export const getAdminRoleSwitch = (id: string) => {

@@ -9,3 +9,17 @@ export interface Publication {
   progress: number;
   affectedVocabularies: Vocabulary[];
 }
+
+export type PublicationContextState =
+  | "CREATED"
+  | "APPROVED"
+  | "REJECTED"
+  | "WAITING_FOR_OTHERS";
+
+export interface PublicationContext {
+  id: string;
+  uri: string;
+  label: string;
+  projectContext: string;
+  state: PublicationContextState;
+}
