@@ -3,14 +3,10 @@ import ObjectLabel from "./ObjectLabel";
 import { Box, Paper } from "@mui/material";
 
 interface ChangeGroupHeaderProps {
-  type: "VOCABULARY" | "TERM";
   uri: string;
 }
 
-const ChangeListItemGroup: React.FC<ChangeGroupHeaderProps> = ({
-  type,
-  uri,
-}) => {
+const ChangeListItemGroup: React.FC<ChangeGroupHeaderProps> = ({ uri }) => {
   return (
     <Box pr={1}>
       <Paper elevation={2}>

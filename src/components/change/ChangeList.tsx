@@ -61,12 +61,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
         style={{ height: 700 }}
         groupCounts={changesInfo.counts}
         groupContent={(index) => {
-          return (
-            <ChangeListItemGroup
-              type={"TERM"}
-              uri={changesInfo.headerUris[index]}
-            />
-          );
+          return <ChangeListItemGroup uri={changesInfo.headerUris[index]} />;
         }}
         itemContent={itemContent}
       />
