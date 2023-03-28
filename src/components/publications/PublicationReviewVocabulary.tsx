@@ -22,7 +22,7 @@ const PublicationReviewVocabulary: React.FC = () => {
         <Grid item md={12} xs={12}>
           <Paper>
             <Box p={3}>
-              <Typography variant={"h6"}>Název slovníku</Typography>
+              <Typography variant={"h6"}>{vocabularyChanges.label}</Typography>
             </Box>
           </Paper>
         </Grid>

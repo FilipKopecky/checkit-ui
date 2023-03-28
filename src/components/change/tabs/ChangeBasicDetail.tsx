@@ -2,7 +2,7 @@ import React from "react";
 import { Change } from "../../../model/Change";
 import { useIntl } from "react-intl";
 import { Box, Button, Grid } from "@mui/material";
-import PredicateLabel from "../PredicateLabel";
+import MappedLabel from "../MappedLabel";
 import IconButton from "@mui/material/IconButton";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -23,7 +23,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
   return (
     <Box pt={1}>
       <Box sx={{ display: "flex", justifyContent: "space-between", flex: 1 }}>
-        <PredicateLabel
+        <MappedLabel
           uri={change.predicate}
           variant={"h6"}
           sx={{ marginBottom: 2 }}

@@ -12,5 +12,6 @@
   "SKOS_RELATED": "Ve vztahu",
   "SKOS_RELATED_MATCH": "Související pojem",
   "SKOS_NOTATION": "Notace",
-  "SKOS_EXAMPLE": "Příklad použití"
+  "SKOS_EXAMPLE": "Příklad použití",
+  "SKOS_HAS_TOP_CONCEPT": "Má pojem nejvyšší úrovně"
 }
