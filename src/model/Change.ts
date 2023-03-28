@@ -11,6 +11,7 @@ export interface Change {
   newObject?: string;
   comments: Comment[];
   state: "NOT_REVIEWED" | "ACCEPTED" | "REJECTED";
+  label: string;
 }
 
 export interface VocabularyChanges extends VocabularyData {

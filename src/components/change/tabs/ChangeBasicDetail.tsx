@@ -12,12 +12,12 @@ import { styled } from "@mui/material/styles";
 
 interface ChangeBasicDetailProps {
   change: Change;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggle: () => void;
 }
 
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
   change,
-  setOpen,
+  toggle,
 }) => {
   const intl = useIntl();
   return (
@@ -29,7 +29,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
           sx={{ marginBottom: 2 }}
         />
         <Box>
-          <IconButton onClick={() => setOpen(false)}>
+          <IconButton onClick={() => toggle()}>
             <FullscreenExitIcon />
           </IconButton>
         </Box>

@@ -25,7 +25,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
     }, Object.create(null));
 
     for (const [, value] of Object.entries(grouped)) {
-      const header = value[0].subject;
+      const header = value[0].label;
       headers.push(header);
       allChanges.push(...value);
       groupCounts.push(value.length);

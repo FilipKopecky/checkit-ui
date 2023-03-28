@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useState } from "react";
+import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { Change } from "../../model/Change";
 import {
   Accordion,
@@ -8,12 +8,13 @@ import {
   Box,
   Collapse,
 } from "@mui/material";
-import { useIntl } from "react-intl";
 import ChangeBasicDetail from "./tabs/ChangeBasicDetail";
 import Constants from "../../utils/Constants";
 import MappedLabel from "./MappedLabel";
 import { styled } from "@mui/material/styles";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
+import { selectChangeById, toggleChange } from "../../slices/changeSlice";
 
 interface ChangeDetailProps {
   change: Change;
@@ -27,23 +28,25 @@ const ChangeCommentsDetail = React.lazy(
 );
 
 const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
-  const [expanded, setExpanded] = useState(true);
-
-  const handleChange = (event: React.SyntheticEvent, newExpanded: boolean) => {
-    setExpanded(newExpanded);
-  };
-
-  const [activeTab, setActiveTab] = useState(
-    Constants.CHANGE_DETAIL.TABS.BASIC
+  const dispatch = useAppDispatch();
+  const selectedItem = useAppSelector((state) =>
+    selectChangeById(state, change.uri)
   );
-  const intl = useIntl();
-  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveTab(newValue);
-  };
+
+  const handleChange = useCallback(() => {
+    dispatch(toggleChange(change.uri));
+  }, [dispatch, change.uri]);
+
+  const expanded = selectedItem!.expanded;
+
+  const [activeTab] = useState(Constants.CHANGE_DETAIL.TABS.BASIC);
+
   const componentToRender = useMemo(() => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
-        return <ChangeBasicDetail change={change} setOpen={setExpanded} />;
+        return (
+          <ChangeBasicDetail change={change} toggle={() => handleChange()} />
+        );
       case Constants.CHANGE_DETAIL.TABS.TURTLE:
         return <ChangeTurtleDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.COMMENTS:
@@ -51,7 +54,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
       default:
         return null;
     }
-  }, [activeTab, change]);
+  }, [activeTab, change, handleChange]);
 
   return (
     <Box sx={{ paddingRight: 1 }}>
