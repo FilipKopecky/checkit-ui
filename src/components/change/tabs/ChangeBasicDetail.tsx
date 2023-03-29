@@ -9,6 +9,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
 import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
+import TabNavigation from "../../misc/TabNavigation";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -20,18 +21,39 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({
   toggle,
 }) => {
   const intl = useIntl();
+  const tabs = [
+    "change-detail-basic-tab",
+    "change-detail-turtle-tab",
+    "change-detail-comments-tab",
+  ];
+  const [value, setValue] = React.useState("change-detail-basic-tab");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
   return (
-    <Box pt={1}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", flex: 1 }}>
-        <MappedLabel
-          uri={change.predicate}
-          variant={"h6"}
-          sx={{ marginBottom: 2 }}
-        />
-        <Box>
-          <IconButton onClick={() => toggle()}>
-            <FullscreenExitIcon />
-          </IconButton>
+    <Box pt={1} pb={1}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flex: 1,
+          alignItems: "center",
+          marginBottom: 1,
+        }}
+      >
+        <MappedLabel uri={change.predicate} variant={"h6"} />
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <TabNavigation
+            tabs={tabs}
+            activeTab={value}
+            setActiveTab={handleChange}
+          />
+          <Box>
+            <IconButton onClick={() => toggle()}>
+              <FullscreenExitIcon />
+            </IconButton>
+          </Box>
         </Box>
       </Box>
       <Box>

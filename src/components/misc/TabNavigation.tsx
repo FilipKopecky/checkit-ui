@@ -1,6 +1,7 @@
 import React from "react";
 import { keyframes, Tab, Tabs } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useIntl } from "react-intl";
 
 interface TabNavigationProps {
   tabs: string[];
@@ -12,6 +13,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
   activeTab,
   setActiveTab,
 }) => {
+  const intl = useIntl();
   return (
     <Box sx={{ backgroundColor: "white", display: "flex", flex: 1 }} p={1}>
       <Tabs
@@ -21,10 +23,13 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
         value={activeTab}
         onChange={setActiveTab}
         sx={{
-          padding: 1,
+          padding: 0.5,
           borderRadius: 4,
           backgroundColor: "#EDF8F8",
-          "& button": { borderRadius: 3 },
+          "& button": {
+            borderRadius: 3,
+            minHeight: "auto",
+          },
           "& button.Mui-selected": {
             backgroundColor: "white",
             animation: `${inset} 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both`,
@@ -32,7 +37,14 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
         }}
       >
         {tabs.map((tab) => {
-          return <Tab key={tab} label={tab} value={tab} disableRipple={true} />;
+          return (
+            <Tab
+              key={tab}
+              label={intl.formatMessage({ id: tab })}
+              value={tab}
+              disableRipple={true}
+            />
+          );
         })}
       </Tabs>
     </Box>
