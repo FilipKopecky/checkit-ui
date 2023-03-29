@@ -1,4 +1,4 @@
-import { Comment } from "./Comment";
+import { CommentData } from "./CommentData";
 import { VocabularyData } from "./Vocabulary";
 
 export interface Change {
@@ -9,7 +9,7 @@ export interface Change {
   predicate: string;
   object: string;
   newObject?: string;
-  comments: Comment[];
+  comments: CommentData[];
   state: "NOT_REVIEWED" | "ACCEPTED" | "REJECTED";
   label: string;
 }

@@ -1,6 +1,6 @@
 import { UserData } from "./User";
 
-export interface Comment {
+export interface CommentData {
   topic: string;
   author: UserData;
   content: string;

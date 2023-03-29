@@ -1,5 +1,5 @@
 import React from "react";
-import { Comment } from "../../model/Comment";
+import { CommentData } from "../../model/CommentData";
 import { UserData } from "../../model/User";
 import PublicationNotificationItem from "./PublicationNotificationItem";
 
@@ -9,7 +9,7 @@ const NotificationComment: React.FC = () => {
     id: "6e9d19be-b8b3-451d-8d0b-8e987dd797b4",
     lastName: "Med",
   };
-  const mockedComment: Comment = {
+  const mockedComment: CommentData = {
     author: mockedUser,
     content:
       "Tato nová definice vychází z nové vyhlášky která byla nově přijatá evropskou komisí",
