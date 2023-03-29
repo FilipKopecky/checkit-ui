@@ -17,9 +17,9 @@ const constants = {
   },
   CHANGE_DETAIL: {
     TABS: {
-      BASIC: "change.detail.basic",
-      TURTLE: "change.detail.turtle",
-      COMMENTS: "change.detail.comments",
+      BASIC: "change-detail-basic-tab",
+      TURTLE: "change-detail-turtle-tab",
+      COMMENTS: "change-detail-comments-tab",
     },
     TRIPLE_STATE: {
       CREATED: "CREATED",
