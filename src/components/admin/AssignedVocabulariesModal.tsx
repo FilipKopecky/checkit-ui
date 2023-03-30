@@ -66,7 +66,10 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
           (user) => !vocabulary?.gestors.some((gestor) => gestor.id === user.id)
         ) ?? [];
     } else {
-      selectedCategoryValues = vocabulary?.gestors ?? [];
+      selectedCategoryValues =
+        data?.filter((user) =>
+          vocabulary?.gestors.some((gestor) => gestor.id === user.id)
+        ) ?? [];
     }
     return filterUsersByName(selectedCategoryValues, filterText);
   }, [activeTab, vocabulary?.gestors, data, filterText]);

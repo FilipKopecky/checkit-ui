@@ -23,7 +23,7 @@
   "admin-panel-unauthorized-title": "Neoprávněný přístup",
   "admin-panel-unauthorized-description": "Pro zobrazení této stránky nemáte dostatečné oprávnění",
   "admins": "Administrátoři",
-  "others": "Ostatní uživatelé",
+  "others": "Dostupní uživatelé",
   "adminUsersHeader": "Správa uživatelů",
   "assignedVocabulariesHeader": "Slovníky",
   "assignedVocabulariesAction": "Spravovat gestory slovníku",
