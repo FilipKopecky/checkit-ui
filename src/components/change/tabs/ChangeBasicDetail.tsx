@@ -10,12 +10,15 @@ import DeclineButton from "../../buttons/DeclineButton";
 import { useResolveChangeStateMutation } from "../../../api/publicationApi";
 import AcceptedChip from "../../chips/AcceptedChip";
 import DeclinedChip from "../../chips/DeclinedChip";
+import { useAppDispatch } from "../../../hooks/ReduxHooks";
+import { toggleChange } from "../../../slices/changeSlice";
 
 interface ChangeBasicDetailProps {
   change: Change;
 }
 
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
+  const dispatch = useAppDispatch();
   const [resolveChangeState] = useResolveChangeStateMutation();
   const handleResolution = (state: ChangeState) => {
     resolveChangeState({
@@ -24,6 +27,9 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
     });
+    if (state === "APPROVED") {
+      dispatch(toggleChange(change.uri));
+    }
   };
   return (
     <Box pt={1} pb={1}>
