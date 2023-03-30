@@ -5,33 +5,38 @@ import IslandHeader from "./misc/IslandHeader";
 import { useIntl } from "react-intl";
 import PieChart from "./charts/PieChart";
 import BarChart from "./charts/BarChart";
+import { useGetRelevantPublicationsQuery } from "../api/publicationApi";
+
+const data = [
+  { name: "Nezkontrolovaných změn", value: 150 },
+  { name: "Zkontrolovaných změn", value: 30 },
+];
+const data2 = [
+  {
+    name: "COUNCIL DIRECTIVE 1999/37/EC on the registration documents for vehicles",
+    shorten: "Publikace 1",
+    uv: 20,
+    pv: 190,
+  },
+  {
+    name: "REGULATION (EU) 2018/858 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the approval and market surveillance of motor vehicles and their trailers, and of systems, components and separate technical units intended for such vehicles",
+    shorten: "Publikace 2",
+    uv: 50,
+    pv: 250,
+  },
+  {
+    name: "Datový slovník Poslanecké sněmovny Parlamentu České republiky - slovník",
+    shorten: "Publikace 3",
+    uv: 10,
+    pv: 20,
+  },
+];
 
 const PublicationsHub: React.FC = () => {
   const intl = useIntl();
-  const data = [
-    { name: "Nezkontrolovaných změn", value: 150 },
-    { name: "Zkontrolovaných změn", value: 30 },
-  ];
-  const data2 = [
-    {
-      name: "COUNCIL DIRECTIVE 1999/37/EC on the registration documents for vehicles",
-      shorten: "Publikace 1",
-      uv: 20,
-      pv: 190,
-    },
-    {
-      name: "REGULATION (EU) 2018/858 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the approval and market surveillance of motor vehicles and their trailers, and of systems, components and separate technical units intended for such vehicles",
-      shorten: "Publikace 2",
-      uv: 50,
-      pv: 250,
-    },
-    {
-      name: "Datový slovník Poslanecké sněmovny Parlamentu České republiky - slovník",
-      shorten: "Publikace 3",
-      uv: 10,
-      pv: 20,
-    },
-  ];
+  const { data: availablePublications } = useGetRelevantPublicationsQuery();
+  if (!availablePublications) return <></>;
+
   return (
     <Box p={2}>
       <Grid container spacing={2}>
@@ -60,7 +65,7 @@ const PublicationsHub: React.FC = () => {
               header={intl.formatMessage({ id: "available-publications" })}
             />
             <Box px={3}>
-              <PublicationsList />
+              <PublicationsList publications={availablePublications} />
             </Box>
           </Paper>
         </Grid>

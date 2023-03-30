@@ -1,11 +1,25 @@
-import { Vocabulary } from "./Vocabulary";
+import { PublicationVocabularyData } from "./Vocabulary";
 
 export interface Publication {
   id: string;
   uri: string;
   label: string;
-  projectUri: string;
-  state: "IN_PROGRESS" | "ACCEPTED" | "DECLINED";
+  projectContext: string;
+  state: PublicationContextState;
   progress: number;
-  affectedVocabularies: Vocabulary[];
+  affectedVocabularies: PublicationVocabularyData[];
+}
+
+export type PublicationContextState =
+  | "CREATED"
+  | "APPROVED"
+  | "REJECTED"
+  | "WAITING_FOR_OTHERS";
+
+export interface PublicationContext {
+  id: string;
+  uri: string;
+  label: string;
+  projectContext: string;
+  state: PublicationContextState;
 }

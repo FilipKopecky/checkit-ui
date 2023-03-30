@@ -1,7 +1,7 @@
 import messages_cs from "../translations/cs.json";
-import predicates_cs from "../translations/cs-predicates.json";
+import predicates_cs from "../translations/cs-uri-translations.json";
 import messages_en from "../translations/en.json";
-import predicates_en from "../translations/en-predicates.json";
+import predicates_en from "../translations/en-uri-translations.json";
 import Constants from "./Constants";
 import { LanguageState } from "../slices/languageSlice";
 

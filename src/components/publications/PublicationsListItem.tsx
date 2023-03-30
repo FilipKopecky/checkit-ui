@@ -1,11 +1,12 @@
 import React from "react";
-import { Publication } from "../../model/Publication";
+import { PublicationContext } from "../../model/Publication";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import {
   Box,
   LinearProgress,
   ListItemSecondaryAction,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -14,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 interface PublicationsListItemProps {
-  publication: Publication;
+  publication: PublicationContext;
   index: number;
 }
 
@@ -44,14 +45,14 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
             <Typography variant="caption" color="text.secondary">
               {intl.formatMessage(
                 { id: "publication-progress" },
-                { progress: publication.progress }
+                { progress: 30 }
               )}
             </Typography>
 
             <Box width={150}>
               <LinearProgress
                 variant={"determinate"}
-                value={publication.progress}
+                value={30}
                 color={"success"}
               />
             </Box>
@@ -60,9 +61,16 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
       </Box>
       <ListItemSecondaryAction>
         <Link to={publication.id}>
-          <IconButton>
-            <ContentPasteSearchOutlinedIcon />
-          </IconButton>
+          <Tooltip
+            title={intl.formatMessage({ id: "seePublicationSummary" })}
+            placement={"left"}
+          >
+            <span>
+              <IconButton>
+                <ContentPasteSearchOutlinedIcon />
+              </IconButton>
+            </span>
+          </Tooltip>
         </Link>
       </ListItemSecondaryAction>
     </ListItem>

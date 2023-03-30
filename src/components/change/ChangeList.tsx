@@ -8,26 +8,60 @@ import { Box } from "@mui/material";
 interface ChangeListProps {
   changes: Change[];
 }
-const mockedUris = [
-  "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/building",
-  "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/stavba",
-];
+
 const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
-  const groupCounts = useMemo(() => {
-    return Array(2).fill(4);
-  }, []);
+  const changesInfo = useMemo(() => {
+    let allChanges = [];
+    let headers = [];
+    let groupCounts = [];
+    let paddedIndex: number[] = [];
+
+    const grouped = changes.reduce<{
+      [key: string]: Change[];
+    }>(function (r, a) {
+      r[a.subject] = r[a.subject] || [];
+      r[a.subject].push(a);
+      return r;
+    }, Object.create(null));
+
+    for (const [, value] of Object.entries(grouped)) {
+      const header = value[0].label;
+      headers.push(header);
+      allChanges.push(...value);
+      groupCounts.push(value.length);
+      if (paddedIndex.length === 0) {
+        paddedIndex.push(value.length - 1);
+      } else {
+        paddedIndex.push(paddedIndex[paddedIndex.length - 1] + value.length);
+      }
+    }
+
+    return {
+      changes: allChanges,
+      headerUris: headers,
+      counts: groupCounts,
+      paddedIndex: paddedIndex,
+    };
+  }, [changes]);
   const itemContent = (index: number, groupIndex: number) => {
-    const change = changes[index];
-    return <InnerItem change={change} index={index} />;
+    const change = changesInfo.changes[index];
+    return (
+      <InnerItem
+        change={change}
+        index={index}
+        groupIndex={groupIndex}
+        triggers={changesInfo.paddedIndex}
+      />
+    );
   };
 
   return (
     <Box>
       <GroupedVirtuoso
-        style={{ height: 500 }}
-        groupCounts={groupCounts}
+        style={{ height: 700 }}
+        groupCounts={changesInfo.counts}
         groupContent={(index) => {
-          return <ChangeListItemGroup type={"TERM"} uri={mockedUris[index]} />;
+          return <ChangeListItemGroup uri={changesInfo.headerUris[index]} />;
         }}
         itemContent={itemContent}
       />
@@ -35,9 +69,9 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
   );
 };
 
-const InnerItem = React.memo(({ change, index }: any) => {
+const InnerItem = React.memo(({ change, index, groupIndex, triggers }: any) => {
   return (
-    <Box pb={index === 3 ? 5 : 0}>
+    <Box sx={{ pb: triggers[groupIndex] === index ? 5 : 0 }}>
       <ChangeListItem change={change} />
     </Box>
   );

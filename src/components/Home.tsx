@@ -6,6 +6,7 @@ import HomeNavigationButtons from "./misc/HomeNavigationButtons";
 
 const Home: React.FC = () => {
   const intl = useIntl();
+
   return (
     <Box p={3}>
       <Typography variant={"h4"} gutterBottom>

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { Suspense, useCallback, useMemo } from "react";
 import { Change } from "../../model/Change";
 import {
   Accordion,
@@ -8,37 +8,60 @@ import {
   Box,
   Collapse,
 } from "@mui/material";
-import { useIntl } from "react-intl";
 import ChangeBasicDetail from "./tabs/ChangeBasicDetail";
-import ChangeTurtleDetail from "./tabs/ChangeTurtleDetail";
-import ChangeCommentsDetail from "./tabs/ChangeCommentsDetail";
 import Constants from "../../utils/Constants";
-import PredicateLabel from "./PredicateLabel";
+import MappedLabel from "./MappedLabel";
 import { styled } from "@mui/material/styles";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
+import {
+  selectChangeById,
+  switchTab,
+  toggleChange,
+} from "../../slices/changeSlice";
+import TabNavigation from "../misc/TabNavigation";
+import IconButton from "@mui/material/IconButton";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ChangeDetailProps {
   change: Change;
 }
 
+const ChangeTurtleDetail = React.lazy(
+  () => import("./tabs/ChangeTurtleDetail")
+);
+const ChangeCommentsDetail = React.lazy(
+  () => import("./tabs/ChangeCommentsDetail")
+);
+
+const tabs = [
+  Constants.CHANGE_DETAIL.TABS.BASIC,
+  Constants.CHANGE_DETAIL.TABS.TURTLE,
+  Constants.CHANGE_DETAIL.TABS.COMMENTS,
+];
+
 const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
-  const [expanded, setExpanded] = useState(true);
-
-  const handleChange = (event: React.SyntheticEvent, newExpanded: boolean) => {
-    setExpanded(newExpanded);
+  const dispatch = useAppDispatch();
+  const handleTabSwitch = (event: React.SyntheticEvent, newValue: string) => {
+    dispatch(switchTab({ uri: change.uri, tab: newValue }));
   };
-
-  const [activeTab, setActiveTab] = useState(
-    Constants.CHANGE_DETAIL.TABS.BASIC
+  const selectedItem = useAppSelector((state) =>
+    selectChangeById(state, change.uri)
   );
-  const intl = useIntl();
-  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveTab(newValue);
-  };
+
+  const handleToggle = useCallback(() => {
+    dispatch(toggleChange(change.uri));
+  }, [dispatch, change.uri]);
+
+  const expanded = selectedItem!.expanded;
+  const activeTab = selectedItem!.activeTab;
+
   const componentToRender = useMemo(() => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
-        return <ChangeBasicDetail change={change} setOpen={setExpanded} />;
+        return <ChangeBasicDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.TURTLE:
         return <ChangeTurtleDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.COMMENTS:
@@ -51,13 +74,53 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   return (
     <Box sx={{ paddingRight: 1 }}>
       <Box sx={{ borderBottom: 1, borderColor: "background.default" }}>
-        <Accordion expanded={expanded} onChange={handleChange} square>
+        <Accordion expanded={expanded} onChange={handleToggle} square>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CustomAccordionSummary expandIcon={<FullscreenIcon />}>
-              <PredicateLabel uri={change.predicate} variant={"h6"} />
+              <Box display={"flex"}>
+                <Box
+                  mr={2}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {change.state === "APPROVED" && (
+                    <CheckIcon color={"success"} />
+                  )}
+                  {change.state === "REJECTED" && <CloseIcon color={"error"} />}
+                </Box>
+                <MappedLabel uri={change.predicate} variant={"h6"} />
+              </Box>
             </CustomAccordionSummary>
           </Collapse>
-          <AccordionDetails>{componentToRender}</AccordionDetails>
+          <AccordionDetails>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                flex: 1,
+                alignItems: "center",
+                marginBottom: 1,
+              }}
+            >
+              <MappedLabel uri={change.predicate} variant={"h6"} />
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <TabNavigation
+                  tabs={tabs}
+                  activeTab={activeTab}
+                  setActiveTab={handleTabSwitch}
+                />
+                <Box>
+                  <IconButton onClick={handleToggle}>
+                    <FullscreenExitIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+            </Box>
+            <Suspense fallback={<>Loading</>}>{componentToRender}</Suspense>
+          </AccordionDetails>
         </Accordion>
       </Box>
     </Box>

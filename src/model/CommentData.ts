@@ -1,9 +1,10 @@
 import { UserData } from "./User";
 
-export interface Comment {
+export interface CommentData {
+  uri: string;
   topic: string;
   author: UserData;
   content: string;
-  date: Date;
+  creationDate: Date;
   lastModificationDate: Date;
 }

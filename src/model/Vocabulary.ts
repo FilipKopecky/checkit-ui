@@ -8,3 +8,8 @@ export interface VocabularyData {
   uri: string;
   label: string;
 }
+
+export interface PublicationVocabularyData extends VocabularyData {
+  gestored: boolean;
+  gestors: UserData[];
+}

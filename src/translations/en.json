@@ -23,7 +23,7 @@
   "admin-panel-unauthorized-title": "Unauthorized access",
   "admin-panel-unauthorized-description": "You are not permitted to see this page",
   "admins": "Admins",
-  "others": "Others",
+  "others": "Available users",
   "adminUsersHeader": "Manage users",
   "assignedVocabulariesHeader": "Vocabularies",
   "assignedVocabulariesAction": "Manage gestors of the vocabulary",
@@ -60,5 +60,9 @@
   "change-detail-state-rollbacked": "Rollbacked",
   "change-detail-new": "New",
   "change-detail-original": "Original",
-  "change-detail-deleted": "Deleted"
+  "change-detail-deleted": "Deleted",
+  "startVocabularyReviewAction": "Check changes in vocabulary",
+  "seePublicationSummary": "See publication",
+  "add-comment-placeholder": "Add comment",
+  "add-decline-change-message": "Provide a reason for the decline"
 }

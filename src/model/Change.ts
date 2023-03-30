@@ -1,13 +1,26 @@
-import { Comment } from "./Comment";
+import { CommentData } from "./CommentData";
+import { VocabularyData } from "./Vocabulary";
 
+export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
+export type ChangeType = "CREATED" | "MODIFIED" | "DELETED" | "ROLLBACKED";
 export interface Change {
   id: string;
   uri: string;
-  type: "VOCABULARY" | "TERM";
+  vocabularyUri: string;
+  publicationId: string;
+  type: ChangeType;
   subject: string;
   predicate: string;
   object: string;
   newObject?: string;
-  comments: Comment[];
-  state: "CREATED" | "MODIFIED" | "DELETED" | "ROLLBACKED";
+  comments: CommentData[];
+  state: ChangeState;
+  label: string;
+  declineMessage?: CommentData;
+  gestored: boolean;
+}
+
+export interface VocabularyChanges extends VocabularyData {
+  gestored: boolean;
+  changes: Change[];
 }

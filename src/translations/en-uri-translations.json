@@ -12,5 +12,6 @@
   "SKOS_RELATED": "In relation",
   "SKOS_RELATED_MATCH": "Related term",
   "SKOS_NOTATION": "Notation",
-  "SKOS_EXAMPLE": "Usage example"
+  "SKOS_EXAMPLE": "Usage example",
+  "SKOS_HAS_TOP_CONCEPT": "Has top-level term"
 }

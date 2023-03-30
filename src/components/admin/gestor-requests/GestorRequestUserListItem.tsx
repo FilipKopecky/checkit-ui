@@ -1,18 +1,13 @@
 import React from "react";
 import { UserData } from "../../../model/User";
 import ListItem from "@mui/material/ListItem";
-import {
-  Box,
-  Button,
-  Chip,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-} from "@mui/material";
+import { Box, ListItemAvatar, ListItemSecondaryAction } from "@mui/material";
 import UserAvatar from "../../users/UserAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { useIntl } from "react-intl";
+import AcceptedChip from "../../chips/AcceptedChip";
+import DeclinedChip from "../../chips/DeclinedChip";
+import AcceptButton from "../../buttons/AcceptButton";
+import DeclineButton from "../../buttons/DeclineButton";
 
 interface GestorRequestUserListItemProps {
   user: UserData;
@@ -26,53 +21,21 @@ const GestorRequestUserListItem: React.FC<GestorRequestUserListItemProps> = ({
   acceptAction,
   declineAction,
 }) => {
-  const intl = useIntl();
   let secondaryAction;
   switch (status) {
     case "pending":
       secondaryAction = (
-        <>
-          <Button
-            variant="contained"
-            endIcon={<CheckCircleOutlinedIcon />}
-            color={"success"}
-            sx={{ marginRight: 2 }}
-            onClick={acceptAction}
-          >
-            {intl.formatMessage({ id: "accept" })}
-          </Button>
-          <Button
-            variant="contained"
-            endIcon={<CancelOutlinedIcon />}
-            color={"error"}
-            onClick={declineAction}
-          >
-            {intl.formatMessage({ id: "decline" })}
-          </Button>
-        </>
+        <Box>
+          <AcceptButton onClick={acceptAction} />
+          <DeclineButton onClick={declineAction} />
+        </Box>
       );
       break;
     case "accepted":
-      secondaryAction = (
-        <Box sx={{ textTransform: "uppercase" }}>
-          <Chip
-            label={intl.formatMessage({ id: "accepted" })}
-            color="success"
-            variant="filled"
-          />
-        </Box>
-      );
+      secondaryAction = <AcceptedChip />;
       break;
     case "declined":
-      secondaryAction = (
-        <Box sx={{ textTransform: "uppercase" }}>
-          <Chip
-            label={intl.formatMessage({ id: "declined" })}
-            color="error"
-            variant="filled"
-          />
-        </Box>
-      );
+      secondaryAction = <DeclinedChip />;
       break;
     default:
       secondaryAction = <></>;

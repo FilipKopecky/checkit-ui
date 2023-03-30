@@ -1,5 +1,7 @@
 import React from "react";
 import { Typography, TypographyProps } from "@mui/material";
+import { UriToTranslationMapper } from "../../utils/ChangeUtils";
+import MappedLabel from "./MappedLabel";
 
 interface ObjectLabelProps {
   objectUri: string;
@@ -15,6 +17,9 @@ const ObjectLabel: React.FC<ObjectLabelProps & TypographyProps> = ({
   ...props
 }) => {
   const displayValue = mockedLabelResolve(objectUri);
+  if (UriToTranslationMapper[objectUri]) {
+    return <MappedLabel uri={objectUri} />;
+  }
   return (
     <Typography variant={"body1"} {...props}>
       {displayValue}
@@ -23,16 +28,6 @@ const ObjectLabel: React.FC<ObjectLabelProps & TypographyProps> = ({
 };
 
 const mockedLabelResolve = (changedObject: string) => {
-  if (
-    changedObject ===
-    "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/building"
-  )
-    return "Budova";
-  if (
-    changedObject ===
-    "http://onto.fel.cvut.cz/ontologies/slovnik/decree-no-268-2009/pojem/stavba"
-  )
-    return "Stavba";
   return changedObject;
 };
 

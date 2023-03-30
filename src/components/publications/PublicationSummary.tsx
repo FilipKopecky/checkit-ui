@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Publication } from "../../model/Publication";
 import PublicationHeader from "./PublicationHeader";
 import VocabulariesList from "../vocabulary/VocabulariesList";
 import IslandHeader from "../misc/IslandHeader";
 import { useIntl } from "react-intl";
 import PublicationNotifications from "./PublicationNotifications";
-import { UserData } from "../../model/User";
-import { Vocabulary } from "../../model/Vocabulary";
 import PublicationStatistics from "./PublicationStatistics";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
+import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
+import { useGetPublicationByIdQuery } from "../../api/publicationApi";
+import { Vocabulary } from "../../model/Vocabulary";
+import GestoredBadge from "../vocabulary/GestoredBadge";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
+import VocabularyGestorsModal from "../vocabulary/VocabularyGestorsModal";
 
 const Item = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -18,37 +23,29 @@ const Item = styled(Paper)(({ theme }) => ({
   fontSize: theme.typography.h5.fontSize,
 }));
 
-interface PublicationSummaryProps {
-  publication?: Publication;
-}
-
-const mockedUser: UserData = {
-  firstName: "User",
-  id: "6e9d19be-b8b3-451d-8d0b-8e987dd797b4",
-  lastName: "Hugo",
-};
-const mockedVocabulary: Vocabulary = {
-  gestors: [mockedUser],
-  label:
-    "COUNCIL DIRECTIVE 1999/37/EC on the registration documents for vehicles",
-  uri: "https://slovník.gov.cz/generický/eu-directive-1999-37-ec",
-};
-
-const mockedPublication: Publication = {
-  affectedVocabularies: [mockedVocabulary],
-  id: "randomId",
-  label:
-    "COUNCIL DIRECTIVE 1999/37/EC on the registration documents for vehicles",
-  projectUri: "randomURI",
-  state: "IN_PROGRESS",
-  progress: 70,
-  uri: "sadsadfsa",
-};
-
-const PublicationSummary: React.FC<PublicationSummaryProps> = ({
-  publication = mockedPublication,
-}) => {
+const PublicationSummary: React.FC = () => {
   const intl = useIntl();
+  const navigate = useNavigate();
+  const { publicationId } = useParams();
+  const currentUser = useAppSelector(selectUser);
+  const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
+  const [modalOpen, setModalOpen] = useState(false);
+  const { data: publication } = useGetPublicationByIdQuery(publicationId || "");
+  //TODO: add loader and error messages
+  if (!publication) return <></>;
+
+  const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
+    if (vocabulary.gestors?.some((v) => v.id === currentUser.id)) {
+      return <GestoredBadge label={intl.formatMessage({ id: "gestored" })} />;
+    }
+    return <></>;
+  };
+
+  const handleGestorsClick = (vocabulary: Vocabulary) => {
+    setSelectedVocabulary(vocabulary);
+    setModalOpen(true);
+  };
+
   return (
     <Box p={2}>
       <Grid container spacing={2}>
@@ -66,7 +63,20 @@ const PublicationSummary: React.FC<PublicationSummaryProps> = ({
             <Box px={3}>
               <VocabulariesList
                 vocabularies={publication.affectedVocabularies}
-                gestorsClick={() => console.log("done")}
+                actionIcon={<ContentPasteGoOutlinedIcon />}
+                additionalInfo={showAditional}
+                action={(vocabulary) =>
+                  navigate({
+                    pathname: "vocabulary",
+                    search: createSearchParams({
+                      vocabularyUri: vocabulary.uri,
+                    }).toString(),
+                  })
+                }
+                actionDescription={intl.formatMessage({
+                  id: "startVocabularyReviewAction",
+                })}
+                gestorsClick={handleGestorsClick}
               />
             </Box>
           </Paper>
@@ -83,6 +93,11 @@ const PublicationSummary: React.FC<PublicationSummaryProps> = ({
           </Grid>
         </Grid>
       </Grid>
+      <VocabularyGestorsModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        vocabulary={selectedVocabulary}
+      />
     </Box>
   );
 };

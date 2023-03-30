@@ -19,6 +19,8 @@ export const apiSlice = createApi({
     "MY_GESTORING_REQUESTS",
     "ALL_GESTOR_REQUESTS",
     "ADMIN_PANEL_SUMMARY",
+    "ALL_RELEVANT_PUBLICATIONS",
+    "PUBLICATIONS",
   ],
   endpoints: () => ({}),
 });

@@ -8,7 +8,7 @@ export const getModificationColor = (state: string): string => {
   switch (state) {
     case "CREATED":
       return "#2EA903";
-    case "DELETED":
+    case "REMOVED":
       return "#FF0000";
     case "MODIFIED":
     case "ROLLBACKED":
@@ -20,7 +20,7 @@ export const getModificationColor = (state: string): string => {
 /**
  * Mapping known properties to human-readable translations
  */
-export const PredicateMapper: {
+export const UriToTranslationMapper: {
   [uri: string]: { id: string; descriptionId: string };
 } = {
   "http://www.w3.org/2004/02/skos/core#Concept": {
@@ -78,5 +78,9 @@ export const PredicateMapper: {
   "http://www.w3.org/2004/02/skos/core#example": {
     id: "SKOS_EXAMPLE",
     descriptionId: "DESCRIPTION_SKOS_EXAMPLE",
+  },
+  "http://www.w3.org/2004/02/skos/core#hasTopConcept": {
+    id: "SKOS_HAS_TOP_CONCEPT",
+    descriptionId: "DESCRIPTION_SKOS_HAS_TOP_CONCEPT",
   },
 };
