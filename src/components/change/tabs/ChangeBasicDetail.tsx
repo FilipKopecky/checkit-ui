@@ -1,5 +1,5 @@
 import React from "react";
-import { Change } from "../../../model/Change";
+import { Change, ChangeState } from "../../../model/Change";
 import { Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
@@ -7,12 +7,24 @@ import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
 import AcceptButton from "../../buttons/AcceptButton";
 import DeclineButton from "../../buttons/DeclineButton";
+import { useResolveChangeStateMutation } from "../../../api/publicationApi";
+import AcceptedChip from "../../chips/AcceptedChip";
+import DeclinedChip from "../../chips/DeclinedChip";
 
 interface ChangeBasicDetailProps {
   change: Change;
 }
 
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
+  const [resolveChangeState] = useResolveChangeStateMutation();
+  const handleResolution = (state: ChangeState) => {
+    resolveChangeState({
+      id: change.id,
+      state: state,
+      vocabularyUri: change.vocabularyUri,
+      publicationId: change.publicationId,
+    });
+  };
   return (
     <Box pt={1} pb={1}>
       <Box>
@@ -45,8 +57,14 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
         </Grid>
       </Box>
       <Box mt={4}>
-        <AcceptButton onClick={() => console.log("Change accepted")} />
-        <DeclineButton onClick={() => console.log("Change declined")} />
+        {change.state === "NOT_REVIEWED" && (
+          <Box>
+            <AcceptButton onClick={() => handleResolution("APPROVED")} />
+            <DeclineButton onClick={() => handleResolution("REJECTED")} />
+          </Box>
+        )}
+        {change.state === "APPROVED" && <AcceptedChip />}
+        {change.state === "REJECTED" && <DeclinedChip />}
       </Box>
     </Box>
   );

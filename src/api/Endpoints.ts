@@ -1,3 +1,5 @@
+import { ChangeState } from "../model/Change";
+
 const endpoints = {
   CURRENT_USER: "users/current",
   GET_ALL_USERS: "admin-management/users",
@@ -7,6 +9,7 @@ const endpoints = {
   GET_ALL_GESTOR_REQUESTS: "gestoring-requests",
   GET_MY_GESTORING_REQUESTS: "gestoring-requests/my-requests",
   GET_ALL_RELEVANT_PUBLICATIONS: "publication-contexts",
+  CHANGES: "changes",
 };
 
 export const getAdminRoleSwitch = (id: string) => {
@@ -27,5 +30,18 @@ export const getPublication = (id: string) => {
 
 export const getPublicationVocabularyChanges = (publicationId: string) => {
   return `${getPublication(publicationId)}/vocabulary-changes`;
+};
+
+export const getChangeResolve = (changeId: string, state: ChangeState) => {
+  let stateToText;
+  switch (state) {
+    case "APPROVED":
+      stateToText = "approved";
+      break;
+    case "REJECTED":
+      stateToText = "rejected";
+      break;
+  }
+  return `${endpoints.CHANGES}/${changeId}/${stateToText}`;
 };
 export default endpoints;
