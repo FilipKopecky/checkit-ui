@@ -22,8 +22,8 @@ import {
 import TabNavigation from "../misc/TabNavigation";
 import IconButton from "@mui/material/IconButton";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
-import AcceptedChip from "../chips/AcceptedChip";
-import DeclinedChip from "../chips/DeclinedChip";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 interface ChangeDetailProps {
   change: Change;
@@ -79,16 +79,26 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
             <CustomAccordionSummary expandIcon={<FullscreenIcon />}>
               <Box
                 sx={{
-                  justifyContent: "space-between",
                   display: "flex",
                   flex: 1,
                 }}
               >
-                <MappedLabel uri={change.predicate} variant={"h6"} />
-                <Box mr={2}>
-                  {change.state === "APPROVED" && <AcceptedChip />}
-                  {change.state === "REJECTED" && <DeclinedChip />}
+                <Box
+                  mr={2}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {change.state === "APPROVED" && (
+                    <CheckCircleIcon color={"success"} />
+                  )}
+                  {change.state === "REJECTED" && (
+                    <CancelIcon color={"error"} />
+                  )}
                 </Box>
+                <MappedLabel uri={change.predicate} variant={"h6"} />
               </Box>
             </CustomAccordionSummary>
           </Collapse>
