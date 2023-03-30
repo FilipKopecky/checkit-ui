@@ -23,6 +23,8 @@ import SearchBar from "../misc/SearchBar";
 import { filterUsersByName } from "../../utils/FilterUtils";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
+import { changeModalTab, selectAdminPanel } from "../../slices/adminPanelSlice";
 
 interface AssignedVocabulariesModalProps {
   open: boolean;
@@ -35,7 +37,8 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
   setOpen,
   vocabularyUri,
 }) => {
-  const [activeTab, setActiveTab] = useState("others");
+  const dispatch = useAppDispatch();
+  const adminPanelSelector = useAppSelector(selectAdminPanel);
   const [filterText, setFilterText] = useState("");
   const { data, isLoading } = useGetAllUsersQuery();
   const [addGestor] = useAddGestorToVocabularyMutation();
@@ -44,11 +47,11 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
   const intl = useIntl();
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveTab(newValue);
+    dispatch(changeModalTab(newValue));
   };
 
   const handleClose = () => {
-    setActiveTab("others");
+    dispatch(changeModalTab("others"));
     setOpen(false);
   };
 
@@ -60,7 +63,7 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
 
   const displayedData = useMemo(() => {
     let selectedCategoryValues: UserData[] = [];
-    if (activeTab === "others") {
+    if (adminPanelSelector.modalTab === "others") {
       selectedCategoryValues =
         data?.filter(
           (user) => !vocabulary?.gestors.some((gestor) => gestor.id === user.id)
@@ -72,7 +75,7 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
         ) ?? [];
     }
     return filterUsersByName(selectedCategoryValues, filterText);
-  }, [activeTab, vocabulary?.gestors, data, filterText]);
+  }, [adminPanelSelector.modalTab, vocabulary?.gestors, data, filterText]);
 
   if (isLoading) return <>Loading....</>;
   if (!data) return <>Doen</>;
@@ -96,7 +99,7 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
   };
 
   const userListProps = () => {
-    if (activeTab === "others") {
+    if (adminPanelSelector.modalTab === "others") {
       return {
         performAction: handleAssigning,
         icon: <AddModeratorIcon />,
@@ -140,7 +143,10 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
           <Box
             sx={{ justifyContent: "space-between", display: "flex", flex: 1 }}
           >
-            <Tabs value={activeTab} onChange={handleTabChange}>
+            <Tabs
+              value={adminPanelSelector.modalTab}
+              onChange={handleTabChange}
+            >
               <Tab
                 value={"others"}
                 label={
