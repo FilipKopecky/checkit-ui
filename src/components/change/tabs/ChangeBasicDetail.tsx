@@ -1,18 +1,18 @@
 import React from "react";
 import { Change } from "../../../model/Change";
-import { useIntl } from "react-intl";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
 import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
+import AcceptButton from "../../buttons/AcceptButton";
+import DeclineButton from "../../buttons/DeclineButton";
 
 interface ChangeBasicDetailProps {
   change: Change;
 }
 
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
-  const intl = useIntl();
   return (
     <Box pt={1} pb={1}>
       <Box>
@@ -45,23 +45,8 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
         </Grid>
       </Box>
       <Box mt={4}>
-        <Button
-          size={"small"}
-          variant="outlined"
-          color={"success"}
-          sx={{ marginRight: 2 }}
-          onClick={() => console.log("Change accepted")}
-        >
-          {intl.formatMessage({ id: "accept" })}
-        </Button>
-        <Button
-          size={"small"}
-          variant="outlined"
-          color={"error"}
-          onClick={() => console.log("Change declined")}
-        >
-          {intl.formatMessage({ id: "decline" })}
-        </Button>
+        <AcceptButton onClick={() => console.log("Change accepted")} />
+        <DeclineButton onClick={() => console.log("Change declined")} />
       </Box>
     </Box>
   );
