@@ -16,13 +16,6 @@ export const publicationApi = apiSlice.injectEndpoints({
     getPublicationById: builder.query<Publication, string>({
       query: (id) => getPublication(id),
       providesTags: (result, error, id) => [{ type: "PUBLICATIONS", id }],
-      //TODO: Remove transform after server returns gestors
-      transformResponse: (rawResult: Publication) => {
-        for (let i = 0; i < rawResult.affectedVocabularies.length; i++) {
-          rawResult.affectedVocabularies[i].gestors = [];
-        }
-        return rawResult;
-      },
     }),
     getVocabularyChanges: builder.query<
       VocabularyChanges,
