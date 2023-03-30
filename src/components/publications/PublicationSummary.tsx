@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PublicationHeader from "./PublicationHeader";
@@ -10,6 +10,11 @@ import PublicationStatistics from "./PublicationStatistics";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
+import { Vocabulary } from "../../model/Vocabulary";
+import GestoredBadge from "../vocabulary/GestoredBadge";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
+import VocabularyGestorsModal from "../vocabulary/VocabularyGestorsModal";
 
 const Item = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -22,9 +27,25 @@ const PublicationSummary: React.FC = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { publicationId } = useParams();
+  const currentUser = useAppSelector(selectUser);
+  const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
+  const [modalOpen, setModalOpen] = useState(false);
   const { data: publication } = useGetPublicationByIdQuery(publicationId || "");
   //TODO: add loader and error messages
   if (!publication) return <></>;
+
+  const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
+    if (vocabulary.gestors?.some((v) => v.id === currentUser.id)) {
+      return <GestoredBadge label={intl.formatMessage({ id: "gestored" })} />;
+    }
+    return <></>;
+  };
+
+  const handleGestorsClick = (vocabulary: Vocabulary) => {
+    setSelectedVocabulary(vocabulary);
+    setModalOpen(true);
+  };
+
   return (
     <Box p={2}>
       <Grid container spacing={2}>
@@ -43,6 +64,7 @@ const PublicationSummary: React.FC = () => {
               <VocabulariesList
                 vocabularies={publication.affectedVocabularies}
                 actionIcon={<ContentPasteGoOutlinedIcon />}
+                additionalInfo={showAditional}
                 action={(vocabulary) =>
                   navigate({
                     pathname: "vocabulary",
@@ -54,7 +76,7 @@ const PublicationSummary: React.FC = () => {
                 actionDescription={intl.formatMessage({
                   id: "startVocabularyReviewAction",
                 })}
-                gestorsClick={() => {}}
+                gestorsClick={handleGestorsClick}
               />
             </Box>
           </Paper>
@@ -71,6 +93,11 @@ const PublicationSummary: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
+      <VocabularyGestorsModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        vocabulary={selectedVocabulary}
+      />
     </Box>
   );
 };
