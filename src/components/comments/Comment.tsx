@@ -28,7 +28,7 @@ const Comment: React.FC<CommentProps> = ({ comment, showDivider = true }) => {
           <ListItemText
             primary={`${comment.author.firstName} ${comment.author.lastName}`}
             secondary={`${calculateTimeDifference(
-              comment.date,
+              comment.creationDate,
               languageSelector.language
             )}`}
           />

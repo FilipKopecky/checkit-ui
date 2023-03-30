@@ -39,17 +39,19 @@ const mockedUser1: UserData = {
 };
 
 const mockedComment: CommentData = {
+  uri: "",
   author: mockedUser,
   content:
     "Tenhle triple je absolutní nesmysl. Nechápu jak mohl tohle někdo vyplodit",
-  date: new Date("2023-03-25"),
+  creationDate: new Date("2023-03-25"),
   lastModificationDate: new Date("2022-04-1"),
   topic: "commentId",
 };
 const mockedComment1: CommentData = {
+  uri: "",
   author: mockedUser1,
   content: "Souhlasím, nedává to smysl",
-  date: new Date("2023-03-26"),
+  creationDate: new Date("2023-03-26"),
   lastModificationDate: new Date("2022-04-1"),
   topic: "commentId",
 };

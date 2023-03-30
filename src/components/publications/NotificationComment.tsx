@@ -10,10 +10,11 @@ const NotificationComment: React.FC = () => {
     lastName: "Med",
   };
   const mockedComment: CommentData = {
+    uri: "",
     author: mockedUser,
     content:
       "Tato nová definice vychází z nové vyhlášky která byla nově přijatá evropskou komisí",
-    date: new Date(Date.now()),
+    creationDate: new Date(Date.now()),
     lastModificationDate: new Date(Date.now()),
     topic: "changeID",
   };

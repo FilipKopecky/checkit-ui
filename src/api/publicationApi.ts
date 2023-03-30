@@ -27,9 +27,12 @@ export const publicationApi = apiSlice.injectEndpoints({
       }),
       //Adds vocabulary uri + publication id to each change -> needed for optimistic updates
       transformResponse: (rawResult: VocabularyChanges, meta, arg) => {
+        //TODO: Property gestored is gonna be addded from server
+        rawResult.gestored = true;
         for (let i = 0; i < rawResult.changes.length; i++) {
           rawResult.changes[i].vocabularyUri = rawResult.uri;
           rawResult.changes[i].publicationId = arg.publicationId;
+          rawResult.changes[i].gestored = rawResult.gestored;
         }
         return rawResult;
       },

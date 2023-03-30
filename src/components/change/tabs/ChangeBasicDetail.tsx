@@ -5,14 +5,13 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
 import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
-import AcceptButton from "../../buttons/AcceptButton";
-import DeclineButton from "../../buttons/DeclineButton";
 import { useResolveChangeStateMutation } from "../../../api/publicationApi";
 import AcceptedChip from "../../chips/AcceptedChip";
 import DeclinedChip from "../../chips/DeclinedChip";
 import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { toggleChange } from "../../../slices/changeSlice";
 import ChangeDeclineMessage from "../ChangeDeclineMessage";
+import ChangeResolveAction from "../ChangeResolveAction";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -64,11 +63,8 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
         </Grid>
       </Box>
       <Box mt={4}>
-        {change.state === "NOT_REVIEWED" && (
-          <Box>
-            <AcceptButton onClick={() => handleResolution("APPROVED")} />
-            <DeclineButton onClick={() => handleResolution("REJECTED")} />
-          </Box>
+        {change.state === "NOT_REVIEWED" && change.gestored && (
+          <ChangeResolveAction handleResolution={handleResolution} />
         )}
         {change.state === "APPROVED" && <AcceptedChip />}
         {change.state === "REJECTED" && (

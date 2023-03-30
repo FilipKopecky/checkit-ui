@@ -17,8 +17,10 @@ export interface Change {
   state: ChangeState;
   label: string;
   declineMessage?: CommentData;
+  gestored: boolean;
 }
 
 export interface VocabularyChanges extends VocabularyData {
+  gestored: boolean;
   changes: Change[];
 }
