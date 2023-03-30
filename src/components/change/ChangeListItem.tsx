@@ -22,8 +22,8 @@ import {
 import TabNavigation from "../misc/TabNavigation";
 import IconButton from "@mui/material/IconButton";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CancelIcon from "@mui/icons-material/Cancel";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ChangeDetailProps {
   change: Change;
@@ -77,12 +77,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
         <Accordion expanded={expanded} onChange={handleToggle} square>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CustomAccordionSummary expandIcon={<FullscreenIcon />}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flex: 1,
-                }}
-              >
+              <Box display={"flex"}>
                 <Box
                   mr={2}
                   sx={{
@@ -92,11 +87,9 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                   }}
                 >
                   {change.state === "APPROVED" && (
-                    <CheckCircleIcon color={"success"} />
+                    <CheckIcon color={"success"} />
                   )}
-                  {change.state === "REJECTED" && (
-                    <CancelIcon color={"error"} />
-                  )}
+                  {change.state === "REJECTED" && <CloseIcon color={"error"} />}
                 </Box>
                 <MappedLabel uri={change.predicate} variant={"h6"} />
               </Box>
