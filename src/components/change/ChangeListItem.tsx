@@ -22,6 +22,8 @@ import {
 import TabNavigation from "../misc/TabNavigation";
 import IconButton from "@mui/material/IconButton";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import AcceptedChip from "../chips/AcceptedChip";
+import DeclinedChip from "../chips/DeclinedChip";
 
 interface ChangeDetailProps {
   change: Change;
@@ -75,7 +77,19 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
         <Accordion expanded={expanded} onChange={handleToggle} square>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CustomAccordionSummary expandIcon={<FullscreenIcon />}>
-              <MappedLabel uri={change.predicate} variant={"h6"} />
+              <Box
+                sx={{
+                  justifyContent: "space-between",
+                  display: "flex",
+                  flex: 1,
+                }}
+              >
+                <MappedLabel uri={change.predicate} variant={"h6"} />
+                <Box mr={2}>
+                  {change.state === "APPROVED" && <AcceptedChip />}
+                  {change.state === "REJECTED" && <DeclinedChip />}
+                </Box>
+              </Box>
             </CustomAccordionSummary>
           </Collapse>
           <AccordionDetails>

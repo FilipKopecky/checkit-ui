@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Chip } from "@mui/material";
 import { useIntl } from "react-intl";
 
-const AcceptedBadge: React.FC = () => {
+const AcceptedChip: React.FC = () => {
   const intl = useIntl();
   return (
     <Box sx={{ textTransform: "uppercase" }}>
@@ -15,4 +15,4 @@ const AcceptedBadge: React.FC = () => {
   );
 };
 
-export default AcceptedBadge;
+export default AcceptedChip;
