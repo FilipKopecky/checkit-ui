@@ -12,6 +12,7 @@ import AcceptedChip from "../../chips/AcceptedChip";
 import DeclinedChip from "../../chips/DeclinedChip";
 import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { toggleChange } from "../../../slices/changeSlice";
+import ChangeDeclineMessage from "../ChangeDeclineMessage";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -70,7 +71,19 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
           </Box>
         )}
         {change.state === "APPROVED" && <AcceptedChip />}
-        {change.state === "REJECTED" && <DeclinedChip />}
+        {change.state === "REJECTED" && (
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <DeclinedChip />
+            <ChangeDeclineMessage
+              state={change.state}
+              declineComment={change.declineMessage}
+              submitDeclineMessage={(content) => {
+                console.log(`Submitted reject message ${content}`);
+                dispatch(toggleChange(change.uri));
+              }}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
   );

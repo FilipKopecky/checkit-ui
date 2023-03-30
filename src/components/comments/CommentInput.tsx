@@ -5,8 +5,12 @@ import SendIcon from "@mui/icons-material/Send";
 
 interface CommentInputProps {
   handleCommentSubmit: (content: string) => void;
+  placeholder: string;
 }
-const CommentInput: React.FC<CommentInputProps> = ({ handleCommentSubmit }) => {
+const CommentInput: React.FC<CommentInputProps> = ({
+  handleCommentSubmit,
+  placeholder,
+}) => {
   const valueRef = useRef<HTMLTextAreaElement>();
   return (
     <Box
@@ -18,7 +22,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ handleCommentSubmit }) => {
       display={"flex"}
     >
       <InputBase
-        placeholder={"Text komentáře"}
+        placeholder={placeholder}
         fullWidth={true}
         multiline={true}
         inputRef={valueRef}

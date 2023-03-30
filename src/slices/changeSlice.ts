@@ -31,7 +31,9 @@ const changeSlice = createSlice({
         for (const change of payload.changes) {
           state.push({
             uri: change.uri,
-            expanded: true,
+            expanded:
+              change.state === "NOT_REVIEWED" ||
+              (change.state === "REJECTED" && !change.declineMessage),
             activeTab: Constants.CHANGE_DETAIL.TABS.BASIC,
           });
         }

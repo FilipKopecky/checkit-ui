@@ -62,5 +62,7 @@
   "change-detail-original": "Původní",
   "change-detail-deleted": "Smazáno",
   "startVocabularyReviewAction": "Zkontrolovat změny ve slovníku",
-  "seePublicationSummary": "Prohlédnout si publikaci"
+  "seePublicationSummary": "Prohlédnout si publikaci",
+  "add-comment-placeholder": "Napište komentář",
+  "add-decline-change-message": "Napište důvod zamítnutí"
 }

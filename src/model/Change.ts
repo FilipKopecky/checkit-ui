@@ -16,6 +16,7 @@ export interface Change {
   comments: CommentData[];
   state: ChangeState;
   label: string;
+  declineMessage?: CommentData;
 }
 
 export interface VocabularyChanges extends VocabularyData {

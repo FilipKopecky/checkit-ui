@@ -62,5 +62,7 @@
   "change-detail-original": "Original",
   "change-detail-deleted": "Deleted",
   "startVocabularyReviewAction": "Check changes in vocabulary",
-  "seePublicationSummary": "See publication"
+  "seePublicationSummary": "See publication",
+  "add-comment-placeholder": "Add comment",
+  "add-decline-change-message": "Provide a reason for the decline"
 }

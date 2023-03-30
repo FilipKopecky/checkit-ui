@@ -5,14 +5,19 @@ import Comment from "../../comments/Comment";
 import List from "@mui/material/List";
 import { Box } from "@mui/material";
 import CommentInput from "../../comments/CommentInput";
+import { useIntl } from "react-intl";
 
 const ChangeCommentsDetails: React.FC = () => {
   const handleCommentSubmit = (commentText: string) => {
     console.log(commentText);
   };
+  const intl = useIntl();
   return (
     <Box>
-      <CommentInput handleCommentSubmit={handleCommentSubmit} />
+      <CommentInput
+        handleCommentSubmit={handleCommentSubmit}
+        placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
+      />
       <List>
         <Comment comment={mockedComment} />
         <Comment comment={mockedComment1} showDivider={false} />
