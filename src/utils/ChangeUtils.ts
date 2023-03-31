@@ -1,4 +1,41 @@
 import { Change } from "../model/Change";
+import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
+
+export const createChangeListDataStructure = (
+  changes: Change[]
+): ChangeListData => {
+  let allChanges = [];
+  let headers = [];
+  let groupCounts = [];
+  let paddedIndex: number[] = [];
+
+  const grouped = changes.reduce<{
+    [key: string]: Change[];
+  }>(function (r, a) {
+    r[a.subject] = r[a.subject] || [];
+    r[a.subject].push(a);
+    return r;
+  }, Object.create(null));
+
+  for (const [, value] of Object.entries(grouped)) {
+    const header = value[0].label;
+    headers.push(header);
+    allChanges.push(...value);
+    groupCounts.push(value.length);
+    if (paddedIndex.length === 0) {
+      paddedIndex.push(value.length - 1);
+    } else {
+      paddedIndex.push(paddedIndex[paddedIndex.length - 1] + value.length);
+    }
+  }
+
+  return {
+    allChanges: allChanges,
+    headers: headers,
+    groupCounts: groupCounts,
+    lastInGroupIndexes: paddedIndex,
+  };
+};
 
 export const generateTripleFromChange = (change: Change): string => {
   return `<${change.subject}>\n<${change.predicate}>\n<${change.object}> .`;

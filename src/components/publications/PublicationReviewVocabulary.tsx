@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import ChangeList from "../change/ChangeList";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useGetVocabularyChangesQuery } from "../../api/publicationApi";
 import PublicationReviewVocabularySummary from "./PublicationReviewVocabularySummary";
+import { Change } from "../../model/Change";
+import { createChangeListDataStructure } from "../../utils/ChangeUtils";
+
+export interface ChangeListData {
+  allChanges: Change[];
+  headers: string[];
+  groupCounts: number[];
+  lastInGroupIndexes: number[];
+}
 
 const PublicationReviewVocabulary: React.FC = () => {
   const { publicationId } = useParams();
@@ -14,6 +23,10 @@ const PublicationReviewVocabulary: React.FC = () => {
     vocabularyUri: uri!,
     publicationId: publicationId!,
   });
+
+  const changesInfo: ChangeListData = useMemo(() => {
+    return createChangeListDataStructure(vocabularyChanges?.changes ?? []);
+  }, [vocabularyChanges?.changes]);
 
   if (!vocabularyChanges) return <></>;
 
@@ -28,7 +41,7 @@ const PublicationReviewVocabulary: React.FC = () => {
           </Paper>
         </Grid>
         <Grid item md={8} xs={12}>
-          <ChangeList changes={vocabularyChanges.changes} />
+          <ChangeList changeListData={changesInfo} />
         </Grid>
         <Grid item md={4} xs={12}>
           <Paper sx={{ height: "100%" }}>
