@@ -72,7 +72,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   }, [activeTab, change]);
 
   return (
-    <Box sx={{ paddingRight: 1 }}>
+    <Box>
       <Box sx={{ borderBottom: 1, borderColor: "background.default" }}>
         <Accordion expanded={expanded} onChange={handleToggle} square>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>

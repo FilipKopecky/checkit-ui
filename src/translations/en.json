@@ -64,5 +64,8 @@
   "startVocabularyReviewAction": "Check changes in vocabulary",
   "seePublicationSummary": "See publication",
   "add-comment-placeholder": "Add comment",
-  "add-decline-change-message": "Provide a reason for the decline"
+  "add-decline-change-message": "Provide a reason for the decline",
+  "pie-chart-reviewed": "Reviewed {num} changes",
+  "pie-chart-not-reviewed": "Not reviewed {num} changes",
+  "pie-chart-changes-left": "{num} changes left"
 }
