@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { Box } from "@mui/material";
-import PieChart from "../charts/PieChart";
-import { VocabularyChanges } from "../../model/Change";
 import { useIntl } from "react-intl";
 import ChangeListQuickAccess from "../change/ChangeListQuickAccess";
+import { ChangeListData } from "./PublicationReviewVocabulary";
+import PieChart from "../charts/PieChart";
 
 interface PublicationReviewVocabularySummaryProps {
-  changes: VocabularyChanges;
+  changes: ChangeListData;
 }
 
 const PublicationReviewVocabularySummary: React.FC<
@@ -16,7 +16,7 @@ const PublicationReviewVocabularySummary: React.FC<
   const summary = useMemo(() => {
     let done = 0;
     let notReviewed = 0;
-    for (const change of changes.changes) {
+    for (const change of changes.allChanges) {
       if (change.state === "NOT_REVIEWED") notReviewed++;
       else done++;
     }
@@ -36,7 +36,7 @@ const PublicationReviewVocabularySummary: React.FC<
         fullCircle={false}
         animation={true}
       />
-      <ChangeListQuickAccess />
+      <ChangeListQuickAccess changeListData={changes} />
     </Box>
   );
 };

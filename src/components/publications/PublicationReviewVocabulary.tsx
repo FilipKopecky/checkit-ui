@@ -45,7 +45,7 @@ const PublicationReviewVocabulary: React.FC = () => {
         </Grid>
         <Grid item md={4} xs={12}>
           <Paper sx={{ height: "100%" }}>
-            <PublicationReviewVocabularySummary changes={vocabularyChanges} />
+            <PublicationReviewVocabularySummary changes={changesInfo} />
           </Paper>
         </Grid>
       </Grid>
