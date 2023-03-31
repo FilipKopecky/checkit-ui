@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import PieChart from "../charts/PieChart";
 import { VocabularyChanges } from "../../model/Change";
 import { useIntl } from "react-intl";
+import ChangeListQuickAccess from "../change/ChangeListQuickAccess";
 
 interface PublicationReviewVocabularySummaryProps {
   changes: VocabularyChanges;
@@ -35,6 +36,7 @@ const PublicationReviewVocabularySummary: React.FC<
         fullCircle={false}
         animation={true}
       />
+      <ChangeListQuickAccess />
     </Box>
   );
 };
