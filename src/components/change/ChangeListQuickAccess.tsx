@@ -7,6 +7,8 @@ import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import MappedLabel from "./MappedLabel";
+import { useAppDispatch } from "../../hooks/ReduxHooks";
+import { scrollInChangeList } from "../../slices/eventSlice";
 
 interface ChangeListQuickAccessProps {
   changeListData: ChangeListData;
@@ -15,7 +17,6 @@ interface ChangeListQuickAccessProps {
 const ChangeListQuickAccess: React.FC<ChangeListQuickAccessProps> = ({
   changeListData,
 }) => {
-  console.log(changeListData);
   const components = createList(changeListData.allChanges);
   const itemContent = (index: any, change: any) => {
     return <InnerItem index={index} change={change} />;
@@ -51,11 +52,16 @@ const createList = (changes: Change[]) => {
 };
 
 const InnerItem = React.memo(({ change, index }: any) => {
+  const dispatch = useAppDispatch();
   if (change.label) {
     return (
       <ListItem sx={{ padding: 0 }}>
         <ListItemText
-          onClick={() => console.log(`Clicked header ${change.index}`)}
+          onClick={() =>
+            dispatch(
+              scrollInChangeList({ date: Date.now(), index: change.index })
+            )
+          }
         >
           {change.label}
         </ListItemText>
@@ -65,7 +71,11 @@ const InnerItem = React.memo(({ change, index }: any) => {
     return (
       <ListItem sx={{ paddingLeft: 1 }}>
         <ListItemText
-          onClick={() => console.log(`Clicked predicate ${change.index}`)}
+          onClick={() =>
+            dispatch(
+              scrollInChangeList({ date: Date.now(), index: change.index })
+            )
+          }
         >
           <MappedLabel uri={change.uri} />
         </ListItemText>

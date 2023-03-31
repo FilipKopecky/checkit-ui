@@ -1,15 +1,30 @@
-import React from "react";
-import { GroupedVirtuoso } from "react-virtuoso";
+import React, { useEffect, useRef } from "react";
+import { GroupedVirtuoso, VirtuosoHandle } from "react-virtuoso";
 import ChangeListItem from "./ChangeListItem";
 import ChangeListItemGroup from "./ChangeListItemGroup";
 import { Box } from "@mui/material";
 import { ChangeListData } from "../publications/PublicationReviewVocabulary";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectEvent } from "../../slices/eventSlice";
 
 interface ChangeListProps {
   changeListData: ChangeListData;
 }
 
 const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
+  const virtuoso = useRef<VirtuosoHandle>(null);
+  const eventSelector = useAppSelector(selectEvent);
+  const handleSmoothScroll = (index: number) => {
+    virtuoso.current?.scrollToIndex({
+      index: index,
+      align: "start",
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    handleSmoothScroll(eventSelector.changeScrollIndex);
+  }, [eventSelector]);
   const itemContent = (index: number, groupIndex: number) => {
     const change = changeListData.allChanges[index];
     return (
@@ -25,6 +40,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
   return (
     <Box>
       <GroupedVirtuoso
+        ref={virtuoso}
         style={{ height: 700 }}
         groupCounts={changeListData.groupCounts}
         groupContent={(index) => {

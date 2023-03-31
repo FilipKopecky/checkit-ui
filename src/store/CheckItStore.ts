@@ -7,6 +7,7 @@ import languageReducer from "../slices/languageSlice";
 import userReducer from "../slices/userSlice";
 import adminPanelReducer from "../slices/adminPanelSlice";
 import changeReducer from "../slices/changeSlice";
+import eventReducer from "../slices/eventSlice";
 import { apiSlice } from "../api/apiSlice";
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   adminPanel: adminPanelReducer,
   change: changeReducer,
+  event: eventReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
