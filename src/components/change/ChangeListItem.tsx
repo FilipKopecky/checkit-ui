@@ -121,7 +121,10 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                     }
                     placement={"right"}
                   >
-                    <HelpOutlineOutlinedIcon color={"primary"} />
+                    <HelpOutlineOutlinedIcon
+                      color={"primary"}
+                      fontSize={"small"}
+                    />
                   </NoMaxWidthTooltip>
                 )}
               </Box>

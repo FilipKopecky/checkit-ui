@@ -67,5 +67,6 @@
   "add-decline-change-message": "Napište důvod zamítnutí",
   "pie-chart-reviewed": "Zkontrolováno {num} změn",
   "pie-chart-not-reviewed": "Nezkontrolováno {num} změn",
-  "pie-chart-changes-left": "Zbývá {num} změn"
+  "pie-chart-changes-left": "Zbývá {num} změn",
+  "list-of-changes": "Seznam změn ({num})"
 }

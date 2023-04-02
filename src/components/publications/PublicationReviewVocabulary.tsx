@@ -40,10 +40,10 @@ const PublicationReviewVocabulary: React.FC = () => {
             </Box>
           </Paper>
         </Grid>
-        <Grid item md={8} xs={12}>
+        <Grid item md={10} xs={12}>
           <ChangeList changeListData={changesInfo} />
         </Grid>
-        <Grid item md={4} xs={12}>
+        <Grid item md={2} xs={12}>
           <Paper sx={{ height: "100%" }}>
             <PublicationReviewVocabularySummary changes={changesInfo} />
           </Paper>

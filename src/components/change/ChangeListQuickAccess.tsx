@@ -1,7 +1,7 @@
 import React from "react";
 import { ChangeListData } from "../publications/PublicationReviewVocabulary";
 import { Change } from "../../model/Change";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Virtuoso } from "react-virtuoso";
 import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
 import ListItemText from "@mui/material/ListItemText";
@@ -9,6 +9,7 @@ import ListItem from "@mui/material/ListItem";
 import MappedLabel from "./MappedLabel";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { scrollInChangeList } from "../../slices/eventSlice";
+import { useIntl } from "react-intl";
 
 interface ChangeListQuickAccessProps {
   changeListData: ChangeListData;
@@ -22,9 +23,15 @@ const ChangeListQuickAccess: React.FC<ChangeListQuickAccessProps> = ({
     return <InnerItem index={index} change={change} />;
   };
 
+  const intl = useIntl();
   return (
-    <Box>
-      <div>Quick Access</div>
+    <Box mt={1}>
+      <Typography variant={"h6"}>
+        {intl.formatMessage(
+          { id: "list-of-changes" },
+          { num: changeListData.allChanges.length }
+        )}
+      </Typography>
       <Virtuoso
         data={components}
         style={{ height: 400 }}
@@ -51,12 +58,18 @@ const createList = (changes: Change[]) => {
   return listItems;
 };
 
-const InnerItem = React.memo(({ change, index }: any) => {
+const InnerItem = React.memo(({ change }: any) => {
   const dispatch = useAppDispatch();
   if (change.label) {
     return (
       <ListItem sx={{ padding: 0 }}>
         <ListItemText
+          sx={{
+            "& .MuiListItemText-primary": {
+              cursor: "pointer",
+              "&:hover": { fontWeight: "bold" },
+            },
+          }}
           onClick={() =>
             dispatch(
               scrollInChangeList({ date: Date.now(), index: change.index })
@@ -69,8 +82,14 @@ const InnerItem = React.memo(({ change, index }: any) => {
     );
   } else {
     return (
-      <ListItem sx={{ paddingLeft: 1 }}>
+      <ListItem sx={{ padding: 0, paddingLeft: 1 }}>
         <ListItemText
+          sx={{
+            "& .MuiListItemText-primary": {
+              cursor: "pointer",
+              "&:hover": { fontWeight: "bold" },
+            },
+          }}
           onClick={() =>
             dispatch(
               scrollInChangeList({ date: Date.now(), index: change.index })

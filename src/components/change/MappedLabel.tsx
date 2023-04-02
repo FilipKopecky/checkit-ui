@@ -16,7 +16,7 @@ const MappedLabel: React.FC<MappedLabelProps & TypographyProps> = ({
     ? intl.formatMessage({ id: UriToTranslationMapper[uri].id })
     : uri;
   return (
-    <Typography variant={"body1"} {...props}>
+    <Typography variant={"body1"} {...props} fontWeight={"inherit"}>
       {displayedLabel}
     </Typography>
   );
