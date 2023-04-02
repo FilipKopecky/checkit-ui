@@ -1,6 +1,9 @@
 import { Change } from "../model/Change";
 import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
 
+export const isMapped = (uri: string): boolean => {
+  return Boolean(UriToTranslationMapper[uri]);
+};
 export const createChangeListDataStructure = (
   changes: Change[]
 ): ChangeListData => {
@@ -119,5 +122,13 @@ export const UriToTranslationMapper: {
   "http://www.w3.org/2004/02/skos/core#hasTopConcept": {
     id: "SKOS_HAS_TOP_CONCEPT",
     descriptionId: "DESCRIPTION_SKOS_HAS_TOP_CONCEPT",
+  },
+  "http://onto.fel.cvut.cz/ontologies/application/termit/pojem/je-draft": {
+    id: "ONTO_FEL_IS_DRAFT",
+    descriptionId: "DESCRIPTION_ONTO_FEL_IS_DRAFT",
+  },
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": {
+    id: "RDF_TYPE",
+    descriptionId: "DESCRIPTION_RDF_TYPE",
   },
 };
