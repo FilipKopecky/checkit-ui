@@ -6,11 +6,36 @@ import Endpoints, {
 } from "./Endpoints";
 import { Publication, PublicationContext } from "../model/Publication";
 import { Change, VocabularyChanges } from "../model/Change";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const publicationApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getRelevantPublications: builder.query<PublicationContext[], void>({
-      query: () => Endpoints.GET_ALL_RELEVANT_PUBLICATIONS,
+      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+        const reviewablesPromise = await fetchWithBQ(
+          Endpoints.GET_ALL_REVIEWABLE_PUBLICATIONS
+        );
+        if (reviewablesPromise.error)
+          return { error: reviewablesPromise.error as FetchBaseQueryError };
+        const reviewables = reviewablesPromise.data as PublicationContext[];
+
+        const readOnlyPromise = await fetchWithBQ(
+          Endpoints.GET_ALL_READONLY_PUBLICATIONS
+        );
+        if (readOnlyPromise.error)
+          return { error: readOnlyPromise.error as FetchBaseQueryError };
+        const readOnly = readOnlyPromise.data as PublicationContext[];
+        const allPublications: PublicationContext[] = reviewables
+          .map((publication) => {
+            return { ...publication, reviewable: true };
+          })
+          .concat(
+            readOnly.map((publication) => {
+              return { ...publication, reviewable: false };
+            })
+          );
+        return { data: allPublications as PublicationContext[] };
+      },
       providesTags: ["ALL_RELEVANT_PUBLICATIONS"],
     }),
     getPublicationById: builder.query<Publication, string>({
