@@ -83,7 +83,7 @@ const PublicationSummary: React.FC = () => {
         </Grid>
         <Grid container item md={4} spacing={2} xs={12}>
           <Grid item md={12} sm={6} xs={12}>
-            <PublicationStatistics />
+            <PublicationStatistics publication={publication} />
           </Grid>
           <Grid item md={12} sm={6} xs={12}>
             <Item>

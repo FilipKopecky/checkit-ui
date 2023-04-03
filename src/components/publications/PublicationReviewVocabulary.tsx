@@ -50,10 +50,8 @@ const PublicationReviewVocabulary: React.FC = () => {
         <Grid item md={10} xs={12}>
           <ChangeList changeListData={changesInfo} />
         </Grid>
-        <Grid item md={2} xs={12}>
-          <Paper sx={{ height: "100%" }}>
-            <PublicationReviewVocabularySummary changes={changesInfo} />
-          </Paper>
+        <Grid container item md={2} xs={12} spacing={1}>
+          <PublicationReviewVocabularySummary changes={changesInfo} />
         </Grid>
       </Grid>
     </Box>

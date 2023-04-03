@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PieChart from "../charts/PieChart";
+import { Publication } from "../../model/Publication";
 
 const data = [
   { name: "Nezkontrolovaných změn", value: 10 },
@@ -15,7 +16,15 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
   fontSize: theme.typography.h5.fontSize,
 }));
 
-const PublicationStatistics: React.FC = () => {
+interface PublicationStatisticsProps {
+  publication: Publication;
+}
+const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
+  publication,
+}) => {
+  //TODO: Make this component use real data
+  // Fetch all changes from the affected vocabularies -> calculate following values: reviewed, not-reviewed, review-by-others, not-reviewed-by-others
+  console.log(publication);
   const sum = data.reduce(
     (partialResult, dataItem) => partialResult + dataItem.value,
     0

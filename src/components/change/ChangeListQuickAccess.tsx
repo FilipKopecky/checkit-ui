@@ -25,7 +25,7 @@ const ChangeListQuickAccess: React.FC<ChangeListQuickAccessProps> = ({
 
   const intl = useIntl();
   return (
-    <Box mt={1}>
+    <Box mt={1} p={2}>
       <Typography variant={"h6"}>
         {intl.formatMessage(
           { id: "list-of-changes" },
