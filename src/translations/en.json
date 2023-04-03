@@ -68,5 +68,7 @@
   "pie-chart-reviewed": "Reviewed {num} changes",
   "pie-chart-not-reviewed": "Not reviewed {num} changes",
   "pie-chart-changes-left": "{num} changes left",
-  "list-of-changes": "List of changes ({num})"
+  "list-of-changes": "List of changes ({num})",
+  "vocabulary-review-read-only": "You can only comment these vocabulary changes. If you want to accept or reject these changes you have to become a gestor of this vocabulary"
+
 }

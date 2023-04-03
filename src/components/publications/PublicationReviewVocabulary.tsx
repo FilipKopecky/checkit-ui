@@ -6,6 +6,7 @@ import { useGetVocabularyChangesQuery } from "../../api/publicationApi";
 import PublicationReviewVocabularySummary from "./PublicationReviewVocabularySummary";
 import { Change } from "../../model/Change";
 import { createChangeListDataStructure } from "../../utils/ChangeUtils";
+import { useIntl } from "react-intl";
 
 export interface ChangeListData {
   allChanges: Change[];
@@ -18,6 +19,7 @@ const PublicationReviewVocabulary: React.FC = () => {
   const { publicationId } = useParams();
   const [searchParams] = useSearchParams();
   const uri = searchParams.get("vocabularyUri");
+  const intl = useIntl();
 
   const { data: vocabularyChanges } = useGetVocabularyChangesQuery({
     vocabularyUri: uri!,
@@ -37,6 +39,11 @@ const PublicationReviewVocabulary: React.FC = () => {
           <Paper>
             <Box p={3}>
               <Typography variant={"h6"}>{vocabularyChanges.label}</Typography>
+              {!vocabularyChanges.gestored && (
+                <Typography variant={"body1"} color="text.secondary">
+                  {intl.formatMessage({ id: "vocabulary-review-read-only" })}
+                </Typography>
+              )}
             </Box>
           </Paper>
         </Grid>
