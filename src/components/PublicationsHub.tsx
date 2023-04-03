@@ -6,6 +6,8 @@ import { useIntl } from "react-intl";
 import PieChart from "./charts/PieChart";
 import BarChart from "./charts/BarChart";
 import { useGetRelevantPublicationsQuery } from "../api/publicationApi";
+import LoadingOverlay from "./misc/LoadingOverlay";
+import ErrorAlert from "./misc/ErrorAlert";
 
 const data = [
   { name: "Nezkontrolovaných změn", value: 150 },
@@ -34,8 +36,13 @@ const data2 = [
 
 const PublicationsHub: React.FC = () => {
   const intl = useIntl();
-  const { data: availablePublications } = useGetRelevantPublicationsQuery();
-  if (!availablePublications) return <></>;
+  const {
+    data: availablePublications,
+    isLoading,
+    error,
+  } = useGetRelevantPublicationsQuery();
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !availablePublications) return <ErrorAlert />;
 
   return (
     <Box p={2}>

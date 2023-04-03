@@ -7,6 +7,10 @@ import {
   AccordionSummaryProps,
   Box,
   Collapse,
+  Tooltip,
+  tooltipClasses,
+  TooltipProps,
+  Typography,
 } from "@mui/material";
 import ChangeBasicDetail from "./tabs/ChangeBasicDetail";
 import Constants from "../../utils/Constants";
@@ -24,6 +28,10 @@ import IconButton from "@mui/material/IconButton";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import { isMapped } from "../../utils/ChangeUtils";
+import LoadingOverlay from "../misc/LoadingOverlay";
 
 interface ChangeDetailProps {
   change: Change;
@@ -72,7 +80,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   }, [activeTab, change]);
 
   return (
-    <Box sx={{ paddingRight: 1 }}>
+    <Box>
       <Box sx={{ borderBottom: 1, borderColor: "background.default" }}>
         <Accordion expanded={expanded} onChange={handleToggle} square>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>
@@ -105,7 +113,22 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 marginBottom: 1,
               }}
             >
-              <MappedLabel uri={change.predicate} variant={"h6"} />
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <MappedLabel uri={change.predicate} variant={"h6"} />
+                {isMapped(change.predicate) && (
+                  <NoMaxWidthTooltip
+                    title={
+                      <Typography fontSize={16}>{change.predicate}</Typography>
+                    }
+                    placement={"right"}
+                  >
+                    <HelpOutlineOutlinedIcon
+                      color={"primary"}
+                      fontSize={"small"}
+                    />
+                  </NoMaxWidthTooltip>
+                )}
+              </Box>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <TabNavigation
                   tabs={tabs}
@@ -119,7 +142,9 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 </Box>
               </Box>
             </Box>
-            <Suspense fallback={<>Loading</>}>{componentToRender}</Suspense>
+            <Suspense fallback={<LoadingOverlay />}>
+              {componentToRender}
+            </Suspense>
           </AccordionDetails>
         </Accordion>
       </Box>
@@ -137,4 +162,17 @@ const CustomAccordionSummary = styled((props: AccordionSummaryProps) => (
     transform: "rotate(0deg)",
   },
 }));
+
+const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip
+    {...props}
+    classes={{ popper: className }}
+    children={props.children}
+  />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: "none",
+  },
+});
+
 export default ChangeListItem;

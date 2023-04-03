@@ -7,6 +7,7 @@ import { IntlProvider } from "react-intl";
 import { useAppSelector } from "./hooks/ReduxHooks";
 import { selectLanguage } from "./slices/languageSlice";
 import { SnackbarProvider } from "notistack";
+import { ErrorBoundary } from "react-error-boundary";
 
 /**
  * Wrapper for the whole application
@@ -15,22 +16,24 @@ import { SnackbarProvider } from "notistack";
 const App: React.FC = () => {
   const languageSelector = useAppSelector(selectLanguage);
   return (
-    <SnackbarProvider
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
-      }}
-    >
-      <IntlProvider
-        locale={languageSelector.language}
-        messages={languageSelector.messages}
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
       >
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Router />
-        </ThemeProvider>
-      </IntlProvider>
-    </SnackbarProvider>
+        <IntlProvider
+          locale={languageSelector.language}
+          messages={languageSelector.messages}
+        >
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router />
+          </ThemeProvider>
+        </IntlProvider>
+      </SnackbarProvider>
+    </ErrorBoundary>
   );
 };
 

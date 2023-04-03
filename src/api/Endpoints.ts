@@ -8,7 +8,9 @@ const endpoints = {
   GET_MY_GESTORED_VOCABULARIES: "/vocabularies/my-gestored",
   GET_ALL_GESTOR_REQUESTS: "gestoring-requests",
   GET_MY_GESTORING_REQUESTS: "gestoring-requests/my-requests",
-  GET_ALL_RELEVANT_PUBLICATIONS: "publication-contexts",
+  GET_PUBLICATION_CONTEXT: "publication-contexts",
+  GET_ALL_REVIEWABLE_PUBLICATIONS: "publication-contexts/reviewable",
+  GET_ALL_READONLY_PUBLICATIONS: "publication-contexts/readonly",
   CHANGES: "changes",
 };
 
@@ -25,7 +27,7 @@ export const getGestorRequestResolve = (id: string) => {
 };
 
 export const getPublication = (id: string) => {
-  return `${endpoints.GET_ALL_RELEVANT_PUBLICATIONS}/${id}`;
+  return `${endpoints.GET_PUBLICATION_CONTEXT}/${id}`;
 };
 
 export const getPublicationVocabularyChanges = (publicationId: string) => {

@@ -13,5 +13,7 @@
   "SKOS_RELATED_MATCH": "Related term",
   "SKOS_NOTATION": "Notation",
   "SKOS_EXAMPLE": "Usage example",
-  "SKOS_HAS_TOP_CONCEPT": "Has top-level term"
+  "SKOS_HAS_TOP_CONCEPT": "Has top-level term",
+  "ONTO_FEL_IS_DRAFT": "Is draft",
+  "RDF_TYPE": "Is a instance of"
 }

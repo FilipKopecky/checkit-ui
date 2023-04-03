@@ -7,13 +7,19 @@ import { VocabularyData } from "../../../model/Vocabulary";
 import GestorRequestAccordion from "./GestorRequestAccordion";
 import { Virtuoso } from "react-virtuoso";
 import EmptyPlaceholder from "../../misc/VirtuosoEmptyPlaceholder";
+import LoadingOverlay from "../../misc/LoadingOverlay";
+import ErrorAlert from "../../misc/ErrorAlert";
 
 //TODO: move this value to some utility
 //helper function that returns void as a value
 let voidValue = (function () {})();
 const GestorRequests: React.FC = () => {
   const intl = useIntl();
-  const { data: gRequests } = useGetAllGestorRequestsQuery(voidValue, {
+  const {
+    data: gRequests,
+    isLoading,
+    error,
+  } = useGetAllGestorRequestsQuery(voidValue, {
     refetchOnMountOrArgChange: true,
   });
 
@@ -39,6 +45,9 @@ const GestorRequests: React.FC = () => {
   const itemContent = (index: any, request: any) => {
     return <InnerItem index={index} request={request} />;
   };
+
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !gRequests) return <ErrorAlert />;
 
   return (
     <Box px={3} mt={6} pb={5}>

@@ -22,4 +22,5 @@ export interface PublicationContext {
   label: string;
   projectContext: string;
   state: PublicationContextState;
+  reviewable: boolean;
 }

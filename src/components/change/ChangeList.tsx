@@ -1,56 +1,38 @@
-import React, { useMemo } from "react";
-import { GroupedVirtuoso } from "react-virtuoso";
-import { Change } from "../../model/Change";
+import React, { useEffect, useRef } from "react";
+import { GroupedVirtuoso, VirtuosoHandle } from "react-virtuoso";
 import ChangeListItem from "./ChangeListItem";
 import ChangeListItemGroup from "./ChangeListItemGroup";
 import { Box } from "@mui/material";
+import { ChangeListData } from "../publications/PublicationReviewVocabulary";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectEvent } from "../../slices/eventSlice";
 
 interface ChangeListProps {
-  changes: Change[];
+  changeListData: ChangeListData;
 }
 
-const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
-  const changesInfo = useMemo(() => {
-    let allChanges = [];
-    let headers = [];
-    let groupCounts = [];
-    let paddedIndex: number[] = [];
+const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
+  const virtuoso = useRef<VirtuosoHandle>(null);
+  const eventSelector = useAppSelector(selectEvent);
+  const handleSmoothScroll = (index: number) => {
+    virtuoso.current?.scrollToIndex({
+      index: index,
+      align: "start",
+      behavior: "smooth",
+    });
+  };
 
-    const grouped = changes.reduce<{
-      [key: string]: Change[];
-    }>(function (r, a) {
-      r[a.subject] = r[a.subject] || [];
-      r[a.subject].push(a);
-      return r;
-    }, Object.create(null));
-
-    for (const [, value] of Object.entries(grouped)) {
-      const header = value[0].label;
-      headers.push(header);
-      allChanges.push(...value);
-      groupCounts.push(value.length);
-      if (paddedIndex.length === 0) {
-        paddedIndex.push(value.length - 1);
-      } else {
-        paddedIndex.push(paddedIndex[paddedIndex.length - 1] + value.length);
-      }
-    }
-
-    return {
-      changes: allChanges,
-      headerUris: headers,
-      counts: groupCounts,
-      paddedIndex: paddedIndex,
-    };
-  }, [changes]);
+  useEffect(() => {
+    handleSmoothScroll(eventSelector.changeScrollIndex);
+  }, [eventSelector]);
   const itemContent = (index: number, groupIndex: number) => {
-    const change = changesInfo.changes[index];
+    const change = changeListData.allChanges[index];
     return (
       <InnerItem
         change={change}
         index={index}
         groupIndex={groupIndex}
-        triggers={changesInfo.paddedIndex}
+        triggers={changeListData.lastInGroupIndexes}
       />
     );
   };
@@ -58,10 +40,11 @@ const ChangeList: React.FC<ChangeListProps> = ({ changes }) => {
   return (
     <Box>
       <GroupedVirtuoso
+        ref={virtuoso}
         style={{ height: 700 }}
-        groupCounts={changesInfo.counts}
+        groupCounts={changeListData.groupCounts}
         groupContent={(index) => {
-          return <ChangeListItemGroup uri={changesInfo.headerUris[index]} />;
+          return <ChangeListItemGroup uri={changeListData.headers[index]} />;
         }}
         itemContent={itemContent}
       />

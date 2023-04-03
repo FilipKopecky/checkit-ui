@@ -64,5 +64,12 @@
   "startVocabularyReviewAction": "Zkontrolovat změny ve slovníku",
   "seePublicationSummary": "Prohlédnout si publikaci",
   "add-comment-placeholder": "Napište komentář",
-  "add-decline-change-message": "Napište důvod zamítnutí"
+  "add-decline-change-message": "Napište důvod zamítnutí",
+  "pie-chart-reviewed": "Zkontrolováno {num} změn",
+  "pie-chart-not-reviewed": "Nezkontrolováno {num} změn",
+  "pie-chart-changes-left": "Zbývá {num} změn",
+  "list-of-changes": "Seznam změn ({num})",
+  "vocabulary-review-read-only": "Změny v tomto slovníku můžete pouze komentovat. Pro schválování či zamítání změn musíte být gestorem slovníku",
+  "contains-gestored-vocabulary": "Obsahuje gestorovaný slovník",
+  "something-went-wrong-header": "Chyba"
 }

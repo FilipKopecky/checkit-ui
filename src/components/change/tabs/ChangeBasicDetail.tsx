@@ -12,6 +12,7 @@ import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { toggleChange } from "../../../slices/changeSlice";
 import ChangeDeclineMessage from "../ChangeDeclineMessage";
 import ChangeResolveAction from "../ChangeResolveAction";
+import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -30,6 +31,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
     if (state === "APPROVED") {
       dispatch(toggleChange(change.uri));
     }
+    dispatch(scrollToNextAvailableItem(change.id));
   };
   return (
     <Box pt={1} pb={1}>

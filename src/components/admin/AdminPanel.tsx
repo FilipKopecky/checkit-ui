@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import ManageAdminNavigationButton from "./navigation/ManageAdminNavigationButton";
 import ManageVocabulariesNavigationButton from "./navigation/ManageVocabulariesNavigationButton";
 import ManageGestorRequestsNavigationButton from "./navigation/ManageGestorRequestsNavigationButton";
+import LoadingOverlay from "../misc/LoadingOverlay";
 
 const AdminPanel: React.FC = () => {
   const intl = useIntl();
@@ -32,7 +33,7 @@ const AdminPanel: React.FC = () => {
           <ManageAdminNavigationButton />
         </AdminActionsBox>
       </Box>
-      <Suspense fallback={<>Loading...</>}>
+      <Suspense fallback={<LoadingOverlay />}>
         <AdminPanelContent />
       </Suspense>
     </Box>

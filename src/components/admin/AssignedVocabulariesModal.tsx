@@ -25,6 +25,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import { changeModalTab, selectAdminPanel } from "../../slices/adminPanelSlice";
+import LoadingOverlay from "../misc/LoadingOverlay";
+import ErrorAlert from "../misc/ErrorAlert";
 
 interface AssignedVocabulariesModalProps {
   open: boolean;
@@ -40,10 +42,18 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
   const dispatch = useAppDispatch();
   const adminPanelSelector = useAppSelector(selectAdminPanel);
   const [filterText, setFilterText] = useState("");
-  const { data, isLoading } = useGetAllUsersQuery();
+  const {
+    data,
+    isLoading: allUsersLoading,
+    error: allUsersError,
+  } = useGetAllUsersQuery();
   const [addGestor] = useAddGestorToVocabularyMutation();
   const [removeGestor] = useRemoveGestorFromVocabularyMutation();
-  const { data: vocabularyData } = useGetAllVocabulariesQuery();
+  const {
+    data: vocabularyData,
+    isLoading: vocabularyDataLoading,
+    error: vocabularyDataError,
+  } = useGetAllVocabulariesQuery();
   const intl = useIntl();
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -77,8 +87,9 @@ const AssignedVocabulariesModal: React.FC<AssignedVocabulariesModalProps> = ({
     return filterUsersByName(selectedCategoryValues, filterText);
   }, [adminPanelSelector.modalTab, vocabulary?.gestors, data, filterText]);
 
-  if (isLoading) return <>Loading....</>;
-  if (!data) return <>Doen</>;
+  if (allUsersLoading || vocabularyDataLoading) return <LoadingOverlay />;
+  if (allUsersError || !data) return <ErrorAlert />;
+  if (vocabularyDataError || !vocabularyData) return <ErrorAlert />;
 
   const handleAssigning = (user: User) => {
     const gestors = vocabulary?.gestors.concat(user);

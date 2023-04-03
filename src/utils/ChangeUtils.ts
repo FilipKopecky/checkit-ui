@@ -1,4 +1,44 @@
 import { Change } from "../model/Change";
+import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
+
+export const isMapped = (uri: string): boolean => {
+  return Boolean(UriToTranslationMapper[uri]);
+};
+export const createChangeListDataStructure = (
+  changes: Change[]
+): ChangeListData => {
+  let allChanges = [];
+  let headers = [];
+  let groupCounts = [];
+  let paddedIndex: number[] = [];
+
+  const grouped = changes.reduce<{
+    [key: string]: Change[];
+  }>(function (r, a) {
+    r[a.subject] = r[a.subject] || [];
+    r[a.subject].push(a);
+    return r;
+  }, Object.create(null));
+
+  for (const [, value] of Object.entries(grouped)) {
+    const header = value[0].label;
+    headers.push(header);
+    allChanges.push(...value);
+    groupCounts.push(value.length);
+    if (paddedIndex.length === 0) {
+      paddedIndex.push(value.length - 1);
+    } else {
+      paddedIndex.push(paddedIndex[paddedIndex.length - 1] + value.length);
+    }
+  }
+
+  return {
+    allChanges: allChanges,
+    headers: headers,
+    groupCounts: groupCounts,
+    lastInGroupIndexes: paddedIndex,
+  };
+};
 
 export const generateTripleFromChange = (change: Change): string => {
   return `<${change.subject}>\n<${change.predicate}>\n<${change.object}> .`;
@@ -82,5 +122,13 @@ export const UriToTranslationMapper: {
   "http://www.w3.org/2004/02/skos/core#hasTopConcept": {
     id: "SKOS_HAS_TOP_CONCEPT",
     descriptionId: "DESCRIPTION_SKOS_HAS_TOP_CONCEPT",
+  },
+  "http://onto.fel.cvut.cz/ontologies/application/termit/pojem/je-draft": {
+    id: "ONTO_FEL_IS_DRAFT",
+    descriptionId: "DESCRIPTION_ONTO_FEL_IS_DRAFT",
+  },
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": {
+    id: "RDF_TYPE",
+    descriptionId: "DESCRIPTION_RDF_TYPE",
   },
 };

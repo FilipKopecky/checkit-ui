@@ -16,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import { logout, selectUser } from "../../slices/userSlice";
 import SideBarContent from "./SideBarContent";
 import { useGetCurrentUserQuery } from "../../api/userApi";
+import LoadingOverlay from "../misc/LoadingOverlay";
 
 const drawerWidth = 240;
 
@@ -79,7 +80,7 @@ const Layout: React.FC = () => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
-        <Suspense fallback={<>loading...</>}>
+        <Suspense fallback={<LoadingOverlay />}>
           <Box pb={3}>
             <Outlet />
           </Box>
