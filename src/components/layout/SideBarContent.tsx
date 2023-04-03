@@ -11,6 +11,7 @@ import LogoutButton from "../routing/LogoutButton";
 import { useIntl } from "react-intl";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
+import CurrentUserButton from "./CurrentUserButton";
 
 interface SideBarContentProps {
   open: boolean;
@@ -50,6 +51,7 @@ const SideBarContent: React.FC<SideBarContentProps> = ({ open }) => {
         />
       </List>
       <Box style={{ marginTop: "auto", color: "white" }}>
+        <CurrentUserButton open={open} />
         <LogoutButton open={open} />
       </Box>
     </>
