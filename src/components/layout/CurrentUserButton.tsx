@@ -1,11 +1,11 @@
 import React from "react";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import UserAvatar from "../users/UserAvatar";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
+import { Box } from "@mui/material";
 
 interface CurrentUserProps {
   open: boolean;
@@ -15,12 +15,14 @@ const CurrentUserButton: React.FC<CurrentUserProps> = ({ open }) => {
 
   return (
     <ListItem key={user.id} disablePadding sx={{ display: "block" }}>
-      <ListItemButton
+      <Box
         sx={{
           minHeight: 48,
           justifyContent: open ? "initial" : "center",
           px: 2.5,
           color: "white",
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <ListItemIcon
@@ -40,7 +42,7 @@ const CurrentUserButton: React.FC<CurrentUserProps> = ({ open }) => {
           primary={`${user.firstName} ${user.lastName}`}
           sx={{ opacity: open ? 1 : 0, color: "white" }}
         />
-      </ListItemButton>
+      </Box>
     </ListItem>
   );
 };
