@@ -93,7 +93,6 @@ interface ModifiedObjectProps {
 }
 
 const ModifiedObject: React.FC<ModifiedObjectProps> = ({ objectUri, type }) => {
-  console.log(type);
   return (
     <Box
       sx={{
