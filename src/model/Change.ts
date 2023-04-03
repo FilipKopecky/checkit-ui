@@ -2,7 +2,7 @@ import { CommentData } from "./CommentData";
 import { VocabularyData } from "./Vocabulary";
 
 export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
-export type ChangeType = "CREATED" | "MODIFIED" | "DELETED" | "ROLLBACKED";
+export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
 export interface Change {
   id: string;
   uri: string;

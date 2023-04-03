@@ -1,4 +1,4 @@
-import { Change } from "../model/Change";
+import { Change, ChangeType } from "../model/Change";
 import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
 
 export const isMapped = (uri: string): boolean => {
@@ -40,12 +40,16 @@ export const createChangeListDataStructure = (
   };
 };
 
-export const generateTripleFromChange = (change: Change): string => {
+export const generateTripleFromChange = (change: {
+  subject: string;
+  predicate: string;
+  object: string;
+}): string => {
   return `<${change.subject}>\n<${change.predicate}>\n<${change.object}> .`;
 };
 
-export const getModificationColor = (state: string): string => {
-  switch (state) {
+export const getModificationColor = (type: ChangeType): string => {
+  switch (type) {
     case "CREATED":
       return "#2EA903";
     case "REMOVED":
