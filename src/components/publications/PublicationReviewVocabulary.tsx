@@ -7,6 +7,8 @@ import PublicationReviewVocabularySummary from "./PublicationReviewVocabularySum
 import { Change } from "../../model/Change";
 import { createChangeListDataStructure } from "../../utils/ChangeUtils";
 import { useIntl } from "react-intl";
+import { useAppDispatch } from "../../hooks/ReduxHooks";
+import { setUpAvailableItems } from "../../slices/eventSlice";
 
 export interface ChangeListData {
   allChanges: Change[];
@@ -20,6 +22,7 @@ const PublicationReviewVocabulary: React.FC = () => {
   const [searchParams] = useSearchParams();
   const uri = searchParams.get("vocabularyUri");
   const intl = useIntl();
+  const dispatch = useAppDispatch();
 
   const { data: vocabularyChanges } = useGetVocabularyChangesQuery({
     vocabularyUri: uri!,
@@ -27,8 +30,9 @@ const PublicationReviewVocabulary: React.FC = () => {
   });
 
   const changesInfo: ChangeListData = useMemo(() => {
+    dispatch(setUpAvailableItems(vocabularyChanges?.changes ?? []));
     return createChangeListDataStructure(vocabularyChanges?.changes ?? []);
-  }, [vocabularyChanges?.changes]);
+  }, [dispatch, vocabularyChanges?.changes]);
 
   if (!vocabularyChanges) return <></>;
 

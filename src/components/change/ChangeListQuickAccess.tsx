@@ -66,6 +66,7 @@ const InnerItem = React.memo(({ change }: any) => {
         <ListItemText
           sx={{
             "& .MuiListItemText-primary": {
+              fontSize: "18px",
               cursor: "pointer",
               "&:hover": { fontWeight: "bold" },
             },
