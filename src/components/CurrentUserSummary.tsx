@@ -16,8 +16,8 @@ import { useIntl } from "react-intl";
 import { filterVocabulariesByLabel } from "../utils/FilterUtils";
 import VocabularyGestorsModal from "./vocabulary/VocabularyGestorsModal";
 import { useSnackbar } from "notistack";
-import RequestedBadge from "./vocabulary/RequestedBadge";
-import GestoredBadge from "./vocabulary/GestoredBadge";
+import RequestedBadge from "./chips/RequestedBadge";
+import GestoredBadge from "./chips/GestoredBadge";
 import SearchBar from "./misc/SearchBar";
 
 const CurrentUserSummary: React.FC = () => {

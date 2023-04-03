@@ -11,7 +11,7 @@ import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
 import { Vocabulary } from "../../model/Vocabulary";
-import GestoredBadge from "../vocabulary/GestoredBadge";
+import GestoredBadge from "../chips/GestoredBadge";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
 import VocabularyGestorsModal from "../vocabulary/VocabularyGestorsModal";
