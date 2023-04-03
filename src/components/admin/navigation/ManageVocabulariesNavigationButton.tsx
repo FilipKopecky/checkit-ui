@@ -4,10 +4,14 @@ import Constants from "../../../utils/Constants";
 import stackedBooksImage from "../../../assets/stacked-books.svg";
 import { useIntl } from "react-intl";
 import { useGetAdminPanelSummaryQuery } from "../../../api/adminApi";
+import LoadingOverlay from "../../misc/LoadingOverlay";
+import ErrorAlert from "../../misc/ErrorAlert";
 
 const ManageVocabulariesNavigationButton: React.FC = () => {
   const intl = useIntl();
-  const { data } = useGetAdminPanelSummaryQuery();
+  const { data, isLoading, error } = useGetAdminPanelSummaryQuery();
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !data) return <ErrorAlert />;
   return (
     <AdminNavigationButton
       id={Constants.ADMIN.PANEL.VOCABULARIES}

@@ -15,9 +15,11 @@ import {
   filterVocabulariesByLabel,
 } from "../../utils/FilterUtils";
 import SearchBar from "../misc/SearchBar";
+import LoadingOverlay from "../misc/LoadingOverlay";
+import ErrorAlert from "../misc/ErrorAlert";
 
 const AssignedVocabularies: React.FC = () => {
-  const { data } = useGetAllVocabulariesQuery();
+  const { data, isLoading, error } = useGetAllVocabulariesQuery();
   const intl = useIntl();
   const [filterText, setFilterText] = useState("");
   const [withoutGestor, setWithoutGestor] = useState(false);
@@ -32,6 +34,8 @@ const AssignedVocabularies: React.FC = () => {
   const handleSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setWithoutGestor(event.target.checked);
   };
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !data) return <ErrorAlert />;
 
   return (
     <Box px={3} mt={6}>

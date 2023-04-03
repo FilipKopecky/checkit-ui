@@ -19,11 +19,25 @@ import { useSnackbar } from "notistack";
 import RequestedBadge from "./chips/RequestedBadge";
 import GestoredBadge from "./chips/GestoredBadge";
 import SearchBar from "./misc/SearchBar";
+import ErrorAlert from "./misc/ErrorAlert";
+import LoadingOverlay from "./misc/LoadingOverlay";
 
 const CurrentUserSummary: React.FC = () => {
-  const { data: allVocabularies } = useGetAllVocabulariesQuery();
-  const { data: myGestored } = useGetMyGestoredVocabulariesQuery();
-  const { data: myRequests } = useGetMyGestorRequestsQuery();
+  const {
+    data: allVocabularies,
+    isLoading: allVocabulariesLoading,
+    error: allVocabulariesError,
+  } = useGetAllVocabulariesQuery();
+  const {
+    data: myGestored,
+    isLoading: gestoredVocabulariesLoading,
+    error: gestoredVocabulariesError,
+  } = useGetMyGestoredVocabulariesQuery();
+  const {
+    data: myRequests,
+    isLoading: requestedVocabulariesLoading,
+    error: requestedVocabulariesError,
+  } = useGetMyGestorRequestsQuery();
   const [addGestorRequest] = useAddGestorRequestMutation();
   const [activeTab, setActiveTab] = useState("all");
   const [filterText, setFilterText] = useState("");
@@ -87,7 +101,17 @@ const CurrentUserSummary: React.FC = () => {
     return [];
   }, [activeTab, allVocabularies, myGestored, myRequests, filterText]);
 
-  if (!allVocabularies) return <Box></Box>;
+  if (
+    requestedVocabulariesLoading ||
+    gestoredVocabulariesLoading ||
+    allVocabulariesLoading
+  )
+    return <LoadingOverlay />;
+  //TODO: Do it in one query
+  if (requestedVocabulariesError || !myRequests) return <ErrorAlert />;
+  if (gestoredVocabulariesError || !myGestored) return <ErrorAlert />;
+  if (allVocabulariesError || !allVocabularies) return <ErrorAlert />;
+
   return (
     <Box px={3} mt={2}>
       <Paper>

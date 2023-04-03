@@ -13,9 +13,11 @@ import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
 import SearchBar from "../misc/SearchBar";
 import { filterUsersByName } from "../../utils/FilterUtils";
+import LoadingOverlay from "../misc/LoadingOverlay";
+import ErrorAlert from "../misc/ErrorAlert";
 
 const AdminUsers: React.FC = () => {
-  const { data, isLoading } = useGetAllUsersQuery();
+  const { data, isLoading, error } = useGetAllUsersQuery();
   const [modifyAdmin] = useModifyAdminMutation();
   const currentUser = useAppSelector(selectUser);
   const [activeTab, setActiveTab] = useState("admins");
@@ -49,13 +51,8 @@ const AdminUsers: React.FC = () => {
     return filterUsersByName(selectedData, filterText);
   }, [data, activeTab, filterText]);
 
-  if (isLoading) {
-    return <>Loading</>;
-  }
-
-  if (!data) {
-    return null;
-  }
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !data) return <ErrorAlert />;
 
   return (
     <Box px={3} mt={6}>
