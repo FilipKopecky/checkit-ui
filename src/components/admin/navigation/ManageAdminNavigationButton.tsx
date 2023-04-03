@@ -7,11 +7,15 @@ import AdminNavigationButton from "./AdminNavigationButton";
 import Constants from "../../../utils/Constants";
 import tuningSlidersImage from "../../../assets/tuning-sliders.svg";
 import { useIntl } from "react-intl";
+import LoadingOverlay from "../../misc/LoadingOverlay";
+import ErrorAlert from "../../misc/ErrorAlert";
 
 const ManageAdminNavigationButton: React.FC = () => {
   useGetAllUsersQuery();
-  const { data } = useGetAdminPanelSummaryQuery();
+  const { data, isLoading, error } = useGetAdminPanelSummaryQuery();
   const intl = useIntl();
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !data) return <ErrorAlert />;
   return (
     <AdminNavigationButton
       id={Constants.ADMIN.PANEL.USERS}

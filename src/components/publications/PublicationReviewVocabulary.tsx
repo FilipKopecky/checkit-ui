@@ -9,6 +9,8 @@ import { createChangeListDataStructure } from "../../utils/ChangeUtils";
 import { useIntl } from "react-intl";
 import { useAppDispatch } from "../../hooks/ReduxHooks";
 import { setUpAvailableItems } from "../../slices/eventSlice";
+import LoadingOverlay from "../misc/LoadingOverlay";
+import ErrorAlert from "../misc/ErrorAlert";
 
 export interface ChangeListData {
   allChanges: Change[];
@@ -24,7 +26,11 @@ const PublicationReviewVocabulary: React.FC = () => {
   const intl = useIntl();
   const dispatch = useAppDispatch();
 
-  const { data: vocabularyChanges } = useGetVocabularyChangesQuery({
+  const {
+    data: vocabularyChanges,
+    isLoading,
+    error,
+  } = useGetVocabularyChangesQuery({
     vocabularyUri: uri!,
     publicationId: publicationId!,
   });
@@ -34,7 +40,8 @@ const PublicationReviewVocabulary: React.FC = () => {
     return createChangeListDataStructure(vocabularyChanges?.changes ?? []);
   }, [dispatch, vocabularyChanges?.changes]);
 
-  if (!vocabularyChanges) return <></>;
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !vocabularyChanges) return <ErrorAlert />;
 
   return (
     <Box p={2}>

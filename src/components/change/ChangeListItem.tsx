@@ -31,6 +31,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { isMapped } from "../../utils/ChangeUtils";
+import LoadingOverlay from "../misc/LoadingOverlay";
 
 interface ChangeDetailProps {
   change: Change;
@@ -141,7 +142,9 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 </Box>
               </Box>
             </Box>
-            <Suspense fallback={<>Loading</>}>{componentToRender}</Suspense>
+            <Suspense fallback={<LoadingOverlay />}>
+              {componentToRender}
+            </Suspense>
           </AccordionDetails>
         </Accordion>
       </Box>
