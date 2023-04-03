@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import ChangeList from "../change/ChangeList";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Alert, Box, Grid, Paper, Typography } from "@mui/material";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useGetVocabularyChangesQuery } from "../../api/publicationApi";
 import PublicationReviewVocabularySummary from "./PublicationReviewVocabularySummary";
@@ -40,6 +40,12 @@ const PublicationReviewVocabulary: React.FC = () => {
     return createChangeListDataStructure(vocabularyChanges?.changes ?? []);
   }, [dispatch, vocabularyChanges?.changes]);
 
+  const isFinished = useMemo(() => {
+    return !vocabularyChanges?.changes.some(
+      (change) => change.state === "NOT_REVIEWED"
+    );
+  }, [vocabularyChanges?.changes]);
+
   if (isLoading) return <LoadingOverlay />;
   if (error || !vocabularyChanges) return <ErrorAlert />;
 
@@ -48,13 +54,20 @@ const PublicationReviewVocabulary: React.FC = () => {
       <Grid container spacing={2}>
         <Grid item md={12} xs={12}>
           <Paper>
-            <Box p={3}>
+            <Box p={2}>
               <Typography variant={"h6"}>{vocabularyChanges.label}</Typography>
-              {!vocabularyChanges.gestored && (
-                <Typography variant={"body1"} color="text.secondary">
-                  {intl.formatMessage({ id: "vocabulary-review-read-only" })}
-                </Typography>
-              )}
+              <Box mt={1}>
+                {!vocabularyChanges.gestored && (
+                  <Alert severity="info" sx={{ fontSize: "16px" }}>
+                    {intl.formatMessage({ id: "vocabulary-review-read-only" })}
+                  </Alert>
+                )}
+                {isFinished && (
+                  <Alert severity="success" sx={{ fontSize: "16px" }}>
+                    {intl.formatMessage({ id: "vocabulary-review-finished" })}
+                  </Alert>
+                )}
+              </Box>
             </Box>
           </Paper>
         </Grid>

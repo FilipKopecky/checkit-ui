@@ -70,6 +70,7 @@
   "pie-chart-changes-left": "Zbývá {num} změn",
   "list-of-changes": "Seznam změn ({num})",
   "vocabulary-review-read-only": "Změny v tomto slovníku můžete pouze komentovat. Pro schválování či zamítání změn musíte být gestorem slovníku",
+  "vocabulary-review-finished": "Všechny změny ve slovníku byly zrevidovány!",
   "contains-gestored-vocabulary": "Obsahuje gestorovaný slovník",
   "something-went-wrong-header": "Chyba"
 }

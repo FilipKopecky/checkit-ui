@@ -32,6 +32,7 @@ const ChangeListQuickAccess: React.FC<ChangeListQuickAccessProps> = ({
           { num: changeListData.allChanges.length }
         )}
       </Typography>
+      <hr />
       <Virtuoso
         data={components}
         style={{ height: 400 }}
