@@ -1,5 +1,5 @@
 import React from "react";
-import { Change, ChangeState } from "../../../model/Change";
+import { Change, ChangeState, ChangeType } from "../../../model/Change";
 import { Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
@@ -12,6 +12,7 @@ import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { toggleChange } from "../../../slices/changeSlice";
 import ChangeDeclineMessage from "../ChangeDeclineMessage";
 import ChangeResolveAction from "../ChangeResolveAction";
+import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -30,13 +31,14 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
     if (state === "APPROVED") {
       dispatch(toggleChange(change.uri));
     }
+    dispatch(scrollToNextAvailableItem(change.id));
   };
   return (
     <Box pt={1} pb={1}>
       <Box>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
-            <ModifiedObject objectUri={change.object} state={change.type} />
+            <ModifiedObject objectUri={change.object} type={change.type} />
           </Grid>
           {change.type === "MODIFIED" && (
             <>
@@ -55,7 +57,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
               <Grid item md={5} xs={12}>
                 <ModifiedObject
                   objectUri={change.newObject!}
-                  state={"CREATED"}
+                  type={"CREATED"}
                 />
               </Grid>
             </>
@@ -87,18 +89,15 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
 
 interface ModifiedObjectProps {
   objectUri: string;
-  state: string;
+  type: ChangeType;
 }
 
-const ModifiedObject: React.FC<ModifiedObjectProps> = ({
-  objectUri,
-  state,
-}) => {
+const ModifiedObject: React.FC<ModifiedObjectProps> = ({ objectUri, type }) => {
   return (
     <Box
       sx={{
         borderLeft: 6,
-        borderColor: getModificationColor(state),
+        borderColor: getModificationColor(type),
         paddingLeft: 2,
         height: "100%",
       }}

@@ -8,6 +8,7 @@ import {
   PieChart as PieChartRechart,
 } from "recharts";
 import { Box, Paper, Typography } from "@mui/material";
+import { useIntl } from "react-intl";
 
 interface PieChartProps {
   data: { name: string; value: number }[];
@@ -32,7 +33,7 @@ const PieChart: React.FC<PieChartProps> = ({
           outerRadius={110}
           endAngle={fullCircle ? 360 : 180}
           fill="#8884d8"
-          paddingAngle={5}
+          paddingAngle={data[0].value === 0 ? 0 : 5}
           dataKey="value"
           cx={"50%"}
           cy={fullCircle ? "50%" : "90%"}
@@ -54,11 +55,16 @@ const PieChart: React.FC<PieChartProps> = ({
 };
 
 const CustomTooltip = ({ active, payload }: any) => {
+  const intl = useIntl();
   if (active && payload && payload.length) {
+    const label = intl.formatMessage(
+      { id: payload[0].name },
+      { num: payload[0].value }
+    );
     return (
       <Paper>
         <Box p={2}>
-          <Typography>{`${payload[0].name} : ${payload[0].value}`}</Typography>
+          <Typography>{label}</Typography>
         </Box>
       </Paper>
     );

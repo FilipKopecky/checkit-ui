@@ -11,10 +11,12 @@ import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
 import { Vocabulary } from "../../model/Vocabulary";
-import GestoredBadge from "../vocabulary/GestoredBadge";
+import GestoredBadge from "../chips/GestoredBadge";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
 import VocabularyGestorsModal from "../vocabulary/VocabularyGestorsModal";
+import LoadingOverlay from "../misc/LoadingOverlay";
+import ErrorAlert from "../misc/ErrorAlert";
 
 const Item = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -30,9 +32,13 @@ const PublicationSummary: React.FC = () => {
   const currentUser = useAppSelector(selectUser);
   const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
   const [modalOpen, setModalOpen] = useState(false);
-  const { data: publication } = useGetPublicationByIdQuery(publicationId || "");
-  //TODO: add loader and error messages
-  if (!publication) return <></>;
+  const {
+    data: publication,
+    isLoading,
+    error,
+  } = useGetPublicationByIdQuery(publicationId || "");
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !publication) return <ErrorAlert />;
 
   const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
     if (vocabulary.gestors?.some((v) => v.id === currentUser.id)) {
@@ -83,7 +89,7 @@ const PublicationSummary: React.FC = () => {
         </Grid>
         <Grid container item md={4} spacing={2} xs={12}>
           <Grid item md={12} sm={6} xs={12}>
-            <PublicationStatistics />
+            <PublicationStatistics publication={publication} />
           </Grid>
           <Grid item md={12} sm={6} xs={12}>
             <Item>

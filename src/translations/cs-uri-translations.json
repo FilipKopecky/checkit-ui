@@ -13,5 +13,7 @@
   "SKOS_RELATED_MATCH": "Související pojem",
   "SKOS_NOTATION": "Notace",
   "SKOS_EXAMPLE": "Příklad použití",
-  "SKOS_HAS_TOP_CONCEPT": "Má pojem nejvyšší úrovně"
+  "SKOS_HAS_TOP_CONCEPT": "Má pojem nejvyšší úrovně",
+  "ONTO_FEL_IS_DRAFT": "Je draft",
+  "RDF_TYPE": "Je instancí"
 }
