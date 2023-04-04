@@ -6,7 +6,11 @@ const LoadingOverlay: React.FC = () => {
   return (
     <div>
       <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        transitionDuration={{ enter: 1000 }}
         open={true}
       >
         <CircularProgress color="inherit" />

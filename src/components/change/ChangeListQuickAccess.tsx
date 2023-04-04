@@ -25,13 +25,14 @@ const ChangeListQuickAccess: React.FC<ChangeListQuickAccessProps> = ({
 
   const intl = useIntl();
   return (
-    <Box mt={1} p={2}>
+    <Box p={2} pb={3}>
       <Typography variant={"h6"}>
         {intl.formatMessage(
           { id: "list-of-changes" },
           { num: changeListData.allChanges.length }
         )}
       </Typography>
+      <hr />
       <Virtuoso
         data={components}
         style={{ height: 400 }}

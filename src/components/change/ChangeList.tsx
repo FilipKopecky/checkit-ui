@@ -36,12 +36,15 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
       />
     );
   };
-
+  const startIndex = changeListData.allChanges.findIndex(
+    (change) => change.state === "NOT_REVIEWED"
+  );
   return (
     <Box>
       <GroupedVirtuoso
         ref={virtuoso}
         style={{ height: 700 }}
+        initialTopMostItemIndex={startIndex === -1 ? 0 : startIndex}
         groupCounts={changeListData.groupCounts}
         groupContent={(index) => {
           return <ChangeListItemGroup uri={changeListData.headers[index]} />;
