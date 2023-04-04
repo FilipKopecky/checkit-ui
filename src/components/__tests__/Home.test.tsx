@@ -4,8 +4,8 @@ import React from "react";
 import Home from "../Home";
 
 describe("Home page", () => {
-  test("Name of the app is present", async () => {
+  test("Welcome message is present", async () => {
     renderWithProviders(<Home />);
-    expect(screen.getByText("Welcome in the CheckIt tool")).toBeInTheDocument();
+    expect(screen.getByText("Welcome back")).toBeInTheDocument();
   });
 });

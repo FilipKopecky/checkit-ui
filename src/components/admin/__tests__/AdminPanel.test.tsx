@@ -6,7 +6,7 @@ import { screen, waitFor } from "@testing-library/react";
 describe("Admin panel", () => {
   test("Before loading components, suspense should be triggered", async () => {
     renderWithProviders(<AdminPanel />);
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getAllByTestId("loading-overlay")[0]).toBeInTheDocument();
     expect(screen.queryByTestId("admin-panel-content")).not.toBeInTheDocument();
   });
   test("After loading components, its content should be displayed", async () => {

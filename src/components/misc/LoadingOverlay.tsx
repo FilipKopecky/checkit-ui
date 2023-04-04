@@ -4,7 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const LoadingOverlay: React.FC = () => {
   return (
-    <div>
+    <div data-testid="loading-overlay">
       <Backdrop
         sx={{
           color: "#fff",
