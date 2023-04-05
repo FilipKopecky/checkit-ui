@@ -2,7 +2,7 @@ import React from "react";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useIntl } from "react-intl";
-import HomeNavigationButtons from "./misc/HomeNavigationButtons";
+import HomeNavigationButtons from "./buttons/HomeNavigationButtons";
 
 const Home: React.FC = () => {
   const intl = useIntl();

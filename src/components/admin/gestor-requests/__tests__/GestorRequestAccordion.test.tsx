@@ -51,8 +51,7 @@ describe("Gestor request accordion ", () => {
     const askingUser = screen.queryByText(
       mockedUser.firstName + " " + mockedUser.lastName
     );
-    expect(askingUser).toBeInTheDocument();
-    expect(askingUser).not.toBeVisible();
+    expect(askingUser).not.toBeInTheDocument();
     fireEvent.click(title);
     await waitFor(() => {
       expect(

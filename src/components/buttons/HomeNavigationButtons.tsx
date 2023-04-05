@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import NavigationCard from "./NavigationCard";
+import NavigationCard from "../misc/NavigationCard";
 import Routes from "../../utils/Routes";
 import SupervisedUserCircleOutlinedIcon from "@mui/icons-material/SupervisedUserCircleOutlined";
 import PlaylistAddCheckCircleOutlinedIcon from "@mui/icons-material/PlaylistAddCheckCircleOutlined";

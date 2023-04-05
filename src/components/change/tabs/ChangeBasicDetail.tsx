@@ -1,5 +1,5 @@
 import React from "react";
-import { Change, ChangeState } from "../../../model/Change";
+import { Change, ChangeState, ChangeType } from "../../../model/Change";
 import { Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
@@ -38,7 +38,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       <Box>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
-            <ModifiedObject objectUri={change.object} state={change.type} />
+            <ModifiedObject objectUri={change.object} type={change.type} />
           </Grid>
           {change.type === "MODIFIED" && (
             <>
@@ -57,7 +57,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
               <Grid item md={5} xs={12}>
                 <ModifiedObject
                   objectUri={change.newObject!}
-                  state={"CREATED"}
+                  type={"CREATED"}
                 />
               </Grid>
             </>
@@ -89,18 +89,15 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
 
 interface ModifiedObjectProps {
   objectUri: string;
-  state: string;
+  type: ChangeType;
 }
 
-const ModifiedObject: React.FC<ModifiedObjectProps> = ({
-  objectUri,
-  state,
-}) => {
+const ModifiedObject: React.FC<ModifiedObjectProps> = ({ objectUri, type }) => {
   return (
     <Box
       sx={{
         borderLeft: 6,
-        borderColor: getModificationColor(state),
+        borderColor: getModificationColor(type),
         paddingLeft: 2,
         height: "100%",
       }}
