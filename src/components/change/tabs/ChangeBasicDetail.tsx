@@ -38,7 +38,10 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       <Box>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
-            <ModifiedObject objectUri={change.object} type={change.type} />
+            <ModifiedObject
+              objectUri={change.object.value}
+              type={change.type}
+            />
           </Grid>
           {change.type === "MODIFIED" && (
             <>
@@ -56,7 +59,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
               </Grid>
               <Grid item md={5} xs={12}>
                 <ModifiedObject
-                  objectUri={change.newObject!}
+                  objectUri={change.newObject!.value}
                   type={"CREATED"}
                 />
               </Grid>

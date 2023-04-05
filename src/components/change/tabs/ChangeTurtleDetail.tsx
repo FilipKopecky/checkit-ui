@@ -18,7 +18,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
       <ModifiedTriple
         subject={change.subject}
         predicate={change.predicate}
-        object={change.object}
+        object={change.object.value}
         type={change.type}
       />
       {change.type === "MODIFIED" && (
@@ -36,7 +36,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
           <ModifiedTriple
             subject={change.subject}
             predicate={change.predicate}
-            object={change.newObject!}
+            object={change.newObject!.value}
             type={"CREATED"}
           />
         </Box>

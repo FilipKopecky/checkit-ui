@@ -3,6 +3,11 @@ import { VocabularyData } from "./Vocabulary";
 
 export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
 export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
+interface ObjectData {
+  value: string;
+  type?: string;
+  languageTag?: string;
+}
 export interface Change {
   id: string;
   uri: string;
@@ -11,8 +16,8 @@ export interface Change {
   type: ChangeType;
   subject: string;
   predicate: string;
-  object: string;
-  newObject?: string;
+  object: ObjectData;
+  newObject?: ObjectData;
   comments: CommentData[];
   state: ChangeState;
   label: string;
