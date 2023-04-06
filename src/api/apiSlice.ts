@@ -21,6 +21,7 @@ export const apiSlice = createApi({
     "ADMIN_PANEL_SUMMARY",
     "ALL_RELEVANT_PUBLICATIONS",
     "PUBLICATIONS",
+    "COMMENTS",
   ],
   endpoints: () => ({}),
 });

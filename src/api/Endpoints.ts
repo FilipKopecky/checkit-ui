@@ -12,6 +12,8 @@ const endpoints = {
   GET_ALL_REVIEWABLE_PUBLICATIONS: "publication-contexts/reviewable",
   GET_ALL_READONLY_PUBLICATIONS: "publication-contexts/readonly",
   CHANGES: "changes",
+  COMMENTS: "comments",
+  CHANGE_COMMENTS: "comments/related-to-change",
 };
 
 export const getAdminRoleSwitch = (id: string) => {
