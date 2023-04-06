@@ -1,4 +1,4 @@
-import { Change, ChangeType } from "../model/Change";
+import { Change, ChangeType, ObjectData } from "../model/Change";
 import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
 
 export const isMapped = (uri: string): boolean => {
@@ -43,9 +43,21 @@ export const createChangeListDataStructure = (
 export const generateTripleFromChange = (change: {
   subject: string;
   predicate: string;
-  object: string;
+  object: ObjectData;
 }): string => {
-  return `<${change.subject}>\n<${change.predicate}>\n<${change.object}> .`;
+  let turtle = `<${change.subject}>\n<${change.predicate}>\n`;
+  if (change.object.type) {
+    turtle += `"${change.object.value}"`;
+    turtle += `^^<${change.object.type}>`;
+    return turtle;
+  }
+  if (change.object.languageTag) {
+    turtle += `"${change.object.value}"`;
+    turtle += `@${change.object.languageTag}`;
+    return turtle;
+  }
+  turtle += `<${change.object.value}>`;
+  return turtle;
 };
 
 export const getModificationColor = (type: ChangeType): string => {

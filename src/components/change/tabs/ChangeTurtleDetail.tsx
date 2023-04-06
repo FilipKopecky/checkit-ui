@@ -1,5 +1,5 @@
 import React from "react";
-import { Change, ChangeType } from "../../../model/Change";
+import { Change, ChangeType, ObjectData } from "../../../model/Change";
 import { Box } from "@mui/material";
 import {
   generateTripleFromChange,
@@ -18,7 +18,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
       <ModifiedTriple
         subject={change.subject}
         predicate={change.predicate}
-        object={change.object.value}
+        object={change.object}
         type={change.type}
       />
       {change.type === "MODIFIED" && (
@@ -36,7 +36,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
           <ModifiedTriple
             subject={change.subject}
             predicate={change.predicate}
-            object={change.newObject!.value}
+            object={change.newObject!}
             type={"CREATED"}
           />
         </Box>
@@ -48,7 +48,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
 interface ModifiedTripleProps {
   subject: string;
   predicate: string;
-  object: string;
+  object: ObjectData;
   type: ChangeType;
 }
 
