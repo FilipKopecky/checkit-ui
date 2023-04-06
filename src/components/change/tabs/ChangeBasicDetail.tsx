@@ -1,5 +1,10 @@
 import React from "react";
-import { Change, ChangeState, ChangeType } from "../../../model/Change";
+import {
+  Change,
+  ChangeState,
+  ChangeType,
+  ObjectData,
+} from "../../../model/Change";
 import { Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
@@ -13,6 +18,7 @@ import { toggleChange } from "../../../slices/changeSlice";
 import ChangeDeclineMessage from "../ChangeDeclineMessage";
 import ChangeResolveAction from "../ChangeResolveAction";
 import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
+import LanguageLabel from "../LanguageLabel";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -38,10 +44,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       <Box>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
-            <ModifiedObject
-              objectUri={change.object.value}
-              type={change.type}
-            />
+            <ModifiedObject objectData={change.object} type={change.type} />
           </Grid>
           {change.type === "MODIFIED" && (
             <>
@@ -59,7 +62,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
               </Grid>
               <Grid item md={5} xs={12}>
                 <ModifiedObject
-                  objectUri={change.newObject!.value}
+                  objectData={change.newObject!}
                   type={"CREATED"}
                 />
               </Grid>
@@ -91,11 +94,14 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
 };
 
 interface ModifiedObjectProps {
-  objectUri: string;
+  objectData: ObjectData;
   type: ChangeType;
 }
 
-const ModifiedObject: React.FC<ModifiedObjectProps> = ({ objectUri, type }) => {
+const ModifiedObject: React.FC<ModifiedObjectProps> = ({
+  objectData,
+  type,
+}) => {
   return (
     <Box
       sx={{
@@ -105,7 +111,8 @@ const ModifiedObject: React.FC<ModifiedObjectProps> = ({ objectUri, type }) => {
         height: "100%",
       }}
     >
-      <ObjectLabel objectUri={objectUri} variant={"body1"} />
+      <LanguageLabel object={objectData} />
+      <ObjectLabel objectUri={objectData.value} variant={"body1"} />
     </Box>
   );
 };

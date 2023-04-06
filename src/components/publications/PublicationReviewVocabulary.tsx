@@ -66,7 +66,7 @@ const PublicationReviewVocabulary: React.FC = () => {
   return (
     <Box p={2}>
       <Grid container spacing={2}>
-        <Grid item md={10} xs={12}>
+        <Grid item md={9} xs={12}>
           <Paper sx={{ height: "100%" }}>
             <Box
               p={2}
@@ -101,7 +101,7 @@ const PublicationReviewVocabulary: React.FC = () => {
             </Box>
           </Paper>
         </Grid>
-        <Grid item md={2} xs={12}>
+        <Grid item md={3} xs={12}>
           <Paper sx={{ height: "100%" }}>
             <PieChart
               data={summary}
@@ -114,12 +114,12 @@ const PublicationReviewVocabulary: React.FC = () => {
             />
           </Paper>
         </Grid>
-        <Grid item md={10} xs={12}>
+        <Grid item md={9} xs={12}>
           <Paper sx={{ backgroundColor: "#F4F5F7" }}>
             <ChangeList changeListData={changesInfo} />
           </Paper>
         </Grid>
-        <Grid container item md={2} xs={12} spacing={1}>
+        <Grid container item md={3} xs={12} spacing={1}>
           <PublicationReviewVocabularySummary changes={changesInfo} />
         </Grid>
       </Grid>

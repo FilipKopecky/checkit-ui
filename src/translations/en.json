@@ -14,6 +14,8 @@
   "gestor-request-navigation-description": "Become gestor to any available vocabulary. See who gestors them",
   "cs-CZ": "Čeština",
   "en": "English",
+  "tag-cs": "czech",
+  "tag-en": "english",
   "admin-panel-header": "Admin panel",
   "admin-panel-header-subtext": "here you can assign responsibilities",
   "admin-panel-requests-navigation": "Pending requests",

@@ -3,7 +3,7 @@ import { VocabularyData } from "./Vocabulary";
 
 export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
 export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
-interface ObjectData {
+export interface ObjectData {
   value: string;
   type?: string;
   languageTag?: string;
