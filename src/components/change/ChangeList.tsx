@@ -43,7 +43,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
     <Box>
       <GroupedVirtuoso
         ref={virtuoso}
-        style={{ height: 650 }}
+        style={{ height: 700 }}
         initialTopMostItemIndex={startIndex === -1 ? 0 : startIndex}
         groupCounts={changeListData.groupCounts}
         groupContent={(index) => {
@@ -57,7 +57,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
 
 const InnerItem = React.memo(({ change, index, groupIndex, triggers }: any) => {
   return (
-    <Box sx={{ pb: triggers[groupIndex] === index ? 5 : 0 }}>
+    <Box sx={{ pb: triggers[groupIndex] === index ? 5 : 0 }} pl={2}>
       <ChangeListItem change={change} />
     </Box>
   );

@@ -81,8 +81,8 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
 
   return (
     <Box>
-      <Box sx={{ borderBottom: 1, borderColor: "background.default" }}>
-        <Accordion expanded={expanded} onChange={handleToggle} square>
+      <Box sx={{ borderBottom: 1, borderColor: "background.default" }} pt={1}>
+        <Accordion expanded={expanded} onChange={handleToggle}>
           <Collapse in={!expanded} timeout="auto" unmountOnExit>
             <CustomAccordionSummary expandIcon={<FullscreenIcon />}>
               <Box display={"flex"}>
