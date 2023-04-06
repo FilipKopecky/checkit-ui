@@ -73,7 +73,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
       case Constants.CHANGE_DETAIL.TABS.TURTLE:
         return <ChangeTurtleDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.COMMENTS:
-        return <ChangeCommentsDetail />;
+        return <ChangeCommentsDetail changeUri={change.uri} />;
       default:
         return null;
     }

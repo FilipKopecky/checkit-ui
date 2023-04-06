@@ -1,3 +1,5 @@
+import { ObjectData } from "../model/Change";
+
 export const generateCurrentAdminUser = () => {
   return {
     firstName: "Admin",
@@ -19,4 +21,8 @@ export const generateCurrentUser = () => {
     isAdmin: false,
     loggedIn: true,
   };
+};
+
+export const generateObjectData = (language?: string): ObjectData => {
+  return { languageTag: language, value: "text value" };
 };

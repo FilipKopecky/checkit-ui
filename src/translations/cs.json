@@ -14,6 +14,8 @@
   "gestor-request-navigation-description": "Staňte s gestorem dostupných slovníků a zjistěte kdo je gestoruje",
   "cs-CZ": "Čeština",
   "en": "English",
+  "tag-cs": "česky",
+  "tag-en": "anglicky",
   "admin-panel-header": "Správcovský panel",
   "admin-panel-header-subtext": "zde můžete přidělovat práva",
   "admin-panel-requests-navigation": "Nevyřízené žádosti",

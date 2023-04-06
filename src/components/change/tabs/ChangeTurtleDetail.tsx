@@ -1,5 +1,5 @@
 import React from "react";
-import { Change, ChangeType } from "../../../model/Change";
+import { Change, ChangeType, ObjectData } from "../../../model/Change";
 import { Box } from "@mui/material";
 import {
   generateTripleFromChange,
@@ -48,7 +48,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
 interface ModifiedTripleProps {
   subject: string;
   predicate: string;
-  object: string;
+  object: ObjectData;
   type: ChangeType;
 }
 

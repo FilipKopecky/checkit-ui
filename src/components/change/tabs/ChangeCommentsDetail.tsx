@@ -6,12 +6,29 @@ import List from "@mui/material/List";
 import { Box } from "@mui/material";
 import CommentInput from "../../comments/CommentInput";
 import { useIntl } from "react-intl";
+import { useGetChangeCommentsQuery } from "../../../api/commentApi";
+import LoadingOverlay from "../../misc/LoadingOverlay";
+import ErrorAlert from "../../misc/ErrorAlert";
 
-const ChangeCommentsDetails: React.FC = () => {
+interface ChangeCommentsDetailsProps {
+  changeUri: string;
+}
+
+const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
+  changeUri,
+}) => {
+  const {
+    data: comments,
+    isLoading,
+    error,
+  } = useGetChangeCommentsQuery(changeUri);
   const handleCommentSubmit = (commentText: string) => {
     console.log(commentText);
   };
   const intl = useIntl();
+
+  if (isLoading) return <LoadingOverlay />;
+  if (error || !comments) return <ErrorAlert />;
   return (
     <Box>
       <CommentInput
