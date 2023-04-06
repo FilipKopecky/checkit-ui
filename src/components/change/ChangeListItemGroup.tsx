@@ -9,7 +9,7 @@ interface ChangeGroupHeaderProps {
 const ChangeListItemGroup: React.FC<ChangeGroupHeaderProps> = ({ uri }) => {
   return (
     <Box>
-      <Paper elevation={2}>
+      <Paper elevation={1}>
         <Box p={2}>
           <ObjectLabel objectUri={uri} variant={"h5"} />
         </Box>

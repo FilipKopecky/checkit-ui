@@ -1,14 +1,12 @@
 import React from "react";
-import { CommentData } from "../../../model/CommentData";
-import { UserData } from "../../../model/User";
 import Comment from "../../comments/Comment";
 import List from "@mui/material/List";
 import { Box } from "@mui/material";
 import CommentInput from "../../comments/CommentInput";
 import { useIntl } from "react-intl";
 import { useGetChangeCommentsQuery } from "../../../api/commentApi";
-import LoadingOverlay from "../../misc/LoadingOverlay";
 import ErrorAlert from "../../misc/ErrorAlert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface ChangeCommentsDetailsProps {
   changeUri: string;
@@ -26,9 +24,9 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
     console.log(commentText);
   };
   const intl = useIntl();
-
-  if (isLoading) return <LoadingOverlay />;
+  if (isLoading) return <CircularProgress color="inherit" />;
   if (error || !comments) return <ErrorAlert />;
+
   return (
     <Box>
       <CommentInput
@@ -36,41 +34,18 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
         placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
       />
       <List>
-        <Comment comment={mockedComment} />
-        <Comment comment={mockedComment1} showDivider={false} />
+        {comments.map((comment, index) => {
+          return (
+            <Comment
+              key={comment.uri}
+              comment={comment}
+              showDivider={index !== comments.length - 1}
+            />
+          );
+        })}
       </List>
     </Box>
   );
-};
-
-const mockedUser: UserData = {
-  firstName: "Martin",
-  id: "",
-  lastName: "Nečaský",
-};
-
-const mockedUser1: UserData = {
-  firstName: "Michal",
-  id: "",
-  lastName: "Med",
-};
-
-const mockedComment: CommentData = {
-  uri: "",
-  author: mockedUser,
-  content:
-    "Tenhle triple je absolutní nesmysl. Nechápu jak mohl tohle někdo vyplodit",
-  creationDate: new Date("2023-03-25"),
-  lastModificationDate: new Date("2022-04-1"),
-  topic: "commentId",
-};
-const mockedComment1: CommentData = {
-  uri: "",
-  author: mockedUser1,
-  content: "Souhlasím, nedává to smysl",
-  creationDate: new Date("2023-03-26"),
-  lastModificationDate: new Date("2022-04-1"),
-  topic: "commentId",
 };
 
 export default ChangeCommentsDetails;

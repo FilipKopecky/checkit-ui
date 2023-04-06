@@ -115,7 +115,7 @@ const PublicationReviewVocabulary: React.FC = () => {
           </Paper>
         </Grid>
         <Grid item md={9} xs={12}>
-          <Paper sx={{ backgroundColor: "#F4F5F7" }}>
+          <Paper sx={{ backgroundColor: "#F4F5F7" }} elevation={8}>
             <ChangeList changeListData={changesInfo} />
           </Paper>
         </Grid>

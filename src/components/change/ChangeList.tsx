@@ -43,7 +43,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
     <Box>
       <GroupedVirtuoso
         ref={virtuoso}
-        style={{ height: 700 }}
+        style={{ height: 650 }}
         initialTopMostItemIndex={startIndex === -1 ? 0 : startIndex}
         groupCounts={changeListData.groupCounts}
         groupContent={(index) => {

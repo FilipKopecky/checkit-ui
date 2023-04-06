@@ -1,6 +1,7 @@
 export const calculateTimeDifference = (date: Date, language: string) => {
+  const dateParsed = new Date(date);
   const formatter = new Intl.RelativeTimeFormat(language);
-  let diff = new Date().getTime() - Number(date);
+  let diff = new Date().getTime() - Number(dateParsed);
   diff /= 1000 * 60 * 60 * 24;
   if (diff >= 30) {
     diff /= 30;
