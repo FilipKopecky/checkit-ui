@@ -4,7 +4,10 @@ import List from "@mui/material/List";
 import { Box } from "@mui/material";
 import CommentInput from "../../comments/CommentInput";
 import { useIntl } from "react-intl";
-import { useGetChangeCommentsQuery } from "../../../api/commentApi";
+import {
+  useAddCommentMutation,
+  useGetChangeCommentsQuery,
+} from "../../../api/commentApi";
 import ErrorAlert from "../../misc/ErrorAlert";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -20,12 +23,12 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
     isLoading,
     error,
   } = useGetChangeCommentsQuery(changeUri);
+  const [addComment] = useAddCommentMutation();
   const handleCommentSubmit = (commentText: string) => {
-    console.log(commentText);
+    addComment({ uri: changeUri, content: commentText });
   };
   const intl = useIntl();
-  if (isLoading) return <CircularProgress color="inherit" />;
-  if (error || !comments) return <ErrorAlert />;
+  if (error) return <ErrorAlert />;
 
   return (
     <Box>
@@ -33,17 +36,23 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
         handleCommentSubmit={handleCommentSubmit}
         placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
       />
-      <List>
-        {comments.map((comment, index) => {
-          return (
-            <Comment
-              key={comment.uri}
-              comment={comment}
-              showDivider={index !== comments.length - 1}
-            />
-          );
-        })}
-      </List>
+      {isLoading ? (
+        <Box py={2}>
+          <CircularProgress color={"inherit"} size={20} />
+        </Box>
+      ) : (
+        <List>
+          {comments!.map((comment, index) => {
+            return (
+              <Comment
+                key={comment.uri}
+                comment={comment}
+                showDivider={index !== comments!.length - 1}
+              />
+            );
+          })}
+        </List>
+      )}
     </Box>
   );
 };

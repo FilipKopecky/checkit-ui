@@ -11,8 +11,23 @@ export const commentApi = apiSlice.injectEndpoints({
       }),
       providesTags: (result, error, id) => [{ type: "COMMENTS", id }],
     }),
+    addComment: builder.mutation<CommentData, Partial<CommentData>>({
+      query(data) {
+        const { uri, content } = data;
+        return {
+          url: Endpoints.COMMENTS,
+          method: "POST",
+          params: { changeUri: uri },
+          headers: {
+            "content-type": "text/plain",
+          },
+          body: content,
+        };
+      },
+      invalidatesTags: ["COMMENTS"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetChangeCommentsQuery } = commentApi;
+export const { useGetChangeCommentsQuery, useAddCommentMutation } = commentApi;

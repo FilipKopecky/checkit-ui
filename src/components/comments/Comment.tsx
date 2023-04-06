@@ -8,6 +8,7 @@ import { calculateTimeDifference } from "../../utils/Utils";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectLanguage } from "../../slices/languageSlice";
 import Divider from "@mui/material/Divider";
+import { useIntl } from "react-intl";
 
 interface CommentProps {
   comment: CommentData;
@@ -15,6 +16,7 @@ interface CommentProps {
 }
 const Comment: React.FC<CommentProps> = ({ comment, showDivider = true }) => {
   const languageSelector = useAppSelector(selectLanguage);
+  const intl = useIntl();
   return (
     <Box>
       <Box pb={2}>
@@ -29,7 +31,8 @@ const Comment: React.FC<CommentProps> = ({ comment, showDivider = true }) => {
             primary={`${comment.author.firstName} ${comment.author.lastName}`}
             secondary={`${calculateTimeDifference(
               comment.creationDate,
-              languageSelector.language
+              languageSelector.language,
+              intl.formatMessage({ id: "just-now" })
             )}`}
           />
         </ListItem>

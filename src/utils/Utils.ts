@@ -1,4 +1,8 @@
-export const calculateTimeDifference = (date: Date, language: string) => {
+export const calculateTimeDifference = (
+  date: Date,
+  language: string,
+  justNow: string
+) => {
   const dateParsed = new Date(date);
   const formatter = new Intl.RelativeTimeFormat(language);
   let diff = new Date().getTime() - Number(dateParsed);
@@ -14,6 +18,9 @@ export const calculateTimeDifference = (date: Date, language: string) => {
   } else if (diff < 1 && diff * 60 * 24 < 60) {
     diff *= 24 * 60;
     diff = Math.floor(diff);
+    if (diff <= 0) {
+      return justNow;
+    }
     return formatter.format(-diff, "minutes");
   }
   diff = Math.floor(diff);
