@@ -57,7 +57,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
 
 const InnerItem = React.memo(({ change, index, groupIndex, triggers }: any) => {
   return (
-    <Box sx={{ pb: triggers[groupIndex] === index ? 5 : 0 }} pl={2}>
+    <Box sx={{ pb: triggers[groupIndex] === index ? 5 : 0 }} pl={2} pr={1}>
       <ChangeListItem change={change} />
     </Box>
   );
