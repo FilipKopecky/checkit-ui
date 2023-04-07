@@ -8,6 +8,7 @@ interface TabNavigationProps {
   activeTab: string;
   setActiveTab: (event: React.SyntheticEvent, newValue: string) => void;
 }
+
 const TabNavigation: React.FC<TabNavigationProps> = ({
   tabs,
   activeTab,
@@ -15,7 +16,12 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <Box sx={{ backgroundColor: "white", display: "flex", flex: 1 }} p={1}>
+    <Box
+      sx={{ backgroundColor: "white", display: "flex", flex: 1 }}
+      p={1}
+      pl={0}
+      pr={5}
+    >
       <Tabs
         TabIndicatorProps={{
           sx: { display: "none" },
@@ -53,12 +59,12 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
 
 const inset = keyframes`
   0% {
-    -webkit-box-shadow: inset 0 0 0 0 rgba(209, 200,200, 0);
-            box-shadow: inset 0 0 0 0 rgba(209, 200,200, 0);
+    -webkit-box-shadow: inset 0 0 0 0 rgba(209, 200, 200, 0);
+    box-shadow: inset 0 0 0 0 rgba(209, 200, 200, 0);
   }
   100% {
-    -webkit-box-shadow: inset 0 0 4px 0 rgba(209, 200,200, 0.95);
-            box-shadow: inset 0 0 4px 0 rgba(209, 200,200, 0.95);
+    -webkit-box-shadow: inset 0 0 4px 0 rgba(209, 200, 200, 0.95);
+    box-shadow: inset 0 0 4px 0 rgba(209, 200, 200, 0.95);
   }
 `;
 

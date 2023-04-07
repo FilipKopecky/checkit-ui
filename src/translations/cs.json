@@ -74,5 +74,6 @@
   "vocabulary-review-read-only": "Změny v tomto slovníku můžete pouze komentovat. Pro schválování či zamítání změn musíte být gestorem slovníku",
   "vocabulary-review-finished": "Všechny změny ve slovníku byly zrevidovány!",
   "contains-gestored-vocabulary": "Obsahuje gestorovaný slovník",
-  "something-went-wrong-header": "Chyba"
+  "something-went-wrong-header": "Chyba",
+  "just-now": "Právě teď"
 }

@@ -1,14 +1,15 @@
 import React from "react";
-import { CommentData } from "../../../model/CommentData";
-import { UserData } from "../../../model/User";
 import Comment from "../../comments/Comment";
 import List from "@mui/material/List";
 import { Box } from "@mui/material";
 import CommentInput from "../../comments/CommentInput";
 import { useIntl } from "react-intl";
-import { useGetChangeCommentsQuery } from "../../../api/commentApi";
-import LoadingOverlay from "../../misc/LoadingOverlay";
+import {
+  useAddCommentMutation,
+  useGetChangeCommentsQuery,
+} from "../../../api/commentApi";
 import ErrorAlert from "../../misc/ErrorAlert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface ChangeCommentsDetailsProps {
   changeUri: string;
@@ -22,55 +23,38 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
     isLoading,
     error,
   } = useGetChangeCommentsQuery(changeUri);
+  const [addComment] = useAddCommentMutation();
   const handleCommentSubmit = (commentText: string) => {
-    console.log(commentText);
+    addComment({ uri: changeUri, content: commentText });
   };
   const intl = useIntl();
+  if (error) return <ErrorAlert />;
 
-  if (isLoading) return <LoadingOverlay />;
-  if (error || !comments) return <ErrorAlert />;
   return (
     <Box>
       <CommentInput
         handleCommentSubmit={handleCommentSubmit}
         placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
       />
-      <List>
-        <Comment comment={mockedComment} />
-        <Comment comment={mockedComment1} showDivider={false} />
-      </List>
+      {isLoading ? (
+        <Box py={2}>
+          <CircularProgress color={"inherit"} size={20} />
+        </Box>
+      ) : (
+        <List>
+          {comments!.map((comment, index) => {
+            return (
+              <Comment
+                key={comment.uri}
+                comment={comment}
+                showDivider={index !== comments!.length - 1}
+              />
+            );
+          })}
+        </List>
+      )}
     </Box>
   );
-};
-
-const mockedUser: UserData = {
-  firstName: "Martin",
-  id: "",
-  lastName: "Nečaský",
-};
-
-const mockedUser1: UserData = {
-  firstName: "Michal",
-  id: "",
-  lastName: "Med",
-};
-
-const mockedComment: CommentData = {
-  uri: "",
-  author: mockedUser,
-  content:
-    "Tenhle triple je absolutní nesmysl. Nechápu jak mohl tohle někdo vyplodit",
-  creationDate: new Date("2023-03-25"),
-  lastModificationDate: new Date("2022-04-1"),
-  topic: "commentId",
-};
-const mockedComment1: CommentData = {
-  uri: "",
-  author: mockedUser1,
-  content: "Souhlasím, nedává to smysl",
-  creationDate: new Date("2023-03-26"),
-  lastModificationDate: new Date("2022-04-1"),
-  topic: "commentId",
 };
 
 export default ChangeCommentsDetails;

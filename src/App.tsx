@@ -8,6 +8,7 @@ import { useAppSelector } from "./hooks/ReduxHooks";
 import { selectLanguage } from "./slices/languageSlice";
 import { SnackbarProvider } from "notistack";
 import { ErrorBoundary } from "react-error-boundary";
+import "./styles.css";
 
 /**
  * Wrapper for the whole application

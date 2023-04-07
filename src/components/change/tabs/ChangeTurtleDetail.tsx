@@ -7,6 +7,11 @@ import {
 } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import sparql from "react-syntax-highlighter/dist/esm/languages/prism/sparql";
+import coldarkCold from "react-syntax-highlighter/dist/esm/styles/prism/coldark-cold";
+
+SyntaxHighlighter.registerLanguage("sparql", sparql);
 
 interface ChangeTurtleDetailProps {
   change: Change;
@@ -63,13 +68,12 @@ const ModifiedTriple: React.FC<ModifiedTripleProps> = ({
       sx={{
         borderLeft: 6,
         borderColor: getModificationColor(type),
-        paddingLeft: 2,
         height: "100%",
       }}
     >
-      <p style={{ whiteSpace: "pre-wrap" }}>
+      <SyntaxHighlighter language="sparql" style={coldarkCold}>
         {generateTripleFromChange({ subject, predicate, object })}
-      </p>
+      </SyntaxHighlighter>
     </Box>
   );
 };

@@ -67,7 +67,7 @@ const PublicationReviewVocabulary: React.FC = () => {
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item md={9} xs={12}>
-          <Paper sx={{ height: "100%" }}>
+          <Paper>
             <Box
               p={2}
               sx={{ display: "flex", flexDirection: "column", height: "100%" }}
@@ -100,27 +100,27 @@ const PublicationReviewVocabulary: React.FC = () => {
               </Box>
             </Box>
           </Paper>
+          <Box pl={2} pt={1}>
+            <ChangeList changeListData={changesInfo} />
+          </Box>
         </Grid>
         <Grid item md={3} xs={12}>
-          <Paper sx={{ height: "100%" }}>
-            <PieChart
-              data={summary}
-              label={intl.formatMessage(
-                { id: "pie-chart-changes-left" },
-                { num: summary[0].value }
-              )}
-              fullCircle={false}
-              animation={true}
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={9} xs={12}>
-          <Paper sx={{ backgroundColor: "#F4F5F7" }}>
-            <ChangeList changeListData={changesInfo} />
-          </Paper>
-        </Grid>
-        <Grid container item md={3} xs={12} spacing={1}>
-          <PublicationReviewVocabularySummary changes={changesInfo} />
+          <Grid container spacing={2}>
+            <Grid item md={12} sm={6} xs={12}>
+              <Paper>
+                <PieChart
+                  data={summary}
+                  label={intl.formatMessage(
+                    { id: "pie-chart-changes-left" },
+                    { num: summary[0].value }
+                  )}
+                  fullCircle={false}
+                  animation={true}
+                />
+              </Paper>
+            </Grid>
+            <PublicationReviewVocabularySummary changes={changesInfo} />
+          </Grid>
         </Grid>
       </Grid>
     </Box>

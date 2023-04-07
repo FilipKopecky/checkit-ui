@@ -5,20 +5,19 @@ import {
   ChangeType,
   ObjectData,
 } from "../../../model/Change";
-import { Box, Grid } from "@mui/material";
+import { Alert, Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
 import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
 import { useResolveChangeStateMutation } from "../../../api/publicationApi";
-import AcceptedChip from "../../chips/AcceptedChip";
-import DeclinedChip from "../../chips/DeclinedChip";
 import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { toggleChange } from "../../../slices/changeSlice";
 import ChangeDeclineMessage from "../ChangeDeclineMessage";
 import ChangeResolveAction from "../ChangeResolveAction";
 import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 import LanguageLabel from "../LanguageLabel";
+import { useIntl } from "react-intl";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -27,6 +26,7 @@ interface ChangeBasicDetailProps {
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
   const dispatch = useAppDispatch();
   const [resolveChangeState] = useResolveChangeStateMutation();
+  const intl = useIntl();
   const handleResolution = (state: ChangeState) => {
     resolveChangeState({
       id: change.id,
@@ -74,10 +74,16 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
         {change.state === "NOT_REVIEWED" && change.gestored && (
           <ChangeResolveAction handleResolution={handleResolution} />
         )}
-        {change.state === "APPROVED" && <AcceptedChip />}
+        {change.state === "APPROVED" && (
+          <Alert severity="success" sx={{ fontSize: "16px" }}>
+            {intl.formatMessage({ id: "accepted" })}
+          </Alert>
+        )}
         {change.state === "REJECTED" && (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <DeclinedChip />
+            <Alert severity="error" sx={{ fontSize: "16px" }}>
+              {intl.formatMessage({ id: "declined" })}
+            </Alert>
             <ChangeDeclineMessage
               state={change.state}
               declineComment={change.declineMessage}
