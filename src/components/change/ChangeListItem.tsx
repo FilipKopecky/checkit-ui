@@ -104,15 +104,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
             </CustomAccordionSummary>
           </Collapse>
           <AccordionDetails>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                flex: 1,
-                alignItems: "center",
-                marginBottom: 1,
-              }}
-            >
+            <TopRowBox>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 <MappedLabel uri={change.predicate} variant={"h6"} />
                 {isMapped(change.predicate) && (
@@ -129,19 +121,19 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                   </NoMaxWidthTooltip>
                 )}
               </Box>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ display: "flex", alignItems: "end" }}>
                 <TabNavigation
                   tabs={tabs}
                   activeTab={activeTab}
                   setActiveTab={handleTabSwitch}
                 />
-                <Box>
-                  <IconButton onClick={handleToggle}>
-                    <FullscreenExitIcon />
-                  </IconButton>
-                </Box>
               </Box>
-            </Box>
+              <Box sx={{ position: "absolute", right: 0 }}>
+                <IconButton onClick={handleToggle}>
+                  <FullscreenExitIcon />
+                </IconButton>
+              </Box>
+            </TopRowBox>
             <Suspense fallback={<LoadingOverlay />}>
               {componentToRender}
             </Suspense>
@@ -174,5 +166,18 @@ const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
     maxWidth: "none",
   },
 });
+
+const TopRowBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  flex: 1,
+  alignItems: "center",
+  marginBottom: 1,
+  position: "relative",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    alignItems: "start",
+  },
+}));
 
 export default ChangeListItem;
