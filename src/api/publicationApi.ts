@@ -3,6 +3,7 @@ import Endpoints, {
   getChangeResolve,
   getPublication,
   getPublicationVocabularyChanges,
+  getRestrictionChangeResolve,
 } from "./Endpoints";
 import { Publication, PublicationContext } from "../model/Publication";
 import { Change, VocabularyChanges } from "../model/Change";
@@ -98,6 +99,42 @@ export const publicationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    resolveRestrictionChangeState: builder.mutation<Change, Partial<Change>>({
+      query(data) {
+        console.log("Calling with following properties");
+        console.log(data);
+        return {
+          url: getRestrictionChangeResolve(data.state!),
+          method: "POST",
+          body: data.object!.restriction!.affectedChanges.map(
+            (change) => change.uri
+          ),
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        //Local update of vocabulary changes
+        const vocabularyChangesPatch = dispatch(
+          publicationApi.util.updateQueryData(
+            "getVocabularyChanges",
+            {
+              vocabularyUri: patch.vocabularyUri!,
+              publicationId: patch.publicationId!,
+            },
+            (draft) => {
+              Object.assign(
+                draft.changes.find((change) => change.id === patch.id)!,
+                patch
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          vocabularyChangesPatch.undo();
+        }
+      },
+    }),
   }),
   overrideExisting: false,
 });
@@ -107,4 +144,5 @@ export const {
   useGetPublicationByIdQuery,
   useGetVocabularyChangesQuery,
   useResolveChangeStateMutation,
+  useResolveRestrictionChangeStateMutation,
 } = publicationApi;

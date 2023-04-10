@@ -69,7 +69,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
         return change.object.restriction ? (
-          <ChangeRestrictionDetail restriction={change.object.restriction} />
+          <ChangeRestrictionDetail change={change} />
         ) : (
           <ChangeBasicDetail change={change} />
         );

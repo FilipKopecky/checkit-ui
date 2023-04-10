@@ -1,33 +1,52 @@
 import React from "react";
-import { Restriction } from "../../../model/Restriction";
 import { Box } from "@mui/material";
 import GraphElement from "../../graph/GraphElement";
 import GraphArc from "../../graph/GraphArc";
+import { Change, ChangeState } from "../../../model/Change";
+import ChangeActions from "../ChangeActions";
+import { useResolveRestrictionChangeStateMutation } from "../../../api/publicationApi";
+import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
+import { useAppDispatch } from "../../../hooks/ReduxHooks";
 
 interface ChangeRestrictionDetailProps {
-  restriction: Restriction;
+  change: Change;
 }
 
 const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
-  restriction,
+  change,
 }) => {
-  console.log(restriction);
+  const [resolveChangeMutation] = useResolveRestrictionChangeStateMutation();
+  const dispatch = useAppDispatch();
+  const resolveChange = (state: ChangeState) => {
+    resolveChangeMutation({
+      state: state,
+      object: change.object,
+      vocabularyUri: change.vocabularyUri,
+      publicationId: change.publicationId,
+      id: change.id,
+    });
+    dispatch(scrollToNextAvailableItem(change.id));
+  };
+  if (!change.object.restriction) return <></>;
   return (
-    <Box display={"flex"}>
-      <GraphElement
-        displayName={restriction.startName}
-        uri={restriction.startUri}
-      />
-      <GraphArc
-        arcName={restriction.relationName}
-        arcUri={restriction.relationUri}
-        cardinalityStart={restriction.cardinalityStart}
-        cardinalityEnd={restriction.cardinalityEnd}
-      />
-      <GraphElement
-        displayName={restriction.endName}
-        uri={restriction.endUri}
-      />
+    <Box pt={4}>
+      <Box display={"flex"}>
+        <GraphElement
+          displayName={change.object.restriction.startName}
+          uri={change.object.restriction.startUri}
+        />
+        <GraphArc
+          arcName={change.object.restriction.relationName}
+          arcUri={change.object.restriction.relationUri}
+          cardinalityStart={change.object.restriction.cardinalityStart}
+          cardinalityEnd={change.object.restriction.cardinalityEnd}
+        />
+        <GraphElement
+          displayName={change.object.restriction.endName}
+          uri={change.object.restriction.endUri}
+        />
+      </Box>
+      <ChangeActions change={change} handleResolution={resolveChange} />
     </Box>
   );
 };
