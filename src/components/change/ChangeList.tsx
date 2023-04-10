@@ -47,7 +47,7 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
         initialTopMostItemIndex={startIndex === -1 ? 0 : startIndex}
         groupCounts={changeListData.groupCounts}
         groupContent={(index) => {
-          return <ChangeListItemGroup uri={changeListData.headers[index]} />;
+          return <ChangeListItemGroup data={changeListData.headers[index]} />;
         }}
         itemContent={itemContent}
       />

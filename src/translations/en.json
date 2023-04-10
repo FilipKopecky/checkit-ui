@@ -75,5 +75,6 @@
   "vocabulary-review-finished": "All changes have been reviewed!",
   "contains-gestored-vocabulary": "Contains gestored vocabulary",
   "something-went-wrong-header": "Error",
-  "just-now": "Just now"
+  "just-now": "Just now",
+  "no-comments": "No comments were found"
 }

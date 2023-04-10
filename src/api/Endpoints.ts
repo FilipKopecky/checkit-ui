@@ -48,4 +48,17 @@ export const getChangeResolve = (changeId: string, state: ChangeState) => {
   }
   return `${endpoints.CHANGES}/${changeId}/${stateToText}`;
 };
+
+export const getRestrictionChangeResolve = (state: ChangeState) => {
+  let stateToText;
+  switch (state) {
+    case "APPROVED":
+      stateToText = "approved";
+      break;
+    case "REJECTED":
+      stateToText = "rejected";
+      break;
+  }
+  return `${endpoints.CHANGES}/${stateToText}`;
+};
 export default endpoints;

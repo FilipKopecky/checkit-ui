@@ -8,7 +8,7 @@ export const createChangeListDataStructure = (
   changes: Change[]
 ): ChangeListData => {
   let allChanges = [];
-  let headers = [];
+  let headers: { uri: string; label: string }[] = [];
   let groupCounts = [];
   let paddedIndex: number[] = [];
 
@@ -21,8 +21,10 @@ export const createChangeListDataStructure = (
   }, Object.create(null));
 
   for (const [, value] of Object.entries(grouped)) {
-    const header = value[0].label;
-    headers.push(header);
+    headers.push({
+      uri: value[0].subject,
+      label: value[0].label ?? value[0].subject,
+    });
     allChanges.push(...value);
     groupCounts.push(value.length);
     if (paddedIndex.length === 0) {
