@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Box, Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PublicationHeader from "./PublicationHeader";
@@ -36,7 +36,18 @@ const PublicationSummary: React.FC = () => {
     data: publication,
     isLoading,
     error,
-  } = useGetPublicationByIdQuery(publicationId || "");
+  } = useGetPublicationByIdQuery(publicationId || "", {
+    refetchOnMountOrArgChange: true,
+  });
+
+  const containsGestored = useMemo(() => {
+    return (
+      publication?.affectedVocabularies.some((vocabulary) =>
+        vocabulary.gestors.some((user) => user.id === currentUser.id)
+      ) ?? false
+    );
+  }, [publication?.affectedVocabularies, currentUser.id]);
+
   if (isLoading) return <LoadingOverlay />;
   if (error || !publication) return <ErrorAlert />;
 
@@ -59,6 +70,7 @@ const PublicationSummary: React.FC = () => {
           <PublicationHeader
             label={publication.label}
             state={publication.state}
+            gestored={containsGestored}
           />
         </Grid>
         <Grid item md={8} xs={12}>

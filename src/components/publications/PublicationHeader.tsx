@@ -1,34 +1,77 @@
 import React from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  AlertColor,
+  Box,
+  Button,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { useIntl } from "react-intl";
+import { PublicationContextState } from "../../model/Publication";
 
 interface PublicationHeaderProps {
   label: string;
-  state: string;
+  state: PublicationContextState;
+  gestored: boolean;
 }
 
 const PublicationHeader: React.FC<PublicationHeaderProps> = ({
   label,
   state,
+  gestored,
 }) => {
   const intl = useIntl();
+  let publicationStateMessage = "";
+  let alertType: AlertColor;
+
+  switch (state) {
+    case "CREATED":
+      publicationStateMessage = "publication-summary-description-created";
+      alertType = "info";
+      break;
+    case "APPROVED":
+      publicationStateMessage = "publication-summary-description-approved";
+      alertType = "success";
+      break;
+    case "REJECTED":
+      publicationStateMessage = "publication-summary-description-rejected";
+      alertType = "error";
+      break;
+    case "WAITING_FOR_OTHERS":
+      publicationStateMessage = "publication-summary-description-waiting";
+      alertType = "info";
+      break;
+  }
+  console.log(`Publication state: ${state}`);
   return (
     <Paper>
       <Box p={3}>
         <Typography variant={"h4"}>{label}</Typography>
-        {state === "IN_PROGRESS" && (
-          <Typography variant={"body1"} color="text.secondary">
-            {intl.formatMessage({ id: "publication-summary-description" })}
-          </Typography>
+        <Alert
+          severity={alertType}
+          sx={{ fontSize: "16px", marginTop: 1, marginBottom: 1 }}
+        >
+          {intl.formatMessage({
+            id: publicationStateMessage,
+          })}
+        </Alert>
+        {gestored && (
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button
+              color={"success"}
+              variant={"contained"}
+              disabled={state !== "APPROVED"}
+            >
+              {intl.formatMessage({ id: "publication-submit" })}
+            </Button>
+            {state !== "APPROVED" && (
+              <Button variant={"contained"} color={"error"}>
+                {intl.formatMessage({ id: "publication-decline" })}
+              </Button>
+            )}
+          </Box>
         )}
-        <Box sx={{ display: "flex", gap: 2 }} pt={2}>
-          <Button variant={"contained"} color={"success"} disabled={true}>
-            {intl.formatMessage({ id: "publication-submit" })}
-          </Button>
-          <Button variant={"contained"} color={"error"}>
-            {intl.formatMessage({ id: "publication-decline" })}
-          </Button>
-        </Box>
       </Box>
     </Paper>
   );
