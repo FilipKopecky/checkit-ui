@@ -101,8 +101,6 @@ export const publicationApi = apiSlice.injectEndpoints({
     }),
     resolveRestrictionChangeState: builder.mutation<Change, Partial<Change>>({
       query(data) {
-        console.log("Calling with following properties");
-        console.log(data);
         return {
           url: getRestrictionChangeResolve(data.state!),
           method: "POST",

@@ -10,6 +10,7 @@ import {
 } from "../../../api/commentApi";
 import ErrorAlert from "../../misc/ErrorAlert";
 import CircularProgress from "@mui/material/CircularProgress";
+import ListItemText from "@mui/material/ListItemText";
 
 interface ChangeCommentsDetailsProps {
   changeUri: string;
@@ -42,15 +43,22 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
         </Box>
       ) : (
         <List>
-          {comments!.map((comment, index) => {
-            return (
-              <Comment
-                key={comment.uri}
-                comment={comment}
-                showDivider={index !== comments!.length - 1}
-              />
-            );
-          })}
+          {comments!.length === 0 ? (
+            <ListItemText
+              sx={{ paddingLeft: 1 }}
+              primary={intl.formatMessage({ id: "no-comments" })}
+            />
+          ) : (
+            comments!.map((comment, index) => {
+              return (
+                <Comment
+                  key={comment.uri}
+                  comment={comment}
+                  showDivider={index !== comments!.length - 1}
+                />
+              );
+            })
+          )}
         </List>
       )}
     </Box>
