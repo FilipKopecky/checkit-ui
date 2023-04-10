@@ -53,6 +53,13 @@ export const publicationApi = apiSlice.injectEndpoints({
       //Adds vocabulary uri + publication id to each change -> needed for optimistic updates
       transformResponse: (rawResult: VocabularyChanges, meta, arg) => {
         for (let i = 0; i < rawResult.changes.length; i++) {
+          if (!rawResult.changes[i].uri) {
+            //We are sure that the restriction is present in the object property since no URI was provided
+            const firstChange =
+              rawResult.changes[i].object!.restriction!.affectedChanges[0];
+            rawResult.changes[i].uri = `grouped/${firstChange.uri}`;
+            rawResult.changes[i].id = `grouped/${firstChange.id}`;
+          }
           rawResult.changes[i].vocabularyUri = rawResult.uri;
           rawResult.changes[i].publicationId = arg.publicationId;
           rawResult.changes[i].gestored = rawResult.gestored;

@@ -34,9 +34,9 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
     });
-    if (state === "APPROVED") {
-      dispatch(toggleChange(change.uri));
-    }
+    // if (state === "APPROVED") {
+    //   dispatch(toggleChange(change.uri));
+    // }
     dispatch(scrollToNextAvailableItem(change.id));
   };
   return (
