@@ -20,7 +20,7 @@ export interface Change {
   newObject?: ObjectData;
   comments: CommentData[];
   state: ChangeState;
-  label: string;
+  label?: string;
   declineMessage?: CommentData;
   gestored: boolean;
 }

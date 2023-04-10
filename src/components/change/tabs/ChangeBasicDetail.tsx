@@ -72,7 +72,10 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       </Box>
       <Box mt={4}>
         {change.state === "NOT_REVIEWED" && change.gestored && (
-          <ChangeResolveAction handleResolution={handleResolution} />
+          <ChangeResolveAction
+            change={change}
+            handleResolution={handleResolution}
+          />
         )}
         {change.state === "APPROVED" && (
           <Alert severity="success" sx={{ fontSize: "16px" }}>

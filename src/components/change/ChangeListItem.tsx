@@ -19,7 +19,7 @@ import { styled } from "@mui/material/styles";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import {
-  selectChangeById,
+  selectChangeByUri,
   switchTab,
   toggleChange,
 } from "../../slices/changeSlice";
@@ -56,7 +56,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
     dispatch(switchTab({ uri: change.uri, tab: newValue }));
   };
   const selectedItem = useAppSelector((state) =>
-    selectChangeById(state, change.uri)
+    selectChangeByUri(state, change.uri)
   );
 
   const handleToggle = useCallback(() => {
