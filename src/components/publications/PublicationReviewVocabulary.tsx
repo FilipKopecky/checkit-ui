@@ -15,7 +15,7 @@ import PieChart from "../charts/PieChart";
 
 export interface ChangeListData {
   allChanges: Change[];
-  headers: string[];
+  headers: { uri: string; label: string }[];
   groupCounts: number[];
   lastInGroupIndexes: number[];
 }
