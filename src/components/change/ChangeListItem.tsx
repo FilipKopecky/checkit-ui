@@ -7,9 +7,6 @@ import {
   AccordionSummaryProps,
   Box,
   Collapse,
-  Tooltip,
-  tooltipClasses,
-  TooltipProps,
   Typography,
 } from "@mui/material";
 import ChangeBasicDetail from "./tabs/ChangeBasicDetail";
@@ -19,7 +16,7 @@ import { styled } from "@mui/material/styles";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import {
-  selectChangeById,
+  selectChangeByUri,
   switchTab,
   toggleChange,
 } from "../../slices/changeSlice";
@@ -32,6 +29,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { isMapped } from "../../utils/ChangeUtils";
 import LoadingOverlay from "../misc/LoadingOverlay";
+import ChangeRestrictionDetail from "./tabs/ChangeRestrictionDetail";
+import NoMaxWidthTooltip from "../misc/NoMaxWidthTooltip";
 
 interface ChangeDetailProps {
   change: Change;
@@ -56,7 +55,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
     dispatch(switchTab({ uri: change.uri, tab: newValue }));
   };
   const selectedItem = useAppSelector((state) =>
-    selectChangeById(state, change.uri)
+    selectChangeByUri(state, change.uri)
   );
 
   const handleToggle = useCallback(() => {
@@ -69,7 +68,11 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   const componentToRender = useMemo(() => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
-        return <ChangeBasicDetail change={change} />;
+        return change.object.restriction ? (
+          <ChangeRestrictionDetail change={change} />
+        ) : (
+          <ChangeBasicDetail change={change} />
+        );
       case Constants.CHANGE_DETAIL.TABS.TURTLE:
         return <ChangeTurtleDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.COMMENTS:
@@ -154,18 +157,6 @@ const CustomAccordionSummary = styled((props: AccordionSummaryProps) => (
     transform: "rotate(0deg)",
   },
 }));
-
-const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip
-    {...props}
-    classes={{ popper: className }}
-    children={props.children}
-  />
-))({
-  [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: "none",
-  },
-});
 
 const TopRowBox = styled(Box)(({ theme }) => ({
   display: "flex",

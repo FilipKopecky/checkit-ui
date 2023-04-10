@@ -1,5 +1,6 @@
 import { CommentData } from "./CommentData";
 import { VocabularyData } from "./Vocabulary";
+import { Restriction } from "./Restriction";
 
 export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
 export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
@@ -7,6 +8,7 @@ export interface ObjectData {
   value: string;
   type?: string;
   languageTag?: string;
+  restriction?: Restriction;
 }
 export interface Change {
   id: string;
@@ -20,7 +22,7 @@ export interface Change {
   newObject?: ObjectData;
   comments: CommentData[];
   state: ChangeState;
-  label: string;
+  label?: string;
   declineMessage?: CommentData;
   gestored: boolean;
 }

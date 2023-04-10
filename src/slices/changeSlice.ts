@@ -46,7 +46,7 @@ export const { toggleChange, switchTab } = changeSlice.actions;
 
 export const selectChanges = (state: RootState): ChangeState[] => state.change;
 export const selectChangeId = (state: RootState, id: string) => id;
-export const selectChangeById = createSelector(
+export const selectChangeByUri = createSelector(
   [selectChanges, selectChangeId],
   (items, itemId) => items.find((item) => item.uri === itemId)
 );

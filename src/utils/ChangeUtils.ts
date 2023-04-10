@@ -21,7 +21,7 @@ export const createChangeListDataStructure = (
   }, Object.create(null));
 
   for (const [, value] of Object.entries(grouped)) {
-    const header = value[0].label;
+    const header = value[0].label ?? value[0].subject;
     headers.push(header);
     allChanges.push(...value);
     groupCounts.push(value.length);
