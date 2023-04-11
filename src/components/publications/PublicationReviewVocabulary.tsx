@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import ChangeList from "../change/ChangeList";
 import { Alert, Box, Grid, Paper, Typography } from "@mui/material";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useGetVocabularyChangesQuery } from "../../api/publicationApi";
 import PublicationReviewVocabularySummary from "./PublicationReviewVocabularySummary";
 import { Change } from "../../model/Change";
@@ -12,6 +12,8 @@ import { setUpAvailableItems } from "../../slices/eventSlice";
 import LoadingOverlay from "../misc/LoadingOverlay";
 import ErrorAlert from "../misc/ErrorAlert";
 import PieChart from "../charts/PieChart";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export interface ChangeListData {
   allChanges: Change[];
@@ -64,7 +66,14 @@ const PublicationReviewVocabulary: React.FC = () => {
   if (error || !vocabularyChanges) return <ErrorAlert />;
   //TODO: Make this component more readable
   return (
-    <Box p={2}>
+    <Box px={2}>
+      <Box py={1}>
+        <Link to=".." relative="path">
+          <IconButton size={"small"}>
+            <ArrowBackIcon fontSize={"small"} />
+          </IconButton>
+        </Link>
+      </Box>
       <Grid container spacing={2}>
         <Grid item md={9} xs={12}>
           <Paper>
