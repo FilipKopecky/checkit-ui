@@ -17,6 +17,7 @@ import { logout, selectUser } from "../../slices/userSlice";
 import SideBarContent from "./SideBarContent";
 import { useGetCurrentUserQuery } from "../../api/userApi";
 import LoadingOverlay from "../misc/LoadingOverlay";
+import Breadcrumbs from "../routing/Breadcrumbs";
 
 const drawerWidth = 240;
 
@@ -82,6 +83,7 @@ const Layout: React.FC = () => {
         <DrawerHeader />
         <Suspense fallback={<LoadingOverlay />}>
           <Box pb={3}>
+            <Breadcrumbs />
             <Outlet />
           </Box>
         </Suspense>

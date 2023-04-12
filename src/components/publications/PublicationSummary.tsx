@@ -8,7 +8,7 @@ import { useIntl } from "react-intl";
 import PublicationNotifications from "./PublicationNotifications";
 import PublicationStatistics from "./PublicationStatistics";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
-import ContentPasteGoOutlinedIcon from "@mui/icons-material/ContentPasteGoOutlined";
+import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
 import { Vocabulary } from "../../model/Vocabulary";
 import GestoredBadge from "../chips/GestoredBadge";
@@ -64,7 +64,7 @@ const PublicationSummary: React.FC = () => {
   };
 
   return (
-    <Box p={2}>
+    <Box px={2}>
       <Grid container spacing={2}>
         <Grid item md={12} xs={12}>
           <PublicationHeader
@@ -81,7 +81,7 @@ const PublicationSummary: React.FC = () => {
             <Box px={3}>
               <VocabulariesList
                 vocabularies={publication.affectedVocabularies}
-                actionIcon={<ContentPasteGoOutlinedIcon />}
+                actionIcon={<DifferenceOutlinedIcon />}
                 additionalInfo={showAditional}
                 action={(vocabulary) =>
                   navigate({

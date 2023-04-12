@@ -24,7 +24,6 @@ const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
 }) => {
   //TODO: Make this component use real data
   // Fetch all changes from the affected vocabularies -> calculate following values: reviewed, not-reviewed, review-by-others, not-reviewed-by-others
-  console.log(publication);
   const sum = data.reduce(
     (partialResult, dataItem) => partialResult + dataItem.value,
     0

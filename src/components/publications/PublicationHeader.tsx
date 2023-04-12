@@ -43,7 +43,6 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
       alertType = "info";
       break;
   }
-  console.log(`Publication state: ${state}`);
   return (
     <Paper>
       <Box p={3}>
