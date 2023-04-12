@@ -5,8 +5,8 @@ import PieChart from "../charts/PieChart";
 import { Publication } from "../../model/Publication";
 
 const data = [
-  { name: "Nezkontrolovaných změn", value: 10 },
-  { name: "Zkontrolovaných změn", value: 20 },
+  { name: "pie-chart-not-reviewed", value: 10 },
+  { name: "pie-chart-reviewed", value: 20 },
 ];
 
 const CustomPaper = styled(Paper)(({ theme }) => ({
