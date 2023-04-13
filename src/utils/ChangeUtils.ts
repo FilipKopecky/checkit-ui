@@ -50,16 +50,94 @@ export const generateTripleFromChange = (change: {
   let turtle = `<${change.subject}>\n<${change.predicate}>\n`;
   if (change.object.type) {
     turtle += `"${change.object.value}"`;
-    turtle += `^^<${change.object.type}>`;
+    turtle += `^^<${change.object.type}> .`;
     return turtle;
   }
   if (change.object.languageTag) {
     turtle += `"${change.object.value}"`;
-    turtle += `@${change.object.languageTag}`;
+    turtle += `@${change.object.languageTag} .`;
     return turtle;
   }
-  turtle += `<${change.object.value}>`;
+  turtle += `<${change.object.value}> .`;
   return turtle;
+};
+
+const generateRestrictionTriples = (change: ChangeWrapper) => {
+  return "";
+};
+
+interface ChangeWrapper {
+  change: Change;
+  linkedChanges?: ChangeWrapper[];
+}
+
+export const parseRestrictionChangeToStructure = (change: Change) => {
+  //Passed change contains multiple linked changes
+  //Structure must be created
+  if (!change.object.restriction?.affectedChanges) {
+    console.log("Parsing could not be performed");
+    return null;
+  }
+  let counter = 0;
+  let prevCounter = -1;
+  const structure: ChangeWrapper = { change: change, linkedChanges: [] };
+
+  let unresolvedChanges = [...change.object.restriction?.affectedChanges];
+  // If change is not matched immediately, the cycle needs to repeat
+  let unmatchedChanges = [];
+
+  while (unresolvedChanges.length !== 0) {
+    for (const affectedChange of unresolvedChanges) {
+      //Top level term
+      if (affectedChange.subjectType !== "BLANK_NODE") {
+        structure.linkedChanges?.push({
+          change: affectedChange,
+          linkedChanges: [],
+        });
+        counter++;
+      } else {
+        const foundSubject = findSubject(structure, affectedChange.subject);
+        if (foundSubject) {
+          foundSubject.linkedChanges?.push({
+            change: affectedChange,
+            linkedChanges: [],
+          });
+          counter++;
+        } else {
+          unmatchedChanges.push(affectedChange);
+        }
+      }
+    }
+    //If a run of matching could not find anything, we terminate the algo to prevent endless run
+    if (prevCounter === counter) {
+      console.log("Parsing could not be performed");
+      return null;
+    }
+    unresolvedChanges = [...unmatchedChanges];
+    unmatchedChanges = [];
+    prevCounter = counter;
+  }
+
+  if (counter !== change.object.restriction.affectedChanges.length) {
+    console.log("Parsing could not be performed");
+    return null;
+  }
+
+  return structure;
+};
+
+const findSubject = (
+  wrapper: ChangeWrapper,
+  desiredUri: string
+): ChangeWrapper | null => {
+  if (wrapper.change.uri === desiredUri) {
+    return wrapper;
+  }
+  for (const linkedChange of wrapper.linkedChanges ?? []) {
+    const found = findSubject(linkedChange, desiredUri);
+    if (found) return found;
+  }
+  return null;
 };
 
 export const getModificationColor = (type: ChangeType): string => {
