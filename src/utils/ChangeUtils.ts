@@ -52,9 +52,15 @@ export const generateTripleFromChange = (change: {
   return turtle;
 };
 
+const generateSpaces = (amount: number) => {
+  return " ".repeat(amount);
+};
+
 export const generateRestrictionTriples = (change: ChangeWrapper) => {
   if (!change.linkedChanges) return "";
-  let parsedTurtle = `<${change.change.subject}> <${change.change.predicate}>`;
+  let parsedTurtle = `<${change.change.subject}>\n${generateSpaces(2)}<${
+    change.change.predicate
+  }> \n`;
   for (let i = 0; i < change.linkedChanges.length; i++) {
     let linkedChange = change.linkedChanges[i];
     parsedTurtle += generateBlankNode(linkedChange.linkedChanges!);
@@ -63,19 +69,21 @@ export const generateRestrictionTriples = (change: ChangeWrapper) => {
   return parsedTurtle;
 };
 
-const generateBlankNode = (changes: ChangeWrapper[]) => {
+const generateBlankNode = (changes: ChangeWrapper[], depth = 2) => {
   let turtle = "";
   for (const change of changes) {
-    turtle += `\n<${change.change.predicate}> `;
+    turtle += `\n${generateSpaces(depth * 2)}<${change.change.predicate}> `;
     if (change.linkedChanges?.length !== 0) {
-      turtle += generateBlankNode(change.linkedChanges!);
+      turtle += "\n" + generateBlankNode(change.linkedChanges!, depth + 1);
     } else {
       turtle += parseObjectValue(change.change.object);
     }
-    turtle += ";\n";
+    turtle += ";";
   }
 
-  return `[${turtle}]\n`;
+  return `${generateSpaces(depth * 2)}[${turtle}\n${generateSpaces(
+    depth * 2
+  )}]`;
 };
 
 const parseObjectValue = (objectData: ObjectData) => {
@@ -94,7 +102,7 @@ const parseObjectValue = (objectData: ObjectData) => {
   return turtle;
 };
 
-interface ChangeWrapper {
+export interface ChangeWrapper {
   change: Change;
   linkedChanges?: ChangeWrapper[];
 }
