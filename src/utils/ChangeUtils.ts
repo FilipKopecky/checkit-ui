@@ -48,22 +48,50 @@ export const generateTripleFromChange = (change: {
   object: ObjectData;
 }): string => {
   let turtle = `<${change.subject}>\n<${change.predicate}>\n`;
-  if (change.object.type) {
-    turtle += `"${change.object.value}"`;
-    turtle += `^^<${change.object.type}> .`;
-    return turtle;
-  }
-  if (change.object.languageTag) {
-    turtle += `"${change.object.value}"`;
-    turtle += `@${change.object.languageTag} .`;
-    return turtle;
-  }
-  turtle += `<${change.object.value}> .`;
+  turtle += parseObjectValue(change.object) + " .";
   return turtle;
 };
 
-const generateRestrictionTriples = (change: ChangeWrapper) => {
-  return "";
+export const generateRestrictionTriples = (change: ChangeWrapper) => {
+  if (!change.linkedChanges) return "";
+  let parsedTurtle = `<${change.change.subject}> <${change.change.predicate}>`;
+  for (let i = 0; i < change.linkedChanges.length; i++) {
+    let linkedChange = change.linkedChanges[i];
+    parsedTurtle += generateBlankNode(linkedChange.linkedChanges!);
+    parsedTurtle += i !== change.linkedChanges.length - 1 ? ",\n" : ".\n";
+  }
+  return parsedTurtle;
+};
+
+const generateBlankNode = (changes: ChangeWrapper[]) => {
+  let turtle = "";
+  for (const change of changes) {
+    turtle += `\n<${change.change.predicate}> `;
+    if (change.linkedChanges?.length !== 0) {
+      turtle += generateBlankNode(change.linkedChanges!);
+    } else {
+      turtle += parseObjectValue(change.change.object);
+    }
+    turtle += ";\n";
+  }
+
+  return `[${turtle}]\n`;
+};
+
+const parseObjectValue = (objectData: ObjectData) => {
+  let turtle = "";
+  if (objectData.type) {
+    turtle += `"${objectData.value}"`;
+    turtle += `^^<${objectData.type}>`;
+    return turtle;
+  }
+  if (objectData.languageTag) {
+    turtle += `"${objectData.value}"`;
+    turtle += `@${objectData.languageTag}`;
+    return turtle;
+  }
+  turtle += `<${objectData.value}>`;
+  return turtle;
 };
 
 interface ChangeWrapper {
