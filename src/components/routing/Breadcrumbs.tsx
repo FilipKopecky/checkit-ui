@@ -79,6 +79,7 @@ const Breadcrumbs: React.FC = () => {
           const last = index === paths.length - 1;
           return last ? (
             <Box
+              key={index}
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -86,10 +87,10 @@ const Breadcrumbs: React.FC = () => {
               }}
             >
               {resolveIcon(index)}
-              <Typography key={index}>{resolveLabel(subPath)}</Typography>
+              <Typography>{resolveLabel(subPath)}</Typography>
             </Box>
           ) : (
-            <Box maxWidth={600}>
+            <Box maxWidth={600} key={index}>
               <LinkRouter
                 underline="hover"
                 color="inherit"
