@@ -49,9 +49,12 @@
   "no-result": "No results were found",
   "gestor-request-created": "Gestor request was created",
   "something-went-wrong": "Something went wrong",
-  "publication-summary-description": "Revision of the publication is not ready for submission. It will be ready after revision of all vocabularies in the publication.",
-  "publication-submit": "Submit review",
-  "publication-decline": "Decline publication",
+  "publication-summary-description-created": "Revision of the publication is not ready for submission. It will be ready after revision of all vocabularies in the publication.",
+  "publication-summary-description-rejected": "Publication contains rejected change and therefore cannot be submitted as approved.",
+  "publication-summary-description-approved": "All of the changes in this publication were approved. Publication is ready for submission.",
+  "publication-summary-description-waiting": "Publication contains changes which must be approved by other Gestors. After that, the publication can be submitted.",
+  "publication-submit": "Approve publication",
+  "publication-decline": "Reject publication",
   "publication-progress": "{progress}% done",
   "change-detail-basic-tab": "Summary",
   "change-detail-turtle-tab": "Turtle",
@@ -76,5 +79,7 @@
   "contains-gestored-vocabulary": "Contains gestored vocabulary",
   "something-went-wrong-header": "Error",
   "just-now": "Just now",
-  "no-comments": "No comments were found"
+  "no-comments": "No comments were found",
+  "publications": "Publications",
+  "undo": "Undo"
 }

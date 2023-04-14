@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Box } from "@mui/material";
+import { Alert, Box, Button } from "@mui/material";
 import ChangeResolveAction from "./ChangeResolveAction";
 import ChangeDeclineMessage from "./ChangeDeclineMessage";
 import { Change, ChangeState } from "../../model/Change";
@@ -8,11 +8,13 @@ import { useIntl } from "react-intl";
 interface ChangeActionsProps {
   change: Change;
   handleResolution: (state: ChangeState) => void;
+  handleClear: () => void;
 }
 
 const ChangeActions: React.FC<ChangeActionsProps> = ({
   change,
   handleResolution,
+  handleClear,
 }) => {
   const intl = useIntl();
   return (
@@ -21,13 +23,31 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
         <ChangeResolveAction handleResolution={handleResolution} />
       )}
       {change.state === "APPROVED" && (
-        <Alert severity="success" sx={{ fontSize: "16px" }}>
+        <Alert
+          severity="success"
+          sx={{
+            fontSize: "16px",
+          }}
+          action={
+            <Button color="inherit" size="small" onClick={handleClear}>
+              {intl.formatMessage({ id: "undo" })}
+            </Button>
+          }
+        >
           {intl.formatMessage({ id: "accepted" })}
         </Alert>
       )}
       {change.state === "REJECTED" && (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Alert severity="error" sx={{ fontSize: "16px" }}>
+          <Alert
+            severity="error"
+            sx={{ fontSize: "16px" }}
+            action={
+              <Button color="inherit" size="small" onClick={handleClear}>
+                {intl.formatMessage({ id: "undo" })}
+              </Button>
+            }
+          >
             {intl.formatMessage({ id: "declined" })}
           </Alert>
           <ChangeDeclineMessage

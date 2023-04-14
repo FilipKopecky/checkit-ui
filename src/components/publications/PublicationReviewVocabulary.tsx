@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import ChangeList from "../change/ChangeList";
-import { Alert, Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Alert, Box, Grid, Paper, Typography } from "@mui/material";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useGetVocabularyChangesQuery } from "../../api/publicationApi";
 import PublicationReviewVocabularySummary from "./PublicationReviewVocabularySummary";
@@ -64,7 +64,7 @@ const PublicationReviewVocabulary: React.FC = () => {
   if (error || !vocabularyChanges) return <ErrorAlert />;
   //TODO: Make this component more readable
   return (
-    <Box p={2}>
+    <Box px={2}>
       <Grid container spacing={2}>
         <Grid item md={9} xs={12}>
           <Paper>
@@ -91,11 +91,6 @@ const PublicationReviewVocabulary: React.FC = () => {
                   <Alert severity="success" sx={{ fontSize: "16px" }}>
                     {intl.formatMessage({ id: "vocabulary-review-finished" })}
                   </Alert>
-                )}
-                {!isFinished && vocabularyChanges.gestored && (
-                  <Button variant={"contained"} color={"error"}>
-                    {intl.formatMessage({ id: "publication-decline" })}
-                  </Button>
                 )}
               </Box>
             </Box>

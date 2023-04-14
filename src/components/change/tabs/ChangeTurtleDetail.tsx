@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Change, ChangeType, ObjectData } from "../../../model/Change";
 import { Box } from "@mui/material";
 import {
+  ChangeWrapper,
+  generateRestrictionTriples,
   generateTripleFromChange,
   getModificationColor,
+  parseRestrictionChangeToStructure,
 } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -18,6 +21,18 @@ interface ChangeTurtleDetailProps {
 }
 
 const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
+  const structure = useMemo(() => {
+    if (change.object.restriction) {
+      return parseRestrictionChangeToStructure(change);
+    }
+    return null;
+  }, [change]);
+  if (structure) {
+    return (
+      <RestrictionTurtle type={structure.change.type} change={structure} />
+    );
+  }
+
   return (
     <Box>
       <ModifiedTriple
@@ -73,6 +88,35 @@ const ModifiedTriple: React.FC<ModifiedTripleProps> = ({
     >
       <SyntaxHighlighter language="sparql" style={coldarkCold}>
         {generateTripleFromChange({ subject, predicate, object })}
+      </SyntaxHighlighter>
+    </Box>
+  );
+};
+
+interface RestrictionTurtleProps {
+  type: ChangeType;
+  change: ChangeWrapper;
+}
+
+const RestrictionTurtle: React.FC<RestrictionTurtleProps> = ({
+  type,
+  change,
+}) => {
+  return (
+    <Box
+      sx={{
+        borderLeft: 6,
+        borderColor: getModificationColor(type),
+        height: "100%",
+      }}
+    >
+      <SyntaxHighlighter
+        language="sparql"
+        style={coldarkCold}
+        wrapLines={true}
+        wrapLongLines={true}
+      >
+        {generateRestrictionTriples(change)}
       </SyntaxHighlighter>
     </Box>
   );

@@ -4,6 +4,7 @@ import { Restriction } from "./Restriction";
 
 export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
 export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
+export type SubjectType = "TERM" | "VOCABULARY" | "BLANK_NODE";
 export interface ObjectData {
   value: string;
   type?: string;
@@ -17,6 +18,7 @@ export interface Change {
   publicationId: string;
   type: ChangeType;
   subject: string;
+  subjectType: SubjectType;
   predicate: string;
   object: ObjectData;
   newObject?: ObjectData;

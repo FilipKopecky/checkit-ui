@@ -4,7 +4,10 @@ import GraphElement from "../../graph/GraphElement";
 import GraphArc from "../../graph/GraphArc";
 import { Change, ChangeState } from "../../../model/Change";
 import ChangeActions from "../ChangeActions";
-import { useResolveRestrictionChangeStateMutation } from "../../../api/publicationApi";
+import {
+  useResolveRestrictionChangeStateMutation,
+  useResolveRestrictionClearStateMutation,
+} from "../../../api/publicationApi";
 import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 import { useAppDispatch } from "../../../hooks/ReduxHooks";
 
@@ -16,6 +19,7 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
   change,
 }) => {
   const [resolveChangeMutation] = useResolveRestrictionChangeStateMutation();
+  const [resolveRestrictionClear] = useResolveRestrictionClearStateMutation();
   const dispatch = useAppDispatch();
   const resolveChange = (state: ChangeState) => {
     resolveChangeMutation({
@@ -26,6 +30,15 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
       id: change.id,
     });
     dispatch(scrollToNextAvailableItem(change.id));
+  };
+  const handleClear = () => {
+    resolveRestrictionClear({
+      id: change.id,
+      state: "NOT_REVIEWED",
+      object: change.object,
+      vocabularyUri: change.vocabularyUri,
+      publicationId: change.publicationId,
+    });
   };
   if (!change.object.restriction) return <></>;
   return (
@@ -46,7 +59,11 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
           uri={change.object.restriction.endUri}
         />
       </Box>
-      <ChangeActions change={change} handleResolution={resolveChange} />
+      <ChangeActions
+        change={change}
+        handleResolution={resolveChange}
+        handleClear={handleClear}
+      />
     </Box>
   );
 };

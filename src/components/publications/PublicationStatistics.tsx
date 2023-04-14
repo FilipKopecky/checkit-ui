@@ -5,8 +5,8 @@ import PieChart from "../charts/PieChart";
 import { Publication } from "../../model/Publication";
 
 const data = [
-  { name: "Nezkontrolovaných změn", value: 10 },
-  { name: "Zkontrolovaných změn", value: 20 },
+  { name: "pie-chart-not-reviewed", value: 10 },
+  { name: "pie-chart-reviewed", value: 20 },
 ];
 
 const CustomPaper = styled(Paper)(({ theme }) => ({
@@ -24,7 +24,6 @@ const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
 }) => {
   //TODO: Make this component use real data
   // Fetch all changes from the affected vocabularies -> calculate following values: reviewed, not-reviewed, review-by-others, not-reviewed-by-others
-  console.log(publication);
   const sum = data.reduce(
     (partialResult, dataItem) => partialResult + dataItem.value,
     0

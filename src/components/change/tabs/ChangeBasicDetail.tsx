@@ -10,7 +10,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
 import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
-import { useResolveChangeStateMutation } from "../../../api/publicationApi";
+import {
+  useResolveChangeClearStateMutation,
+  useResolveChangeStateMutation,
+} from "../../../api/publicationApi";
 import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 import LanguageLabel from "../LanguageLabel";
@@ -23,6 +26,7 @@ interface ChangeBasicDetailProps {
 const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
   const dispatch = useAppDispatch();
   const [resolveChangeState] = useResolveChangeStateMutation();
+  const [clearChangeState] = useResolveChangeClearStateMutation();
   const handleResolution = (state: ChangeState) => {
     resolveChangeState({
       id: change.id,
@@ -31,6 +35,15 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       publicationId: change.publicationId,
     });
     dispatch(scrollToNextAvailableItem(change.id));
+  };
+  const handleClear = () => {
+    console.log(`Clearing following review: ${change.id}`);
+    clearChangeState({
+      id: change.id,
+      state: "NOT_REVIEWED",
+      vocabularyUri: change.vocabularyUri,
+      publicationId: change.publicationId,
+    });
   };
   return (
     <Box pt={1} pb={1}>
@@ -63,7 +76,11 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
           )}
         </Grid>
       </Box>
-      <ChangeActions change={change} handleResolution={handleResolution} />
+      <ChangeActions
+        change={change}
+        handleResolution={handleResolution}
+        handleClear={handleClear}
+      />
     </Box>
   );
 };

@@ -49,8 +49,11 @@
   "no-result": "Nebyly nalezeny žádné výsledky",
   "gestor-request-created": "Žádost o gestorování byla vytvořena",
   "something-went-wrong": "Něco se pokazilo",
-  "publication-summary-description": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání",
-  "publication-submit": "Odevzdat revizi",
+  "publication-summary-description-created": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání",
+  "publication-summary-description-rejected": "Publikace obsahuje zamítnutou změnu a není jí tedy možné odevzdat jako schválenou.",
+  "publication-summary-description-approved": "Všechny změny v publikaci byly schválené. Nyní je možné publikaci odevzdat.",
+  "publication-summary-description-waiting": "Publikace obsahuje změny které musí schválit jiný gestor. Po jejich schválení bude připravena k odevzdání.",
+  "publication-submit": "Schválit publikaci",
   "publication-decline": "Zamítnout publikaci",
   "publication-progress": "{progress}% zrevidováno",
   "change-detail-basic-tab": "Přehled",
@@ -76,5 +79,7 @@
   "contains-gestored-vocabulary": "Obsahuje gestorovaný slovník",
   "something-went-wrong-header": "Chyba",
   "just-now": "Právě teď",
-  "no-comments": "Nebyly nalezeny žádné komentáře"
+  "no-comments": "Nebyly nalezeny žádné komentáře",
+  "publications": "Publikace",
+  "undo": "Vrátit"
 }
