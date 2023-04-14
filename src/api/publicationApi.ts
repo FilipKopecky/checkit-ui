@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import Endpoints, {
   getChangeResolve,
+  getClearReview,
   getPublication,
   getPublicationVocabularyChanges,
   getRestrictionChangeResolve,
@@ -99,11 +100,76 @@ export const publicationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    resolveChangeClearState: builder.mutation<Change, Partial<Change>>({
+      query(data) {
+        return {
+          url: getClearReview(data.id!),
+          method: "DELETE",
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        //Local update of vocabulary changes
+        const vocabularyChangesPatch = dispatch(
+          publicationApi.util.updateQueryData(
+            "getVocabularyChanges",
+            {
+              vocabularyUri: patch.vocabularyUri!,
+              publicationId: patch.publicationId!,
+            },
+            (draft) => {
+              Object.assign(
+                draft.changes.find((change) => change.id === patch.id)!,
+                patch
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          vocabularyChangesPatch.undo();
+        }
+      },
+    }),
     resolveRestrictionChangeState: builder.mutation<Change, Partial<Change>>({
       query(data) {
         return {
           url: getRestrictionChangeResolve(data.state!),
           method: "POST",
+          body: data.object!.restriction!.affectedChanges.map(
+            (change) => change.uri
+          ),
+        };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        //Local update of vocabulary changes
+        const vocabularyChangesPatch = dispatch(
+          publicationApi.util.updateQueryData(
+            "getVocabularyChanges",
+            {
+              vocabularyUri: patch.vocabularyUri!,
+              publicationId: patch.publicationId!,
+            },
+            (draft) => {
+              Object.assign(
+                draft.changes.find((change) => change.id === patch.id)!,
+                patch
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          vocabularyChangesPatch.undo();
+        }
+      },
+    }),
+    resolveRestrictionClearState: builder.mutation<Change, Partial<Change>>({
+      query(data) {
+        return {
+          url: Endpoints.CHANGES_REVIEW,
+          method: "DELETE",
           body: data.object!.restriction!.affectedChanges.map(
             (change) => change.uri
           ),
@@ -143,4 +209,6 @@ export const {
   useGetVocabularyChangesQuery,
   useResolveChangeStateMutation,
   useResolveRestrictionChangeStateMutation,
+  useResolveChangeClearStateMutation,
+  useResolveRestrictionClearStateMutation,
 } = publicationApi;

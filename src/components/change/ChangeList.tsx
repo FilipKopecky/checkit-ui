@@ -23,8 +23,10 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
   };
 
   useEffect(() => {
-    handleSmoothScroll(eventSelector.changeScrollIndex);
-  }, [eventSelector]);
+    if (eventSelector.changeScrollDate) {
+      handleSmoothScroll(eventSelector.changeScrollIndex);
+    }
+  }, [eventSelector.changeScrollIndex, eventSelector.changeScrollDate]);
   const itemContent = (index: number, groupIndex: number) => {
     const change = changeListData.allChanges[index];
     return (

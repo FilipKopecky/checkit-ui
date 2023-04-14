@@ -12,6 +12,7 @@ const endpoints = {
   GET_ALL_REVIEWABLE_PUBLICATIONS: "publication-contexts/reviewable",
   GET_ALL_READONLY_PUBLICATIONS: "publication-contexts/readonly",
   CHANGES: "changes",
+  CHANGES_REVIEW: "changes/review",
   COMMENTS: "comments",
   CHANGE_COMMENTS: "comments/related-to-change",
 };
@@ -34,6 +35,10 @@ export const getPublication = (id: string) => {
 
 export const getPublicationVocabularyChanges = (publicationId: string) => {
   return `${getPublication(publicationId)}/vocabulary-changes`;
+};
+
+export const getClearReview = (changeId: string) => {
+  return `${endpoints.CHANGES}/${changeId}/review`;
 };
 
 export const getChangeResolve = (changeId: string, state: ChangeState) => {
