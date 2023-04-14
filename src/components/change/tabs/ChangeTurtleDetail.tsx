@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Change, ChangeType, ObjectData } from "../../../model/Change";
 import { Box } from "@mui/material";
 import {
@@ -21,12 +21,18 @@ interface ChangeTurtleDetailProps {
 }
 
 const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
-  const structure = parseRestrictionChangeToStructure(change);
+  const structure = useMemo(() => {
+    if (change.object.restriction) {
+      return parseRestrictionChangeToStructure(change);
+    }
+    return null;
+  }, [change]);
   if (structure) {
     return (
       <RestrictionTurtle type={structure.change.type} change={structure} />
     );
   }
+
   return (
     <Box>
       <ModifiedTriple
@@ -91,6 +97,7 @@ interface RestrictionTurtleProps {
   type: ChangeType;
   change: ChangeWrapper;
 }
+
 const RestrictionTurtle: React.FC<RestrictionTurtleProps> = ({
   type,
   change,

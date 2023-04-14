@@ -28,9 +28,9 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { isMapped } from "../../utils/ChangeUtils";
-import LoadingOverlay from "../misc/LoadingOverlay";
 import ChangeRestrictionDetail from "./tabs/ChangeRestrictionDetail";
 import NoMaxWidthTooltip from "../misc/NoMaxWidthTooltip";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface ChangeDetailProps {
   change: Change;
@@ -137,7 +137,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 </IconButton>
               </Box>
             </TopRowBox>
-            <Suspense fallback={<LoadingOverlay />}>
+            <Suspense fallback={<CircularProgress color="inherit" />}>
               {componentToRender}
             </Suspense>
           </AccordionDetails>
