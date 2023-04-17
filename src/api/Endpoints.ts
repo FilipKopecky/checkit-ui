@@ -14,7 +14,7 @@ const endpoints = {
   CHANGES: "changes",
   CHANGES_REVIEW: "changes/review",
   COMMENTS: "comments",
-  CHANGE_COMMENTS: "comments/related-to-change",
+  CHANGE_COMMENTS: "comments/discussion-on-change",
 };
 
 export const getAdminRoleSwitch = (id: string) => {
