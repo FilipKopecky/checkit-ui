@@ -9,6 +9,14 @@ export const commentApi = apiSlice.injectEndpoints({
         url: Endpoints.CHANGE_COMMENTS,
         params: { changeUri: params },
       }),
+      transformResponse: (rawResult: CommentData[]) => {
+        return rawResult.sort((a, b) => {
+          return (
+            new Date(b.creationDate).getTime() -
+            new Date(a.creationDate).getTime()
+          );
+        });
+      },
       providesTags: (result, error, id) => [{ type: "COMMENTS", id }],
     }),
     addComment: builder.mutation<CommentData, Partial<CommentData>>({
