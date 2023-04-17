@@ -33,6 +33,9 @@ const labelCacheSlice = createSlice({
         if (!state[payload.uri]) {
           state[payload.uri] = payload.label;
         }
+        if (!state[payload.publicationId]) {
+          state[payload.publicationId] = payload.publicationLabel;
+        }
       }
     );
   },

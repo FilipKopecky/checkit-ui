@@ -34,5 +34,7 @@ export interface ChangedVocabularyIdentity {
 
 export interface VocabularyChanges extends VocabularyData {
   gestored: boolean;
+  publicationId: string;
+  publicationLabel: string;
   changes: Change[];
 }
