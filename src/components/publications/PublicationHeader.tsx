@@ -30,7 +30,7 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
       publicationStateMessage = "publication-summary-description-created";
       alertType = "info";
       break;
-    case "APPROVED":
+    case "APPROVABLE":
       publicationStateMessage = "publication-summary-description-approved";
       alertType = "success";
       break;
@@ -42,7 +42,11 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
       publicationStateMessage = "publication-summary-description-waiting";
       alertType = "info";
       break;
+    default:
+      publicationStateMessage = "something-went-wrong";
+      alertType = "error";
   }
+
   return (
     <Paper>
       <Box p={3}>
@@ -60,11 +64,11 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
             <Button
               color={"success"}
               variant={"contained"}
-              disabled={state !== "APPROVED"}
+              disabled={state !== "APPROVABLE"}
             >
               {intl.formatMessage({ id: "publication-submit" })}
             </Button>
-            {state !== "APPROVED" && (
+            {state !== "APPROVABLE" && (
               <Button variant={"contained"} color={"error"}>
                 {intl.formatMessage({ id: "publication-decline" })}
               </Button>

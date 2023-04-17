@@ -13,6 +13,7 @@ export interface Publication {
 export type PublicationContextState =
   | "CREATED"
   | "APPROVED"
+  | "APPROVABLE"
   | "REJECTED"
   | "WAITING_FOR_OTHERS";
 
