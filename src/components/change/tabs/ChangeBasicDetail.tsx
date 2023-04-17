@@ -41,6 +41,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
     clearChangeState({
       id: change.id,
       state: "NOT_REVIEWED",
+      rejectionComment: undefined,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
     });

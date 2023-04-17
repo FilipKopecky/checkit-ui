@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import Endpoints from "./Endpoints";
 import { CommentData } from "../model/CommentData";
+import { ChangedVocabularyIdentity } from "../model/Change";
 
 export const commentApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,8 +35,35 @@ export const commentApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["COMMENTS"],
     }),
+    addRejectionChangeComment: builder.mutation<
+      CommentData,
+      Partial<CommentData> & ChangedVocabularyIdentity
+    >({
+      query(data) {
+        const { uri, content } = data;
+        return {
+          url: Endpoints.REJECT_COMMENT_CHANGE,
+          method: "POST",
+          params: { changeUri: uri },
+          headers: {
+            "content-type": "text/plain",
+          },
+          body: content,
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        {
+          type: "VOCABULARY_CHANGES",
+          id: `${arg.publicationId}_${arg.vocabularyUri}`,
+        },
+      ],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetChangeCommentsQuery, useAddCommentMutation } = commentApi;
+export const {
+  useGetChangeCommentsQuery,
+  useAddCommentMutation,
+  useAddRejectionChangeCommentMutation,
+} = commentApi;
