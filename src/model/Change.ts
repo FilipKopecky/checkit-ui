@@ -11,11 +11,9 @@ export interface ObjectData {
   languageTag?: string;
   restriction?: Restriction;
 }
-export interface Change {
+export interface Change extends ChangedVocabularyIdentity {
   id: string;
   uri: string;
-  vocabularyUri: string;
-  publicationId: string;
   type: ChangeType;
   subject: string;
   subjectType: SubjectType;
@@ -25,8 +23,13 @@ export interface Change {
   comments: CommentData[];
   state: ChangeState;
   label?: string;
-  declineMessage?: CommentData;
+  rejectionComment?: CommentData;
   gestored: boolean;
+}
+
+export interface ChangedVocabularyIdentity {
+  vocabularyUri: string;
+  publicationId: string;
 }
 
 export interface VocabularyChanges extends VocabularyData {

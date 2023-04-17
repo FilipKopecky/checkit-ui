@@ -4,6 +4,7 @@ import ChangeResolveAction from "./ChangeResolveAction";
 import ChangeDeclineMessage from "./ChangeDeclineMessage";
 import { Change, ChangeState } from "../../model/Change";
 import { useIntl } from "react-intl";
+import { useAddRejectionChangeCommentMutation } from "../../api/commentApi";
 
 interface ChangeActionsProps {
   change: Change;
@@ -17,6 +18,8 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
   handleClear,
 }) => {
   const intl = useIntl();
+  //TODO: Add spinner or do optimistic update
+  const [addRejectComment] = useAddRejectionChangeCommentMutation();
   return (
     <Box mt={4}>
       {change.state === "NOT_REVIEWED" && change.gestored && (
@@ -52,9 +55,14 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
           </Alert>
           <ChangeDeclineMessage
             state={change.state}
-            declineComment={change.declineMessage}
+            declineComment={change.rejectionComment}
             submitDeclineMessage={(content) => {
-              console.log(`Submitted reject message ${content}`);
+              addRejectComment({
+                uri: change.uri,
+                content: content,
+                publicationId: change.publicationId,
+                vocabularyUri: change.vocabularyUri,
+              });
             }}
           />
         </Box>

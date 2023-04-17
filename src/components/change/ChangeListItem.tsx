@@ -76,7 +76,15 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
       case Constants.CHANGE_DETAIL.TABS.TURTLE:
         return <ChangeTurtleDetail change={change} />;
       case Constants.CHANGE_DETAIL.TABS.COMMENTS:
-        return <ChangeCommentsDetail changeUri={change.uri} />;
+        return (
+          <ChangeCommentsDetail
+            changeUri={
+              change.object.restriction
+                ? change.object.restriction.commentableChange
+                : change.uri
+            }
+          />
+        );
       default:
         return null;
     }

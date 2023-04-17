@@ -7,7 +7,11 @@ import Endpoints, {
   getRestrictionChangeResolve,
 } from "./Endpoints";
 import { Publication, PublicationContext } from "../model/Publication";
-import { Change, VocabularyChanges } from "../model/Change";
+import {
+  Change,
+  ChangedVocabularyIdentity,
+  VocabularyChanges,
+} from "../model/Change";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const publicationApi = apiSlice.injectEndpoints({
@@ -46,12 +50,18 @@ export const publicationApi = apiSlice.injectEndpoints({
     }),
     getVocabularyChanges: builder.query<
       VocabularyChanges,
-      { vocabularyUri: string; publicationId: string }
+      ChangedVocabularyIdentity
     >({
       query: (params) => ({
         url: getPublicationVocabularyChanges(params.publicationId),
         params: { vocabularyUri: params.vocabularyUri },
       }),
+      providesTags: (result, error, arg) => [
+        {
+          type: "VOCABULARY_CHANGES",
+          id: `${arg.publicationId}_${arg.vocabularyUri}`,
+        },
+      ],
       //Adds vocabulary uri + publication id to each change -> needed for optimistic updates
       transformResponse: (rawResult: VocabularyChanges, meta, arg) => {
         for (let i = 0; i < rawResult.changes.length; i++) {
