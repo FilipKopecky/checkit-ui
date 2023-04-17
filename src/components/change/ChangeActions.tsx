@@ -5,6 +5,8 @@ import ChangeDeclineMessage from "./ChangeDeclineMessage";
 import { Change, ChangeState } from "../../model/Change";
 import { useIntl } from "react-intl";
 import { useAddRejectionChangeCommentMutation } from "../../api/commentApi";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
 
 interface ChangeActionsProps {
   change: Change;
@@ -18,7 +20,7 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
   handleClear,
 }) => {
   const intl = useIntl();
-  //TODO: Add spinner or do optimistic update
+  const currentUser = useAppSelector(selectUser);
   const [addRejectComment] = useAddRejectionChangeCommentMutation();
   return (
     <Box mt={4}>
@@ -58,10 +60,15 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
             declineComment={change.rejectionComment}
             submitDeclineMessage={(content) => {
               addRejectComment({
-                uri: change.uri,
+                topic: change.uri,
                 content: content,
                 publicationId: change.publicationId,
                 vocabularyUri: change.vocabularyUri,
+                author: {
+                  id: currentUser.id,
+                  firstName: currentUser.firstName,
+                  lastName: currentUser.lastName,
+                },
               });
             }}
           />

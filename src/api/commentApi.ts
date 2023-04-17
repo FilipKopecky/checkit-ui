@@ -2,6 +2,7 @@ import { apiSlice } from "./apiSlice";
 import Endpoints from "./Endpoints";
 import { CommentData } from "../model/CommentData";
 import { ChangedVocabularyIdentity } from "../model/Change";
+import { publicationApi } from "./publicationApi";
 
 export const commentApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,23 +41,50 @@ export const commentApi = apiSlice.injectEndpoints({
       Partial<CommentData> & ChangedVocabularyIdentity
     >({
       query(data) {
-        const { uri, content } = data;
+        const { topic, content } = data;
         return {
           url: Endpoints.REJECT_COMMENT_CHANGE,
           method: "POST",
-          params: { changeUri: uri },
+          params: { changeUri: topic },
           headers: {
             "content-type": "text/plain",
           },
           body: content,
         };
       },
-      invalidatesTags: (result, error, arg) => [
-        {
-          type: "VOCABULARY_CHANGES",
-          id: `${arg.publicationId}_${arg.vocabularyUri}`,
-        },
-      ],
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const changeUpdate = dispatch(
+          publicationApi.util.updateQueryData(
+            "getVocabularyChanges",
+            {
+              vocabularyUri: patch.vocabularyUri!,
+              publicationId: patch.publicationId!,
+            },
+            (draft) => {
+              Object.assign(
+                draft.changes.find((change) => change.uri === patch.topic)!,
+                {
+                  rejectionComment: {
+                    uri:
+                      "generated/http://rdfs.org/sioc/types#Comment_instance" +
+                      Math.floor(Math.random() * 1_000_000),
+                    topic: patch.topic,
+                    author: patch.author,
+                    content: patch.content,
+                    creationDate: new Date(Date.now()).getTime(),
+                    lastModificationDate: new Date(Date.now()).getTime(),
+                  },
+                }
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          changeUpdate.undo();
+        }
+      },
     }),
   }),
   overrideExisting: false,
