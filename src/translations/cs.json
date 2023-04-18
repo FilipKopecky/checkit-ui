@@ -51,7 +51,7 @@
   "something-went-wrong": "Něco se pokazilo",
   "publication-summary-description-created": "Revize publikace není připravena ke schválení, protože obsahuje neschválené změny.",
   "publication-summary-description-rejected": "Publikace je zamítnuta",
-  "publication-summary-description-approved": "Publikace byla schválena",
+  "publication-summary-description-approved": "Publikace je schválena",
   "publication-summary-description-waiting": "Publikace obsahuje změny které musí schválit jiný gestor. Po jejich schválení bude připravena k odevzdání.",
   "publication-summary-description-approvable": "Publikace je připravena k schválení",
   "publication-modal-approve": "Publikace je připravena ke schválení. V poli níže můžete odůvodnit své rozhodnutí.",

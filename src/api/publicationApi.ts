@@ -224,9 +224,22 @@ export const publicationApi = apiSlice.injectEndpoints({
           body: data.finalComment,
         };
       },
-      invalidatesTags: (result, error, arg) => [
-        { type: "PUBLICATIONS", id: arg.id },
-      ],
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const publicationPatch = dispatch(
+          publicationApi.util.updateQueryData(
+            "getPublicationById",
+            patch.id!,
+            (draft) => {
+              Object.assign(draft, patch);
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          publicationPatch.undo();
+        }
+      },
     }),
   }),
 
