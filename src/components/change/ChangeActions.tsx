@@ -4,6 +4,10 @@ import ChangeResolveAction from "./ChangeResolveAction";
 import ChangeDeclineMessage from "./ChangeDeclineMessage";
 import { Change, ChangeState } from "../../model/Change";
 import { useIntl } from "react-intl";
+import { useAddRejectionChangeCommentMutation } from "../../api/commentApi";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectUser } from "../../slices/userSlice";
+import { useSnackbar } from "notistack";
 
 interface ChangeActionsProps {
   change: Change;
@@ -17,6 +21,30 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
   handleClear,
 }) => {
   const intl = useIntl();
+  const currentUser = useAppSelector(selectUser);
+  const [addRejectComment] = useAddRejectionChangeCommentMutation();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleSubmitDeclineMessage = (content: string) => {
+    addRejectComment({
+      topic: change.uri,
+      content: content,
+      publicationId: change.publicationId,
+      vocabularyUri: change.vocabularyUri,
+      author: {
+        id: currentUser.id,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+      },
+    })
+      .unwrap()
+      .catch(() => {
+        enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
+          variant: "error",
+        });
+      });
+  };
+
   return (
     <Box mt={4}>
       {change.state === "NOT_REVIEWED" && change.gestored && (
@@ -52,10 +80,8 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
           </Alert>
           <ChangeDeclineMessage
             state={change.state}
-            declineComment={change.declineMessage}
-            submitDeclineMessage={(content) => {
-              console.log(`Submitted reject message ${content}`);
-            }}
+            declineComment={change.rejectionComment}
+            submitDeclineMessage={handleSubmitDeclineMessage}
           />
         </Box>
       )}

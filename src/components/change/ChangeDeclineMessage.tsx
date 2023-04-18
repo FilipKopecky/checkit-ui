@@ -26,7 +26,7 @@ const ChangeDeclineMessage: React.FC<ChangeDeclineMessageProps> = ({
       />
     );
   } else {
-    return <Comment comment={declineComment} />;
+    return <Comment comment={declineComment} showDivider={false} />;
   }
 };
 

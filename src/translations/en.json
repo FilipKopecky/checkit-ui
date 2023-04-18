@@ -49,10 +49,14 @@
   "no-result": "No results were found",
   "gestor-request-created": "Gestor request was created",
   "something-went-wrong": "Something went wrong",
-  "publication-summary-description-created": "Revision of the publication is not ready for submission. It will be ready after revision of all vocabularies in the publication.",
-  "publication-summary-description-rejected": "Publication contains rejected change and therefore cannot be submitted as approved.",
-  "publication-summary-description-approved": "All of the changes in this publication were approved. Publication is ready for submission.",
+  "publication-summary-description-created": "Revision of the publication is not ready for approval. It will be ready after all changes are approved.",
+  "publication-summary-description-rejected": "Publication is rejected",
+  "publication-summary-description-approved": "Publication is approved",
   "publication-summary-description-waiting": "Publication contains changes which must be approved by other Gestors. After that, the publication can be submitted.",
+  "publication-summary-description-approvable": "Publication is ready for submission",
+  "publication-modal-approve": "Publication is ready to be approved. You can provide reasons why in the field below",
+  "publication-modal-reject": "Publication is ready to be rejected. You must provide the reasons why in the field below",
+  "publication-modal-text-placeholder": "Provide a reason for approval/rejection of the publication",
   "publication-submit": "Approve publication",
   "publication-decline": "Reject publication",
   "publication-progress": "{progress}% done",
@@ -81,5 +85,7 @@
   "just-now": "Just now",
   "no-comments": "No comments were found",
   "publications": "Publications",
-  "undo": "Undo"
+  "undo": "Undo",
+  "submit-publication": "Submit publication",
+  "error-text-length": "Text must be at least {num} characters long"
 }

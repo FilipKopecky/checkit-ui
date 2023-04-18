@@ -8,11 +8,13 @@ export interface Publication {
   state: PublicationContextState;
   progress: number;
   affectedVocabularies: PublicationVocabularyData[];
+  finalComment?: string;
 }
 
 export type PublicationContextState =
   | "CREATED"
   | "APPROVED"
+  | "APPROVABLE"
   | "REJECTED"
   | "WAITING_FOR_OTHERS";
 

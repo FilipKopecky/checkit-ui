@@ -14,7 +14,8 @@ const endpoints = {
   CHANGES: "changes",
   CHANGES_REVIEW: "changes/review",
   COMMENTS: "comments",
-  CHANGE_COMMENTS: "comments/related-to-change",
+  CHANGE_COMMENTS: "comments/discussion-on-change",
+  REJECT_COMMENT_CHANGE: "comments/rejection-on-change",
 };
 
 export const getAdminRoleSwitch = (id: string) => {
@@ -31,6 +32,10 @@ export const getGestorRequestResolve = (id: string) => {
 
 export const getPublication = (id: string) => {
   return `${endpoints.GET_PUBLICATION_CONTEXT}/${id}`;
+};
+
+export const getPublicationStateResolve = (id: string, state: string) => {
+  return `${endpoints.GET_PUBLICATION_CONTEXT}/${id}/${state}`;
 };
 
 export const getPublicationVocabularyChanges = (publicationId: string) => {

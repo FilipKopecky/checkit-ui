@@ -2,6 +2,7 @@ import { Change } from "./Change";
 
 export interface Restriction {
   affectedChanges: Change[];
+  commentableChange: string;
   startName: string;
   startUri: string;
   cardinalityStart: {

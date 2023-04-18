@@ -18,6 +18,8 @@ import { useAppDispatch } from "../../../hooks/ReduxHooks";
 import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 import LanguageLabel from "../LanguageLabel";
 import ChangeActions from "../ChangeActions";
+import { useSnackbar } from "notistack";
+import { useIntl } from "react-intl";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -27,13 +29,22 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
   const dispatch = useAppDispatch();
   const [resolveChangeState] = useResolveChangeStateMutation();
   const [clearChangeState] = useResolveChangeClearStateMutation();
+  const { enqueueSnackbar } = useSnackbar();
+  const intl = useIntl();
+
   const handleResolution = (state: ChangeState) => {
     resolveChangeState({
       id: change.id,
       state: state,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
-    });
+    })
+      .unwrap()
+      .catch(() => {
+        enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
+          variant: "error",
+        });
+      });
     dispatch(scrollToNextAvailableItem(change.id));
   };
   const handleClear = () => {
@@ -41,6 +52,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
     clearChangeState({
       id: change.id,
       state: "NOT_REVIEWED",
+      rejectionComment: undefined,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
     });

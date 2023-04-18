@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   AlertColor,
@@ -8,30 +8,35 @@ import {
   Typography,
 } from "@mui/material";
 import { useIntl } from "react-intl";
-import { PublicationContextState } from "../../model/Publication";
+import { Publication } from "../../model/Publication";
+import PublicationSubmitModal from "./PublicationSubmitModal";
 
 interface PublicationHeaderProps {
-  label: string;
-  state: PublicationContextState;
   gestored: boolean;
+  publication: Publication;
 }
 
 const PublicationHeader: React.FC<PublicationHeaderProps> = ({
-  label,
-  state,
+  publication,
   gestored,
 }) => {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
   let publicationStateMessage = "";
   let alertType: AlertColor;
 
-  switch (state) {
+  switch (publication.state) {
     case "CREATED":
       publicationStateMessage = "publication-summary-description-created";
       alertType = "info";
       break;
     case "APPROVED":
       publicationStateMessage = "publication-summary-description-approved";
+      alertType = "success";
+      break;
+    case "APPROVABLE":
+      publicationStateMessage = "publication-summary-description-approvable";
       alertType = "success";
       break;
     case "REJECTED":
@@ -42,37 +47,59 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
       publicationStateMessage = "publication-summary-description-waiting";
       alertType = "info";
       break;
+    default:
+      publicationStateMessage = "something-went-wrong";
+      alertType = "error";
   }
+
+  const openModal = (reject: boolean) => {
+    setIsRejected(reject);
+    setOpen(true);
+  };
+
   return (
-    <Paper>
-      <Box p={3}>
-        <Typography variant={"h4"}>{label}</Typography>
-        <Alert
-          severity={alertType}
-          sx={{ fontSize: "16px", marginTop: 1, marginBottom: 1 }}
-        >
-          {intl.formatMessage({
-            id: publicationStateMessage,
-          })}
-        </Alert>
-        {gestored && (
-          <Box sx={{ display: "flex", gap: 2 }}>
-            <Button
-              color={"success"}
-              variant={"contained"}
-              disabled={state !== "APPROVED"}
-            >
-              {intl.formatMessage({ id: "publication-submit" })}
-            </Button>
-            {state !== "APPROVED" && (
-              <Button variant={"contained"} color={"error"}>
-                {intl.formatMessage({ id: "publication-decline" })}
-              </Button>
+    <div>
+      <Paper>
+        <Box p={3}>
+          <Typography variant={"h4"}>{publication.label}</Typography>
+          <Alert
+            severity={alertType}
+            sx={{ fontSize: "16px", marginTop: 1, marginBottom: 1 }}
+          >
+            {intl.formatMessage({
+              id: publicationStateMessage,
+            })}
+          </Alert>
+          {gestored &&
+            publication.state !== "APPROVED" &&
+            publication.state !== "REJECTED" && (
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <Button
+                  color={"success"}
+                  variant={"contained"}
+                  disabled={publication.state !== "APPROVABLE"}
+                  onClick={() => openModal(false)}
+                >
+                  {intl.formatMessage({ id: "publication-submit" })}
+                </Button>
+                <Button
+                  variant={"contained"}
+                  color={"error"}
+                  onClick={() => openModal(true)}
+                >
+                  {intl.formatMessage({ id: "publication-decline" })}
+                </Button>
+              </Box>
             )}
-          </Box>
-        )}
-      </Box>
-    </Paper>
+        </Box>
+      </Paper>
+      <PublicationSubmitModal
+        open={open}
+        setOpen={setOpen}
+        publication={publication}
+        reject={isRejected}
+      />
+    </div>
   );
 };
 
