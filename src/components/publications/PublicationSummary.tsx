@@ -68,8 +68,7 @@ const PublicationSummary: React.FC = () => {
       <Grid container spacing={2}>
         <Grid item md={12} xs={12}>
           <PublicationHeader
-            label={publication.label}
-            state={publication.state}
+            publication={publication}
             gestored={containsGestored}
           />
         </Grid>

@@ -8,6 +8,7 @@ export interface Publication {
   state: PublicationContextState;
   progress: number;
   affectedVocabularies: PublicationVocabularyData[];
+  finalComment?: string;
 }
 
 export type PublicationContextState =

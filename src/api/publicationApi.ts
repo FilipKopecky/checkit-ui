@@ -3,6 +3,7 @@ import Endpoints, {
   getChangeResolve,
   getClearReview,
   getPublication,
+  getPublicationStateResolve,
   getPublicationVocabularyChanges,
   getRestrictionChangeResolve,
 } from "./Endpoints";
@@ -209,7 +210,26 @@ export const publicationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    approveOrRejectPublication: builder.mutation<
+      Publication,
+      Partial<Publication>
+    >({
+      query(data) {
+        return {
+          url: getPublicationStateResolve(
+            data.id!,
+            data.state === "APPROVED" ? "approved" : "rejected"
+          ),
+          method: "POST",
+          body: data.finalComment,
+        };
+      },
+      invalidatesTags: (result, error, arg) => [
+        { type: "PUBLICATIONS", id: arg.id },
+      ],
+    }),
   }),
+
   overrideExisting: false,
 });
 
@@ -221,4 +241,5 @@ export const {
   useResolveRestrictionChangeStateMutation,
   useResolveChangeClearStateMutation,
   useResolveRestrictionClearStateMutation,
+  useApproveOrRejectPublicationMutation,
 } = publicationApi;

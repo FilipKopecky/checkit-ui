@@ -49,10 +49,14 @@
   "no-result": "Nebyly nalezeny žádné výsledky",
   "gestor-request-created": "Žádost o gestorování byla vytvořena",
   "something-went-wrong": "Něco se pokazilo",
-  "publication-summary-description-created": "Revize publikace není připravena k odevzdání. Po revizi všech slovníků v publikaci, bude připravena k odevzdání",
-  "publication-summary-description-rejected": "Publikace obsahuje zamítnutou změnu a není jí tedy možné odevzdat jako schválenou.",
-  "publication-summary-description-approved": "Všechny změny v publikaci byly schválené. Nyní je možné publikaci odevzdat.",
+  "publication-summary-description-created": "Revize publikace není připravena ke schválení, protože obsahuje neschválené změny.",
+  "publication-summary-description-rejected": "Publikace je zamítnuta",
+  "publication-summary-description-approved": "Publikace byla schválena",
   "publication-summary-description-waiting": "Publikace obsahuje změny které musí schválit jiný gestor. Po jejich schválení bude připravena k odevzdání.",
+  "publication-summary-description-approvable": "Publikace je připravena k schválení",
+  "publication-modal-approve": "Publikace je připravena ke schválení. V poli níže můžete odůvodnit své rozhodnutí.",
+  "publication-modal-reject": "Publikace je připravena k zamítnutí. V poli níže popiště důvody proč není možné tuto publikaci akceptovat.",
+  "publication-modal-text-placeholder": "Napište důvod schválení/zamítnutí publikace",
   "publication-submit": "Schválit publikaci",
   "publication-decline": "Zamítnout publikaci",
   "publication-progress": "{progress}% zrevidováno",
@@ -81,5 +85,7 @@
   "just-now": "Právě teď",
   "no-comments": "Nebyly nalezeny žádné komentáře",
   "publications": "Publikace",
-  "undo": "Vrátit"
+  "undo": "Vrátit",
+  "submit-publication": "Odevzdat publikaci",
+  "error-text-length": "Text musí mít alespoň {num} znaků"
 }

@@ -34,6 +34,10 @@ export const getPublication = (id: string) => {
   return `${endpoints.GET_PUBLICATION_CONTEXT}/${id}`;
 };
 
+export const getPublicationStateResolve = (id: string, state: string) => {
+  return `${endpoints.GET_PUBLICATION_CONTEXT}/${id}/${state}`;
+};
+
 export const getPublicationVocabularyChanges = (publicationId: string) => {
   return `${getPublication(publicationId)}/vocabulary-changes`;
 };
