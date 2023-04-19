@@ -2,13 +2,14 @@ import React from "react";
 import { ChangeState } from "../../model/Change";
 import CommentInput from "../comments/CommentInput";
 import Comment from "../comments/Comment";
-import { CommentData } from "../../model/CommentData";
+import { CommentData, CommentFormData } from "../../model/CommentData";
 import { useIntl } from "react-intl";
+import { useForm } from "react-hook-form";
 
 interface ChangeDeclineMessageProps {
   state: ChangeState;
   declineComment?: CommentData;
-  submitDeclineMessage: (content: string) => void;
+  submitDeclineMessage: (data: CommentFormData) => void;
 }
 
 const ChangeDeclineMessage: React.FC<ChangeDeclineMessageProps> = ({
@@ -17,13 +18,26 @@ const ChangeDeclineMessage: React.FC<ChangeDeclineMessageProps> = ({
   submitDeclineMessage,
 }) => {
   const intl = useIntl();
+  const { handleSubmit, control } = useForm<CommentFormData>({
+    defaultValues: {
+      commentValue: "",
+    },
+    mode: "onSubmit",
+  });
+
   if (state !== "REJECTED") return <></>;
   if (!declineComment) {
     return (
-      <CommentInput
-        handleCommentSubmit={submitDeclineMessage}
-        placeholder={intl.formatMessage({ id: "add-decline-change-message" })}
-      />
+      <form onSubmit={handleSubmit(submitDeclineMessage)}>
+        <CommentInput
+          formProps={{
+            control: control,
+            name: "commentValue",
+            rules: { required: true, minLength: 10 },
+          }}
+          placeholder={intl.formatMessage({ id: "add-decline-change-message" })}
+        />
+      </form>
     );
   } else {
     return <Comment comment={declineComment} showDivider={false} />;

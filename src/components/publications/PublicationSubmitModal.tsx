@@ -37,7 +37,7 @@ const PublicationSubmitModal: React.FC<PublicationSubmitModalProps> = ({
     defaultValues: {
       ClosingComment: "",
     },
-    mode: "onChange",
+    mode: "onSubmit",
   });
   const onSubmit = (data: FormValues) => {
     resolvePublicationState({

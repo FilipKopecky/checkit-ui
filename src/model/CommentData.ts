@@ -8,3 +8,7 @@ export interface CommentData {
   creationDate: Date;
   lastModificationDate: Date;
 }
+
+export type CommentFormData = {
+  commentValue: string;
+};
