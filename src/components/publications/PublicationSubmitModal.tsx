@@ -10,6 +10,7 @@ import { useIntl } from "react-intl";
 import { Publication } from "../../model/Publication";
 import { useController, UseControllerProps, useForm } from "react-hook-form";
 import { useApproveOrRejectPublicationMutation } from "../../api/publicationApi";
+import { useSnackbar } from "notistack";
 
 interface PublicationSubmitModalProps {
   open: boolean;
@@ -30,6 +31,7 @@ const PublicationSubmitModal: React.FC<PublicationSubmitModalProps> = ({
 }) => {
   const intl = useIntl();
   const [resolvePublicationState] = useApproveOrRejectPublicationMutation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
@@ -43,7 +45,13 @@ const PublicationSubmitModal: React.FC<PublicationSubmitModalProps> = ({
       state: reject ? "REJECTED" : "APPROVED",
       finalComment:
         data.ClosingComment.length === 0 ? `""` : data.ClosingComment,
-    });
+    })
+      .unwrap()
+      .catch(() => {
+        enqueueSnackbar(intl.formatMessage({ id: "something-went-wrong" }), {
+          variant: "error",
+        });
+      });
     setOpen(false);
   };
 
