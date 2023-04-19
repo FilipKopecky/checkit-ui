@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Box, InputBase } from "@mui/material";
+import { InputAdornment, OutlinedInput } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 
@@ -13,22 +13,13 @@ const CommentInput: React.FC<CommentInputProps> = ({
 }) => {
   const valueRef = useRef<HTMLTextAreaElement>();
   return (
-    <Box
-      border={1}
-      borderColor={"#E0E0E0"}
-      p={1}
-      borderRadius={2}
-      flex={1}
-      display={"flex"}
-    >
-      <InputBase
-        placeholder={placeholder}
-        fullWidth={true}
-        multiline={true}
-        inputRef={valueRef}
-      />
-      <Box display={"flex"} flex={1}>
-        <Box alignSelf={"flex-end"}>
+    <OutlinedInput
+      placeholder={placeholder}
+      fullWidth={true}
+      multiline={true}
+      inputRef={valueRef}
+      endAdornment={
+        <InputAdornment position="end">
           <IconButton
             onClick={() => {
               handleCommentSubmit(valueRef.current!.value);
@@ -37,9 +28,9 @@ const CommentInput: React.FC<CommentInputProps> = ({
           >
             <SendIcon />
           </IconButton>
-        </Box>
-      </Box>
-    </Box>
+        </InputAdornment>
+      }
+    />
   );
 };
 
