@@ -33,7 +33,7 @@ const changeSlice = createSlice({
             uri: change.uri,
             expanded:
               change.state === "NOT_REVIEWED" ||
-              (change.state === "REJECTED" && !change.declineMessage),
+              (change.state === "REJECTED" && !change.rejectionComment),
             activeTab: Constants.CHANGE_DETAIL.TABS.BASIC,
           });
         }
