@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Comment from "../../comments/Comment";
 import List from "@mui/material/List";
 import { Box } from "@mui/material";
@@ -11,6 +11,8 @@ import {
 import ErrorAlert from "../../misc/ErrorAlert";
 import CircularProgress from "@mui/material/CircularProgress";
 import ListItemText from "@mui/material/ListItemText";
+import { useForm } from "react-hook-form";
+import { CommentFormData } from "../../../model/CommentData";
 
 interface ChangeCommentsDetailsProps {
   changeUri: string;
@@ -25,18 +27,38 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
     error,
   } = useGetChangeCommentsQuery(changeUri);
   const [addComment] = useAddCommentMutation();
-  const handleCommentSubmit = (commentText: string) => {
-    addComment({ uri: changeUri, content: commentText });
+  const handleCommentSubmit = (data: CommentFormData) => {
+    addComment({ uri: changeUri, content: data.commentValue });
   };
   const intl = useIntl();
+
+  const { handleSubmit, control, reset, formState } = useForm<CommentFormData>({
+    defaultValues: {
+      commentValue: "",
+    },
+    mode: "onSubmit",
+  });
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ commentValue: "" });
+    }
+  }, [formState, reset]);
+
   if (error) return <ErrorAlert />;
 
   return (
     <Box>
-      <CommentInput
-        handleCommentSubmit={handleCommentSubmit}
-        placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
-      />
+      <form onSubmit={handleSubmit(handleCommentSubmit)}>
+        <CommentInput
+          placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
+          formProps={{
+            control: control,
+            name: "commentValue",
+            rules: { required: true },
+          }}
+        />
+      </form>
       {isLoading ? (
         <Box py={2}>
           <CircularProgress color={"inherit"} size={20} />

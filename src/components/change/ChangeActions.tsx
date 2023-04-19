@@ -8,6 +8,7 @@ import { useAddRejectionChangeCommentMutation } from "../../api/commentApi";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
 import { useSnackbar } from "notistack";
+import { CommentFormData } from "../../model/CommentData";
 
 interface ChangeActionsProps {
   change: Change;
@@ -25,10 +26,10 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
   const [addRejectComment] = useAddRejectionChangeCommentMutation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSubmitDeclineMessage = (content: string) => {
+  const handleSubmitDeclineMessage = (data: CommentFormData) => {
     addRejectComment({
       topic: change.uri,
-      content: content,
+      content: data.commentValue,
       publicationId: change.publicationId,
       vocabularyUri: change.vocabularyUri,
       author: {

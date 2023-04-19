@@ -87,5 +87,6 @@
   "publications": "Publikace",
   "undo": "Vrátit",
   "submit-publication": "Odevzdat publikaci",
-  "error-text-length": "Text musí mít alespoň {num} znaků"
+  "error-text-length": "Text musí mít alespoň {num} znaků",
+  "error-field-required": "Toto pole je povinné"
 }
