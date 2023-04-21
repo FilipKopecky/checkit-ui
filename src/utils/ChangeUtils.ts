@@ -98,7 +98,7 @@ const parseObjectValue = (objectData: ObjectData) => {
     turtle += `@${objectData.languageTag}`;
     return turtle;
   }
-  turtle += `<${objectData.value}>`;
+  turtle += objectData.value ? `<${objectData.value}>` : "_b:";
   return turtle;
 };
 
