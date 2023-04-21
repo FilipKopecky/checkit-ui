@@ -75,6 +75,8 @@
   "add-comment-placeholder": "Add comment",
   "add-decline-change-message": "Provide a reason for the decline",
   "pie-chart-reviewed": "Reviewed {num} changes",
+  "pie-chart-accepted": "Approved {num} changes",
+  "pie-chart-rejected": "Rejected {num} changes",
   "pie-chart-not-reviewed": "Not reviewed {num} changes",
   "pie-chart-changes-left": "{num} changes left",
   "list-of-changes": "List of changes ({num})",

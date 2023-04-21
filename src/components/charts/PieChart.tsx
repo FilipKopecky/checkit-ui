@@ -17,7 +17,7 @@ interface PieChartProps {
   animation?: boolean;
 }
 
-const COLORS = ["#FFC12C", "#0FA958"];
+const COLORS = ["#FFC12C", "#0FA958", "#FF0000"];
 const PieChart: React.FC<PieChartProps> = ({
   data,
   label,

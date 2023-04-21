@@ -1,4 +1,5 @@
 import { PublicationVocabularyData } from "./Vocabulary";
+import { Statistics } from "./Statistics";
 
 export interface Publication {
   id: string;
@@ -9,6 +10,7 @@ export interface Publication {
   progress: number;
   affectedVocabularies: PublicationVocabularyData[];
   finalComment?: string;
+  statistics: Statistics;
 }
 
 export type PublicationContextState =

@@ -1,13 +1,8 @@
 import React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PieChart from "../charts/PieChart";
 import { Publication } from "../../model/Publication";
-
-const data = [
-  { name: "pie-chart-not-reviewed", value: 10 },
-  { name: "pie-chart-reviewed", value: 20 },
-];
 
 const CustomPaper = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -19,30 +14,54 @@ const CustomPaper = styled(Paper)(({ theme }) => ({
 interface PublicationStatisticsProps {
   publication: Publication;
 }
+
 const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
   publication,
 }) => {
-  //TODO: Make this component use real data
-  // Fetch all changes from the affected vocabularies -> calculate following values: reviewed, not-reviewed, review-by-others, not-reviewed-by-others
-  const sum = data.reduce(
-    (partialResult, dataItem) => partialResult + dataItem.value,
-    0
+  if (!publication.statistics?.reviewableChanges) {
+    return <></>;
+  }
+  const approvedChanges = publication.statistics.approvedChanges ?? 0;
+  const rejectedChanges = publication.statistics.rejectedChanges ?? 0;
+  const parsedStatistics = [
+    {
+      name: "pie-chart-not-reviewed",
+      value:
+        publication.statistics.reviewableChanges -
+        approvedChanges -
+        rejectedChanges,
+    },
+    {
+      name: "pie-chart-accepted",
+      value: approvedChanges,
+    },
+    {
+      name: "pie-chart-rejected",
+      value: rejectedChanges,
+    },
+  ];
+
+  const percentage = Math.trunc(
+    ((approvedChanges + rejectedChanges) /
+      publication.statistics.reviewableChanges) *
+      100
   );
-  const percentage = Math.trunc((data[data.length - 1].value / sum) * 100);
   const label = `${percentage}%`;
 
   return (
-    <CustomPaper>
-      <Box py={2}>
-        <Typography variant={"h5"}>Stav revize publikace</Typography>
-        <PieChart
-          data={data}
-          label={label}
-          fullCircle={false}
-          animation={true}
-        />
-      </Box>
-    </CustomPaper>
+    <Grid item md={12} sm={6} xs={12}>
+      <CustomPaper>
+        <Box py={2}>
+          <Typography variant={"h5"}>Stav revize publikace</Typography>
+          <PieChart
+            data={parsedStatistics}
+            label={label}
+            fullCircle={false}
+            animation={true}
+          />
+        </Box>
+      </CustomPaper>
+    </Grid>
   );
 };
 
