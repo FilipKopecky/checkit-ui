@@ -8,7 +8,6 @@ import {
 import { Box, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ObjectLabel from "../ObjectLabel";
-import { getModificationColor } from "../../../utils/ChangeUtils";
 import { styled } from "@mui/material/styles";
 import {
   useResolveChangeClearStateMutation,
@@ -20,6 +19,7 @@ import LanguageLabel from "../LanguageLabel";
 import ChangeActions from "../ChangeActions";
 import { useSnackbar } from "notistack";
 import { useIntl } from "react-intl";
+import ChangeBoxColored from "../ChangeBoxColored";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -108,17 +108,10 @@ const ModifiedObject: React.FC<ModifiedObjectProps> = ({
   type,
 }) => {
   return (
-    <Box
-      sx={{
-        borderLeft: 6,
-        borderColor: getModificationColor(type),
-        paddingLeft: 2,
-        height: "100%",
-      }}
-    >
+    <ChangeBoxColored type={type}>
       <LanguageLabel object={objectData} />
       <ObjectLabel objectUri={objectData.value} variant={"body1"} />
-    </Box>
+    </ChangeBoxColored>
   );
 };
 
