@@ -38,6 +38,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       state: state,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
+      publicationDate: change.publicationDate,
     })
       .unwrap()
       .catch(() => {
@@ -48,13 +49,13 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
     dispatch(scrollToNextAvailableItem(change.id));
   };
   const handleClear = () => {
-    console.log(`Clearing following review: ${change.id}`);
     clearChangeState({
       id: change.id,
       state: "NOT_REVIEWED",
       rejectionComment: undefined,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
+      publicationDate: change.publicationDate,
     });
   };
   return (
