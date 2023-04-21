@@ -27,6 +27,7 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
       object: change.object,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
+      publicationDate: change.publicationDate,
       id: change.id,
     });
     dispatch(scrollToNextAvailableItem(change.id));
@@ -38,6 +39,7 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
       object: change.object,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
+      publicationDate: change.publicationDate,
     });
   };
   if (!change.object.restriction) return <></>;

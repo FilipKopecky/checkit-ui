@@ -63,7 +63,7 @@ export const publicationApi = apiSlice.injectEndpoints({
           id: `${arg.publicationId}_${arg.vocabularyUri}`,
         },
       ],
-      //Adds vocabulary uri + publication id to each change -> needed for optimistic updates
+      //Adds vocabulary uri + publication id, publication last update to each change
       transformResponse: (rawResult: VocabularyChanges, meta, arg) => {
         for (let i = 0; i < rawResult.changes.length; i++) {
           if (!rawResult.changes[i].uri) {
@@ -76,6 +76,8 @@ export const publicationApi = apiSlice.injectEndpoints({
           rawResult.changes[i].vocabularyUri = rawResult.uri;
           rawResult.changes[i].publicationId = arg.publicationId;
           rawResult.changes[i].gestored = rawResult.gestored;
+          rawResult.changes[i].publicationDate =
+            rawResult.publicationLastUpdate;
         }
         return rawResult;
       },
@@ -84,6 +86,7 @@ export const publicationApi = apiSlice.injectEndpoints({
       query(data) {
         return {
           url: getChangeResolve(data.id!, data.state!),
+          params: { versionDate: data.publicationDate },
           method: "POST",
         };
       },
@@ -115,6 +118,7 @@ export const publicationApi = apiSlice.injectEndpoints({
       query(data) {
         return {
           url: getClearReview(data.id!),
+          params: { versionDate: data.publicationDate },
           method: "DELETE",
         };
       },
@@ -147,6 +151,7 @@ export const publicationApi = apiSlice.injectEndpoints({
         return {
           url: getRestrictionChangeResolve(data.state!),
           method: "POST",
+          params: { versionDate: data.publicationDate },
           body: data.object!.restriction!.affectedChanges.map(
             (change) => change.uri
           ),
@@ -181,6 +186,7 @@ export const publicationApi = apiSlice.injectEndpoints({
         return {
           url: Endpoints.CHANGES_REVIEW,
           method: "DELETE",
+          params: { versionDate: data.publicationDate },
           body: data.object!.restriction!.affectedChanges.map(
             (change) => change.uri
           ),

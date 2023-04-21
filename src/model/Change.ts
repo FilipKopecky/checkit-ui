@@ -25,6 +25,7 @@ export interface Change extends ChangedVocabularyIdentity {
   label?: string;
   rejectionComment?: CommentData;
   gestored: boolean;
+  publicationDate: Date;
 }
 
 export interface ChangedVocabularyIdentity {
@@ -37,4 +38,5 @@ export interface VocabularyChanges extends VocabularyData {
   publicationId: string;
   publicationLabel: string;
   changes: Change[];
+  publicationLastUpdate: Date;
 }
