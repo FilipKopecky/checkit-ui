@@ -10,6 +10,7 @@ import {
 } from "../../../api/publicationApi";
 import { scrollToNextAvailableItem } from "../../../slices/eventSlice";
 import { useAppDispatch } from "../../../hooks/ReduxHooks";
+import ChangeBoxColored from "../ChangeBoxColored";
 
 interface ChangeRestrictionDetailProps {
   change: Change;
@@ -45,7 +46,7 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
   if (!change.object.restriction) return <></>;
   return (
     <Box pt={4}>
-      <Box display={"flex"}>
+      <ChangeBoxColored type={change.type} display={"flex"}>
         <GraphElement
           displayName={change.object.restriction.startName}
           uri={change.object.restriction.startUri}
@@ -60,7 +61,7 @@ const ChangeRestrictionDetail: React.FC<ChangeRestrictionDetailProps> = ({
           displayName={change.object.restriction.endName}
           uri={change.object.restriction.endUri}
         />
-      </Box>
+      </ChangeBoxColored>
       <ChangeActions
         change={change}
         handleResolution={resolveChange}

@@ -22,7 +22,7 @@ const ObjectLabel: React.FC<ObjectLabelProps & TypographyProps> = ({
   }
   return (
     <Typography variant={"body1"} {...props}>
-      {displayValue}
+      {displayValue ?? "BLANK NODE"}
     </Typography>
   );
 };

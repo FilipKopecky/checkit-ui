@@ -99,9 +99,7 @@ const PublicationSummary: React.FC = () => {
           </Paper>
         </Grid>
         <Grid container item md={4} spacing={2} xs={12}>
-          <Grid item md={12} sm={6} xs={12}>
-            <PublicationStatistics publication={publication} />
-          </Grid>
+          <PublicationStatistics publication={publication} />
           <Grid item md={12} sm={6} xs={12}>
             <Item>
               <IslandHeader header={"Notifikace"} />
