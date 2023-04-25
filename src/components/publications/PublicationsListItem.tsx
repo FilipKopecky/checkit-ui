@@ -14,6 +14,7 @@ import ContentPasteSearchOutlinedIcon from "@mui/icons-material/ContentPasteSear
 import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 import GestoredBadge from "../chips/GestoredBadge";
+import { getStatisticsPercentage } from "../../utils/Utils";
 
 interface PublicationsListItemProps {
   publication: PublicationContext;
@@ -25,6 +26,7 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
   index,
 }) => {
   const intl = useIntl();
+  const publicationProgress = getStatisticsPercentage(publication.statistics);
   return (
     <ListItem
       sx={{
@@ -50,19 +52,39 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
                 })}
               />
             )}
-            <Box width={150} pb={1}>
-              <Typography variant="caption" color="text.secondary">
-                {intl.formatMessage(
-                  { id: "publication-progress" },
-                  { progress: 30 }
-                )}
-              </Typography>
-              <LinearProgress
-                variant={"determinate"}
-                value={30}
-                color={"success"}
-              />
-            </Box>
+            {publication.reviewable && (
+              <Box width={150} pb={1}>
+                <Typography variant="caption" color="text.secondary">
+                  {intl.formatMessage(
+                    { id: "publication-progress" },
+                    {
+                      reviewed:
+                        publication.statistics.approvedChanges! +
+                        publication.statistics.rejectedChanges!,
+                      total: publication.statistics.totalChanges,
+                    }
+                  )}
+                </Typography>
+                <LinearProgress
+                  variant={"determinate"}
+                  value={publicationProgress}
+                  color={"success"}
+                />
+              </Box>
+            )}
+
+            {!publication.reviewable && (
+              <Box width={150} pb={1}>
+                <Typography variant="caption" color="text.secondary">
+                  {intl.formatMessage(
+                    { id: "publication-contains-changes" },
+                    {
+                      num: publication.statistics?.totalChanges ?? 0,
+                    }
+                  )}
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Box>
       </Box>

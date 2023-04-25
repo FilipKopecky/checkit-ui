@@ -52,6 +52,7 @@ export const parseStatisticsToPieData = (statistics: Statistics) => {
 };
 
 export const getStatisticsPercentage = (statistics: Statistics) => {
+  if (!statistics) return 0;
   const approvedChanges = statistics.approvedChanges ?? 0;
   const rejectedChanges = statistics.rejectedChanges ?? 0;
   const reviewableChanges = statistics.reviewableChanges ?? 0;
