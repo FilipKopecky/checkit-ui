@@ -48,15 +48,35 @@ const PublicationReviewVocabulary: React.FC = () => {
   }, [vocabularyChanges?.changes]);
 
   const summary = useMemo(() => {
-    let done = 0;
-    let notReviewed = 0;
+    let approved = 0;
+    let rejected = 0;
+    let remaining = 0;
     for (const change of changesInfo.allChanges) {
-      if (change.state === "NOT_REVIEWED") notReviewed++;
-      else done++;
+      switch (change.state) {
+        case "NOT_REVIEWED":
+          remaining++;
+          break;
+        case "APPROVED":
+          approved++;
+          break;
+        case "REJECTED":
+          rejected++;
+          break;
+      }
     }
     return [
-      { name: "pie-chart-not-reviewed", value: notReviewed },
-      { name: "pie-chart-reviewed", value: done },
+      {
+        name: "pie-chart-not-reviewed",
+        value: remaining,
+      },
+      {
+        name: "pie-chart-accepted",
+        value: approved,
+      },
+      {
+        name: "pie-chart-rejected",
+        value: rejected,
+      },
     ];
   }, [changesInfo.allChanges]);
 
@@ -101,19 +121,21 @@ const PublicationReviewVocabulary: React.FC = () => {
         </Grid>
         <Grid item md={3} xs={12}>
           <Grid container spacing={2}>
-            <Grid item md={12} sm={6} xs={12}>
-              <Paper>
-                <PieChart
-                  data={summary}
-                  label={intl.formatMessage(
-                    { id: "pie-chart-changes-left" },
-                    { num: summary[0].value }
-                  )}
-                  fullCircle={false}
-                  animation={true}
-                />
-              </Paper>
-            </Grid>
+            {vocabularyChanges.gestored && (
+              <Grid item md={12} sm={6} xs={12}>
+                <Paper>
+                  <PieChart
+                    data={summary}
+                    label={intl.formatMessage(
+                      { id: "pie-chart-changes-left" },
+                      { num: summary[0].value }
+                    )}
+                    fullCircle={false}
+                    animation={true}
+                  />
+                </Paper>
+              </Grid>
+            )}
             <PublicationReviewVocabularySummary changes={changesInfo} />
           </Grid>
         </Grid>
