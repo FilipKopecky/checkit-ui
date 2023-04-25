@@ -3,6 +3,10 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PieChart from "../charts/PieChart";
 import { Publication } from "../../model/Publication";
+import {
+  getStatisticsPercentage,
+  parseStatisticsToPieData,
+} from "../../utils/Utils";
 
 const CustomPaper = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -21,31 +25,10 @@ const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
   if (!publication.statistics?.reviewableChanges) {
     return <></>;
   }
-  const approvedChanges = publication.statistics.approvedChanges ?? 0;
-  const rejectedChanges = publication.statistics.rejectedChanges ?? 0;
-  const parsedStatistics = [
-    {
-      name: "pie-chart-not-reviewed",
-      value:
-        publication.statistics.reviewableChanges -
-        approvedChanges -
-        rejectedChanges,
-    },
-    {
-      name: "pie-chart-accepted",
-      value: approvedChanges,
-    },
-    {
-      name: "pie-chart-rejected",
-      value: rejectedChanges,
-    },
-  ];
 
-  const percentage = Math.trunc(
-    ((approvedChanges + rejectedChanges) /
-      publication.statistics.reviewableChanges) *
-      100
-  );
+  const parsedStatistics = parseStatisticsToPieData(publication.statistics);
+
+  const percentage = getStatisticsPercentage(publication.statistics);
   const label = `${percentage}%`;
 
   return (

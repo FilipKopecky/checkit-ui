@@ -1,3 +1,5 @@
+import { Statistics } from "../model/Statistics";
+
 export const calculateTimeDifference = (
   date: Date,
   language: string,
@@ -25,4 +27,36 @@ export const calculateTimeDifference = (
   }
   diff = Math.floor(diff);
   return formatter.format(-diff, "days");
+};
+
+export const parseStatisticsToPieData = (statistics: Statistics) => {
+  const approvedChanges = statistics.approvedChanges ?? 0;
+  const rejectedChanges = statistics.rejectedChanges ?? 0;
+  const reviewableChanges = statistics.reviewableChanges ?? 0;
+  const parsedStatistics = [
+    {
+      name: "pie-chart-not-reviewed",
+      value: reviewableChanges - approvedChanges - rejectedChanges,
+    },
+    {
+      name: "pie-chart-accepted",
+      value: approvedChanges,
+    },
+    {
+      name: "pie-chart-rejected",
+      value: rejectedChanges,
+    },
+  ];
+
+  return parsedStatistics;
+};
+
+export const getStatisticsPercentage = (statistics: Statistics) => {
+  const approvedChanges = statistics.approvedChanges ?? 0;
+  const rejectedChanges = statistics.rejectedChanges ?? 0;
+  const reviewableChanges = statistics.reviewableChanges ?? 0;
+  const percentage = Math.trunc(
+    ((approvedChanges + rejectedChanges) / reviewableChanges) * 100
+  );
+  return percentage;
 };
