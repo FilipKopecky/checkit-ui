@@ -7,13 +7,16 @@ import { useGetRelevantPublicationsQuery } from "../api/publicationApi";
 import LoadingOverlay from "./misc/LoadingOverlay";
 import ErrorAlert from "./misc/ErrorAlert";
 
+let voidValue = (function () {})();
 const PublicationsHub: React.FC = () => {
   const intl = useIntl();
   const {
     data: availablePublications,
     isLoading,
     error,
-  } = useGetRelevantPublicationsQuery();
+  } = useGetRelevantPublicationsQuery(voidValue, {
+    refetchOnMountOrArgChange: true,
+  });
   if (isLoading) return <LoadingOverlay />;
   if (error || !availablePublications) return <ErrorAlert />;
 

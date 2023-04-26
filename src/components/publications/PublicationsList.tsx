@@ -8,6 +8,7 @@ import PublicationsListItem from "./PublicationsListItem";
 interface PublicationsListProps {
   publications: PublicationContext[];
 }
+
 const PublicationsList: React.FC<PublicationsListProps> = ({
   publications,
 }) => {
@@ -30,7 +31,10 @@ const InnerItem = React.memo(
     return <PublicationsListItem publication={publication} index={index} />;
   },
   (prevProps, nextProps) => {
-    return prevProps.id === nextProps.id;
+    return (
+      prevProps.id === nextProps.id &&
+      prevProps.publication.statistics === nextProps.publication.statistics
+    );
   }
 );
 
