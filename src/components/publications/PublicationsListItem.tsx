@@ -40,7 +40,13 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
         }}
         pr={1}
       >
-        <ListItemText primary={publication.label} />
+        <ListItemText
+          primary={publication.label}
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Box display={"flex"} gap={2} sx={{ alignItems: "center" }}>
             {publication.reviewable && (

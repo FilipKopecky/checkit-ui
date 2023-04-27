@@ -111,7 +111,13 @@ const InnerItem = React.memo(
             }}
             pr={1}
           >
-            <ListItemText primary={vocabulary.label} />
+            <ListItemText
+              primary={vocabulary.label}
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            />
             <Box
               display={"flex"}
               sx={{ display: "flex", alignItems: "center" }}
