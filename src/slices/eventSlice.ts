@@ -28,8 +28,12 @@ const eventSlice = createSlice({
     setUpAvailableItems: (state, action: PayloadAction<Change[]>) => {
       const arr = [];
       for (let i = 0; i < action.payload.length; i++) {
-        if (action.payload[i].state === "NOT_REVIEWED") {
-          arr.push({ id: action.payload[i].id, index: i });
+        const change = action.payload[i];
+        if (
+          change.state === "NOT_REVIEWED" ||
+          (change.state === "REJECTED" && !change.rejectionComment)
+        ) {
+          arr.push({ id: change.id, index: i });
         }
       }
       state.availableItems = arr;

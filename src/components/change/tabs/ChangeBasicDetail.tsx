@@ -46,7 +46,9 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
           variant: "error",
         });
       });
-    dispatch(scrollToNextAvailableItem(change.id));
+    if (state === "APPROVED") {
+      dispatch(scrollToNextAvailableItem(change.id));
+    }
   };
   const handleClear = () => {
     clearChangeState({
@@ -65,7 +67,7 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
           <Grid item md={6} xs={12}>
             <ModifiedObject objectData={change.object} type={change.type} />
           </Grid>
-          {change.type === "MODIFIED" && (
+          {change.newObject && (
             <>
               <Grid item md={1} xs={12}>
                 <Box

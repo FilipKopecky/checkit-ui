@@ -5,10 +5,11 @@ import ChangeDeclineMessage from "./ChangeDeclineMessage";
 import { Change, ChangeState } from "../../model/Change";
 import { useIntl } from "react-intl";
 import { useAddRejectionChangeCommentMutation } from "../../api/commentApi";
-import { useAppSelector } from "../../hooks/ReduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
 import { useSnackbar } from "notistack";
 import { CommentFormData } from "../../model/CommentData";
+import { scrollToNextAvailableItem } from "../../slices/eventSlice";
 
 interface ChangeActionsProps {
   change: Change;
@@ -25,7 +26,7 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
   const currentUser = useAppSelector(selectUser);
   const [addRejectComment] = useAddRejectionChangeCommentMutation();
   const { enqueueSnackbar } = useSnackbar();
-
+  const dispatch = useAppDispatch();
   const handleSubmitDeclineMessage = (data: CommentFormData) => {
     addRejectComment({
       topic: change.uri,
@@ -44,6 +45,7 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
           variant: "error",
         });
       });
+    dispatch(scrollToNextAvailableItem(change.id));
   };
 
   return (
