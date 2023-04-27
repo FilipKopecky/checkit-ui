@@ -10,7 +10,7 @@ import PublicationStatistics from "./PublicationStatistics";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
-import { Vocabulary } from "../../model/Vocabulary";
+import { PublicationVocabularyData, Vocabulary } from "../../model/Vocabulary";
 import GestoredBadge from "../chips/GestoredBadge";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
@@ -51,8 +51,10 @@ const PublicationSummary: React.FC = () => {
   if (isLoading) return <LoadingOverlay />;
   if (error || !publication) return <ErrorAlert />;
 
-  const showAditional = (vocabulary: Vocabulary): React.ReactNode => {
-    if (vocabulary.gestors?.some((v) => v.id === currentUser.id)) {
+  const showAditional = (
+    vocabulary: PublicationVocabularyData
+  ): React.ReactNode => {
+    if (vocabulary.gestored) {
       return <GestoredBadge label={intl.formatMessage({ id: "gestored" })} />;
     }
     return <></>;

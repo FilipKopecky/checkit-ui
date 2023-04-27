@@ -16,7 +16,8 @@ interface VocabulariesListProps {
   gestorsClick: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
   disabled?: (vocabulary: Vocabulary) => boolean;
-  additionalInfo?: (vocabulary: Vocabulary) => React.ReactNode;
+  //TODO: fix the any
+  additionalInfo?: (vocabulary: any) => React.ReactNode;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({

@@ -4,7 +4,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import {
   Box,
-  LinearProgress,
   ListItemSecondaryAction,
   Tooltip,
   Typography,
@@ -14,7 +13,7 @@ import ContentPasteSearchOutlinedIcon from "@mui/icons-material/ContentPasteSear
 import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
 import GestoredBadge from "../chips/GestoredBadge";
-import { getStatisticsPercentage } from "../../utils/Utils";
+import ProgressBar from "../misc/ProgressBar";
 
 interface PublicationsListItemProps {
   publication: PublicationContext;
@@ -26,7 +25,6 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
   index,
 }) => {
   const intl = useIntl();
-  const publicationProgress = getStatisticsPercentage(publication.statistics);
   return (
     <ListItem
       sx={{
@@ -53,24 +51,13 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
               />
             )}
             {publication.reviewable && (
-              <Box width={150} pb={1}>
-                <Typography variant="caption" color="text.secondary">
-                  {intl.formatMessage(
-                    { id: "publication-progress" },
-                    {
-                      reviewed:
-                        publication.statistics.approvedChanges! +
-                        publication.statistics.rejectedChanges!,
-                      total: publication.statistics.totalChanges,
-                    }
-                  )}
-                </Typography>
-                <LinearProgress
-                  variant={"determinate"}
-                  value={publicationProgress}
-                  color={"success"}
-                />
-              </Box>
+              <ProgressBar
+                resolved={
+                  publication.statistics.approvedChanges! +
+                  publication.statistics.rejectedChanges!
+                }
+                total={publication.statistics.totalChanges}
+              />
             )}
 
             {!publication.reviewable && (
