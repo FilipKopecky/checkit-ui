@@ -16,7 +16,8 @@ interface VocabulariesListProps {
   gestorsClick: (vocabulary: Vocabulary) => void;
   actionIcon?: React.ReactNode;
   disabled?: (vocabulary: Vocabulary) => boolean;
-  additionalInfo?: (vocabulary: Vocabulary) => React.ReactNode;
+  //TODO: fix the any
+  additionalInfo?: (vocabulary: any) => React.ReactNode;
 }
 
 const VocabulariesList: React.FC<VocabulariesListProps> = ({
@@ -110,7 +111,13 @@ const InnerItem = React.memo(
             }}
             pr={1}
           >
-            <ListItemText primary={vocabulary.label} />
+            <ListItemText
+              primary={vocabulary.label}
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            />
             <Box
               display={"flex"}
               sx={{ display: "flex", alignItems: "center" }}

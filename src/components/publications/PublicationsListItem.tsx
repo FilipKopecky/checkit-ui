@@ -2,19 +2,12 @@ import React from "react";
 import { PublicationContext } from "../../model/Publication";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import {
-  Box,
-  LinearProgress,
-  ListItemSecondaryAction,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, ListItemSecondaryAction, Tooltip } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import ContentPasteSearchOutlinedIcon from "@mui/icons-material/ContentPasteSearchOutlined";
 import { Link } from "react-router-dom";
 import { useIntl } from "react-intl";
-import GestoredBadge from "../chips/GestoredBadge";
-import { getStatisticsPercentage } from "../../utils/Utils";
+import ReviewProgress from "./ReviewProgress";
 
 interface PublicationsListItemProps {
   publication: PublicationContext;
@@ -26,7 +19,6 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
   index,
 }) => {
   const intl = useIntl();
-  const publicationProgress = getStatisticsPercentage(publication.statistics);
   return (
     <ListItem
       sx={{
@@ -42,51 +34,17 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
         }}
         pr={1}
       >
-        <ListItemText primary={publication.label} />
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box display={"flex"} gap={2} sx={{ alignItems: "center" }}>
-            {publication.reviewable && (
-              <GestoredBadge
-                label={intl.formatMessage({
-                  id: "contains-gestored-vocabulary",
-                })}
-              />
-            )}
-            {publication.reviewable && (
-              <Box width={150} pb={1}>
-                <Typography variant="caption" color="text.secondary">
-                  {intl.formatMessage(
-                    { id: "publication-progress" },
-                    {
-                      reviewed:
-                        publication.statistics.approvedChanges! +
-                        publication.statistics.rejectedChanges!,
-                      total: publication.statistics.totalChanges,
-                    }
-                  )}
-                </Typography>
-                <LinearProgress
-                  variant={"determinate"}
-                  value={publicationProgress}
-                  color={"success"}
-                />
-              </Box>
-            )}
-
-            {!publication.reviewable && (
-              <Box width={150} pb={1}>
-                <Typography variant="caption" color="text.secondary">
-                  {intl.formatMessage(
-                    { id: "publication-contains-changes" },
-                    {
-                      num: publication.statistics?.totalChanges ?? 0,
-                    }
-                  )}
-                </Typography>
-              </Box>
-            )}
-          </Box>
-        </Box>
+        <ListItemText
+          primary={publication.label}
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        />
+        <ReviewProgress
+          gestored={publication.reviewable}
+          statistics={publication.statistics}
+        />
       </Box>
       <ListItemSecondaryAction>
         <Link to={publication.id}>
