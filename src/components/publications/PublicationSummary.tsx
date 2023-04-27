@@ -11,12 +11,12 @@ import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
 import { PublicationVocabularyData, Vocabulary } from "../../model/Vocabulary";
-import GestoredBadge from "../chips/GestoredBadge";
 import { useAppSelector } from "../../hooks/ReduxHooks";
 import { selectUser } from "../../slices/userSlice";
 import VocabularyGestorsModal from "../vocabulary/VocabularyGestorsModal";
 import LoadingOverlay from "../misc/LoadingOverlay";
 import ErrorAlert from "../misc/ErrorAlert";
+import ReviewProgress from "./ReviewProgress";
 
 const Item = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
@@ -54,10 +54,12 @@ const PublicationSummary: React.FC = () => {
   const showAditional = (
     vocabulary: PublicationVocabularyData
   ): React.ReactNode => {
-    if (vocabulary.gestored) {
-      return <GestoredBadge label={intl.formatMessage({ id: "gestored" })} />;
-    }
-    return <></>;
+    return (
+      <ReviewProgress
+        gestored={vocabulary.gestored}
+        statistics={vocabulary.statistics}
+      />
+    );
   };
 
   const handleGestorsClick = (vocabulary: Vocabulary) => {
