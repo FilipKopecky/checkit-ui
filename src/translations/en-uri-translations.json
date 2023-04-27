@@ -14,6 +14,17 @@
   "SKOS_NOTATION": "Notation",
   "SKOS_EXAMPLE": "Usage example",
   "SKOS_HAS_TOP_CONCEPT": "Has top-level term",
+  "DCTERMS_CREATED": "Creation date",
+  "DCTERMS_TITLE": "Label",
+  "DCTERMS_RIGHTS": "Rights associated",
+  "DCTERMS_SOURCE": "Source",
+  "DCTERMS_DESCRIPTION": "Description",
+  "DCTERMS_RELATION": "Relation",
+  "DCTERMS_CREATOR": "Creator",
+  "DCTERMS_CONTRIBUTOR": "Contributor",
+  "DCTERMS_IDENTIFIER": "Resource identifier",
+  "DCTERMS_LICENSE": "License",
+  "DCTERMS_FORMAT": "Format",
   "ONTO_FEL_IS_DRAFT": "Is draft",
   "RDF_TYPE": "Is a instance of"
 }

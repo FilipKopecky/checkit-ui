@@ -255,6 +255,50 @@ export const UriToTranslationMapper: {
     id: "SKOS_HAS_TOP_CONCEPT",
     descriptionId: "DESCRIPTION_SKOS_HAS_TOP_CONCEPT",
   },
+  "http://purl.org/dc/terms/created": {
+    id: "DCTERMS_CREATED",
+    descriptionId: "DESCRIPTION_DCTERMS_CREATED",
+  },
+  "http://purl.org/dc/terms/title": {
+    id: "DCTERMS_TITLE",
+    descriptionId: "DESCRIPTION_DCTERMS_TITLE",
+  },
+  "http://purl.org/dc/terms/rights": {
+    id: "DCTERMS_RIGHTS",
+    descriptionId: "DESCRIPTION_DCTERMS_RIGHT",
+  },
+  "http://purl.org/dc/terms/source": {
+    id: "DCTERMS_SOURCE",
+    descriptionId: "DESCRIPTION_DCTERMS_SOURCE",
+  },
+  "http://purl.org/dc/terms/description": {
+    id: "DCTERMS_DESCRIPTION",
+    descriptionId: "DESCRIPTION_DCTERMS_DESCRIPTION",
+  },
+  "http://purl.org/dc/terms/relation": {
+    id: "DCTERMS_RELATION",
+    descriptionId: "DESCRIPTION_DCTERMS_RELATION",
+  },
+  "http://purl.org/dc/terms/creator": {
+    id: "DCTERMS_CREATOR",
+    descriptionId: "DESCRIPTION_DCTERMS_CREATOR",
+  },
+  "http://purl.org/dc/terms/contributor": {
+    id: "DCTERMS_CONTRIBUTOR",
+    descriptionId: "DESCRIPTION_DCTERMS_CONTRIBUTOR",
+  },
+  "http://purl.org/dc/terms/identifier": {
+    id: "DCTERMS_IDENTIFIER",
+    descriptionId: "DESCRIPTION_DCTERMS_IDENTIFIER",
+  },
+  "http://purl.org/dc/terms/license": {
+    id: "DCTERMS_LICENSE",
+    descriptionId: "DESCRIPTION_DCTERMS_LICENSE",
+  },
+  "http://purl.org/dc/terms/format": {
+    id: "DCTERMS_FORMAT",
+    descriptionId: "DESCRIPTION_DCTERMS_FORMAT",
+  },
   "http://onto.fel.cvut.cz/ontologies/application/termit/pojem/je-draft": {
     id: "ONTO_FEL_IS_DRAFT",
     descriptionId: "DESCRIPTION_ONTO_FEL_IS_DRAFT",
