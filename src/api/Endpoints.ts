@@ -17,6 +17,7 @@ const endpoints = {
   CHANGE_COMMENTS: "comments/discussion-on-change",
   REJECT_COMMENT_CHANGE: "comments/rejection-on-change",
   NOTIFICATIONS: "notifications",
+  NOTIFICATIONS_SEEN: "notifications/seen",
 };
 
 export const getAdminRoleSwitch = (id: string) => {

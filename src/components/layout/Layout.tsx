@@ -18,6 +18,7 @@ import SideBarContent from "./SideBarContent";
 import { useGetCurrentUserQuery } from "../../api/userApi";
 import LoadingOverlay from "../misc/LoadingOverlay";
 import Breadcrumbs from "../routing/Breadcrumbs";
+import NotificationBell from "../notification/NotificationBell";
 
 const drawerWidth = 240;
 
@@ -64,7 +65,14 @@ const Layout: React.FC = () => {
           <Typography variant="h6" noWrap component="div">
             CheckIt
           </Typography>
-          <Box style={{ marginLeft: "auto" }}>
+          <Box
+            style={{
+              marginLeft: "auto",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <NotificationBell />
             <LanguageSelector />
           </Box>
         </Toolbar>
