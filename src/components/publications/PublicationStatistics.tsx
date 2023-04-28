@@ -9,7 +9,6 @@ import { useIntl } from "react-intl";
 const CustomPaper = styled(Paper)(({ theme }) => ({
   paddingTop: theme.spacing(1),
   textAlign: "center",
-  height: "100%",
   fontSize: theme.typography.body1.fontSize,
 }));
 
