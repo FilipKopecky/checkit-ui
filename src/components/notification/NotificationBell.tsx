@@ -32,7 +32,7 @@ const NotificationBell: React.FC = () => {
         <Box pl={3}>
           <Typography variant={"h6"}>Notifikace</Typography>
         </Box>
-        <NotificationList />
+        <NotificationList closeList={handleClose} />
       </Menu>
     </Box>
   );

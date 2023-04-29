@@ -15,11 +15,15 @@ export const notificationApi = apiSlice.injectEndpoints({
           pageNumber: params.pageNumber,
         },
       }),
-      providesTags: ["ALL_NOTIFICATIONS"],
+      transformResponse: (rawResult: Notification[], meta, arg) => {
+        return rawResult.map((result) => {
+          return { ...result, pageNumber: arg.pageNumber! };
+        });
+      },
     }),
     resolveSeenNotification: builder.mutation<
       Notification,
-      Partial<Notification>
+      Partial<Notification> & { languageTag: string; pageNumber?: number }
     >({
       query(data) {
         return {
@@ -30,6 +34,28 @@ export const notificationApi = apiSlice.injectEndpoints({
           },
           body: `"${data.uri}"`,
         };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const notificationPatch = dispatch(
+          notificationApi.util.updateQueryData(
+            "getNotifications",
+            {
+              languageTag: patch.languageTag,
+              pageNumber: patch.pageNumber,
+            },
+            (draft) => {
+              Object.assign(
+                draft.find((notification) => notification.uri === patch.uri)!,
+                { readAt: new Date(Date.now()).getTime() }
+              );
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          notificationPatch.undo();
+        }
       },
     }),
   }),

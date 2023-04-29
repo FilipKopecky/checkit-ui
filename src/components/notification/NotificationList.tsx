@@ -10,7 +10,11 @@ import { Notification } from "../../model/Notification";
 import NotificationItem from "./NotificationItem";
 import List from "../misc/VirtuosoMuiList";
 
-const NotificationList: React.FC = () => {
+interface NotificationListProps {
+  closeList: () => void;
+}
+
+const NotificationList: React.FC<NotificationListProps> = ({ closeList }) => {
   const languageSelector = useAppSelector(selectLanguage);
   const [pageNumber, setPageNumber] = useState(0);
   const {
@@ -50,7 +54,13 @@ const NotificationList: React.FC = () => {
       data={loadedNotifications}
       endReached={loadMore}
       itemContent={(index, notification) => {
-        return <NotificationItem notification={notification} />;
+        return (
+          <NotificationItem
+            closeList={closeList}
+            notification={notification}
+            langTag={languageSelector.language}
+          />
+        );
       }}
       components={{ List, EmptyPlaceholder: EmptyPlaceholder }}
     />

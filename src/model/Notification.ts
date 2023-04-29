@@ -5,4 +5,5 @@ export interface Notification {
   about: string;
   created: Date;
   readAt?: Date;
+  pageNumber: number;
 }

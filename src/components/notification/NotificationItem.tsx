@@ -8,18 +8,27 @@ import { useResolveSeenNotificationMutation } from "../../api/notificationApi";
 
 interface NotificationItemProps {
   notification: Notification;
+  langTag: string;
+  closeList: () => void;
 }
 
 const NotificationItem: React.FC<NotificationItemProps> = ({
   notification,
+  langTag,
+  closeList,
 }) => {
   const navigate = useNavigate();
   const [resolveSeenNotification] = useResolveSeenNotificationMutation();
   const handleCLick = () => {
     if (!notification.readAt) {
-      resolveSeenNotification({ uri: notification.uri });
+      resolveSeenNotification({
+        uri: notification.uri,
+        pageNumber: notification.pageNumber,
+        languageTag: langTag,
+      });
     }
     navigate(notification.about);
+    closeList();
   };
   return (
     <Box>
