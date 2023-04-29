@@ -41,7 +41,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
         object={change.object}
         type={change.type}
       />
-      {change.type === "MODIFIED" && (
+      {change.newObject && (
         <Box>
           <Box
             sx={{

@@ -5,7 +5,6 @@ import PublicationHeader from "./PublicationHeader";
 import VocabulariesList from "../vocabulary/VocabulariesList";
 import IslandHeader from "../misc/IslandHeader";
 import { useIntl } from "react-intl";
-import PublicationNotifications from "./PublicationNotifications";
 import PublicationStatistics from "./PublicationStatistics";
 import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
@@ -104,12 +103,6 @@ const PublicationSummary: React.FC = () => {
         </Grid>
         <Grid container item md={4} spacing={2} xs={12}>
           <PublicationStatistics publication={publication} />
-          <Grid item md={12} sm={6} xs={12}>
-            <Item>
-              <IslandHeader header={"Notifikace"} />
-              <PublicationNotifications />
-            </Item>
-          </Grid>
         </Grid>
       </Grid>
       <VocabularyGestorsModal

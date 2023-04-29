@@ -14,6 +14,17 @@
   "SKOS_NOTATION": "Notace",
   "SKOS_EXAMPLE": "Příklad použití",
   "SKOS_HAS_TOP_CONCEPT": "Má pojem nejvyšší úrovně",
+  "DCTERMS_CREATED": "Datum vytvoření",
+  "DCTERMS_TITLE": "Název",
+  "DCTERMS_RIGHTS": "Autorské právo",
+  "DCTERMS_SOURCE": "Zdroj",
+  "DCTERMS_DESCRIPTION": "Popis",
+  "DCTERMS_RELATION": "Vztah",
+  "DCTERMS_CREATOR": "Tvůrce",
+  "DCTERMS_CONTRIBUTOR": "Přispěvatel",
+  "DCTERMS_IDENTIFIER": "Identifikátor zdroje",
+  "DCTERMS_LICENSE": "Licence",
+  "DCTERMS_FORMAT": "Formát",
   "ONTO_FEL_IS_DRAFT": "Je draft",
   "RDF_TYPE": "Je instancí"
 }
