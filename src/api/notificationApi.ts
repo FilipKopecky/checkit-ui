@@ -21,6 +21,9 @@ export const notificationApi = apiSlice.injectEndpoints({
         });
       },
     }),
+    getUnreadNotificationsCount: builder.query<number, void>({
+      query: () => Endpoints.NOTIFICATIONS_UNREAD_COUNT,
+    }),
     resolveSeenNotification: builder.mutation<
       Notification,
       Partial<Notification> & { languageTag: string; pageNumber?: number }
@@ -51,10 +54,20 @@ export const notificationApi = apiSlice.injectEndpoints({
             }
           )
         );
+        const notificationCountPatch = dispatch(
+          notificationApi.util.updateQueryData(
+            "getUnreadNotificationsCount",
+            undefined,
+            (draft) => {
+              return draft - 1;
+            }
+          )
+        );
         try {
           await queryFulfilled;
         } catch {
           notificationPatch.undo();
+          notificationCountPatch.undo();
         }
       },
     }),
@@ -62,5 +75,8 @@ export const notificationApi = apiSlice.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useGetNotificationsQuery, useResolveSeenNotificationMutation } =
-  notificationApi;
+export const {
+  useGetNotificationsQuery,
+  useResolveSeenNotificationMutation,
+  useGetUnreadNotificationsCountQuery,
+} = notificationApi;
