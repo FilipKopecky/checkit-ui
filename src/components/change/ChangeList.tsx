@@ -15,7 +15,6 @@ interface ChangeListProps {
 const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
   const [searchParams] = useSearchParams();
   const changeId = searchParams.get("changeId");
-  console.log(changeId);
   const virtuoso = useRef<VirtuosoHandle>(null);
   const eventSelector = useAppSelector(selectEvent);
   const [startIndex] = useState(
@@ -35,7 +34,6 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
   };
 
   useLayoutEffect(() => {
-    console.log("USE LAYOUT EFFECT");
     //Smoothly scrolls to latest unreviewed change or scrolls to change mentioned in the parameter
     let index = 0;
     if (passedChangeIndex !== -1) {
