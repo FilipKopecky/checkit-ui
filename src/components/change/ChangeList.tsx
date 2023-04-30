@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { GroupedVirtuoso, VirtuosoHandle } from "react-virtuoso";
 import ChangeListItem from "./ChangeListItem";
 import ChangeListItemGroup from "./ChangeListItemGroup";
@@ -18,6 +18,14 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
   console.log(changeId);
   const virtuoso = useRef<VirtuosoHandle>(null);
   const eventSelector = useAppSelector(selectEvent);
+  const [startIndex] = useState(
+    changeListData.allChanges.findIndex(
+      (change) => change.state === "NOT_REVIEWED"
+    )
+  );
+  const [passedChangeIndex] = useState(
+    changeListData.allChanges.findIndex((change) => change.id === changeId)
+  );
   const handleSmoothScroll = (index: number) => {
     virtuoso.current?.scrollToIndex({
       index: index,
@@ -25,23 +33,20 @@ const ChangeList: React.FC<ChangeListProps> = ({ changeListData }) => {
       behavior: "smooth",
     });
   };
-  const startIndex = changeListData.allChanges.findIndex(
-    (change) => change.state === "NOT_REVIEWED"
-  );
+
   useLayoutEffect(() => {
+    console.log("USE LAYOUT EFFECT");
     //Smoothly scrolls to latest unreviewed change or scrolls to change mentioned in the parameter
     let index = 0;
-    if (changeId) {
-      index = changeListData.allChanges.findIndex(
-        (change) => change.id === changeId
-      );
+    if (passedChangeIndex !== -1) {
+      index = passedChangeIndex;
     } else {
       index = startIndex === -1 ? 0 : startIndex;
     }
     new Promise((r) => setTimeout(r, 100)).then(() =>
       handleSmoothScroll(index)
     );
-  }, [startIndex, changeId, changeListData]);
+  }, [passedChangeIndex, startIndex]);
 
   useEffect(() => {
     if (eventSelector.changeScrollDate) {
