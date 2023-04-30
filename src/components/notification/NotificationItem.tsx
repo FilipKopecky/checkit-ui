@@ -2,7 +2,6 @@ import React from "react";
 import { Notification } from "../../model/Notification";
 import ListItemText from "@mui/material/ListItemText";
 import { Box, MenuItem } from "@mui/material";
-import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 import { useResolveSeenNotificationMutation } from "../../api/notificationApi";
 
@@ -45,7 +44,6 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
           />
         </Box>
       </MenuItem>
-      <Divider />
     </Box>
   );
 };
