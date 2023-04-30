@@ -4,6 +4,10 @@ import ListItemText from "@mui/material/ListItemText";
 import { Box, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useResolveSeenNotificationMutation } from "../../api/notificationApi";
+import { calculateTimeDifference } from "../../utils/Utils";
+import { useIntl } from "react-intl";
+import { useAppSelector } from "../../hooks/ReduxHooks";
+import { selectLanguage } from "../../slices/languageSlice";
 
 interface NotificationItemProps {
   notification: Notification;
@@ -17,6 +21,8 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
   closeList,
 }) => {
   const navigate = useNavigate();
+  const intl = useIntl();
+  const languageSelector = useAppSelector(selectLanguage);
   const [resolveSeenNotification] = useResolveSeenNotificationMutation();
   const handleCLick = () => {
     if (!notification.readAt) {
@@ -40,7 +46,12 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
               },
             }}
             primary={notification.title}
-            secondary={notification.content}
+            secondary={`${notification.content}
+- ${calculateTimeDifference(
+              notification.created,
+              languageSelector.language,
+              intl.formatMessage({ id: "just-now" })
+            )}`}
           />
         </Box>
       </MenuItem>
