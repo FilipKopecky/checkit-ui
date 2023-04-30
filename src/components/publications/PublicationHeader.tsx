@@ -10,6 +10,7 @@ import {
 import { useIntl } from "react-intl";
 import { Publication } from "../../model/Publication";
 import PublicationSubmitModal from "./PublicationSubmitModal";
+import Comment from "../comments/Comment";
 
 interface PublicationHeaderProps {
   gestored: boolean;
@@ -91,6 +92,18 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({
                 </Button>
               </Box>
             )}
+          {publication.finalComment && (
+            <Box
+              bgcolor={publication.state === "APPROVED" ? "#EDF7ED" : "#FDEDED"}
+              padding={1}
+              borderRadius={1}
+            >
+              <Comment
+                comment={publication.finalComment!}
+                showDivider={false}
+              />
+            </Box>
+          )}
         </Box>
       </Paper>
       <PublicationSubmitModal
