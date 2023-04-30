@@ -64,6 +64,7 @@
   "change-detail-basic-tab": "Summary",
   "change-detail-turtle-tab": "Turtle",
   "change-detail-comments-tab": "Discussion",
+  "change-detail-comments-tab-number": "Discussion ({num})",
   "change-detail-state-created": "Created",
   "change-detail-state-modified": "Modified",
   "change-detail-state-deleted": "Deleted",

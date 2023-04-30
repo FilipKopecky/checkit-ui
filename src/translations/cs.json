@@ -64,6 +64,7 @@
   "change-detail-basic-tab": "Přehled",
   "change-detail-turtle-tab": "Turtle",
   "change-detail-comments-tab": "Diskuse",
+  "change-detail-comments-tab-number": "Diskuse ({num})",
   "change-detail-state-created": "Vytvořeno",
   "change-detail-state-modified": "Upraveno",
   "change-detail-state-deleted": "Smazáno",

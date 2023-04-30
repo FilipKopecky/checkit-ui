@@ -26,6 +26,7 @@ export interface Change extends ChangedVocabularyIdentity {
   rejectionComment?: CommentData;
   gestored: boolean;
   publicationDate: Date;
+  numberOfComments: number;
 }
 
 export interface ChangedVocabularyIdentity {

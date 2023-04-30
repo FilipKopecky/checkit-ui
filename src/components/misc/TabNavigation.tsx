@@ -5,12 +5,14 @@ import { useIntl } from "react-intl";
 
 interface TabNavigationProps {
   tabs: string[];
+  labels: string[];
   activeTab: string;
   setActiveTab: (event: React.SyntheticEvent, newValue: string) => void;
 }
 
 const TabNavigation: React.FC<TabNavigationProps> = ({
   tabs,
+  labels,
   activeTab,
   setActiveTab,
 }) => {
@@ -42,11 +44,11 @@ const TabNavigation: React.FC<TabNavigationProps> = ({
           },
         }}
       >
-        {tabs.map((tab) => {
+        {tabs.map((tab, index) => {
           return (
             <Tab
               key={tab}
-              label={intl.formatMessage({ id: tab })}
+              label={labels[index]}
               value={tab}
               disableRipple={true}
             />
