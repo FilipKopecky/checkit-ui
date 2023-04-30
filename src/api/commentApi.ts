@@ -21,7 +21,10 @@ export const commentApi = apiSlice.injectEndpoints({
       },
       providesTags: (result, error, id) => [{ type: "COMMENTS", id }],
     }),
-    addComment: builder.mutation<CommentData, Partial<CommentData>>({
+    addComment: builder.mutation<
+      CommentData,
+      Partial<CommentData> & ChangedVocabularyIdentity
+    >({
       query(data) {
         const { uri, content } = data;
         return {
@@ -33,6 +36,30 @@ export const commentApi = apiSlice.injectEndpoints({
           },
           body: content,
         };
+      },
+      async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
+        const changeUpdate = dispatch(
+          publicationApi.util.updateQueryData(
+            "getVocabularyChanges",
+            {
+              vocabularyUri: patch.vocabularyUri!,
+              publicationId: patch.publicationId!,
+            },
+            (draft) => {
+              const change = draft.changes.find(
+                (change) => change.uri === patch.uri
+              )!;
+              Object.assign(change, {
+                numberOfComments: change.numberOfComments + 1,
+              });
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          changeUpdate.undo();
+        }
       },
       invalidatesTags: ["COMMENTS"],
     }),

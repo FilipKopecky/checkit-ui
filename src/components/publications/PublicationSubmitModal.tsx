@@ -43,7 +43,7 @@ const PublicationSubmitModal: React.FC<PublicationSubmitModalProps> = ({
     resolvePublicationState({
       id: publication.id,
       state: reject ? "REJECTED" : "APPROVED",
-      finalComment:
+      closingComment:
         data.ClosingComment.length === 0 ? `""` : data.ClosingComment,
     })
       .unwrap()

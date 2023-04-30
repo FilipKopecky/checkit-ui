@@ -20,6 +20,7 @@ import ChangeActions from "../ChangeActions";
 import { useSnackbar } from "notistack";
 import { useIntl } from "react-intl";
 import ChangeBoxColored from "../ChangeBoxColored";
+import Typography from "@mui/material/Typography";
 
 interface ChangeBasicDetailProps {
   change: Change;
@@ -63,6 +64,13 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
   return (
     <Box pt={1} pb={1}>
       <Box>
+        {change.type === "ROLLBACKED" && change.state !== "APPROVED" && (
+          <Box pb={2}>
+            <Typography variant={"body2"}>
+              {intl.formatMessage({ id: "change-detail-state-rollbacked" })}
+            </Typography>
+          </Box>
+        )}
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
             <ModifiedObject objectData={change.object} type={change.type} />

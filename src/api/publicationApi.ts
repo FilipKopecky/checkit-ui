@@ -218,7 +218,7 @@ export const publicationApi = apiSlice.injectEndpoints({
     }),
     approveOrRejectPublication: builder.mutation<
       Publication,
-      Partial<Publication>
+      Partial<Publication> & { closingComment: string }
     >({
       query(data) {
         return {
@@ -227,7 +227,7 @@ export const publicationApi = apiSlice.injectEndpoints({
             data.state === "APPROVED" ? "approved" : "rejected"
           ),
           method: "POST",
-          body: data.finalComment,
+          body: data.closingComment,
         };
       },
       async onQueryStarted({ ...patch }, { dispatch, queryFulfilled }) {
@@ -246,6 +246,9 @@ export const publicationApi = apiSlice.injectEndpoints({
           publicationPatch.undo();
         }
       },
+      invalidatesTags: (result, error, arg) => [
+        { type: "PUBLICATIONS", id: arg.id },
+      ],
     }),
   }),
 

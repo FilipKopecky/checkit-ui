@@ -31,6 +31,7 @@ import { isMapped } from "../../utils/ChangeUtils";
 import ChangeRestrictionDetail from "./tabs/ChangeRestrictionDetail";
 import NoMaxWidthTooltip from "../misc/NoMaxWidthTooltip";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useIntl } from "react-intl";
 
 interface ChangeDetailProps {
   change: Change;
@@ -50,6 +51,7 @@ const tabs = [
 ];
 
 const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
+  const intl = useIntl();
   const dispatch = useAppDispatch();
   const handleTabSwitch = (event: React.SyntheticEvent, newValue: string) => {
     dispatch(switchTab({ uri: change.uri, tab: newValue }));
@@ -65,6 +67,23 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
   const expanded = selectedItem!.expanded;
   const activeTab = selectedItem!.activeTab;
 
+  const labels = useMemo(() => {
+    if (change.numberOfComments > 0) {
+      return [
+        intl.formatMessage({ id: "change-detail-basic-tab" }),
+        intl.formatMessage({ id: "change-detail-turtle-tab" }),
+        intl.formatMessage(
+          { id: "change-detail-comments-tab-number" },
+          { num: change.numberOfComments }
+        ),
+      ];
+    }
+    return [
+      intl.formatMessage({ id: "change-detail-basic-tab" }),
+      intl.formatMessage({ id: "change-detail-turtle-tab" }),
+      intl.formatMessage({ id: "change-detail-comments-tab" }),
+    ];
+  }, [change.numberOfComments, intl]);
   const componentToRender = useMemo(() => {
     switch (activeTab) {
       case Constants.CHANGE_DETAIL.TABS.BASIC:
@@ -83,6 +102,8 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 ? change.object.restriction.commentableChange
                 : change.uri
             }
+            vocabularyUri={change.vocabularyUri}
+            publicationId={change.publicationId}
           />
         );
       default:
@@ -134,6 +155,7 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
               </Box>
               <Box sx={{ display: "flex", alignItems: "end" }}>
                 <TabNavigation
+                  labels={labels}
                   tabs={tabs}
                   activeTab={activeTab}
                   setActiveTab={handleTabSwitch}

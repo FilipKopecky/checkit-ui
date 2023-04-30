@@ -24,6 +24,12 @@ const PieChart: React.FC<PieChartProps> = ({
   fullCircle = true,
   animation = false,
 }) => {
+  const calculatePaddingAngle = () => {
+    if (data[0].value === 0 || data[1].value === 0) {
+      return 0;
+    }
+    return 5;
+  };
   return (
     <ResponsiveContainer width="100%" height={fullCircle ? 300 : 150}>
       <PieChartRechart>
@@ -33,7 +39,7 @@ const PieChart: React.FC<PieChartProps> = ({
           outerRadius={110}
           endAngle={fullCircle ? 360 : 180}
           fill="#8884d8"
-          paddingAngle={data[0].value === 0 ? 0 : 5}
+          paddingAngle={calculatePaddingAngle()}
           dataKey="value"
           cx={"50%"}
           cy={fullCircle ? "50%" : "90%"}

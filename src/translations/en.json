@@ -64,10 +64,11 @@
   "change-detail-basic-tab": "Summary",
   "change-detail-turtle-tab": "Turtle",
   "change-detail-comments-tab": "Discussion",
+  "change-detail-comments-tab-number": "Discussion ({num})",
   "change-detail-state-created": "Created",
   "change-detail-state-modified": "Modified",
   "change-detail-state-deleted": "Deleted",
-  "change-detail-state-rollbacked": "Rollbacked",
+  "change-detail-state-rollbacked": "The change was updated",
   "change-detail-new": "New",
   "change-detail-original": "Original",
   "change-detail-deleted": "Deleted",
@@ -92,5 +93,6 @@
   "undo": "Undo",
   "submit-publication": "Submit publication",
   "error-text-length": "Text must be at least {num} characters long",
-  "error-field-required": "This field is required"
+  "error-field-required": "This field is required",
+  "change-rejected-by-other": "Change was rejected by other users"
 }
