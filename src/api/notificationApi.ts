@@ -54,10 +54,20 @@ export const notificationApi = apiSlice.injectEndpoints({
             }
           )
         );
+        const notificationCountPatch = dispatch(
+          notificationApi.util.updateQueryData(
+            "getUnreadNotificationsCount",
+            undefined,
+            (draft) => {
+              return draft - 1;
+            }
+          )
+        );
         try {
           await queryFulfilled;
         } catch {
           notificationPatch.undo();
+          notificationCountPatch.undo();
         }
       },
     }),
