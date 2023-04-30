@@ -41,11 +41,11 @@ const PublicationSummary: React.FC = () => {
 
   const containsGestored = useMemo(() => {
     return (
-      publication?.affectedVocabularies.some((vocabulary) =>
-        vocabulary.gestors.some((user) => user.id === currentUser.id)
+      publication?.affectedVocabularies.some(
+        (vocabulary) => vocabulary.gestored
       ) ?? false
     );
-  }, [publication?.affectedVocabularies, currentUser.id]);
+  }, [publication?.affectedVocabularies]);
 
   if (isLoading) return <LoadingOverlay />;
   if (error || !publication) return <ErrorAlert />;
