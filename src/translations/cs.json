@@ -93,5 +93,6 @@
   "undo": "Vrátit",
   "submit-publication": "Odevzdat publikaci",
   "error-text-length": "Text musí mít alespoň {num} znaků",
-  "error-field-required": "Toto pole je povinné"
+  "error-field-required": "Toto pole je povinné",
+  "change-rejected-by-other": "Zamítnuto ostatními uživateli"
 }

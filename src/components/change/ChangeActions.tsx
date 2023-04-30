@@ -10,6 +10,7 @@ import { selectUser } from "../../slices/userSlice";
 import { useSnackbar } from "notistack";
 import { CommentFormData } from "../../model/CommentData";
 import { scrollToNextAvailableItem } from "../../slices/eventSlice";
+import Comment from "../comments/Comment";
 
 interface ChangeActionsProps {
   change: Change;
@@ -86,6 +87,16 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
             declineComment={change.rejectionComment}
             submitDeclineMessage={handleSubmitDeclineMessage}
           />
+        </Box>
+      )}
+      {change.rejectionCommentsOfOthers && (
+        <Box>
+          <Alert severity="error" sx={{ fontSize: "16px" }}>
+            {intl.formatMessage({ id: "change-rejected-by-other" })}
+          </Alert>
+          {change.rejectionCommentsOfOthers.map((comment) => (
+            <Comment comment={comment} showDivider={false} />
+          ))}
         </Box>
       )}
     </Box>
