@@ -67,7 +67,7 @@
   "change-detail-state-created": "Vytvořeno",
   "change-detail-state-modified": "Upraveno",
   "change-detail-state-deleted": "Smazáno",
-  "change-detail-state-rollbacked": "Vráceno",
+  "change-detail-state-rollbacked": "Změna byla aktualizována",
   "change-detail-new": "Nový",
   "change-detail-original": "Původní",
   "change-detail-deleted": "Smazáno",
