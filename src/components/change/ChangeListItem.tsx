@@ -102,6 +102,8 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                 ? change.object.restriction.commentableChange
                 : change.uri
             }
+            vocabularyUri={change.vocabularyUri}
+            publicationId={change.publicationId}
           />
         );
       default:

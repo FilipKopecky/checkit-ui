@@ -16,10 +16,14 @@ import { CommentFormData } from "../../../model/CommentData";
 
 interface ChangeCommentsDetailsProps {
   changeUri: string;
+  publicationId: string;
+  vocabularyUri: string;
 }
 
 const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
   changeUri,
+  publicationId,
+  vocabularyUri,
 }) => {
   const {
     data: comments,
@@ -28,7 +32,12 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
   } = useGetChangeCommentsQuery(changeUri);
   const [addComment] = useAddCommentMutation();
   const handleCommentSubmit = (data: CommentFormData) => {
-    addComment({ uri: changeUri, content: data.commentValue });
+    addComment({
+      uri: changeUri,
+      content: data.commentValue,
+      publicationId: publicationId,
+      vocabularyUri: vocabularyUri,
+    });
   };
   const intl = useIntl();
 
