@@ -1,6 +1,5 @@
 import { Change, ChangeType, ObjectData } from "../model/Change";
 import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
-
 export const isMapped = (uri: string): boolean => {
   return Boolean(UriToTranslationMapper[uri]);
 };
@@ -61,12 +60,19 @@ export const generateRestrictionTriples = (change: ChangeWrapper) => {
   let parsedTurtle = `<${change.change.subject}>\n${generateSpaces(2)}<${
     change.change.predicate
   }> \n`;
-  for (let i = 0; i < change.linkedChanges.length; i++) {
-    let linkedChange = change.linkedChanges[i];
-    parsedTurtle += generateBlankNode(linkedChange.linkedChanges!);
-    parsedTurtle += i !== change.linkedChanges.length - 1 ? ",\n" : ".\n";
-  }
+  parsedTurtle += generateBlankNode(change.linkedChanges!);
+  parsedTurtle += ".\n";
   return parsedTurtle;
+};
+
+export const generateRestrictionTurtle = (enwrappingChange: ChangeWrapper) => {
+  let turtle = "";
+  if (!enwrappingChange.linkedChanges) return "";
+
+  for (let i = 0; i < enwrappingChange.linkedChanges.length; i++) {
+    turtle += generateRestrictionTriples(enwrappingChange.linkedChanges[i]);
+  }
+  return turtle;
 };
 
 const generateBlankNode = (changes: ChangeWrapper[], depth = 2) => {
