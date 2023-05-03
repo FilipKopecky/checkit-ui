@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Change, ChangeType, ObjectData } from "../../../model/Change";
+import { Change, ChangeType } from "../../../model/Change";
 import { Box } from "@mui/material";
 import {
   ChangeWrapper,
@@ -36,12 +36,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
 
   return (
     <Box>
-      <ModifiedTriple
-        subject={change.subject}
-        predicate={change.predicate}
-        object={change.object}
-        type={change.type}
-      />
+      <ModifiedTriple change={change} />
       {change.newObject && (
         <Box>
           <Box
@@ -55,10 +50,13 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
             <Arrow fontSize={"large"} />
           </Box>
           <ModifiedTriple
-            subject={change.subject}
-            predicate={change.predicate}
-            object={change.newObject!}
-            type={"CREATED"}
+            change={{
+              ...change,
+              subject: change.subject,
+              predicate: change.predicate,
+              object: change.newObject!,
+              type: "CREATED",
+            }}
           />
         </Box>
       )}
@@ -67,28 +65,20 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
 };
 
 interface ModifiedTripleProps {
-  subject: string;
-  predicate: string;
-  object: ObjectData;
-  type: ChangeType;
+  change: Change;
 }
 
-const ModifiedTriple: React.FC<ModifiedTripleProps> = ({
-  subject,
-  predicate,
-  object,
-  type,
-}) => {
+const ModifiedTriple: React.FC<ModifiedTripleProps> = ({ change }) => {
   return (
     <Box
       sx={{
         borderLeft: 6,
-        borderColor: getModificationColor(type),
+        borderColor: getModificationColor(change.type),
         height: "100%",
       }}
     >
       <SyntaxHighlighter language="sparql" style={coldarkCold}>
-        {generateTripleFromChange({ subject, predicate, object })}
+        {generateTripleFromChange(change)}
       </SyntaxHighlighter>
     </Box>
   );

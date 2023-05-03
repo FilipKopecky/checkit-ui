@@ -1,5 +1,6 @@
 import { Change, ChangeType, ObjectData } from "../model/Change";
 import { ChangeListData } from "../components/publications/PublicationReviewVocabulary";
+
 export const isMapped = (uri: string): boolean => {
   return Boolean(UriToTranslationMapper[uri]);
 };
@@ -41,13 +42,16 @@ export const createChangeListDataStructure = (
   };
 };
 
-export const generateTripleFromChange = (change: {
-  subject: string;
-  predicate: string;
-  object: ObjectData;
-}): string => {
-  let turtle = `<${change.subject}>\n<${change.predicate}>\n`;
-  turtle += parseObjectValue(change.object) + " .";
+export const generateTripleFromChange = (change: Change): string => {
+  let turtle = "";
+  if (change.subjectType === "BLANK_NODE") {
+    const lastIndex = change.subject.lastIndexOf("/");
+    const subjectId = change.subject.slice(lastIndex + 1);
+    turtle = `_b:${subjectId}\n<${change.predicate}>\n`;
+  } else {
+    turtle = `<${change.subject}>\n<${change.predicate}>\n`;
+  }
+  turtle += parseObjectValue(change.object, change.id) + " .";
   return turtle;
 };
 
@@ -82,7 +86,7 @@ const generateBlankNode = (changes: ChangeWrapper[], depth = 2) => {
     if (change.linkedChanges?.length !== 0) {
       turtle += "\n" + generateBlankNode(change.linkedChanges!, depth + 1);
     } else {
-      turtle += parseObjectValue(change.change.object);
+      turtle += parseObjectValue(change.change.object, "");
     }
     turtle += ";";
   }
@@ -92,7 +96,7 @@ const generateBlankNode = (changes: ChangeWrapper[], depth = 2) => {
   )}]`;
 };
 
-const parseObjectValue = (objectData: ObjectData) => {
+const parseObjectValue = (objectData: ObjectData, id: string) => {
   let turtle = "";
   if (objectData.type) {
     turtle += `"${objectData.value}"`;
@@ -104,7 +108,7 @@ const parseObjectValue = (objectData: ObjectData) => {
     turtle += `@${objectData.languageTag}`;
     return turtle;
   }
-  turtle += objectData.value ? `<${objectData.value}>` : "_b:";
+  turtle += objectData.value ? `<${objectData.value}>` : `_b:${id}`;
   return turtle;
 };
 
