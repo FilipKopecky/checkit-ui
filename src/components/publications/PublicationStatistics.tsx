@@ -32,7 +32,7 @@ const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
       reviewed:
         publication.statistics.approvedChanges! +
         publication.statistics.rejectedChanges!,
-      total: publication.statistics.totalChanges,
+      total: publication.statistics.reviewableChanges!,
     }
   );
 

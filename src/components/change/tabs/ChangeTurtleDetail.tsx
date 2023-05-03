@@ -3,7 +3,7 @@ import { Change, ChangeType, ObjectData } from "../../../model/Change";
 import { Box } from "@mui/material";
 import {
   ChangeWrapper,
-  generateRestrictionTriples,
+  generateRestrictionTurtle,
   generateTripleFromChange,
   getModificationColor,
   parseRestrictionChangeToStructure,
@@ -27,6 +27,7 @@ const ChangeTurtleDetail: React.FC<ChangeTurtleDetailProps> = ({ change }) => {
     }
     return null;
   }, [change]);
+
   if (structure) {
     return (
       <RestrictionTurtle type={structure.change.type} change={structure} />
@@ -116,7 +117,7 @@ const RestrictionTurtle: React.FC<RestrictionTurtleProps> = ({
         wrapLines={true}
         wrapLongLines={true}
       >
-        {generateRestrictionTriples(change)}
+        {generateRestrictionTurtle(change)}
       </SyntaxHighlighter>
     </Box>
   );
