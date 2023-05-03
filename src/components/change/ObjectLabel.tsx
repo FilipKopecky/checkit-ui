@@ -16,19 +16,14 @@ const ObjectLabel: React.FC<ObjectLabelProps & TypographyProps> = ({
   objectUri,
   ...props
 }) => {
-  const displayValue = mockedLabelResolve(objectUri);
   if (UriToTranslationMapper[objectUri]) {
     return <MappedLabel uri={objectUri} />;
   }
   return (
     <Typography variant={"body1"} {...props}>
-      {displayValue ?? "BLANK NODE"}
+      {objectUri ?? "BLANK NODE"}
     </Typography>
   );
-};
-
-const mockedLabelResolve = (changedObject: string) => {
-  return changedObject;
 };
 
 export default ObjectLabel;
