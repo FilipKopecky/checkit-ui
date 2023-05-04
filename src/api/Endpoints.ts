@@ -11,6 +11,7 @@ const endpoints = {
   GET_PUBLICATION_CONTEXT: "publication-contexts",
   GET_ALL_REVIEWABLE_PUBLICATIONS: "publication-contexts/reviewable",
   GET_ALL_READONLY_PUBLICATIONS: "publication-contexts/readonly",
+  GET_CLOSED_PUBLICATIONS: "publication-contexts/closed",
   CHANGES: "changes",
   CHANGES_REVIEW: "changes/review",
   COMMENTS: "comments",
@@ -19,6 +20,7 @@ const endpoints = {
   NOTIFICATIONS: "notifications",
   NOTIFICATIONS_SEEN: "notifications/seen",
   NOTIFICATIONS_UNREAD_COUNT: "notifications/unread/count",
+  NOTIFICATIONS_UNREAD_SEEN: "notifications/unread/seen",
 };
 
 export const getAdminRoleSwitch = (id: string) => {

@@ -45,6 +45,18 @@ export const publicationApi = apiSlice.injectEndpoints({
       },
       providesTags: ["ALL_RELEVANT_PUBLICATIONS"],
     }),
+    getClosedPublications: builder.query<
+      PublicationContext[],
+      { pageNumber?: number }
+    >({
+      query: (params) => ({
+        url: Endpoints.GET_CLOSED_PUBLICATIONS,
+        params: {
+          pageNumber: params.pageNumber,
+        },
+      }),
+      providesTags: ["CLOSED_PUBLICATIONS"],
+    }),
     getPublicationById: builder.query<Publication, string>({
       query: (id) => getPublication(id),
       providesTags: (result, error, id) => [{ type: "PUBLICATIONS", id }],
@@ -76,6 +88,9 @@ export const publicationApi = apiSlice.injectEndpoints({
           rawResult.changes[i].vocabularyUri = rawResult.uri;
           rawResult.changes[i].publicationId = arg.publicationId;
           rawResult.changes[i].gestored = rawResult.gestored;
+          rawResult.changes[i].readOnly =
+            rawResult.publicationState === "APPROVED" ||
+            rawResult.publicationState === "REJECTED";
           rawResult.changes[i].publicationDate =
             rawResult.publicationLastUpdate;
         }
@@ -264,4 +279,5 @@ export const {
   useResolveChangeClearStateMutation,
   useResolveRestrictionClearStateMutation,
   useApproveOrRejectPublicationMutation,
+  useGetClosedPublicationsQuery,
 } = publicationApi;

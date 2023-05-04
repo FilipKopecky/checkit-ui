@@ -51,9 +51,11 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
 
   return (
     <Box mt={4}>
-      {change.state === "NOT_REVIEWED" && change.gestored && (
-        <ChangeResolveAction handleResolution={handleResolution} />
-      )}
+      {change.state === "NOT_REVIEWED" &&
+        change.gestored &&
+        !change.readOnly && (
+          <ChangeResolveAction handleResolution={handleResolution} />
+        )}
       {change.state === "APPROVED" && (
         <Alert
           severity="success"

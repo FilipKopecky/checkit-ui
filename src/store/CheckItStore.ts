@@ -9,6 +9,7 @@ import adminPanelReducer from "../slices/adminPanelSlice";
 import changeReducer from "../slices/changeSlice";
 import eventReducer from "../slices/eventSlice";
 import labelCacheReducer from "../slices/labelCacheSlice";
+import publicationsReducer from "../slices/publicationsSlice";
 import { apiSlice } from "../api/apiSlice";
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   change: changeReducer,
   event: eventReducer,
   labelCache: labelCacheReducer,
+  publications: publicationsReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

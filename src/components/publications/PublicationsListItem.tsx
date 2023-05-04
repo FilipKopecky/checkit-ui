@@ -41,10 +41,12 @@ const PublicationsListItem: React.FC<PublicationsListItemProps> = ({
             alignItems: "center",
           }}
         />
-        <ReviewProgress
-          gestored={publication.reviewable}
-          statistics={publication.statistics}
-        />
+        {publication.statistics && (
+          <ReviewProgress
+            gestored={publication.reviewable}
+            statistics={publication.statistics}
+          />
+        )}
       </Box>
       <ListItemSecondaryAction>
         <Link to={publication.id}>

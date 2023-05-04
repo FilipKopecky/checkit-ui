@@ -24,6 +24,7 @@ export const apiSlice = createApi({
     "VOCABULARY_CHANGES",
     "COMMENTS",
     "ALL_NOTIFICATIONS",
+    "CLOSED_PUBLICATIONS",
   ],
   endpoints: () => ({}),
 });

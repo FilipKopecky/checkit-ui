@@ -1,16 +1,18 @@
 import React from "react";
-import { Vocabulary } from "../../model/Vocabulary";
+import { PublicationVocabularyData, Vocabulary } from "../../model/Vocabulary";
 import { Virtuoso } from "react-virtuoso";
 import List from "../misc/VirtuosoMuiList";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
 import ListItemText from "@mui/material/ListItemText";
 import UsersAvatarGroup from "../users/UsersAvatarGroup";
-import { Box, Tooltip } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
 import EmptyPlaceholder from "../misc/VirtuosoEmptyPlaceholder";
-
+import CheckIcon from "@mui/icons-material/Check";
+import NoMaxWidthTooltip from "../misc/NoMaxWidthTooltip";
+import { useIntl } from "react-intl";
 interface VocabulariesListProps {
-  vocabularies: Vocabulary[];
+  vocabularies: Vocabulary[] | PublicationVocabularyData[];
   action?: (vocabulary: Vocabulary) => void;
   actionDescription?: string;
   gestorsClick: (vocabulary: Vocabulary) => void;
@@ -69,7 +71,7 @@ const InnerItem = React.memo(
     additionalInfo,
   }: {
     index: number;
-    vocabulary: Vocabulary;
+    vocabulary: Vocabulary | PublicationVocabularyData;
     callback?: (vocabulary: Vocabulary) => void;
     actionDescription?: string;
     gestorsClick: (vocabulary: Vocabulary) => void;
@@ -77,6 +79,7 @@ const InnerItem = React.memo(
     disabled: (vocabulary: Vocabulary) => boolean;
     additionalInfo: (vocabulary: Vocabulary) => React.ReactNode;
   }) => {
+    const intl = useIntl();
     const elementDisabled = disabled(vocabulary);
     return (
       <>
@@ -103,6 +106,26 @@ const InnerItem = React.memo(
             ) : undefined
           }
         >
+          {"approvedByUsers" in vocabulary &&
+            vocabulary.approvedByUsers.length !== 0 && (
+              <NoMaxWidthTooltip
+                title={
+                  <>
+                    <Typography fontSize={14}>
+                      {intl.formatMessage({ id: "approved-by-gestors" })}
+                    </Typography>
+                    {vocabulary.approvedByUsers.map((user) => (
+                      <Typography
+                        fontSize={14}
+                      >{`${user.firstName} ${user.lastName}`}</Typography>
+                    ))}
+                  </>
+                }
+                placement={"top"}
+              >
+                <CheckIcon sx={{ marginRight: 1 }} color={"success"} />
+              </NoMaxWidthTooltip>
+            )}
           <Box
             sx={{
               justifyContent: "space-between",

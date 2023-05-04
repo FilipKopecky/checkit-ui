@@ -94,5 +94,9 @@
   "submit-publication": "Submit publication",
   "error-text-length": "Text must be at least {num} characters long",
   "error-field-required": "This field is required",
-  "change-rejected-by-other": "Change was rejected by other users"
+  "change-rejected-by-other": "Change was rejected by other users",
+  "mark-all-as-read": "Mark all as read",
+  "open-publications": "Opened",
+  "closed-publications": "Resolved",
+  "approved-by-gestors": "Approved by gestors:"
 }
