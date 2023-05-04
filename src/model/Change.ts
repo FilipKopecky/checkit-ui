@@ -1,6 +1,7 @@
 import { CommentData } from "./CommentData";
 import { VocabularyData } from "./Vocabulary";
 import { Restriction } from "./Restriction";
+import { PublicationContextState } from "./Publication";
 
 export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
 export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
@@ -28,6 +29,7 @@ export interface Change extends ChangedVocabularyIdentity {
   publicationDate: Date;
   numberOfComments: number;
   rejectionCommentsOfOthers?: CommentData[];
+  readOnly: boolean;
 }
 
 export interface ChangedVocabularyIdentity {
@@ -41,4 +43,5 @@ export interface VocabularyChanges extends VocabularyData {
   publicationLabel: string;
   changes: Change[];
   publicationLastUpdate: Date;
+  publicationState: PublicationContextState;
 }

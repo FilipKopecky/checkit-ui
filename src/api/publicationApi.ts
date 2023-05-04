@@ -88,6 +88,9 @@ export const publicationApi = apiSlice.injectEndpoints({
           rawResult.changes[i].vocabularyUri = rawResult.uri;
           rawResult.changes[i].publicationId = arg.publicationId;
           rawResult.changes[i].gestored = rawResult.gestored;
+          rawResult.changes[i].readOnly =
+            rawResult.publicationState === "APPROVED" ||
+            rawResult.publicationState === "REJECTED";
           rawResult.changes[i].publicationDate =
             rawResult.publicationLastUpdate;
         }
