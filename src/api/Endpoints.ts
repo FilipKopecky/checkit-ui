@@ -19,6 +19,7 @@ const endpoints = {
   NOTIFICATIONS: "notifications",
   NOTIFICATIONS_SEEN: "notifications/seen",
   NOTIFICATIONS_UNREAD_COUNT: "notifications/unread/count",
+  NOTIFICATIONS_UNREAD_SEEN: "notifications/unread/seen",
 };
 
 export const getAdminRoleSwitch = (id: string) => {

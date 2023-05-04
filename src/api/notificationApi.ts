@@ -20,9 +20,35 @@ export const notificationApi = apiSlice.injectEndpoints({
           return { ...result, pageNumber: arg.pageNumber! };
         });
       },
+      providesTags: ["ALL_NOTIFICATIONS"],
     }),
     getUnreadNotificationsCount: builder.query<number, void>({
       query: () => Endpoints.NOTIFICATIONS_UNREAD_COUNT,
+    }),
+    markNotificationsAsRead: builder.mutation<void, void>({
+      query() {
+        return {
+          url: Endpoints.NOTIFICATIONS_UNREAD_SEEN,
+          method: "POST",
+        };
+      },
+      async onQueryStarted(patch, { dispatch, queryFulfilled }) {
+        const notificationCountPatch = dispatch(
+          notificationApi.util.updateQueryData(
+            "getUnreadNotificationsCount",
+            undefined,
+            (draft) => {
+              return 0;
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          notificationCountPatch.undo();
+        }
+      },
+      invalidatesTags: ["ALL_NOTIFICATIONS"],
     }),
     resolveSeenNotification: builder.mutation<
       Notification,
@@ -79,4 +105,5 @@ export const {
   useGetNotificationsQuery,
   useResolveSeenNotificationMutation,
   useGetUnreadNotificationsCountQuery,
+  useMarkNotificationsAsReadMutation,
 } = notificationApi;

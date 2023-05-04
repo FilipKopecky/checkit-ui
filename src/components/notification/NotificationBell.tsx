@@ -1,14 +1,21 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import { Badge, Box, Paper, Popper } from "@mui/material";
+import { Badge, Box, Button, Paper, Popper } from "@mui/material";
 import NotificationList from "./NotificationList";
 import Typography from "@mui/material/Typography";
-import { useGetUnreadNotificationsCountQuery } from "../../api/notificationApi";
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import {
+  useGetUnreadNotificationsCountQuery,
+  useMarkNotificationsAsReadMutation,
+} from "../../api/notificationApi";
+import { useIntl } from "react-intl";
 
 const NotificationBell: React.FC = () => {
   const { data: notificationsUnreadCount } =
     useGetUnreadNotificationsCountQuery();
+  const [markAsRead] = useMarkNotificationsAsReadMutation();
+  const intl = useIntl();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -16,6 +23,10 @@ const NotificationBell: React.FC = () => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen((prevState) => !prevState);
+  };
+  const handleReadClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    markAsRead();
+    handleClick(event);
   };
   return (
     <Box mr={2}>
@@ -32,8 +43,15 @@ const NotificationBell: React.FC = () => {
       >
         <Paper>
           <Box width={400}>
-            <Box pl={3} pt={2}>
+            <Box px={3} pt={2}>
               <Typography variant={"h6"}>Notifikace</Typography>
+              <Button
+                onClick={handleReadClick}
+                endIcon={<MarkEmailReadIcon />}
+                variant={"outlined"}
+              >
+                {intl.formatMessage({ id: "mark-all-as-read" })}
+              </Button>
             </Box>
             <Box py={2} my={2}>
               <NotificationList
