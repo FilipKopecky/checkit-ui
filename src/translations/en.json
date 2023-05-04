@@ -97,5 +97,6 @@
   "change-rejected-by-other": "Change was rejected by other users",
   "mark-all-as-read": "Mark all as read",
   "open-publications": "Opened",
-  "closed-publications": "Resolved"
+  "closed-publications": "Resolved",
+  "approved-by-gestors": "Approved by gestors:"
 }

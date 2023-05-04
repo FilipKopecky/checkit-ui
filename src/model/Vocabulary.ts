@@ -14,4 +14,5 @@ export interface PublicationVocabularyData extends VocabularyData {
   gestored: boolean;
   gestors: UserData[];
   statistics: Statistics;
+  approvedByUsers: UserData[];
 }
