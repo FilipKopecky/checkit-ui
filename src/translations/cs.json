@@ -95,5 +95,7 @@
   "error-text-length": "Text musí mít alespoň {num} znaků",
   "error-field-required": "Toto pole je povinné",
   "change-rejected-by-other": "Zamítnuto ostatními uživateli",
-  "mark-all-as-read": "Označ vše jako přečtené"
+  "mark-all-as-read": "Označ vše jako přečtené",
+  "open-publications": "Otevřené",
+  "closed-publications": "Vyřízené"
 }

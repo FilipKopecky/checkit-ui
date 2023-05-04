@@ -11,6 +11,7 @@ const endpoints = {
   GET_PUBLICATION_CONTEXT: "publication-contexts",
   GET_ALL_REVIEWABLE_PUBLICATIONS: "publication-contexts/reviewable",
   GET_ALL_READONLY_PUBLICATIONS: "publication-contexts/readonly",
+  GET_CLOSED_PUBLICATIONS: "publication-contexts/closed",
   CHANGES: "changes",
   CHANGES_REVIEW: "changes/review",
   COMMENTS: "comments",
