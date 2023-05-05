@@ -1,7 +1,6 @@
 import React from "react";
-import { Alert, Box, Button } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import ChangeResolveAction from "./ChangeResolveAction";
-import ChangeDeclineMessage from "./ChangeDeclineMessage";
 import { Change, ChangeState } from "../../model/Change";
 import { useIntl } from "react-intl";
 import { useAddRejectionChangeCommentMutation } from "../../api/commentApi";
@@ -11,11 +10,12 @@ import { useSnackbar } from "notistack";
 import { CommentFormData } from "../../model/CommentData";
 import { scrollToNextAvailableItem } from "../../slices/eventSlice";
 import Comment from "../comments/Comment";
+import ChangeResolvedState from "./ChangeResolvedState";
 
 interface ChangeActionsProps {
   change: Change;
   handleResolution: (state: ChangeState) => void;
-  handleClear: () => void;
+  handleClear: (state?: ChangeState) => void;
 }
 
 const ChangeActions: React.FC<ChangeActionsProps> = ({
@@ -49,48 +49,19 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
     dispatch(scrollToNextAvailableItem(change.id));
   };
 
+  //TODO: Jiný alert pro state SEEN
   return (
     <Box mt={4}>
-      {change.state === "NOT_REVIEWED" &&
-        change.gestored &&
-        !change.readOnly && (
-          <ChangeResolveAction handleResolution={handleResolution} />
-        )}
-      {change.state === "APPROVED" && (
-        <Alert
-          severity="success"
-          sx={{
-            fontSize: "16px",
-          }}
-          action={
-            <Button color="inherit" size="small" onClick={handleClear}>
-              {intl.formatMessage({ id: "undo" })}
-            </Button>
-          }
-        >
-          {intl.formatMessage({ id: "accepted" })}
-        </Alert>
-      )}
-      {change.state === "REJECTED" && (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Alert
-            severity="error"
-            sx={{ fontSize: "16px" }}
-            action={
-              <Button color="inherit" size="small" onClick={handleClear}>
-                {intl.formatMessage({ id: "undo" })}
-              </Button>
-            }
-          >
-            {intl.formatMessage({ id: "declined" })}
-          </Alert>
-          <ChangeDeclineMessage
-            state={change.state}
-            declineComment={change.rejectionComment}
-            submitDeclineMessage={handleSubmitDeclineMessage}
-          />
-        </Box>
-      )}
+      <ChangeResolveAction
+        change={change}
+        handleResolution={handleResolution}
+        handleClear={handleClear}
+      />
+      <ChangeResolvedState
+        change={change}
+        handleClear={handleClear}
+        handleSubmitDeclineMessage={handleSubmitDeclineMessage}
+      />
       {change.rejectionCommentsOfOthers && (
         <Box>
           <Alert severity="error" sx={{ fontSize: "16px" }}>

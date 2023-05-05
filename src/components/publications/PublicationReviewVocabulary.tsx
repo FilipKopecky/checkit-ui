@@ -52,6 +52,7 @@ const PublicationReviewVocabulary: React.FC = () => {
     let rejected = 0;
     let remaining = 0;
     for (const change of changesInfo.allChanges) {
+      if (change.type === "ROLLBACKED") continue;
       switch (change.state) {
         case "NOT_REVIEWED":
           remaining++;

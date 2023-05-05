@@ -3,7 +3,7 @@ import { VocabularyData } from "./Vocabulary";
 import { Restriction } from "./Restriction";
 import { PublicationContextState } from "./Publication";
 
-export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED";
+export type ChangeState = "NOT_REVIEWED" | "APPROVED" | "REJECTED" | "SEEN";
 export type ChangeType = "CREATED" | "MODIFIED" | "REMOVED" | "ROLLBACKED";
 export type SubjectType = "TERM" | "VOCABULARY" | "BLANK_NODE";
 export interface ObjectData {

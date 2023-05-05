@@ -98,5 +98,9 @@
   "mark-all-as-read": "Označ vše jako přečtené",
   "open-publications": "Otevřené",
   "closed-publications": "Vyřízené",
-  "approved-by-gestors": "Schváleno gestory:"
+  "approved-by-gestors": "Schváleno gestory:",
+  "rollback-acknowledged": "Přečteno",
+  "acknowledge-rollback": "Beru na vědomí",
+  "rollback-previously-approved": "Vámi schválená změna byla aktualizována",
+  "rollback-previously-rejected": "Vámi zamítnutá změna byla aktualizována"
 }

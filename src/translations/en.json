@@ -98,5 +98,9 @@
   "mark-all-as-read": "Mark all as read",
   "open-publications": "Opened",
   "closed-publications": "Resolved",
-  "approved-by-gestors": "Approved by gestors:"
+  "approved-by-gestors": "Approved by gestors:",
+  "rollback-acknowledged": "Acknowledged",
+  "acknowledge-rollback": "I understand",
+  "rollback-previously-approved": "Change you previously approved was updated",
+  "rollback-previously-rejected": "Change you previously rejected was updated"
 }
