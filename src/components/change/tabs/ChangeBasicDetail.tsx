@@ -51,10 +51,10 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
       dispatch(scrollToNextAvailableItem(change.id));
     }
   };
-  const handleClear = () => {
+  const handleClear = (state: ChangeState = "NOT_REVIEWED") => {
     clearChangeState({
       id: change.id,
-      state: "NOT_REVIEWED",
+      state: state,
       rejectionComment: undefined,
       vocabularyUri: change.vocabularyUri,
       publicationId: change.publicationId,
@@ -64,10 +64,15 @@ const ChangeBasicDetail: React.FC<ChangeBasicDetailProps> = ({ change }) => {
   return (
     <Box pt={1} pb={1}>
       <Box>
-        {change.type === "ROLLBACKED" && change.state !== "APPROVED" && (
+        {change.type === "ROLLBACKED" && (
           <Box pb={2}>
-            <Typography variant={"body2"}>
-              {intl.formatMessage({ id: "change-detail-state-rollbacked" })}
+            <Typography variant={"body1"}>
+              {intl.formatMessage({
+                id:
+                  change.state === "APPROVED"
+                    ? "rollback-previously-approved"
+                    : "rollback-previously-rejected",
+              })}
             </Typography>
           </Box>
         )}

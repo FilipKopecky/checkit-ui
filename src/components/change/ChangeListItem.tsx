@@ -126,10 +126,14 @@ const ChangeListItem: React.FC<ChangeDetailProps> = ({ change }) => {
                     alignItems: "center",
                   }}
                 >
-                  {change.state === "APPROVED" && (
-                    <CheckIcon color={"success"} />
-                  )}
-                  {change.state === "REJECTED" && <CloseIcon color={"error"} />}
+                  {change.state === "APPROVED" &&
+                    change.type !== "ROLLBACKED" && (
+                      <CheckIcon color={"success"} />
+                    )}
+                  {change.state === "REJECTED" &&
+                    change.type !== "ROLLBACKED" && (
+                      <CloseIcon color={"error"} />
+                    )}
                 </Box>
                 <MappedLabel uri={change.predicate} variant={"h6"} />
               </Box>
