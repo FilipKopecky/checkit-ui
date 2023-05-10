@@ -317,4 +317,22 @@ export const UriToTranslationMapper: {
     id: "RDF_TYPE",
     descriptionId: "DESCRIPTION_RDF_TYPE",
   },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-glosář":
+    {
+      id: "A_POPIS_DAT_HAS_GLOSSARY",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_GLOSSARY",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-model":
+    {
+      id: "A_POPIS_DAT_HAS_MODEL",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_MODEL",
+    },
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+    id: "RDFS_SUBCLASS",
+    descriptionId: "DESCRIPTION_RDFS_SUBCLASS",
+  },
+  CUSTOM_RELATIONSHIP: {
+    id: "CUSTOM_RELATIONSHIP",
+    descriptionId: "DESCRIPTION_CUSTOM_RELATIONSHIP",
+  },
 };

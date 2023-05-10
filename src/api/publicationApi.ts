@@ -84,6 +84,7 @@ export const publicationApi = apiSlice.injectEndpoints({
               rawResult.changes[i].object!.restriction!.affectedChanges[0];
             rawResult.changes[i].uri = `grouped/${firstChange.uri}`;
             rawResult.changes[i].id = `grouped/${firstChange.id}`;
+            rawResult.changes[i].predicate = "CUSTOM_RELATIONSHIP";
           }
           rawResult.changes[i].vocabularyUri = rawResult.uri;
           rawResult.changes[i].publicationId = arg.publicationId;
