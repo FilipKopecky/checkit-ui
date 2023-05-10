@@ -49,7 +49,6 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
     dispatch(scrollToNextAvailableItem(change.id));
   };
 
-  //TODO: Jiný alert pro state SEEN
   return (
     <Box mt={4}>
       <ChangeResolveAction
