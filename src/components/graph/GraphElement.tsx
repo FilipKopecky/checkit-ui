@@ -11,7 +11,7 @@ interface GraphElementProps {
 const GraphElement: React.FC<GraphElementProps> = ({ displayName, uri }) => {
   return (
     <Paper>
-      <Box p={2} display={"flex"}>
+      <Box p={2} display={"flex"} gap={1}>
         <Typography variant={"body1"}>{displayName}</Typography>
         <NoMaxWidthTooltip
           title={<Typography fontSize={16}>{uri}</Typography>}
