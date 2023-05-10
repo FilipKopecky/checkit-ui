@@ -1,19 +1,22 @@
 import React from "react";
 import { InputAdornment, TextField } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import SendIcon from "@mui/icons-material/Send";
 import { useController, UseControllerProps } from "react-hook-form";
 import { CommentFormData } from "../../model/CommentData";
 import { useIntl } from "react-intl";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 
 interface CommentInputProps {
   placeholder: string;
   formProps: UseControllerProps<CommentFormData>;
+  isLoading?: boolean;
 }
 
 const CommentInput: React.FC<CommentInputProps> = ({
   placeholder,
   formProps,
+  isLoading,
 }) => {
   const { field, fieldState } = useController(formProps);
   const intl = useIntl();
@@ -39,9 +42,13 @@ const CommentInput: React.FC<CommentInputProps> = ({
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton type={"submit"}>
-              <SendIcon />
-            </IconButton>
+            {isLoading ? (
+              <CircularProgress size={20} />
+            ) : (
+              <IconButton type={"submit"}>
+                <SendIcon />
+              </IconButton>
+            )}
           </InputAdornment>
         ),
       }}
