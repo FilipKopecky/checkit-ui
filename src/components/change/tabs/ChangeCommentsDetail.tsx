@@ -30,7 +30,7 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
     isLoading,
     error,
   } = useGetChangeCommentsQuery(changeUri);
-  const [addComment] = useAddCommentMutation();
+  const [addComment, { isLoading: isUpdating }] = useAddCommentMutation();
   const handleCommentSubmit = (data: CommentFormData) => {
     addComment({
       uri: changeUri,
@@ -60,6 +60,7 @@ const ChangeCommentsDetails: React.FC<ChangeCommentsDetailsProps> = ({
     <Box>
       <form onSubmit={handleSubmit(handleCommentSubmit)}>
         <CommentInput
+          isLoading={isUpdating}
           placeholder={intl.formatMessage({ id: "add-comment-placeholder" })}
           formProps={{
             control: control,

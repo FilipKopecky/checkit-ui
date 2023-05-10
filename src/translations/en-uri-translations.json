@@ -26,5 +26,9 @@
   "DCTERMS_LICENSE": "License",
   "DCTERMS_FORMAT": "Format",
   "ONTO_FEL_IS_DRAFT": "Is draft",
-  "RDF_TYPE": "Is a instance of"
+  "RDF_TYPE": "Is a instance of",
+  "A_POPIS_DAT_HAS_GLOSSARY": "Has glossary",
+  "A_POPIS_DAT_HAS_MODEL": "Has model",
+  "RDFS_SUBCLASS": "Is a subclass of",
+  "CUSTOM_RELATIONSHIP": "Relationship"
 }

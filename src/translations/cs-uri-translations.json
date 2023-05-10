@@ -26,5 +26,9 @@
   "DCTERMS_LICENSE": "Licence",
   "DCTERMS_FORMAT": "Formát",
   "ONTO_FEL_IS_DRAFT": "Je draft",
-  "RDF_TYPE": "Je instancí"
+  "RDF_TYPE": "Je instancí",
+  "A_POPIS_DAT_HAS_GLOSSARY": "Má glosář",
+  "A_POPIS_DAT_HAS_MODEL": "Má model",
+  "RDFS_SUBCLASS": "Je podtřídou",
+  "CUSTOM_RELATIONSHIP": "Vztah"
 }
