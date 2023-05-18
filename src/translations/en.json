@@ -32,9 +32,9 @@
   "assignedGestors": "Gestors",
   "requests": "Requests",
   "accept": "Accept",
-  "decline": "Decline",
+  "decline": "Reject",
   "accepted": "Accepted",
-  "declined": "Declined",
+  "declined": "Rejected",
   "done": "Finished",
   "pending": "Unfinished",
   "search-vocabulary-by-label": "Search for vocabulary",
@@ -102,5 +102,6 @@
   "rollback-acknowledged": "Acknowledged",
   "acknowledge-rollback": "I understand",
   "rollback-previously-approved": "Change you previously approved was updated",
-  "rollback-previously-rejected": "Change you previously rejected was updated"
+  "rollback-previously-rejected": "Change you previously rejected was updated",
+  "notifications": "Notifications"
 }

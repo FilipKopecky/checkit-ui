@@ -44,7 +44,9 @@ const NotificationBell: React.FC = () => {
         <Paper>
           <Box width={400}>
             <Box px={3} pt={2}>
-              <Typography variant={"h6"}>Notifikace</Typography>
+              <Typography variant={"h6"}>
+                {intl.formatMessage({ id: "notifications" })}
+              </Typography>
               <Button
                 onClick={handleReadClick}
                 endIcon={<MarkEmailReadIcon />}
