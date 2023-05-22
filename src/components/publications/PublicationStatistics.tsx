@@ -40,7 +40,9 @@ const PublicationStatistics: React.FC<PublicationStatisticsProps> = ({
     <Grid item md={12} sm={6} xs={12}>
       <CustomPaper>
         <Box py={2}>
-          <Typography variant={"h5"}>Stav revize publikace</Typography>
+          <Typography variant={"h5"}>
+            {intl.formatMessage({ id: "review-state" })}
+          </Typography>
           <PieChart
             data={parsedStatistics}
             label={publicationProgress}

@@ -327,9 +327,155 @@ export const UriToTranslationMapper: {
       id: "A_POPIS_DAT_HAS_MODEL",
       descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_MODEL",
     },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-dokumentový-slovník":
+    {
+      id: "A_POPIS_DAT_HAS_DOCUMENT",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_DOCUMENT",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/je-částí-dokumentu":
+    {
+      id: "A_POPIS_DAT_IS_PART_OF_DOCUMENT",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_IS_PART_OF_DOCUMENT",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-soubor":
+    {
+      id: "A_POPIS_DAT_HAS_FILE",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_FILE",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/popisuje-dokument":
+    {
+      id: "A_POPIS_DAT_DESCRIBES_DOCUMENT",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_DESCRIBES_DOCUMENT",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/je-pojmem-ze-slovníku":
+    {
+      id: "A_POPIS_DAT_IS_A_VOCABULARY_TERM",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_IS_A_VOCABULARY_TERM",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-křestní-jméno":
+    {
+      id: "A_POPIS_DAT_HAS_FIRST_NAME",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_FIRST_NAME",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-příjmení":
+    {
+      id: "A_POPIS_DAT_HAS_LAST_NAME",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_LAST_NAME",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/importuje-slovník":
+    {
+      id: "A_POPIS_DAT_IMPORTS_VOCABULARY",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_IMPORTS_VOCABULARY",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/je-pojmem":
+    {
+      id: "A_POPIS_DAT_IS_TERM",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_IS_TERM",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/je-záznamem":
+    {
+      id: "A_POPIS_DAT_IS_RECORD",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_IS_RECORD",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-autora":
+    {
+      id: "A_POPIS_DAT_HAS_AUTHOR",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_AUTHOR",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-editora":
+    {
+      id: "A_POPIS_DAT_HAS_EDITOR",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_EDITOR",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-novou-hodnotu":
+    {
+      id: "A_POPIS_DAT_HAS_NEW_VALUE",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_NEW_VALUE",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-posledního-editora":
+    {
+      id: "A_POPIS_DAT_HAS_LATEST_EDITOR",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_LATEST_EDITOR",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-původní-hodnotu":
+    {
+      id: "A_POPIS_DAT_HAS_ORIGINAL_VALUE",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_ORIGINAL_VALUE",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-zdroj":
+    {
+      id: "A_POPIS_DAT_HAS_SOURCE",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_SOURCE",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-změněnou-entitu":
+    {
+      id: "A_POPIS_DAT_HAS_CHANGED_ENTITY",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_CHANGED_ENTITY",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-změněný-atribut":
+    {
+      id: "A_POPIS_DAT_HAS_CHANGED_ATTRIBUTE",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_CHANGED_ATTRIBUTE",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-datum-a-čas-modifikace":
+    {
+      id: "A_POPIS_DAT_HAS_DATE_AND_TIME_OF_MODIFICATION",
+      descriptionId:
+        "DESCRIPTION_A_POPIS_DAT_HAS_DATE_AND_TIME_OF_MODIFICATION",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-datum-a-čas-poslední-modifikace":
+    {
+      id: "A_POPIS_DAT_HAS_DATE_AND_TIME_OF_LAST_MODIFICATION",
+      descriptionId:
+        "DESCRIPTION_A_POPIS_DAT_HAS_DATE_AND_TIME_OF_LAST_MODIFICATION",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-datum-a-čas-vytvoření":
+    {
+      id: "A_POPIS_DAT_HAS_DATE_AND_TIME_OF_CREATION",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_DATE_AND_TIME_OF_CREATION",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-heslo":
+    {
+      id: "A_POPIS_DAT_HAS_PASSWORD",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_PASSWORD",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-uživatelské-jméno":
+    {
+      id: "A_POPIS_DAT_HAS_USER_NAME",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_USER_NAME",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-id-aplikace":
+    {
+      id: "A_POPIS_DAT_HAS_APPLICATION_ID",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_APPLICATION_ID",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-typ-přílohy":
+    {
+      id: "A_POPIS_DAT_HAS_ATTACHMENT_TYPE",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_ATTACHMENT_TYPE",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/vychází-z-verze":
+    {
+      id: "A_POPIS_DAT_ORIGINATES_FROM_VERSION",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_ORIGINATES_FROM_VERSION",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-přílohu":
+    {
+      id: "A_POPIS_DAT_HAS_ATTACHMENT",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_ATTACHMENT",
+    },
+  "http://onto.fel.cvut.cz/ontologies/slovník/agendový/popis-dat/pojem/má-aplikační-kontext":
+    {
+      id: "A_POPIS_DAT_HAS_APPLICATION_CONTEXT",
+      descriptionId: "DESCRIPTION_A_POPIS_DAT_HAS_APPLICATION_CONTEXT",
+    },
   "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
     id: "RDFS_SUBCLASS",
     descriptionId: "DESCRIPTION_RDFS_SUBCLASS",
+  },
+  "https://slovník.gov.cz/datový/pracovní-prostor/pojem/vychází-z-verze": {
+    id: "SGOV_ORIGINATES_FROM_VERSION",
+    descriptionId: "DESCRIPTION_ORIGINATES_FROM_VERSION",
   },
   CUSTOM_RELATIONSHIP: {
     id: "CUSTOM_RELATIONSHIP",
