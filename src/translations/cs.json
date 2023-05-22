@@ -103,5 +103,7 @@
   "acknowledge-rollback": "Beru na vědomí",
   "rollback-previously-approved": "Vámi schválená změna byla aktualizována",
   "rollback-previously-rejected": "Vámi zamítnutá změna byla aktualizována",
-  "notifications": "Notifikace"
+  "notifications": "Notifikace",
+  "review-state": "Stav revize publikace",
+  "app-loading": "Načítám aplikaci..."
 }

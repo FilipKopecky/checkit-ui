@@ -19,6 +19,7 @@ import { useGetCurrentUserQuery } from "../../api/userApi";
 import LoadingOverlay from "../misc/LoadingOverlay";
 import Breadcrumbs from "../routing/Breadcrumbs";
 import NotificationBell from "../notification/NotificationBell";
+import { useIntl } from "react-intl";
 
 const drawerWidth = 240;
 
@@ -27,6 +28,7 @@ const Layout: React.FC = () => {
   const dispatch = useAppDispatch();
   useGetCurrentUserQuery();
   const user = useAppSelector(selectUser);
+  const intl = useIntl();
 
   useEffect(() => {
     return () => {
@@ -43,7 +45,7 @@ const Layout: React.FC = () => {
   };
 
   if (!user.loggedIn) {
-    return <>App is loading ...</>;
+    return <>{intl.formatMessage({ id: "app-loading" })}</>;
   }
 
   return (

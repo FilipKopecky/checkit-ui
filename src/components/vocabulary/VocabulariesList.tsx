@@ -82,84 +82,81 @@ const InnerItem = React.memo(
     const intl = useIntl();
     const elementDisabled = disabled(vocabulary);
     return (
-      <>
-        <ListItem
-          sx={{
-            backgroundColor:
-              index % 2 === 0 ? "background.default" : "background.paper",
-          }}
-          secondaryAction={
-            callback ? (
-              <Tooltip title={actionDescription} placement={"left"}>
-                <span>
-                  <IconButton
-                    disabled={elementDisabled}
-                    edge="end"
-                    onClick={() => {
-                      callback(vocabulary);
-                    }}
-                  >
-                    {icon}
-                  </IconButton>
-                </span>
-              </Tooltip>
-            ) : undefined
-          }
-        >
-          {"approvedByUsers" in vocabulary &&
-            vocabulary.approvedByUsers.length !== 0 && (
-              <NoMaxWidthTooltip
-                title={
-                  <>
-                    <Typography fontSize={14}>
-                      {intl.formatMessage({ id: "approved-by-gestors" })}
-                    </Typography>
-                    {vocabulary.approvedByUsers.map((user) => (
-                      <Typography
-                        fontSize={14}
-                      >{`${user.firstName} ${user.lastName}`}</Typography>
-                    ))}
-                  </>
-                }
-                placement={"top"}
-              >
-                <CheckIcon sx={{ marginRight: 1 }} color={"success"} />
-              </NoMaxWidthTooltip>
-            )}
-          <Box
-            sx={{
-              justifyContent: "space-between",
-              display: "flex",
-              flex: 1,
-            }}
-            pr={1}
-          >
-            <ListItemText
-              primary={vocabulary.label}
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            />
-            <Box
-              display={"flex"}
-              sx={{ display: "flex", alignItems: "center" }}
+      <ListItem
+        key={index}
+        sx={{
+          backgroundColor:
+            index % 2 === 0 ? "background.default" : "background.paper",
+        }}
+        secondaryAction={
+          callback ? (
+            <Tooltip title={actionDescription} placement={"left"}>
+              <span>
+                <IconButton
+                  disabled={elementDisabled}
+                  edge="end"
+                  onClick={() => {
+                    callback(vocabulary);
+                  }}
+                >
+                  {icon}
+                </IconButton>
+              </span>
+            </Tooltip>
+          ) : undefined
+        }
+      >
+        {"approvedByUsers" in vocabulary &&
+          vocabulary.approvedByUsers.length !== 0 && (
+            <NoMaxWidthTooltip
+              title={
+                <>
+                  <Typography fontSize={14}>
+                    {intl.formatMessage({ id: "approved-by-gestors" })}
+                  </Typography>
+                  {vocabulary.approvedByUsers.map((user) => (
+                    <Typography
+                      key={user.id}
+                      fontSize={14}
+                    >{`${user.firstName} ${user.lastName}`}</Typography>
+                  ))}
+                </>
+              }
+              placement={"top"}
             >
-              <Box>{additionalInfo(vocabulary)}</Box>
-              <Box display={"flex"} width={"110px"}>
-                <Box flexGrow={1}></Box>
-                {vocabulary.gestors.length > 0 && (
-                  <UsersAvatarGroup
-                    users={vocabulary.gestors}
-                    maxAvatars={4}
-                    onClick={() => gestorsClick(vocabulary)}
-                  />
-                )}
-              </Box>
+              <CheckIcon sx={{ marginRight: 1 }} color={"success"} />
+            </NoMaxWidthTooltip>
+          )}
+        <Box
+          sx={{
+            justifyContent: "space-between",
+            display: "flex",
+            flex: 1,
+          }}
+          pr={1}
+        >
+          <ListItemText
+            primary={vocabulary.label}
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          />
+          <Box display={"flex"} sx={{ display: "flex", alignItems: "center" }}>
+            <Box>{additionalInfo(vocabulary)}</Box>
+            <Box display={"flex"} width={"110px"}>
+              <Box flexGrow={1}></Box>
+              {vocabulary.gestors.length > 0 && (
+                <UsersAvatarGroup
+                  users={vocabulary.gestors}
+                  maxAvatars={4}
+                  onClick={() => gestorsClick(vocabulary)}
+                />
+              )}
             </Box>
           </Box>
-        </ListItem>
-      </>
+        </Box>
+      </ListItem>
     );
   },
   (prevProps, nextProps) => {

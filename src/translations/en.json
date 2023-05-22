@@ -103,5 +103,7 @@
   "acknowledge-rollback": "I understand",
   "rollback-previously-approved": "Change you previously approved was updated",
   "rollback-previously-rejected": "Change you previously rejected was updated",
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "review-state": "Review state",
+  "app-loading": "App is loading..."
 }

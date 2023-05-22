@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { Box, Grid, Paper } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import PublicationHeader from "./PublicationHeader";
 import VocabulariesList from "../vocabulary/VocabulariesList";
 import IslandHeader from "../misc/IslandHeader";
@@ -10,25 +9,15 @@ import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import DifferenceOutlinedIcon from "@mui/icons-material/DifferenceOutlined";
 import { useGetPublicationByIdQuery } from "../../api/publicationApi";
 import { PublicationVocabularyData, Vocabulary } from "../../model/Vocabulary";
-import { useAppSelector } from "../../hooks/ReduxHooks";
-import { selectUser } from "../../slices/userSlice";
 import VocabularyGestorsModal from "../vocabulary/VocabularyGestorsModal";
 import LoadingOverlay from "../misc/LoadingOverlay";
 import ErrorAlert from "../misc/ErrorAlert";
 import ReviewProgress from "./ReviewProgress";
 
-const Item = styled(Paper)(({ theme }) => ({
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(3),
-  height: "100%",
-  fontSize: theme.typography.h5.fontSize,
-}));
-
 const PublicationSummary: React.FC = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const { publicationId } = useParams();
-  const currentUser = useAppSelector(selectUser);
   const [selectedVocabulary, setSelectedVocabulary] = useState<Vocabulary>();
   const [modalOpen, setModalOpen] = useState(false);
   const {
