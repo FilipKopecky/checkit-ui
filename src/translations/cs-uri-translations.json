@@ -58,5 +58,6 @@
   "A_POPIS_DAT_HAS_ATTACHMENT_TYPE" : "Má typ přílohy",
   "A_POPIS_DAT_ORIGINATES_FROM_VERSION" : "Vychází z verze",
   "A_POPIS_DAT_HAS_ATTACHMENT" : "Má přílohu",
-  "A_POPIS_DAT_HAS_APPLICATION_CONTEXT" : "Má aplikační kontext"
+  "A_POPIS_DAT_HAS_APPLICATION_CONTEXT" : "Má aplikační kontext",
+  "SGOV_ORIGINATES_FROM_VERSION": "Vychází z verze"
 }

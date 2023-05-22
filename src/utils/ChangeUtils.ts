@@ -473,6 +473,10 @@ export const UriToTranslationMapper: {
     id: "RDFS_SUBCLASS",
     descriptionId: "DESCRIPTION_RDFS_SUBCLASS",
   },
+  "https://slovník.gov.cz/datový/pracovní-prostor/pojem/vychází-z-verze": {
+    id: "SGOV_ORIGINATES_FROM_VERSION",
+    descriptionId: "DESCRIPTION_ORIGINATES_FROM_VERSION",
+  },
   CUSTOM_RELATIONSHIP: {
     id: "CUSTOM_RELATIONSHIP",
     descriptionId: "DESCRIPTION_CUSTOM_RELATIONSHIP",

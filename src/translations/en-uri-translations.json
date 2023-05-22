@@ -58,5 +58,6 @@
   "A_POPIS_DAT_HAS_ATTACHMENT_TYPE" : "Has attachment type",
   "A_POPIS_DAT_ORIGINATES_FROM_VERSION" : "Based on the version",
   "A_POPIS_DAT_HAS_ATTACHMENT" : "Has attachment",
-  "A_POPIS_DAT_HAS_APPLICATION_CONTEXT" : "Has application context"
+  "A_POPIS_DAT_HAS_APPLICATION_CONTEXT" : "Has application context",
+  "SGOV_ORIGINATES_FROM_VERSION": "Originates from version"
 }
