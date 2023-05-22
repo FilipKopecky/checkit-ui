@@ -63,11 +63,14 @@ const ChangeActions: React.FC<ChangeActionsProps> = ({
       />
       {change.rejectionCommentsOfOthers && (
         <Box>
-          <Alert severity="error" sx={{ fontSize: "16px" }}>
+          <Alert
+            severity="error"
+            sx={{ fontSize: "16px", marginTop: 2, marginBottom: 1 }}
+          >
             {intl.formatMessage({ id: "change-rejected-by-other" })}
           </Alert>
           {change.rejectionCommentsOfOthers.map((comment) => (
-            <Comment comment={comment} showDivider={false} />
+            <Comment comment={comment} showDivider={false} key={comment.uri} />
           ))}
         </Box>
       )}

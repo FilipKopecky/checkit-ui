@@ -24,6 +24,7 @@ export const notificationApi = apiSlice.injectEndpoints({
     }),
     getUnreadNotificationsCount: builder.query<number, void>({
       query: () => Endpoints.NOTIFICATIONS_UNREAD_COUNT,
+      providesTags: ["NOTIFICATION_COUNT"],
     }),
     markNotificationsAsRead: builder.mutation<void, void>({
       query() {

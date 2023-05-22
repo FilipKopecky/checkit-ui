@@ -12,7 +12,7 @@ import {
 import { useIntl } from "react-intl";
 
 const NotificationBell: React.FC = () => {
-  const { data: notificationsUnreadCount } =
+  const { data: notificationsUnreadCount, refetch } =
     useGetUnreadNotificationsCountQuery();
   const [markAsRead] = useMarkNotificationsAsReadMutation();
   const intl = useIntl();
@@ -21,6 +21,7 @@ const NotificationBell: React.FC = () => {
   );
   const [open, setOpen] = React.useState(false);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    refetch();
     setAnchorEl(event.currentTarget);
     setOpen((prevState) => !prevState);
   };
