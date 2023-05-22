@@ -27,7 +27,8 @@ const NotificationBell: React.FC = () => {
   };
   const handleReadClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     markAsRead();
-    handleClick(event);
+    setAnchorEl(event.currentTarget);
+    setOpen((prevState) => !prevState);
   };
   return (
     <Box mr={2}>
