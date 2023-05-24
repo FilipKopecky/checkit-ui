@@ -100,6 +100,7 @@ Therefore the `VITE_URL` must contain this URL.
 VITE_URL=https://localhost/modelujeme/v-nástroji/checkit
 ```
 
+After that you can start your nginx and the CheckIt-UI.
 
 
 
