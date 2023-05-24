@@ -28,9 +28,9 @@ describe("Gestor request user list item", () => {
     );
 
     expect(screen.getByText("Accept")).toBeInTheDocument();
-    expect(screen.getByText("Decline")).toBeInTheDocument();
+    expect(screen.getByText("Reject")).toBeInTheDocument();
 
-    const declinedBadge = screen.queryByText("Declined");
+    const declinedBadge = screen.queryByText("Rejected");
     expect(declinedBadge).not.toBeInTheDocument();
     const accepteddBadge = screen.queryByText("Accepted");
     expect(accepteddBadge).not.toBeInTheDocument();

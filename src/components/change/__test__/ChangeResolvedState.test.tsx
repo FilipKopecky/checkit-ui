@@ -30,7 +30,7 @@ describe("Change resolved state", () => {
         handleSubmitDeclineMessage={submitComment}
       />
     );
-    expect(screen.getByText("Declined")).toBeInTheDocument();
+    expect(screen.getByText("Rejected")).toBeInTheDocument();
   });
   test("Clicking on undo button should call clear function", async () => {
     const clear = vi.fn();

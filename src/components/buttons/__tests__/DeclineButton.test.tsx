@@ -6,6 +6,6 @@ import DeclineButton from "../DeclineButton";
 describe("Decline button", () => {
   test("Should show decline text inside a button", async () => {
     renderWithProviders(<DeclineButton />);
-    expect(screen.getByText("Decline")).toBeInTheDocument();
+    expect(screen.getByText("Reject")).toBeInTheDocument();
   });
 });
