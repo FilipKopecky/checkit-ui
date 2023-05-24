@@ -6,6 +6,7 @@ It offers its users a clear comparison of changes applied to SGoV, social intera
 To run the application you need to have Node (https://nodejs.org/en) installed on your system.
 <br/>
 Before running any of the scripts mentioned below, it is necessary to download all NPM packages which the application uses. After that you can run the dev script or the build script.
+Run the following script in the root directory.
 ```
 npm install
 ```
