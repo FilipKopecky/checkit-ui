@@ -3,6 +3,13 @@
 CheckIt-UI is a front-end application for gestors and other users involved in the AL review process.
 It offers its users a clear comparison of changes applied to SGoV, social interactions, and system-wide management for administrators.
 
+To run the application you need to have Node (https://nodejs.org/en) installed on your system.
+<br/>
+Before running any of the scripts mentioned below, it is necessary to download all NPM packages which the application uses. After that you can run the dev script or the build script.
+```
+npm install
+```
+
 ## Available scripts
 You can run following scripts in the root directory:
 
@@ -18,18 +25,16 @@ The application runs on: http://127.0.0.1:5173/modelujeme/v-n%C3%A1stroji/checki
 ```
 npm run build
 ```
-Builds the application for production.
+Creates the production build.
 
 ```
 npm run preview
 ```
-Runs the production build.
-<br />
-The application runs on: http://127.0.0.1:4173/modelujeme/v-n%C3%A1stroji/checkit
+Runs the production build on: http://127.0.0.1:4173/modelujeme/v-n%C3%A1stroji/checkit.
 
 ## Installation guide
 The application requires the following environment variables.
-These variables can be edited in the .env file for development mode and the .env.production for a production build.
+These variables can be edited in the `.env` file for development mode and the `.env.production` for a production build.
 
 | Variable name              | Explanation                              |
 |----------------------------|------------------------------------------|
@@ -38,7 +43,6 @@ These variables can be edited in the .env file for development mode and the .env
 | VITE_AUTHENTICATION_SERVER | URL address of the authentication server |
 | VITE_SERVER                | URL address of CheckIt back-end          |
 
-After setting these variables you can run the previously mentioned scripts.
 
 ### Secure connection problem
 If the authentication server requires a secure connection (HTTPS) for establishing a connection, you need to set up a reverse proxy with an SSL certificate.
@@ -93,7 +97,7 @@ The `proxy_pass` field must contain the URL of CheckIt-UI (port 5173 for develop
 
 
 
-After configuring the nginx in this way, the CheckIt application will be accessible on https://localhost/modelujeme/v-nástroji/checkit, it is important to have this fact reflected in the environment variables.
+After configuring the nginx in this way, the CheckIt application will be accessible on https://localhost/modelujeme/v-nástroji/checkit. It is important to have this fact reflected in the environment variables.
 Therefore the `VITE_URL` must contain this URL. 
 
 ```
